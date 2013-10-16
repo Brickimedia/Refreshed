@@ -1,5 +1,5 @@
 <?php
-require_once( dirname( dirname( __FILE__ ) ) . '/includes/SkinTemplate.php');
+require_once( "$IP/includes/SkinTemplate.php" );
 
 //FORCE TOC
 $wgHooks['InternalParseBeforeLinks'][] = 'ForceTocOnEveryPage_renderForceToc';
