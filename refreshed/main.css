@@ -404,3 +404,14 @@ h6 {
 #localNotice {
 	margin-bottom: 0em !important;
 }
+
+#search {
+	position: static !important;
+	float: right;
+}
+	.mw-search-formheader {
+		border: none !important;
+	}
+	#search input#searchText {
+		border: 1px solid #CCC !important
+	}
