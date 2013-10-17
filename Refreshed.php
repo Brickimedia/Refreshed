@@ -19,6 +19,8 @@ $wgExtensionCredits['parserhook'][] = array(
 		'url' => 'https://www.mediawiki.org/wiki/Extension:ForceTocOnEveryPage'
 );
 
+$wgHooks['OutputPageParserOutput'][] = 'RefreshedTemplate::onOutputPageParserOutput';
+
 global $IP;
 
 $wgResourceModules['skins.refreshed'] = array(
@@ -62,7 +64,16 @@ class SkinRefreshed extends SkinTemplate {
 	}
 }
 
+$refreshedTOC = '';
+
 class RefreshedTemplate extends BaseTemplate {
+	
+	public static function onOutputPageParserOutput( OutputPage &$out, ParserOutput $parseroutput ) {
+		global $refreshedTOC;
+		$refreshedTOC = $parseroutput -> mSections;
+	
+		return true;
+	}
 
 	public function execute() {
 		global $wgRequest, $refreshedTOC;
@@ -71,28 +82,17 @@ class RefreshedTemplate extends BaseTemplate {
 		wfSuppressWarnings();
 
 		$this->html( 'headelement' );
-
-		//TOC processing
-		$allHTML = $this -> data['bodycontent'];
-		$parts = explode( '<table id="toc"', $allHTML, 2 );
-		$HTMLbefore = $parts[0];
-		$restHTML = $parts[1];
-		$parts = explode( '</table>', $restHTML, 2 );
-		$toc = $parts[0];
-		$HTMLafter = $parts[1];
-		$this -> data['bodytext'] = $HTMLbefore . $HTMLafter;
-
-		$tocparts = explode( "<ul>", $toc, 2 );
-		$tocHTML = $tocparts[1];
-		//$tocHTML = preg_replace( '|<li class="toclevel-[0-9] tocsection-[0-9]+">(.+)<\/li>|', '$1', $tocHTML );
-		//echo "<!--";
-		//echo preg_match_all( '/<li(.+?)>(.+?)<\/li>/s', $tocHTML, $matches);
-		//print_r( $matches );
-		//echo "-->";
+		
+		//new TOC processing
+		$tocHTML = '';
+		foreach( $refreshedTOC as $tocpart ){
+			//var_dump( $tocpart );
+			$class = "toclevel-{$tocpart['toclevel']}";
+			$tocHTML .= "<a href='#{$tocpart['anchor']}' class='$class'>{$tocpart['line']}</a>";
+		}
 		
 		//Title processing
 		$myTitle = $this->data['titletext'];
-		//$myTitle = str_replace( '/', '<wbr>/<wbr>', $myTitle );
 
 		$mySideTitle = $this->data['title'];
 		if( $this -> getSkin() -> getTitle() -> getNamespace() == 0 && substr_count( $mySideTitle, 'editing' ) == 0 ){

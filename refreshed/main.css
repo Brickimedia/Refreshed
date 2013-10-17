@@ -183,15 +183,6 @@ body {
 #refreshed-toc {
 	position: relative;
 }
-	#refreshed-toc ul {
-		margin: 0;
-	}
-	#refreshed-toc li {
-		list-style-type: none;
-	}
-	.tocnumber {
-		display: none;
-	}
 	#toc-box {
 		width: 5px;
 		background-color: white;
@@ -199,16 +190,19 @@ body {
 		position: absolute;
 		right: 0;
 	}
-	.toclevel-2 > a {
+	#refreshed-toc a {
+		
+	}
+	a.toclevel-2 {
 		padding-right: 20px !important;
 	}
-	.toclevel-3 > a {
+	a.toclevel-3 {
 		padding-right: 30px !important;
 	}
-	.toclevel-4 > a {
+	a.toclevel-4 {
 		padding-right: 40px !important;
 	}
-	.toclevel-5 > a {
+	a.toclevel-5 {
 		padding-right: 50px !important;
 	}
 

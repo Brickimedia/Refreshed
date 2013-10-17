@@ -1,5 +1,5 @@
 /*refreshed.js*/
-heights = []
+heights = [];
 
 function getHeight(self){
 	var id = self.attr('data-to').substring(1);
