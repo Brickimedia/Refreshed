@@ -409,3 +409,7 @@ h6 {
 	#search input#searchText {
 		border: 1px solid #CCC !important
 	}
+	
+.printfooter {
+	display:none;
+}
