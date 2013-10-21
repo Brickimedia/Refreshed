@@ -5,9 +5,7 @@ function getHeight(self){
 	var id = self.attr('data-to').substring(1);
 	var numid = self.attr('data-numid');
 	var to = $(document.getElementById(id));
-	console.log(id);
 	var heightTo = to.offset().top - 50;
-	//self.attr({'data-height', heightTo});
 	heights[numid] = heightTo;
 	return heightTo;
 }
@@ -17,7 +15,6 @@ function moveBoxTo(height){
 	var idAbove;
 	heights.forEach(function(elem, index){
 		if(elem <= height){
-			console.log("height:"+height+", this elem("+index+"):"+elem);
 			heightAbove = elem;
 			idAbove = index;
 		}
@@ -28,31 +25,18 @@ function moveBoxTo(height){
 	var heightDiff = heightBelow - heightAbove;
 	var heightMeRelative = height - heightAbove;
 	var fractMe = heightMeRelative / heightDiff;
-	console.log(heightAbove + " heightAbove");
-	console.log(heightBelow + " heightBelow");
-	console.log(heightMeRelative + " heightMeRelative");
-	console.log(heightDiff + " heightDiff");
-	console.log(fractMe + " fractMe");
 
 	var elemAbove = $("a[data-numid="+idAbove+"]");
-	console.log(elemAbove);
 	var elemAboveOffset = elemAbove.position().top;
-	console.log(elemAboveOffset + " elemAboveOffset");
 	var elemBelow = $("a[data-numid="+idBelow+"]");
-	console.log(elemBelow);
 	var elemBelowOffset = elemBelow.position().top;
-	console.log(elemBelowOffset + " elemBelowOffset");
 	var elemOffsetDiff = elemBelowOffset - elemAboveOffset;
-	console.log(elemOffsetDiff + " elemOffsetDiff");
 	var goTo = elemAboveOffset + (elemOffsetDiff * fractMe);
-	console.log(goTo + " goTo");
 	
 	$("#toc-box").stop().animate({'top': goTo}, 200);
-	//$("#toc-box").css({'top': goTo});
 }
 
 i = 0;
-//t = false
 $("#refreshed-toc a").each(function(){
 	var href = $(this).attr('href');
 	$(this).attr({'data-to': href});
@@ -62,7 +46,7 @@ $("#refreshed-toc a").each(function(){
 
 $("#refreshed-toc a").each(function(){
 	getHeight($(this));
-})
+});
 
 $("#refreshed-toc a").click(function(){
 	event.preventDefault();
@@ -77,9 +61,38 @@ $(window).scroll(function(){
 	}
 });
 
-$("#refreshed-toc a").each(function(){
-		//$(this).attr({'href': 'javascript:;'});
-});
+var smaller = false;
+
+onScroll = function(){
+	var pos = $("#toc-box").position().top;
+	var height = $("#leftbar-bottom").height();
+	var goTo = pos - (height/2);
+	goTo = goTo + $("#refreshed-toc a").height();
+	
+	$("#leftbar-bottom").scrollTop(goTo);
+}
+
+function overlap(){
+	var bottom = $("#leftbar-top").position().top + $("#leftbar-top").outerHeight();
+	var top3 = $("#refreshed-toc").outerHeight();
+	var overlap = $(window).height() - top3 - bottom;
+
+	if(overlap < 0){
+		var newheight = $("#leftbar-bottom div").outerHeight() + overlap;
+		$("#leftbar-bottom").height(newheight);
+		$("#leftbar-bottom").css({'overflow-y': 'scroll', 'bottom': '0'});
+	
+		$(window).scroll(onScroll);
+	} else {
+		$("#leftbar-bottom").height('auto');
+		$("#leftbar-bottom").css({'overflow-y': 'auto', 'bottom': '1em'});
+		
+		$(window).off("scroll", onScroll);
+	}
+}
+
+$(window).resize(overlap);
+overlap();
 
 var user = false;
 var header = false;

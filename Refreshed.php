@@ -189,7 +189,9 @@ class RefreshedTemplate extends BaseTemplate {
 				<div id="leftbar-bottom">
 					<div id="refreshed-toc">
 						<div id="toc-box"></div>
-						<?php echo $tocHTML; ?>
+						<!-- <div> -->
+							<?php echo $tocHTML; ?>
+						<!-- </div> -->
 					</div>
 				</div>
 			</div>
