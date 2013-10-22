@@ -231,17 +231,12 @@ class RefreshedTemplate extends BaseTemplate {
 				<a href="javascript:;"><i class="icon-ellipsis-horizontal icon-2x icon-link"></i></a>
 			</div>
 			<div id="content">
-				<?php $this->html('bodytext');
-				/*
-				$action = $this->data['content_actions']['edit'];
-				
-				echo "<a class='" . $action['class'] . "' " .
-				 	"id='" . $action['id'] . "' " .
-				 	"href='" . htmlspecialchars( $action['href'] ) . "'>" . 
-				 	htmlspecialchars( $action['text'] ) . "</a>"; */
-				?>
-				<br clear="all" />
+				<?php $this->html('bodytext'); ?>
 			</div>
+			<div id="cats">
+				<?php $this->html( 'catlinks' ); ?>
+			</div>
+			<br clear="all" />
 		</div>
 		<div id="rightbar">
 			<div class="shower">

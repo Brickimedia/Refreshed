@@ -81,12 +81,12 @@ function overlap(){
 	if(overlap < 0){
 		var newheight = $("#leftbar-bottom div").outerHeight() + overlap;
 		$("#leftbar-bottom").height(newheight);
-		$("#leftbar-bottom").css({'overflow-y': 'scroll', 'bottom': '0', 'direction': 'rtl', 'width': '100%'});
+		$("#leftbar-bottom").css({'overflow-y': 'scroll', 'bottom': '0', 'direction': 'rtl'});
 	
 		$(window).scroll(onScroll);
 	} else {
 		$("#leftbar-bottom").height('auto');
-		$("#leftbar-bottom").css({'overflow-y': 'auto', 'bottom': '1em', 'direction': 'ltr', 'width': 'auto'});
+		$("#leftbar-bottom").css({'overflow-y': 'auto', 'bottom': '1em', 'direction': 'ltr'});
 		
 		$(window).off("scroll", onScroll);
 	}
