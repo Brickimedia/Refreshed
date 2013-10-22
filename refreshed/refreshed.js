@@ -76,16 +76,17 @@ function overlap(){
 	var bottom = $("#leftbar-top").position().top + $("#leftbar-top").outerHeight();
 	var top3 = $("#refreshed-toc").outerHeight();
 	var overlap = $(window).height() - top3 - bottom;
+	overlap = overlap - 10;
 
 	if(overlap < 0){
 		var newheight = $("#leftbar-bottom div").outerHeight() + overlap;
 		$("#leftbar-bottom").height(newheight);
-		$("#leftbar-bottom").css({'overflow-y': 'scroll', 'bottom': '0'});
+		$("#leftbar-bottom").css({'overflow-y': 'scroll', 'bottom': '0', 'direction': 'rtl', 'width': '100%'});
 	
 		$(window).scroll(onScroll);
 	} else {
 		$("#leftbar-bottom").height('auto');
-		$("#leftbar-bottom").css({'overflow-y': 'auto', 'bottom': '1em'});
+		$("#leftbar-bottom").css({'overflow-y': 'auto', 'bottom': '1em', 'direction': 'ltr', 'width': 'auto'});
 		
 		$(window).off("scroll", onScroll);
 	}
