@@ -91,6 +91,10 @@ body {
 	color: white;
 	z-index: 3;
 }
+	#rightbar-top {
+		overflow-y: auto;
+		width: 100%;
+	}
 	#leftbar-top, #rightbar-top {
 		position: absolute;
 		top: 3em;
@@ -150,16 +154,14 @@ body {
 		border-left: 5px solid #CCC;
 		margin-left: 0px;
 	}
-	
-	#pagelinks a, #siteactions a {
+	#pagelinks a, #rightbar-top a {
 		text-transform: lowercase;
 	}
-	
 	#pagelinks {
-		padding-top: 0.5em;
+		padding-top: 8px;
 	}
-	#siteactions {
-		padding-top: 0.5em;
+	#rightbar-top {
+		padding-top: 8px;
 	}
 	
 	.shower {

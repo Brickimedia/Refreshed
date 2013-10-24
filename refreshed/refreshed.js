@@ -165,3 +165,11 @@ $("#contentwrapper").click(function(){
 		toggleHeader();
 	}
 });
+
+$(window).resize(rightbar);
+		
+function rightbar(){
+	$("#rightbar-top").height( $(window).height() - $("#rightbar-top").position().top - 8 );
+}
+
+rightbar();

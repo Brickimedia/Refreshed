@@ -249,8 +249,7 @@ class RefreshedTemplate extends BaseTemplate {
 			</div>
 			<div id="rightbar-main">
 				<div id="rightbar-top">
-					<div id="siteactions">
-						<?php
+					<?php
 						unset( $this->data['sidebar']['SEARCH'] );
 						unset( $this->data['sidebar']['TOOLBOX'] );
 						unset( $this->data['sidebar']['LANGUAGES'] );
@@ -263,7 +262,6 @@ class RefreshedTemplate extends BaseTemplate {
 					 				htmlspecialchars( $action['text'] ) . "</a>";
 					 		}
 						} ?>
-					</div>
 				</div>
 				<div id="rightbar-bottom">
 					<div id="sitelinks">
