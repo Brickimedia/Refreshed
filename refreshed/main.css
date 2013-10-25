@@ -413,3 +413,7 @@ h6 {
 #cats {
 	padding: 1em;
 }
+
+#content {
+	line-height: 1.2em;
+}
