@@ -232,16 +232,16 @@ body {
 	#userinfo .arrow {
 		transition:transform 0.5s;
 		-webkit-transition:-webkit-transform 0.5s; /* Safari */
-		transform:rotateX(0deg);
-		-webkit-transform:rotateX(0deg); /* Safari */
+		transform:rotateZ(0deg);
+		-webkit-transform:rotateZ(0deg); /* Safari */
 		vertical-align: text-bottom;
 		position: absolute;
 		left: 1em;
 		top: 1.2em;
 	}
 		#userinfo .arrow.rotate {
-			transform:rotateX(-180deg);
-			-webkit-transform:rotateX(-180deg); /* Safari */
+			transform:rotateZ(-180deg);
+			-webkit-transform:rotateZ(-180deg); /* Safari */
 		}
 	#userinfo .avatar {
 		position: absolute;
@@ -311,8 +311,8 @@ body {
 	#siteinfo .arrow {
 		transition:transform .5s;
 		-webkit-transition:-webkit-transform .5s; /* Safari */
-		transform:rotateX(0deg);
-		-webkit-transform:rotateX(0deg); /* Safari */
+		transform:rotateZ(0deg);
+		-webkit-transform:rotateZ(0deg); /* Safari */
 		vertical-align: middle;
 		margin-left: 1em;
 		display: inline-block;
