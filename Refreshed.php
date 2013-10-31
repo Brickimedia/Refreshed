@@ -107,13 +107,13 @@ class RefreshedTemplate extends BaseTemplate {
 		<?php 
 		
 		$logos = array(
-			'meta' => "<img src='$IP/skins/refreshed/brickimedia.png' />",
-			'en' => "<img src='$IP/skins/refreshed/brickipedia.png' />",
-			'customs' => "<img src='$IP/skins/refreshed/customs.png' />",
-			'stories' => "<img src='$IP/skins/refreshed/stories.png' />",
-			'cuusoo' => "<img src='$IP/skins/refreshed/cuusoo.png' />",
-			'admin' => "<img height=22 src='$IP/skins/refreshed/admin.png' />",
-			'dev' => "<img height=26 src='$IP/skins/refreshed/dev.png' />"
+			'meta' => "<img src='$IP/skins/refreshed/project-images/brickimedia.png' />",
+			'en' => "<img src='$IP/skins/refreshed/project-images/brickipedia.png' />",
+			'customs' => "<img src='$IP/skins/refreshed/project-images/customs.png' />",
+			'stories' => "<img src='$IP/skins/refreshed/project-images/stories.png' />",
+			'cuusoo' => "<img src='$IP/skins/refreshed/project-images/cuusoo.png' />",
+			'admin' => "<img height=22 src='$IP/skins/refreshed/project-images/admin.png' />",
+			'dev' => "<img height=26 src='$IP/skins/refreshed/project-images/dev.png' />"
 		);
 
 		global $bmProject;

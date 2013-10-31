@@ -336,7 +336,7 @@ body {
 		padding: 0.25em;
 		font-family: Lato, sans-serif;
 		width: 11em;
-	}
+	}	
 
 #refreshed-toc #toc-box:last-child {
 	display: none;
@@ -413,3 +413,8 @@ h6 {
 	line-height: 1.2em;
 	font-size: 0.95em;
 }
+
+#contentwrapper p:first-of-type {
+	margin-top: 0;
+}
+
