@@ -84,13 +84,13 @@ class RefreshedTemplate extends BaseTemplate {
 					echo "<img class=\"arrow\" src=\"$wgStylePath/Refreshed/refreshed/arrow.png\" alt=\"\" />";
 				?>
 			</a>
-			<ul class="headermenu" style="display:none;">
+			<div class="headermenu" style="display:none;">
 				<?php
 					foreach ( $logos as $site => $logo ) {
-						echo "<li><a href=\"http://$site.brickimedia.org\">{$logo}</a></li>";
+						echo "<a href=\"http://$site.brickimedia.org\">{$logo}</a>";
 					}
 				?>
-			</ul>
+			</div>
 		</div>
 	</div>
 	<div id="fullwrapper">
@@ -115,15 +115,15 @@ class RefreshedTemplate extends BaseTemplate {
 						echo "<img class=\"arrow\" src=\"$wgStylePath/Refreshed/refreshed/arrow.png\" alt=\"\" /><img alt=\"\" class=\"avatar\" src=\"http://meta.brickimedia.org" . $avatar . "\" /><span>{$wgUser->getName()}</span>";
 					?>
 				</a>
-				<ul class="headermenu" style="display:none;">
+				<div class="headermenu" style="display:none;">
 					<?php
 						foreach ( $this->getPersonalTools() as $key => $tool ) {
 							foreach ( $tool['links'] as $linkKey => $link ) {
-								echo '<li>' . $this->makeLink( $linkKey, $link, $options ) . '</li>';
+								echo $this->makeLink( $linkKey, $link, $options );
 							}
 						}
 					?>
-				</ul>
+				</div>
 				<!--<img alt="" class="avatar" />-->
 			</div>
 			<div id="leftbar-main">
