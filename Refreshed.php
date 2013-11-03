@@ -65,7 +65,7 @@ $wgValidSkinNames[strtolower( $skinID )] = 'Refreshed';
 
 $wgAutoloadClasses['SkinRefreshed'] = $dir . 'Refreshed.skin.php';
 $wgAutoloadClasses['RefreshedTemplate'] = $dir . 'Refreshed.skin.php'; // needed for the hooked func below
-//$wgExtensionMessagesFiles['SkinRefreshed'] = $dir . 'Refreshed.i18n.php';
+$wgExtensionMessagesFiles['SkinRefreshed'] = $dir . 'Refreshed.i18n.php';
 $wgResourceModules['skins.refreshed'] = array(
 	'styles' => array(
 		// MonoBook also loads these

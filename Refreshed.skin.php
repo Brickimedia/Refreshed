@@ -31,7 +31,7 @@ class RefreshedTemplate extends BaseTemplate {
 	}
 
 	public function execute() {
-		global $wgStylePath, $refreshedTOC;
+		global $wgStylePath, $wgContentNamespaces, $refreshedTOC;
 
 		// new TOC processing
 		$tocHTML = '';
@@ -44,9 +44,13 @@ class RefreshedTemplate extends BaseTemplate {
 
 		// Title processing
 		$mySideTitle = $this->data['title'];
-		// @todo FIXME: doesn't look very i18n-compatible...
-		if ( $this->getSkin()->getTitle()->getNamespace() == 0 && substr_count( $mySideTitle, 'editing' ) == 0 ) {
-			$mySideTitle = "Article:$mySideTitle";
+
+		if (
+			in_array( $this->getSkin()->getTitle()->getNamespace(), $wgContentNamespaces ) &&
+			!in_array( $this->getSkin()->getRequest()->getVal( 'action' ), array( 'submit', 'preview', 'edit', 'diff' ) )
+		)
+		{
+			$mySideTitle = wfMessage( 'refreshed-article', $mySideTitle )->text();
 		}
 		$mySideTitle = str_replace( '/', '<wbr>/<wbr>', $mySideTitle );
 		$mySideTitle = str_replace( ':', '<wbr>:<wbr>', $mySideTitle );
