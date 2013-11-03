@@ -35,14 +35,14 @@ class RefreshedTemplate extends BaseTemplate {
 
 		// new TOC processing
 		$tocHTML = '';
-		foreach ( $refreshedTOC as $tocpart ) {
-			$class = "toclevel-{$tocpart['toclevel']}";
-			$tocHTML .= "<a href=\"#{$tocpart['anchor']}\" class=\"$class\">{$tocpart['line']}</a>";
+		if ( isset( $refreshedTOC ) ) {
+			foreach ( $refreshedTOC as $tocpart ) {
+				$class = "toclevel-{$tocpart['toclevel']}";
+				$tocHTML .= "<a href=\"#{$tocpart['anchor']}\" class=\"$class\">{$tocpart['line']}</a>";
+			}
 		}
 
 		// Title processing
-		$myTitle = $this->data['titletext'];
-
 		$mySideTitle = $this->data['title'];
 		// @todo FIXME: doesn't look very i18n-compatible...
 		if ( $this->getSkin()->getTitle()->getNamespace() == 0 && substr_count( $mySideTitle, 'editing' ) == 0 ) {
@@ -158,7 +158,7 @@ class RefreshedTemplate extends BaseTemplate {
 			<div id="newtalk"><?php $this->html( 'newtalk' ) ?></div>
 			<div id="maintitle">
 				<h1>
-					<?php echo $myTitle; ?>
+					<?php $this->html( 'title' ) ?>
 					<h1 class="title-overlay">&nbsp;</h1>
 				</h1>
 
@@ -210,11 +210,16 @@ class RefreshedTemplate extends BaseTemplate {
 
 						foreach ( $this->data['sidebar'] as $main => $sub ) {
 							echo '<span class="main">' . htmlspecialchars( $main ) . '</span>';
-							foreach ( $sub as $action ) {
-					 			echo '<a class="sub" id="' . $action['id'] . '" ' .
-					 				'href="' . htmlspecialchars( $action['href'] ) . '">' .
-					 				htmlspecialchars( $action['text'] ) . '</a>';
-					 		}
+							if ( is_array( $sub ) ) { // MW-generated stuff from the sidebar message
+								foreach ( $sub as $action ) {
+									echo '<a class="sub" id="' . $action['id'] . '" ' .
+										'href="' . htmlspecialchars( $action['href'] ) . '">' .
+										htmlspecialchars( $action['text'] ) . '</a>';
+								}
+							} else {
+								// allow raw HTML block to be defined by extensions (like NewsBox)
+								echo $sub;
+							}
 						} ?>
 				</div>
 				<div id="rightbar-bottom">
