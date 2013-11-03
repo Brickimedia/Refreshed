@@ -64,6 +64,7 @@ $dir = dirname( __FILE__ ) . '/';
 $wgValidSkinNames[strtolower( $skinID )] = 'Refreshed';
 
 $wgAutoloadClasses['SkinRefreshed'] = $dir . 'Refreshed.skin.php';
+$wgAutoloadClasses['RefreshedTemplate'] = $dir . 'Refreshed.skin.php'; // needed for the hooked func below
 //$wgExtensionMessagesFiles['SkinRefreshed'] = $dir . 'Refreshed.i18n.php';
 $wgResourceModules['skins.refreshed'] = array(
 	'styles' => array(
@@ -82,6 +83,18 @@ $wgResourceModules['skins.refreshed'] = array(
 );
 
 $wgHooks['OutputPageParserOutput'][] = 'RefreshedTemplate::onOutputPageParserOutput';
+
+$wgHooks['BeforePageDisplay'][] = function( &$out, &$skin ) {
+	global $wgUser;
+
+	// Add the viewport meta tag for users who are using this skin
+	// The skin class check has to be present because hooks are global!
+	if ( get_class( $wgUser->getSkin() ) == 'SkinRefreshed' ) {
+		$out->addMeta( 'viewport', 'width=device-width' );
+	}
+
+	return true;
+};
 
 // Don't leak variables to global scope.
 unset( $skinID, $dir );

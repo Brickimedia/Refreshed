@@ -8,23 +8,14 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 
 // inherit main code from SkinTemplate, set the CSS and template filter
 class SkinRefreshed extends SkinTemplate {
-	var $useHeadElement = true;
-
-	function initPage( OutputPage $out ) {
-		parent::initPage( $out );
-		$this->skinname  = 'refreshed';
-		$this->stylename = 'refreshed';
-		$this->template  = 'RefreshedTemplate';
-
-		$out->addModuleScripts( 'skins.refreshed' );
-
-		$out->addMeta( 'viewport', 'width=device-width' );
-	}
+	var $skinname = 'refreshed', $stylename = 'refreshed',
+		$template = 'RefreshedTemplate', $useHeadElement = true;
 
 	function setupSkinUserCss( OutputPage $out ) {
 		parent::setupSkinUserCss( $out );
 
-		$out->addModuleStyles( 'skins.refreshed' );
+		// Add CSS & JS via ResourceLoader
+		$out->addModules( 'skins.refreshed' );
 	}
 }
 
@@ -40,51 +31,53 @@ class RefreshedTemplate extends BaseTemplate {
 	}
 
 	public function execute() {
-		global $refreshedTOC;
-
-		// suppress warnings to prevent notices about missing indexes in $this->data
-		wfSuppressWarnings();
-
-		$this->html( 'headelement' );
+		global $wgStylePath, $refreshedTOC;
 
 		// new TOC processing
 		$tocHTML = '';
 		foreach ( $refreshedTOC as $tocpart ) {
-			//var_dump( $tocpart );
 			$class = "toclevel-{$tocpart['toclevel']}";
-			$tocHTML .= "<a href='#{$tocpart['anchor']}' class='$class'>{$tocpart['line']}</a>";
+			$tocHTML .= "<a href=\"#{$tocpart['anchor']}\" class=\"$class\">{$tocpart['line']}</a>";
 		}
 
 		// Title processing
 		$myTitle = $this->data['titletext'];
 
 		$mySideTitle = $this->data['title'];
+		// @todo FIXME: doesn't look very i18n-compatible...
 		if ( $this->getSkin()->getTitle()->getNamespace() == 0 && substr_count( $mySideTitle, 'editing' ) == 0 ) {
 			$mySideTitle = "Article:$mySideTitle";
 		}
 		$mySideTitle = str_replace( '/', '<wbr>/<wbr>', $mySideTitle );
 		$mySideTitle = str_replace( ':', '<wbr>:<wbr>', $mySideTitle );
+
+		// suppress warnings to prevent notices about missing indexes in $this->data
+		wfSuppressWarnings();
+
+		// Output the <html> tag and whatnot
+		$this->html( 'headelement' );
 ?>
 
 	<div id="header">
 		<?php
 		$logos = array(
-			'meta' => "<img src='$IP/skins/refreshed/project-images/brickimedia.png' />",
-			'en' => "<img src='$IP/skins/refreshed/project-images/brickipedia.png' />",
-			'customs' => "<img src='$IP/skins/refreshed/project-images/customs.png' />",
-			'stories' => "<img src='$IP/skins/refreshed/project-images/stories.png' />",
-			'cuusoo' => "<img src='$IP/skins/refreshed/project-images/cuusoo.png' />",
-			'admin' => "<img height=22 src='$IP/skins/refreshed/project-images/admin.png' />",
-			'dev' => "<img height=26 src='$IP/skins/refreshed/project-images/dev.png' />"
+			'meta' => "<img src=\"$wgStylePath/Refreshed/refreshed/project-images/brickimedia.png\" alt=\"\" />",
+			'en' => "<img src=\"$wgStylePath/Refreshed/refreshed/project-images/brickipedia.png\" alt=\"\" />",
+			'customs' => "<img src=\"$wgStylePath/Refreshed/refreshed/project-images/customs.png\" alt=\"\" />",
+			'stories' => "<img src=\"$wgStylePath/Refreshed/refreshed/project-images/stories.png\" alt=\"\" />",
+			'cuusoo' => "<img src=\"$wgStylePath/Refreshed/refreshed/project-images/cuusoo.png\" alt=\"\" />",
+			'admin' => "<img height=\"22\" src=\"$wgStylePath/Refreshed/refreshed/project-images/admin.png\" alt=\"\" />",
+			'dev' => "<img height=\"26\" src=\"$wgStylePath/Refreshed/refreshed/project-images/dev.png\" alt=\"\" />"
 		);
 
 		global $bmProject;
 		?>
 		<div id="siteinfo">
 			<a href='javascript:;'>
-				<?php echo $logos[$bmProject];
+				<?php
+					echo $logos[$bmProject];
 					unset( $logos[$bmProject] );
-					echo "<img class='arrow' src='$IP/skins/refreshed/arrow.png'/>";
+					echo "<img class=\"arrow\" src=\"$wgStylePath/Refreshed/refreshed/arrow.png\" alt=\"\" />";
 				?>
 			</a>
 			<ul class="headermenu" style="display:none;">
@@ -99,11 +92,12 @@ class RefreshedTemplate extends BaseTemplate {
 	<div id="fullwrapper">
 		<div id="leftbar">
 			<div class="shower">
-				<?php echo "<img class='arrow' src='$IP/skins/refreshed/mobile-expand-edit.png'/>"; ?>
+				<?php echo "<img class=\"arrow\" src=\"$wgStylePath/Refreshed/refreshed/mobile-expand-edit.png\" alt=\"\" />"; ?>
 			</div>
 			<div id="userinfo">
 				<a href='javascript:;'>
-					<?php global $wgUser, $wgArticlePath;
+					<?php
+						global $wgUser, $wgArticlePath;
 						$id = $wgUser->getId();
 						if ( is_file( '/var/www/wiki/images/avatars/' . $id . '_m.png' ) ) {
 							$avatar = '/images/avatars/' . $id . '_m.png';
@@ -114,7 +108,7 @@ class RefreshedTemplate extends BaseTemplate {
 						} else {
 							$avatar = '/images/avatars/default_m.gif';
 						}
-						echo "<img class='arrow' src='$IP/skins/refreshed/arrow.png'/><img class='avatar' src='http://meta.brickimedia.org" . $avatar . "' /><span>$wgUser</span>";
+						echo "<img class=\"arrow\" src=\"$wgStylePath/Refreshed/refreshed/arrow.png\" alt=\"\" /><img alt=\"\" class=\"avatar\" src=\"http://meta.brickimedia.org" . $avatar . "\" /><span>{$wgUser->getName()}</span>";
 					?>
 				</a>
 				<ul class="headermenu" style="display:none;">
@@ -126,7 +120,7 @@ class RefreshedTemplate extends BaseTemplate {
 						}
 					?>
 				</ul>
-				<img class="avatar" />
+				<!--<img alt="" class="avatar" />-->
 			</div>
 			<div id="leftbar-main">
 				<div id="leftbar-top">
@@ -156,12 +150,12 @@ class RefreshedTemplate extends BaseTemplate {
 			</div>
 		</div>
 		<div id="contentwrapper">
-        	<?php if ( $this->data['sitenotice'] ) { ?>
-                <div id="site-notice">
-                    <?php $this->html('sitenotice'); ?>
-                </div>
-            <?php } ?>
-            <div id="newtalk"><?php $this->html( 'newtalk' )  ?></div>
+			<?php if ( $this->data['sitenotice'] ) { ?>
+				<div id="site-notice">
+					<?php $this->html( 'sitenotice' ); ?>
+				</div>
+			<?php } ?>
+			<div id="newtalk"><?php $this->html( 'newtalk' ) ?></div>
 			<div id="maintitle">
 				<h1>
 					<?php echo $myTitle; ?>
@@ -194,15 +188,17 @@ class RefreshedTemplate extends BaseTemplate {
 			<div id="cats">
 				<?php $this->html( 'catlinks' ); ?>
 			</div>
+			<?php if ( $this->data['dataAfterContent'] ) { $this->html( 'dataAfterContent' ); } ?>
 			<br clear="all" />
 		</div>
 		<div id="rightbar">
 			<div class="shower">
-				<?php echo "<img class='arrow' src='$IP/skins/refreshed/mobile-expand.png'/>"; ?>
+				<?php echo "<img class=\"arrow\" alt=\"\" src=\"$wgStylePath/Refreshed/refreshed/mobile-expand.png\" />"; ?>
 			</div>
 			<div id="search">
 				<form action="<?php $this->text( 'wgScript' ) ?>" method="get">
-					<input type="text" name="search" placeholder="search" />
+					<input type="hidden" name="title" value="<?php $this->text( 'searchtitle' ) ?>"/>
+					<?php echo $this->makeSearchInput( array( 'id' => 'searchInput' ) ); ?>
 				</form>
 			</div>
 			<div id="rightbar-main">
@@ -259,7 +255,9 @@ class RefreshedTemplate extends BaseTemplate {
 		}
 		?>
 	</div>
-	<?php $this->html( 'bottomscripts' );?>
 <?php
+		$this->printTrail();
+		echo Html::closeElement( 'body' );
+		echo Html::closeElement( 'html' );
 	}
 }
