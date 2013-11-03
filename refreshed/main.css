@@ -285,6 +285,16 @@ a.toclevel-5 {
 	width: 200px;
 }
 
+/* For the drop-down menus (other sites & personal tools), hide the <li>
+indicators, as they're needed for HTML validation, but we don't want 'em to
+show up there.
+*/
+div#userinfo ul.headermenu li,
+div#siteinfo ul.headermenu li {
+	list-style-type: none !important;
+	list-style-image: none !important;
+}
+
 #siteinfo > a {
 	height: 2em;
 	display: block;

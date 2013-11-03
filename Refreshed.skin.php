@@ -87,7 +87,7 @@ class RefreshedTemplate extends BaseTemplate {
 			<ul class="headermenu" style="display:none;">
 				<?php
 					foreach ( $logos as $site => $logo ) {
-						echo "<a href=\"http://$site.brickimedia.org\">{$logo}</a>";
+						echo "<li><a href=\"http://$site.brickimedia.org\">{$logo}</a></li>";
 					}
 				?>
 			</ul>
@@ -119,7 +119,7 @@ class RefreshedTemplate extends BaseTemplate {
 					<?php
 						foreach ( $this->getPersonalTools() as $key => $tool ) {
 							foreach ( $tool['links'] as $linkKey => $link ) {
-								echo $this->makeLink( $linkKey, $link, $options );
+								echo '<li>' . $this->makeLink( $linkKey, $link, $options ) . '</li>';
 							}
 						}
 					?>
