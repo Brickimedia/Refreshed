@@ -11,11 +11,11 @@
 
 #userinfo > a {
 	max-width: 11em;
-}	
-	#userinfo > a span {
-		max-width: 4.2em;
-	}
-	
+}
+#userinfo > a span {
+	max-width: 4.2em;
+}
+
 #maintitle {
 	width: 100%;
 	position: relative;

@@ -23,37 +23,37 @@ body {
 	font-family: "Lato", sans-serif;
 	margin: 0;
 	background-color: #D9DBF3;
-	background-image: url("skins/refreshed/studs-tile-refreshed.png");
+	/* @embed */
+	background-image: url("studs-tile-refreshed.png");
 }
 
 #header {
-   background-color: #103ca2;
-   background-image: -moz-linear-gradient(left,#040f28 0,#103ca2 50%,#040f28 100%);
-   background-image: -webkit-gradient(linear,0% 0%,100% 0%,color-stop(0,#040f28),color-stop(50%,#103ca2),color-stop(100%,#040f28));
-   background-image: -o-linear-gradient(left,#040f28 0,#103ca2 50%,#040f28 100%);
-   background-image: -ms-linear-gradient(left,#040f28 0,#103ca2 50%,#040f28 100%);
-   -webkit-font-smoothing: antialiased;
+	background-color: #103ca2;
+	background-image: -moz-linear-gradient(left,#040f28 0,#103ca2 50%,#040f28 100%);
+	background-image: -webkit-gradient(linear,0% 0%,100% 0%,color-stop(0,#040f28),color-stop(50%,#103ca2),color-stop(100%,#040f28));
+	background-image: -o-linear-gradient(left,#040f28 0,#103ca2 50%,#040f28 100%);
+	background-image: -ms-linear-gradient(left,#040f28 0,#103ca2 50%,#040f28 100%);
+	-webkit-font-smoothing: antialiased;
 	width: 100%;
 	height: 3em;
 	z-index: 3;
 	position: fixed;
 }
 
-#maintitle h1 {	
+#maintitle h1 {
 	font-size: 32pt;
 	font-family: "Lato Body", sans-serif;
 	padding-top: 0.2em;
 	padding-left: 0.5em;
 	margin-bottom: 0.3em;
 }
-	/* removes page title on socialprofile user pages */
-	.ns-2 #maintitle {
-		display: none;
-	}
-	.ns-202 #maintitle {
-		display: none;
-	}
-	
+
+/* removes page title on SocialProfile user pages */
+.ns-2 #maintitle,
+.ns-202 #maintitle {
+	display: none;
+}
+
 @media (min-width: 600px) {
 	.title-overlay {
 		display: none;
@@ -77,11 +77,12 @@ body {
 	z-index: 2;
 	font-family: "Lato Body", sans-serif;
 }
-	#content {
-		padding: 0em 1em;
-		font-size: 1em;
-		word-wrap: break-word;
-	}
+
+#content {
+	padding: 0em 1em;
+	font-size: 1em;
+	word-wrap: break-word;
+}
 
 #leftbar, #rightbar {
 	width: 12em;
@@ -91,236 +92,242 @@ body {
 	color: white;
 	z-index: 3;
 }
-	#rightbar-top {
-		overflow-y: auto;
-		width: 100%;
-	}
-	#leftbar-top, #rightbar-top {
-		position: absolute;
-		top: 3em;
-	}
-	#leftbar-bottom, #rightbar-bottom {
-		position: absolute;
-		bottom: 1em;
-	}
-	#leftbar-bottom {
-		border-right: 1px solid white;
-		width: 100%;
-		right: -1px;
-	}
-	#leftbar-top {
-		right: 0px;
-	}
-	#rightbar-top {
-		left: 0px;
-	}
-	#rightbar-bottom {
-		left: 0px
-	}
-	#leftbar-main a, #rightbar-main a {
-		display: block;
-		color: white;
-		text-decoration: none;
-	}
-	#leftbar-main a {
-		padding: 0.15em 10px 0.15em 0;
-		text-align: right;
-		margin-right: 5px;
-	}
-	#rightbar-main a {
-		text-align: left;
-		margin-left: 5px;
-	}
-		#rightbar .main {
-			padding: 0.15em 0 0.15em 10px;
-			display: block;
-			margin-top: 0.5em;
-		}
-		#rightbar .main:first-of-type {
-			margin-top: 0em;
-		}
-		#rightbar .sub {
-			padding: 0.15em 0 0.15em 20px;
-		}
-	#leftbar-main a:hover, #rightbar-main a:hover {
-		color: #CCC;
-		cursor: pointer;
-	}
-	#leftbar-main a:hover {
-		border-right: 5px solid #CCC;
-		margin-right: 0px;
-	}
-	#rightbar-main a:hover {
-		border-left: 5px solid #CCC;
-		margin-left: 0px;
-	}
-	#pagelinks a, #rightbar-top a {
-		text-transform: lowercase;
-	}
-	#pagelinks {
-		padding-top: 8px;
-	}
-	#rightbar-top {
-		padding-top: 8px;
-	}
-	
-	.shower {
-		position: absolute;
-		height: 3em;
-		cursor: pointer;
-	}
-	#leftbar .shower {
-		left: 12em;
-	}
-	#rightbar .shower {
-		right: 12em;
-	}
-	
+
+#rightbar-top {
+	overflow-y: auto;
+	width: 100%;
+}
+#leftbar-top, #rightbar-top {
+	position: absolute;
+	top: 3em;
+}
+#leftbar-bottom, #rightbar-bottom {
+	position: absolute;
+	bottom: 1em;
+}
+#leftbar-bottom {
+	border-right: 1px solid white;
+	width: 100%;
+	right: -1px;
+}
+#leftbar-top {
+	right: 0px;
+}
+#rightbar-top {
+	left: 0px;
+}
+#rightbar-bottom {
+	left: 0px
+}
+#leftbar-main a, #rightbar-main a {
+	display: block;
+	color: white;
+	text-decoration: none;
+}
+#leftbar-main a {
+	padding: 0.15em 10px 0.15em 0;
+	text-align: right;
+	margin-right: 5px;
+}
+#rightbar-main a {
+	text-align: left;
+	margin-left: 5px;
+}
+#rightbar .main {
+	padding: 0.15em 0 0.15em 10px;
+	display: block;
+	margin-top: 0.5em;
+}
+#rightbar .main:first-of-type {
+	margin-top: 0em;
+}
+#rightbar .sub {
+	padding: 0.15em 0 0.15em 20px;
+}
+#leftbar-main a:hover, #rightbar-main a:hover {
+	color: #CCC;
+	cursor: pointer;
+}
+#leftbar-main a:hover {
+	border-right: 5px solid #CCC;
+	margin-right: 0px;
+}
+#rightbar-main a:hover {
+	border-left: 5px solid #CCC;
+	margin-left: 0px;
+}
+#pagelinks a, #rightbar-top a {
+	text-transform: lowercase;
+}
+#pagelinks {
+	padding-top: 8px;
+}
+#rightbar-top {
+	padding-top: 8px;
+}
+
+.shower {
+	position: absolute;
+	height: 3em;
+	cursor: pointer;
+}
+#leftbar .shower {
+	left: 12em;
+}
+#rightbar .shower {
+	right: 12em;
+}
+
 #refreshed-toc {
 	position: relative;
 }
-	#toc-box {
-		width: 5px;
-		background-color: white;
-		height: 1.7em;
-		position: absolute;
-		right: 0;
-	}
-	#refreshed-toc a {
-		
-	}
-	a.toclevel-2 {
-		padding-right: 20px !important;
-	}
-	a.toclevel-3 {
-		padding-right: 30px !important;
-	}
-	a.toclevel-4 {
-		padding-right: 40px !important;
-	}
-	a.toclevel-5 {
-		padding-right: 50px !important;
-	}
+#toc-box {
+	width: 5px;
+	background-color: white;
+	height: 1.7em;
+	position: absolute;
+	right: 0;
+}
+a.toclevel-2 {
+	padding-right: 20px !important;
+}
+a.toclevel-3 {
+	padding-right: 30px !important;
+}
+a.toclevel-4 {
+	padding-right: 40px !important;
+}
+a.toclevel-5 {
+	padding-right: 50px !important;
+}
 
 #userinfo {
 	position: relative;
 	float: left;
 }
-	#userinfo > a {
-		display: block;
-		padding: 0.5em;
-		height: 2em;
-		text-decoration: none;
-		min-width: 10.5em;
-		position: relative;
-		white-space: nowrap;
-		overflow-x: hidden;
-		text-overflow: ellipsis;
-	}
-	#userinfo > a:hover {
-		background-color: midnightblue;
-		color: #CCC;
-	}
-	#userinfo > a span {
-		display: block;
-		margin-top: 0.1em;
-		font-size: 15pt;
-		color: white !important;
-		padding-right: 10px;
-		margin-left: 3.5em;
-	}
-	#userinfo .arrow {
-		transition:transform 0.5s;
-		-webkit-transition:-webkit-transform 0.5s; /* Safari */
-		transform:rotateZ(0deg);
-		-webkit-transform:rotateZ(0deg); /* Safari */
-		vertical-align: text-bottom;
-		position: absolute;
-		left: 1em;
-		top: 1.2em;
-	}
-		#userinfo .arrow.rotate {
-			transform:rotateZ(-180deg);
-			-webkit-transform:rotateZ(-180deg); /* Safari */
-		}
-	#userinfo .avatar {
-		position: absolute;
-		left: 2.5em;
-		width: 30px;
-	}
-	
+#userinfo > a {
+	display: block;
+	padding: 0.5em;
+	height: 2em;
+	text-decoration: none;
+	min-width: 10.5em;
+	position: relative;
+	white-space: nowrap;
+	overflow-x: hidden;
+	text-overflow: ellipsis;
+}
+#userinfo > a:hover {
+	background-color: midnightblue;
+	color: #CCC;
+}
+#userinfo > a span {
+	display: block;
+	margin-top: 0.1em;
+	font-size: 15pt;
+	color: white !important;
+	padding-right: 10px;
+	margin-left: 3.5em;
+}
+#userinfo .arrow {
+	transition: transform 0.5s;
+	-webkit-transition: -webkit-transform 0.5s; /* Safari */
+	transform: rotateZ(0deg);
+	-webkit-transform: rotateZ(0deg); /* Safari */
+	vertical-align: text-bottom;
+	position: absolute;
+	left: 1em;
+	top: 1.2em;
+}
+#userinfo .arrow.rotate {
+	transform: rotateZ(-180deg);
+	-webkit-transform: rotateZ(-180deg); /* Safari */
+}
+#userinfo .avatar {
+	position: absolute;
+	left: 2.5em;
+	width: 30px;
+}
+
 .headermenu {
 	padding: 0 0.2em 0.2em 0.2em;
 	margin: 0;
 	z-index: 4;
-}	
+}
 #userinfo .headermenu {
 	background-color: rgba(25, 25, 112, 0.8);
-}	
+}
 #siteinfo .headermenu {
 	background-color: rgba(0, 0, 0, 0.8);
 }
-	.headermenu a {
-		font-size: 15pt;
-		text-decoration: none;
-		display: block;
-		color: white;
-		padding: 0.2em 0.4em 0.2em 0.4em;
-	}
-	.headermenu a:hover {
-		opacity: 1;
-		background-color: midnightblue;
-		text-decoration: none;
-	}
-	#userinfo .headermenu {
-		left: 1em;
-		width: 10.6em;
-		position: absolute;
-	}
-		#userinfo .headermenu a {
-			padding-right: 0.7em !important;
-			text-align: right;
-		}
-	#siteinfo .headermenu {
-		margin: auto;
-		width: 200px;
-	}
-	
-#siteinfo {
+.headermenu a {
+	font-size: 15pt;
+	text-decoration: none;
+	display: block;
+	color: white;
+	padding: 0.2em 0.4em 0.2em 0.4em;
 }
-	#siteinfo > a {
-		height: 2em;
-		display: block;
-		margin: auto;
-		width: 11em;
-		padding: 0.5em 1em 0.5em 1em;
-	}
-		#siteinfo > a:hover {
-			background-color: #222;
-		}
-		#siteinfo > a > img {
-			display: inline-block;
-		}
-		#siteinfo > a > span {
-			font-size: 15pt;
-			color: white;
-		}
-	#siteinfo a {
-		text-align: center;
-	}
-	#siteinfo .arrow {
-		transition:transform .5s;
-		-webkit-transition:-webkit-transform .5s; /* Safari */
-		transform:rotateZ(0deg);
-		-webkit-transform:rotateZ(0deg); /* Safari */
-		vertical-align: middle;
-		margin-left: 1em;
-		display: inline-block;
-	}
-	#siteinfo .arrow.rotate {
-		transform:rotateZ(180deg);
-		-webkit-transform:rotateZ(180deg); /* Safari */
-	}
+.headermenu a:hover {
+	opacity: 1;
+	background-color: midnightblue;
+	text-decoration: none;
+}
+#userinfo .headermenu {
+	left: 1em;
+	width: 10.6em;
+	position: absolute;
+}
+#userinfo .headermenu a {
+	padding-right: 0.7em !important;
+	text-align: right;
+}
+#siteinfo .headermenu {
+	margin: auto;
+	width: 200px;
+}
+
+/* For the drop-down menus (other sites & personal tools), hide the <li>
+indicators, as they're needed for HTML validation, but we don't want 'em to
+show up there.
+*/
+div#userinfo ul.headermenu li,
+div#siteinfo ul.headermenu li {
+	list-style-type: none !important;
+	list-style-image: none !important;
+}
+
+#siteinfo > a {
+	height: 2em;
+	display: block;
+	margin: auto;
+	width: 11em;
+	padding: 0.5em 1em 0.5em 1em;
+}
+#siteinfo > a:hover {
+	background-color: #222;
+}
+#siteinfo > a > img {
+	display: inline-block;
+}
+#siteinfo > a > span {
+	font-size: 15pt;
+	color: white;
+}
+#siteinfo a {
+	text-align: center;
+}
+#siteinfo .arrow {
+	transition: transform .5s;
+	-webkit-transition: -webkit-transform .5s; /* Safari */
+	transform: rotateZ(0deg);
+	-webkit-transform: rotateZ(0deg); /* Safari */
+	vertical-align: middle;
+	margin-left: 1em;
+	display: inline-block;
+}
+#siteinfo .arrow.rotate {
+	transform: rotateZ(180deg);
+	-webkit-transform: rotateZ(180deg); /* Safari */
+}
 
 #search {
 	width: 11em;
@@ -329,14 +336,14 @@ body {
 	right: 0;
 	padding: 0.5em;
 }
-	#search input {
-		float: right;
-		border: none;
-		font-size: 12pt;
-		padding: 0.25em;
-		font-family: Lato, sans-serif;
-		width: 11em;
-	}	
+#search input {
+	float: right;
+	border: none;
+	font-size: 12pt;
+	padding: 0.25em;
+	font-family: Lato, sans-serif;
+	width: 11em;
+}
 
 #refreshed-toc #toc-box:last-child {
 	display: none;
@@ -361,15 +368,15 @@ body {
 	padding-bottom: 15px;
 	color: #CCC;
 }
-	#footer a {
-		color: white;
-	}
-	#footer * {
-		line-height: 1.5
-	}
-	#footer img {
-		vertical-align: text-top;
-	}
+#footer a {
+	color: white;
+}
+#footer * {
+	line-height: 1.5
+}
+#footer img {
+	vertical-align: text-top;
+}
 
 /******************************** CONTENT/OTHER THINGS BEYOND CONTROL ******************************/
 
@@ -394,13 +401,13 @@ h6 {
 	position: static !important;
 	float: right;
 }
-	.mw-search-formheader {
-		border: none !important;
-	}
-	#search input#searchText {
-		border: 1px solid #CCC !important
-	}
-	
+.mw-search-formheader {
+	border: none !important;
+}
+#search input#searchText {
+	border: 1px solid #CCC !important
+}
+
 .printfooter {
 	display:none;
 }
@@ -418,3 +425,72 @@ h6 {
 	margin-top: 0;
 }
 
+/*
+** keep the whitespace in front of the ^=, hides rule from konqueror
+** this is css3, the validator doesn't like it when validating as css2
+** copypasted from Monobook's main.css with s/#bodyContent/#content/ and img paths
+** adjusted accordingly
+*/
+#content a.external,
+#content a.external[href ^="gopher://"] {
+	/* @embed */
+	background: url(../../monobook/external-ltr.png) center right no-repeat;
+	padding-right: 13px;
+}
+#content a.external[href ^="https://"],
+.link-https {
+	/* @embed */
+	background: url(../../monobook/lock_icon.gif) center right no-repeat;
+	padding-right: 16px;
+}
+#content a.external[href ^="mailto:"],
+.link-mailto {
+	/* @embed */
+	background: url(../../monobook/mail_icon.gif) center right no-repeat;
+	padding-right: 18px;
+}
+#content a.external[href ^="news://"] {
+	/* @embed */
+	background: url(../../monobook/news_icon.png) center right no-repeat;
+	padding-right: 18px;
+}
+#content a.external[href ^="ftp://"],
+.link-ftp {
+	/* @embed */
+	background: url(../../monobook/file_icon.gif) center right no-repeat;
+	padding-right: 18px;
+}
+#content a.external[href ^="irc://"],
+.link-irc {
+	/* @embed */
+	background: url(../../monobook/discussionitem_icon.gif) center right no-repeat;
+	padding-right: 18px;
+}
+#content a.external[href $=".ogg"], #content a.external[href $=".OGG"],
+#content a.external[href $=".mid"], #content a.external[href $=".MID"],
+#content a.external[href $=".midi"], #content a.external[href $=".MIDI"],
+#content a.external[href $=".mp3"], #content a.external[href $=".MP3"],
+#content a.external[href $=".wav"], #content a.external[href $=".WAV"],
+#content a.external[href $=".wma"], #content a.external[href $=".WMA"],
+.link-audio {
+	/* @embed */
+	background: url("../../monobook/audio.png") center right no-repeat;
+	padding-right: 13px;
+}
+#content a.external[href $=".ogm"], #content a.external[href $=".OGM"],
+#content a.external[href $=".avi"], #content a.external[href $=".AVI"],
+#content a.external[href $=".mpeg"], #content a.external[href $=".MPEG"],
+#content a.external[href $=".mpg"], #content a.external[href $=".MPG"],
+.link-video {
+	/* @embed */
+	background: url("../../monobook/video.png") center right no-repeat;
+	padding-right: 13px;
+}
+#content a.external[href $=".pdf"], #content a.external[href $=".PDF"],
+#content a.external[href *=".pdf#"], #content a.external[href *=".PDF#"],
+#content a.external[href *=".pdf?"], #content a.external[href *=".PDF?"],
+.link-document {
+	/* @embed */
+	background: url("../../monobook/document.png") center right no-repeat;
+	padding-right: 12px;
+}
