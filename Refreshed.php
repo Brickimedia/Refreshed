@@ -11,36 +11,23 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 	die();
 }
 
-// Force the Table of Contents to render on every page
-$wgHooks['InternalParseBeforeLinks'][] = 'ForceTocOnEveryPage_renderForceToc';
-function ForceTocOnEveryPage_renderForceToc( &$parser, &$text ) {
-	global $mediaWiki, $wgContentNamespaces;
+//Hide ToC, as refreshed create's it's own
+$wgExtensionCredits['parserhook'][] = array(
+		'name' => 'NoTOC',
+		'author' =>'[http://swiftlytilting.com Andrew Fitzgerald]',
+		'url' => 'http://www.mediawiki.org/wiki/Extension:NoTOC',
+		'description' => 'Turns off TOC by default on all pages',
+		'descriptionmsg' => "notoc-desc",
+		'version' => '0.1.0',
+		'path' => __FILE__,
+);
 
-	if ( !isset( $mediaWiki ) ) {
-		return true;
-	}
+$wgHooks['ParserClearState'][] = 'efMWNoTOC';
 
-	// Exclude pages in non-content namespaces...
-	if ( !in_array( $parser->getTitle()->getNamespace(), $wgContentNamespaces ) ) {
-		return true;
-	}
-
-	// ...and also exclude the main page.
-	if ( $parser->getTitle()->equals( Title::newMainPage() ) ) {
-		return true;
-	}
-
-	$text .= '__FORCETOC__';
-
+function efMWNoTOC($parser) {
+	$parser->mShowToc = false;
 	return true;
 }
-$wgExtensionCredits['parserhook'][] = array(
-	'name' => 'ForceTocOnEveryPage',
-	'version' => '1.0.4',
-	'description' => 'Force TOC On Every Page Extension',
-	'author' => '[http://www.jmkim.com Jmkim dot com]',
-	'url' => 'https://www.mediawiki.org/wiki/Extension:ForceTocOnEveryPage'
-);
 
 // Skin credits that will show up on Special:Version
 $wgExtensionCredits['skin'][] = array(

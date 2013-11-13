@@ -51,19 +51,19 @@ var Refreshed = {
 		if ( overlap < 0 ) {
 			var newHeight = $( '#leftbar-bottom div' ).outerHeight() + overlap;
 			
-			if ( newHeight <= 50 ){
-				$("#leftbar-bottom").css({'visibility': 'hidden'});
+			if ( newHeight <= 50 ) {
+				$('#leftbar-bottom').css( 'visibility', 'hidden' );
 			} else {
-				$("#leftbar-bottom").css({'visibility': 'visible'});
+				$('#leftbar-bottom').css( 'visibility', 'visible' );
 			}
 			
 			$( '#leftbar-bottom' ).height( newHeight );
-			$( '#leftbar-bottom' ).css({
+			$( '#leftbar-bottom' ).css( {
 				'overflow-y': 'scroll',
 				'bottom': '0',
 				// @todo FIXME: why hard-code this in? This is not internationally compatible... - it moves the scrollbar to the left hand side
 				'direction': 'rtl'
-			});
+			} );
 
 			$( window ).scroll( Refreshed.onScroll );
 			
@@ -71,11 +71,11 @@ var Refreshed = {
 			$("#leftbar-bottom").css({'visibility': 'visible'});
 			
 			$( '#leftbar-bottom' ).height( 'auto' );
-			$( '#leftbar-bottom' ).css({
+			$( '#leftbar-bottom' ).css( {
 				'overflow-y': 'auto',
 				'bottom': '1em',
 				'direction': 'ltr'
-			});
+			} );
 
 			$( window ).off( 'scroll', Refreshed.onScroll );
 		}
