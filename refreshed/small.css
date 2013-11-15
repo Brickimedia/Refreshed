@@ -8,14 +8,18 @@
 	right: -12em;
 	background-color: rgba(25, 25, 112, 0.8);
 }
+#rightbar .shower {
+    padding-top: .5em;
+    padding-right: .75em;
+}
 
 #userinfo > a {
 	max-width: 11em;
-}	
-	#userinfo > a span {
-		max-width: 4.2em;
-	}
-	
+}
+#userinfo > a span {
+	max-width: 4.2em;
+}
+
 #maintitle {
 	width: 100%;
 	position: relative;
@@ -41,18 +45,6 @@
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 }
 
-.shower {
-	padding-right: .75em;
-}
-
-#rightbar .shower {
-	margin-right: 0em;
-}
-#maintitle h1 {
-    border-color: #eaeaea;
-    margin-bottom: 9px;
-}
-
 #smalltoolboxwrapper {
     padding-bottom: 5px;
     border-bottom: 1px solid #eaeaea;
@@ -65,122 +57,120 @@
     display: inline-block;
 }
 
-.link-icon {
+
+#smalltoolbox a {
+    color: black;
     text-decoration: none;
 }
 
-#icon-ca-talk:before {
+#fa-ca-talk:before {
     content: "\f075";
 }
 
-#icon-ca-talk {
-    margin-left: .75em;
+#fa-ca-talk {
+    margin-left: .5em;
     font-size: 30px;
     vertical-align: 7.5%;
     color: black;
 }
 
-#icon-ca-viewsource:before {
+
+#fa-ca-viewsource:before {
     content: "\f040";
 }
 
-#icon-ca-viewsource {
+#fa-ca-viewsource {
     margin-left: .5em;
     font-size: 30px;
     color: #aaa;
 }
 
-#icon-ca-edit:before {
+#fa-ca-edit:before {
     content: "\f040";
 }
 
-#icon-ca-edit {
+#fa-ca-edit {
     margin-left: .5em;
     font-size: 30px;
-    color: black;
 }
 
-#icon-more:before {
-	content: "\f141";
-}
-
-#icon-more {
-	margin-left: .2em;
-	color: black;
-	font-size: 2em;
-	vertical-align: 7.5%;
-}
-
-#ca-addsection {
+#ca-addsection,
+#ca-purge {
     display: none;
 }
 
-#icon-ca-history:before {
+#fa-ca-history:before {
     content: "\f187";
 }
 
-#icon-ca-history {
+#fa-ca-history {
     margin-left: .5em;
     font-size: 30px;
-    color: black;
 }
 
-#icon-ca-delete:before {
+#fa-more:before {
+  content: "\f141";
+}
+
+#fa-more {
+  margin-left: .6em;
+  vertical-align: -7.5%;
+}
+
+#fa-ca-delete:before {
     content: "\f00d";
 }
 
-#icon-ca-delete {
+#fa-ca-delete {
     margin-left: .5em;
     font-size: 35px;
-    color: black;
+    vertical-align: -3.75%;
 }
 
-#icon-ca-move:before {
+#fa-ca-move:before {
     content: "\f090";
 }
 
-#icon-ca-move {
+#fa-ca-move {
     margin-left: .3em;
-    font-size: 30px;
-    color: black;
+    font-size: 32px;
+    vertical-align: -3.75%;
 }
 
-#icon-ca-protect:before {
+#fa-ca-protect:before {
     content: "\f023";
 }
 
-#icon-ca-protect {
+#fa-ca-protect {
     margin-left: .7em;
     font-size: 30px;
-    color: black;
+    vertical-align: -3.75%;
 }
 
-#icon-ca-unprotect:before {
+#fa-ca-unprotect:before {
     content: "\f13e";
 }
 
-#icon-ca-unprotect {
+#fa-ca-unprotect {
     margin-left: .7em;
     font-size: 30px;
-    color: black;
+    vertical-align: -3.75%;
 }
 
-#icon-ca-watch:before {
+#fa-ca-watch:before {
     content: "\f006";
 }
 
-#icon-ca-watch {
+#fa-ca-watch {
     margin-left: .5em;
     font-size: 30px;
-    color: black;
 }
 
-#icon-ca-unwatch:before {
+#fa-ca-unwatch:before {
     content: "\f005";
 }
 
-#icon-ca-unwatch {
+#fa-ca-unwatch {
     margin-left: .5em;
     font-size: 30px;
-    color: black;
 }

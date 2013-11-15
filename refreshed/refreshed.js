@@ -1,158 +1,204 @@
-/*refreshed.js*/
-heights = []
+/* global $ */
+var Refreshed = {
+	heights: [],
+	i: 0,
+	user: false,
+	header: false,
+	left: false,
+	right: false,
 
-function getHeight(self){
-	var id = self.attr('data-to').substring(1);
-	var numid = self.attr('data-numid');
-	var to = $(document.getElementById(id));
-	console.log(id);
-	var heightTo = to.offset().top - 50;
-	//self.attr({'data-height', heightTo});
-	heights[numid] = heightTo;
-	return heightTo;
-}
+	getHeight: function( self ) {
+		var id = self.attr( 'data-to' ).substring( 1 ),
+			numid = self.attr( 'data-numid' ),
+			to = $( document.getElementById( id ) ),
+			heightTo = to.offset().top - 50;
+		Refreshed.heights[numid] = heightTo;
+		return heightTo;
+	},
 
-function moveBoxTo(height){
-	var heightAbove = 0;
-	var idAbove;
-	heights.forEach(function(elem, index){
-		if(elem <= height){
-			console.log("height:"+height+", this elem("+index+"):"+elem);
-			heightAbove = elem;
-			idAbove = index;
+	moveBoxTo: function( height ) {
+		var heightAbove = 0, idAbove;
+
+		Refreshed.heights.forEach( function( elem, index ) {
+			if ( elem <= height ) {
+				heightAbove = elem;
+				idAbove = index;
+			}
+		});
+		var idBelow = idAbove + 1,
+			heightBelow = Refreshed.heights[idBelow],
+			heightDiff = heightBelow - heightAbove,
+			heightMeRelative = height - heightAbove,
+			fractMe = heightMeRelative / heightDiff;
+
+		var elemAbove = $( 'a[data-numid=' + idAbove + ']' ),
+			elemAboveOffset = elemAbove.position().top,
+			elemBelow = $( 'a[data-numid=' + idBelow + ']' ),
+			elemBelowOffset = elemBelow.position().top,
+			elemOffsetDiff = elemBelowOffset - elemAboveOffset,
+			goTo = elemAboveOffset + ( elemOffsetDiff * fractMe );
+
+		$( '#toc-box' ).stop().animate( {'top': goTo}, 200 );
+	},
+
+	overlap: function() {
+		var bottom = $( '#leftbar-top' ).position().top + $( '#leftbar-top' ).outerHeight(),
+			top3 = $( '#refreshed-toc' ).outerHeight(),
+			overlap = $( window ).height() - top3 - bottom;
+
+		overlap = overlap - 10;
+		
+		if ( overlap < 0 ) {
+			var newHeight = $( '#leftbar-bottom div' ).outerHeight() + overlap;
+			
+			if ( newHeight <= 50 ) {
+				$('#leftbar-bottom').css( 'visibility', 'hidden' );
+			} else {
+				$('#leftbar-bottom').css( 'visibility', 'visible' );
+			}
+			
+			$( '#leftbar-bottom' ).height( newHeight );
+			$( '#leftbar-bottom' ).css( {
+				'overflow-y': 'scroll',
+				'bottom': '0',
+				// @todo FIXME: why hard-code this in? This is not internationally compatible... - it moves the scrollbar to the left hand side
+				'direction': 'rtl'
+			} );
+
+			$( window ).scroll( Refreshed.onScroll );
+			
+		} else {
+			$("#leftbar-bottom").css({'visibility': 'visible'});
+			
+			$( '#leftbar-bottom' ).height( 'auto' );
+			$( '#leftbar-bottom' ).css( {
+				'overflow-y': 'auto',
+				'bottom': '1em',
+				'direction': 'ltr'
+			} );
+
+			$( window ).off( 'scroll', Refreshed.onScroll );
+		}
+	},
+
+	toggleUser: function() {
+		$( '#userinfo .headermenu' ).fadeToggle( 150 );
+		$( '#userinfo .arrow' ).toggleClass( 'rotate' );
+		Refreshed.user = !Refreshed.user;
+	},
+
+	toggleSite: function() {
+		$( '#siteinfo .headermenu' ).fadeToggle( 150 );
+		$( '#siteinfo .arrow' ).toggleClass( 'rotate' );
+		Refreshed.header = !Refreshed.header;
+	},
+
+	toggleLeft: function() {
+		if ( Refreshed.left ) {
+			$( '#leftbar' ).animate({'left': '-12em'});
+		} else {
+			$( '#leftbar' ).animate({'left': '0em'});
+		}
+		$( '#leftbar .shower' ).fadeToggle();
+		Refreshed.left = !Refreshed.left;
+	},
+
+	toggleRight: function() {
+		if ( Refreshed.right ) {
+			$( '#rightbar' ).animate({'right': '-12em'});
+		} else {
+			$( '#rightbar' ).animate({'right': '0em'});
+		}
+		$( '#rightbar .shower' ).fadeToggle();
+		Refreshed.right = !Refreshed.right;
+	},
+
+	onScroll: function() {
+		var pos = $( '#toc-box' ).position().top,
+			height = $( '#leftbar-bottom' ).height(),
+			goTo = pos - ( height / 2 );
+
+		goTo = goTo + $( '#refreshed-toc a' ).height();
+
+		$( '#leftbar-bottom' ).scrollTop( goTo );
+	},
+
+	rightbar: function() {
+		$( '#rightbar-top' ).height( $( window ).height() - $( '#rightbar-top' ).position().top - 8 );
+	}
+};
+
+$( document ).ready( function() {
+	$( '#refreshed-toc a' ).each( function() {
+		var href = $( this ).attr( 'href' );
+		$( this ).attr({'data-to': href});
+		$( this ).attr({'data-numid': Refreshed.i});
+		Refreshed.i++;
+	});
+
+	$( '#refreshed-toc a' ).each( function() {
+		Refreshed.getHeight( $( this ) );
+	});
+
+	$( '#refreshed-toc a' ).click( function() {
+		event.preventDefault();
+		var heightTo = Refreshed.getHeight( $(this ) );
+		$( 'html, body' ).animate( {scrollTop: heightTo}, 800 );
+		return false;
+	});
+
+	$( window ).scroll( function() {
+		if ( $( '.toctext' ).length !== 0 ) {
+			Refreshed.moveBoxTo( $( this ).scrollTop() );
 		}
 	});
-	var idBelow = idAbove + 1;
-	var heightBelow = heights[idBelow];
-	
-	var heightDiff = heightBelow - heightAbove;
-	var heightMeRelative = height - heightAbove;
-	var fractMe = heightMeRelative / heightDiff;
-	console.log(heightAbove + " heightAbove");
-	console.log(heightBelow + " heightBelow");
-	console.log(heightMeRelative + " heightMeRelative");
-	console.log(heightDiff + " heightDiff");
-	console.log(fractMe + " fractMe");
 
-	var elemAbove = $("a[data-numid="+idAbove+"]");
-	console.log(elemAbove);
-	var elemAboveOffset = elemAbove.position().top;
-	console.log(elemAboveOffset + " elemAboveOffset");
-	var elemBelow = $("a[data-numid="+idBelow+"]");
-	console.log(elemBelow);
-	var elemBelowOffset = elemBelow.position().top;
-	console.log(elemBelowOffset + " elemBelowOffset");
-	var elemOffsetDiff = elemBelowOffset - elemAboveOffset;
-	console.log(elemOffsetDiff + " elemOffsetDiff");
-	var goTo = elemAboveOffset + (elemOffsetDiff * fractMe);
-	console.log(goTo + " goTo");
-	
-	$("#toc-box").stop().animate({'top': goTo}, 200);
-	//$("#toc-box").css({'top': goTo});
-}
+	$( window ).resize( Refreshed.overlap );
+	Refreshed.overlap();
 
-i = 0;
-//t = false
-$("#refreshed-toc a").each(function(){
-	var href = $(this).attr('href');
-	$(this).attr({'data-to': href});
-	$(this).attr({'data-numid': i});
-	i++;
-});
+	$( '#userinfo > a' ).click( function() {
+		Refreshed.toggleUser();
+	});
 
-$("#refreshed-toc a").each(function(){
-	getHeight($(this));
-})
+	$( '#siteinfo > a' ).click( function() {
+		Refreshed.toggleSite();
+	});
 
-$("#refreshed-toc a").click(function(){
-	event.preventDefault();
-	var heightTo = getHeight($(this));
-	$("html, body").animate({scrollTop: heightTo}, 800);
-	return false;
-});
+	$( '#leftbar .shower' ).click( function() {
+		Refreshed.toggleLeft();
+		if ( Refreshed.right ) {
+			Refreshed.toggleRight();
+		}
+	});
 
-$(window).scroll(function(){
-	if($(".toctext").length != 0){
-		moveBoxTo($(this).scrollTop());
-	}
-});
+	$( '#rightbar .shower' ).click( function() {
+		Refreshed.toggleRight();
+		if ( Refreshed.left ) {
+			Refreshed.toggleLeft();
+		}
+	});
 
-$("#refreshed-toc a").each(function(){
-		//$(this).attr({'href': 'javascript:;'});
-});
+	$( '#contentwrapper' ).click( function() {
+		if ( Refreshed.left ) {
+			Refreshed.toggleLeft();
+		}
+		if ( Refreshed.right ) {
+			Refreshed.toggleRight();
+		}
+		if ( Refreshed.user ) {
+			Refreshed.toggleUser();
+		}
+		if ( Refreshed.header ) {
+			Refreshed.toggleHeader();
+		}
+	});
 
-var user = false;
-var header = false;
-var left = false;
-var right = false;
+	$("#smalltoolboxwrapper > a").click(function(){
+			$("#smalltoolbox").animate({'width': '100%'});
+			$(this).css({'display': 'none'});
+	});
 
-function toggleUser(){
-	$("#userinfo .headermenu").fadeToggle(150);
-	$("#userinfo .arrow").toggleClass("rotate");
-	user = !user;
-}
-function toggleSite(){
-	$("#siteinfo .headermenu").fadeToggle(150);
-	$("#siteinfo .arrow").toggleClass("rotate");
-	header = !header;
-}
-function toggleLeft(){
-	if(left){
-		$("#leftbar").animate({'left': '-12em'});
-	} else {
-		$("#leftbar").animate({'left': '0em'});
-	}
-	$("#leftbar .shower").fadeToggle();
-	left = !left;
-}
-function toggleRight(){
-	if(right){
-		$("#rightbar").animate({'right': '-12em'});
-	} else {
-		$("#rightbar").animate({'right': '0em'});
-	}
-	$("#rightbar .shower").fadeToggle();
-	right = !right;
-}
+	$( window ).resize( Refreshed.rightbar );
 
-$("#userinfo > a").click(function(){
-	toggleUser();
-});
-
-$("#siteinfo > a").click(function(){
-	toggleSite();
-});
-
-$("#leftbar .shower").click(function(){
-	toggleLeft();
-	if(right){
-		toggleRight();
-	}
-});
-
-$("#rightbar .shower").click(function(){
-	toggleRight();
-	if(left){
-		toggleLeft();
-	}
-});
-
-$("#contentwrapper").click(function(){
-	if(left){
-		toggleLeft();
-	} 
-	if(right){
-		toggleRight();
-	} 
-	if(user){
-		toggleUser();
-	}
-	if(header){
-		toggleHeader();
-	}
-});
-
-$("#smalltoolboxcontainer > a").click(function(){
-	$("#smalltoolbox").animate({'width': '100%'});
-	$(this).css({'display': 'none'});
-});
+	Refreshed.rightbar();
+} ); // end "on DOM ready" wrapper
