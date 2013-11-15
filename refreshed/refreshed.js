@@ -193,6 +193,11 @@ $( document ).ready( function() {
 		}
 	});
 
+	$("#smalltoolboxwrapper > a").click(function(){
+			$("#smalltoolbox").animate({'width': '100%'});
+			$(this).css({'display': 'none'});
+	});
+
 	$( window ).resize( Refreshed.rightbar );
 
 	Refreshed.rightbar();

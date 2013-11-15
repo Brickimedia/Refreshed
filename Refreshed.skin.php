@@ -180,13 +180,13 @@ class RefreshedTemplate extends BaseTemplate {
 					$firstAction = true;
 					foreach ( $this->data['content_actions'] as $action ) {
 						if ( !$firstAction ) {
-							echo '<a href="' . htmlspecialchars( $action['href'] ) . '"><i class="icon-2x icon-link" id="icon-' . $action['id'] . '"></i></a>';
+							echo '<a href="' . htmlspecialchars( $action['href'] ) . '"><i class="fa fa-2x" id="fa-' . $action['id'] . '"></i></a>';
 						} else {
 							$firstAction = false;
 						}
 					} ?>
 				</div>
-				<a href="javascript:;"><i class="icon-ellipsis-horizontal icon-2x icon-link"></i></a>
+				<a href="javascript:;"><i class="fa fa-2x fa-ellipsis-h"></i></a>
 			</div>
 			<div id="content">
 				<?php $this->html( 'bodytext' ); ?>
@@ -199,7 +199,7 @@ class RefreshedTemplate extends BaseTemplate {
 		</div>
 		<div id="rightbar">
 			<div class="shower">
-				<?php echo "<img class=\"arrow\" alt=\"\" src=\"$refreshedImagePath/mobile-expand.png\" />"; ?>
+				<?php echo "<i class=\"fa fa-2x fa-bars\"></i>"; ?>
 			</div>
 			<div id="search">
 				<form action="<?php $this->text( 'wgScript' ) ?>" method="get">

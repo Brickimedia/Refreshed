@@ -8,6 +8,10 @@
 	right: -12em;
 	background-color: rgba(25, 25, 112, 0.8);
 }
+#rightbar .shower {
+    padding-top: .5em;
+    padding-right: .75em;
+}
 
 #userinfo > a {
 	max-width: 11em;
@@ -39,4 +43,132 @@
 	background: -ms-linear-gradient(left, rgba(255,255,255,0) -98%,rgba(255,255,255,0.95) 52%,rgba(255,255,255,1) 100%); /* IE10+ */
 	background: linear-gradient(to right, rgba(255,255,255,0) -98%,rgba(255,255,255,0.95) 52%,rgba(255,255,255,1) 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
+}
+
+#smalltoolboxwrapper {
+    padding-bottom: 5px;
+    border-bottom: 1px solid #eaeaea;
+}
+
+#smalltoolbox {
+    width: 100px;
+    white-space: nowrap;
+    overflow-x: hidden;
+    display: inline-block;
+}
+
+#smalltoolbox a {
+    color: black;
+    text-decoration: none;
+}
+
+#fa-ca-talk:before {
+    content: "\f075";
+}
+
+#fa-ca-talk {
+    margin-left: .5em;
+    font-size: 30px;
+    vertical-align: 7.5%;
+    color: black;
+}
+
+#fa-ca-viewsource:before {
+    content: "\f040";
+}
+
+#fa-ca-viewsource {
+    margin-left: .5em;
+    font-size: 30px;
+    color: #aaa;
+}
+
+#fa-ca-edit:before {
+    content: "\f040";
+}
+
+#fa-ca-edit {
+    margin-left: .5em;
+    font-size: 30px;
+}
+
+#ca-addsection,
+#ca-purge {
+    display: none;
+}
+
+#fa-ca-history:before {
+    content: "\f187";
+}
+
+#fa-ca-history {
+    margin-left: .5em;
+    font-size: 30px;
+}
+
+#fa-more:before {
+  content: "\f141";
+}
+
+#fa-more {
+  margin-left: .6em;
+  vertical-align: -7.5%;
+}
+
+#fa-ca-delete:before {
+    content: "\f00d";
+}
+
+#fa-ca-delete {
+    margin-left: .5em;
+    font-size: 35px;
+    vertical-align: -3.75%;
+}
+
+#fa-ca-move:before {
+    content: "\f090";
+}
+
+#fa-ca-move {
+    margin-left: .3em;
+    font-size: 32px;
+    vertical-align: -3.75%;
+}
+
+#fa-ca-protect:before {
+    content: "\f023";
+}
+
+#fa-ca-protect {
+    margin-left: .7em;
+    font-size: 30px;
+    vertical-align: -3.75%;
+}
+
+#fa-ca-unprotect:before {
+    content: "\f13e";
+}
+
+#fa-ca-unprotect {
+    margin-left: .7em;
+    font-size: 30px;
+    vertical-align: -3.75%;
+}
+
+#fa-ca-watch:before {
+    content: "\f006";
+}
+
+#fa-ca-watch {
+    margin-left: .5em;
+    font-size: 30px;
+}
+
+#fa-ca-unwatch:before {
+    content: "\f005";
+}
+
+#fa-ca-unwatch {
+    margin-left: .5em;
+    font-size: 30px;
 }

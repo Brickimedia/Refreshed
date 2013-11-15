@@ -17,3 +17,6 @@
 #leftbar .shower, #rightbar .shower {
 	display: none !important;
 }
+#smalltoolboxwrapper {
+	display: none;
+}
