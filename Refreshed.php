@@ -59,6 +59,8 @@ $wgResourceModules['skins.refreshed'] = array(
 		'skins/common/commonElements.css' => array( 'media' => 'screen' ),
 		'skins/common/commonContent.css' => array( 'media' => 'screen' ),
 		'skins/common/commonInterface.css' => array( 'media' => 'screen' ),
+		# Font Awesome
+		'http://brickimedia.org/resources/fonts/fontawesome/fontawesome.css' => array( 'media' => 'screen' ),
 		# Styles custom to the Refreshed skin
 		'skins/Refreshed/refreshed/main.css' => array( 'media' => 'screen' ),
 		'skins/Refreshed/refreshed/small.css' => array( 'media' => '(max-width: 600px)' ),
