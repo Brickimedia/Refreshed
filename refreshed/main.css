@@ -48,12 +48,6 @@ body {
 	margin-bottom: 0.3em;
 }
 
-/* removes page title on SocialProfile user pages */
-.ns-2 #maintitle,
-.ns-202 #maintitle {
-	display: none;
-}
-
 @media (min-width: 600px) {
 	.title-overlay {
 		display: none;
