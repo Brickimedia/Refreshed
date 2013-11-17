@@ -8,18 +8,14 @@
 	right: -12em;
 	background-color: rgba(25, 25, 112, 0.8);
 }
-#rightbar .shower {
-    padding-top: .5em;
-    padding-right: .75em;
-}
 
 #userinfo > a {
 	max-width: 11em;
-}
-#userinfo > a span {
-	max-width: 4.2em;
-}
-
+}	
+	#userinfo > a span {
+		max-width: 4.2em;
+	}
+	
 #maintitle {
 	width: 100%;
 	position: relative;
@@ -36,139 +32,99 @@
 	position: absolute;
 	top: 0px;
 	right: 0px;
-	background: -moz-linear-gradient(left, rgba(255,255,255,0) -98%, rgba(255,255,255,0.95) 52%, rgba(255,255,255,1) 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, right top, color-stop(-98%,rgba(255,255,255,0)), color-stop(52%,rgba(255,255,255,0.95)), color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(left, rgba(255,255,255,0) -98%,rgba(255,255,255,0.95) 52%,rgba(255,255,255,1) 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(left, rgba(255,255,255,0) -98%,rgba(255,255,255,0.95) 52%,rgba(255,255,255,1) 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(left, rgba(255,255,255,0) -98%,rgba(255,255,255,0.95) 52%,rgba(255,255,255,1) 100%); /* IE10+ */
+	background: -moz-linear-gradient(left, rgba(255,255,255,0) -98%, rgba(255,255,255,0.95) 52%, rgba(255,255,255,1) 100%); /* FF3.6 */
+	background: -webkit-gradient(linear, left top, right top, color-stop(-98%,rgba(255,255,255,0)), color-stop(52%,rgba(255,255,255,0.95)), color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4 */
+	background: -webkit-linear-gradient(left, rgba(255,255,255,0) -98%,rgba(255,255,255,0.95) 52%,rgba(255,255,255,1) 100%); /* Chrome10,Safari5.1 */
+	background: -o-linear-gradient(left, rgba(255,255,255,0) -98%,rgba(255,255,255,0.95) 52%,rgba(255,255,255,1) 100%); /* Opera 11.10 */
+	background: -ms-linear-gradient(left, rgba(255,255,255,0) -98%,rgba(255,255,255,0.95) 52%,rgba(255,255,255,1) 100%); /* IE10 */
 	background: linear-gradient(to right, rgba(255,255,255,0) -98%,rgba(255,255,255,0.95) 52%,rgba(255,255,255,1) 100%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
 }
 
+.shower {
+	padding-right: .75em;
+}
+
+#rightbar .shower {
+	width: 39px;
+}
+
+#maintitle {
+    margin-left: 1em;
+}
+
+#maintitle h1 {
+    border-color: #eaeaea;
+    margin-bottom: 5px;
+}
+
 #smalltoolboxwrapper {
-    padding-bottom: 5px;
     border-bottom: 1px solid #eaeaea;
+	margin-left: 1em;
 }
 
 #smalltoolbox {
-    width: 100px;
+    width: 96px;
     white-space: nowrap;
-    overflow-x: hidden;
+    overflow: hidden;
+	display: inline-block;
+}
+
+.small-icon {
+    width: 48px;
+    height: 48px;
+    background-image: url("mobile-icon-sprite.png");
+    background-size: 422px 28px;
+    background-repeat: no-repeat;
     display: inline-block;
 }
 
-#smalltoolbox a {
-    color: black;
-    text-decoration: none;
+#icon-ca-talk {
+    background-position: -31px;
 }
 
-#fa-ca-talk:before {
-    content: "\f075";
+#icon-ca-viewsource {
+    background-position: -70px;
+    opacity: .3;
 }
 
-#fa-ca-talk {
-    margin-left: .5em;
-    font-size: 30px;
-    vertical-align: 7.5%;
-    color: black;
+#icon-ca-edit {
+    background-position: -70px;
 }
 
-#fa-ca-viewsource:before {
-    content: "\f040";
+#icon-ca-history {
+    background-position: -109px;
 }
 
-#fa-ca-viewsource {
-    margin-left: .5em;
-    font-size: 30px;
-    color: #aaa;
+#icon-ca-delete {
+    background-position: -149px; /*down 40 to keep things more or less centered*/
 }
 
-#fa-ca-edit:before {
-    content: "\f040";
+#icon-ca-move {
+    background-position: -188px;
 }
 
-#fa-ca-edit {
-    margin-left: .5em;
-    font-size: 30px;
+#icon-ca-protect {
+    background-position: -227px;
+}
+
+#icon-ca-unprotect {
+    background-position: -267px; /*down 40 to keep things more or less centered*/
+}
+
+#icon-ca-watch {
+    background-position: -305px;
+}
+
+#icon-ca-unwatch {
+    background-position: -344px;
+}
+
+#icon-more {
+    background-position: -384px; /*down 40 to keep things more or less centered*/
 }
 
 #ca-addsection,
 #ca-purge {
     display: none;
-}
-
-#fa-ca-history:before {
-    content: "\f187";
-}
-
-#fa-ca-history {
-    margin-left: .5em;
-    font-size: 30px;
-}
-
-#fa-more:before {
-  content: "\f141";
-}
-
-#fa-more {
-  margin-left: .6em;
-  vertical-align: -7.5%;
-}
-
-#fa-ca-delete:before {
-    content: "\f00d";
-}
-
-#fa-ca-delete {
-    margin-left: .5em;
-    font-size: 35px;
-    vertical-align: -3.75%;
-}
-
-#fa-ca-move:before {
-    content: "\f090";
-}
-
-#fa-ca-move {
-    margin-left: .3em;
-    font-size: 32px;
-    vertical-align: -3.75%;
-}
-
-#fa-ca-protect:before {
-    content: "\f023";
-}
-
-#fa-ca-protect {
-    margin-left: .7em;
-    font-size: 30px;
-    vertical-align: -3.75%;
-}
-
-#fa-ca-unprotect:before {
-    content: "\f13e";
-}
-
-#fa-ca-unprotect {
-    margin-left: .7em;
-    font-size: 30px;
-    vertical-align: -3.75%;
-}
-
-#fa-ca-watch:before {
-    content: "\f006";
-}
-
-#fa-ca-watch {
-    margin-left: .5em;
-    font-size: 30px;
-}
-
-#fa-ca-unwatch:before {
-    content: "\f005";
-}
-
-#fa-ca-unwatch {
-    margin-left: .5em;
-    font-size: 30px;
 }
