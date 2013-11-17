@@ -73,7 +73,7 @@
 .small-icon {
     width: 48px;
     height: 48px;
-    background-image: url("mobile-icon-sprite.png");
+    background-image: url("images/mobile-icon-sprite.png");
     background-size: 422px 28px;
     background-repeat: no-repeat;
     display: inline-block;
