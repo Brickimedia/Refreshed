@@ -9,6 +9,10 @@
 	background-color: rgba(25, 25, 112, 0.8);
 }
 
+#rightbar .shower {
+	width: 39px;
+}
+
 #userinfo > a {
 	max-width: 11em;
 }
@@ -19,12 +23,15 @@
 #maintitle {
 	width: 100%;
 	position: relative;
+	margin-left: 1em;
 }
 
 #maintitle h1 {
 	overflow-x: scroll;
 	white-space: nowrap;
 	padding-right: 7px;
+	border-color: #eaeaea;
+    	margin-bottom: 5px;
 }
 
 .title-overlay {
@@ -43,4 +50,60 @@
 
 #maintitle h1:not(.title-overlay):after {
         content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAABCAYAAADJsB7sAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QsQFBICyGjZjAAAAAh0RVh0Q29tbWVudAD2zJa/AAAADElEQVQI12NgGCAAAAB5AAFAoyNVAAAAAElFTkSuQmCC);
+}
+
+#smalltoolboxwrapper {
+    border-bottom: 1px solid #eaeaea;
+    margin-left: 1em;
+}
+
+#smalltoolbox {
+    width: 96px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.small-icon {
+    width: 48px;
+    height: 48px;
+    background-image: url("images/mobile-icon-sprite.png");
+    background-size: 422px 28px;
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+
+#icon-ca-talk {
+    background-position: -31px;
+}
+#icon-ca-viewsource {
+    background-position: -70px;
+    opacity: .3;
+}
+#icon-ca-history {
+    background-position: -109px;
+}
+#icon-ca-delete {
+    background-position: -149px; /*down 40 to keep things more or less centered*/
+}
+#icon-ca-move {
+    background-position: -188px;
+}
+#icon-ca-protect {
+    background-position: -227px;
+}
+#icon-ca-unprotect {
+    background-position: -267px; /*down 40 to keep things more or less centered*/
+}
+#icon-ca-watch {
+    background-position: -305px;
+}
+#icon-ca-unwatch {
+    background-position: -344px;
+}
+#icon-more {
+    background-position: -384px; /*down 40 to keep things more or less centered*/
+}
+#icon-ca-addsection,
+#icon-ca-purge {
+	display: none;
 }
