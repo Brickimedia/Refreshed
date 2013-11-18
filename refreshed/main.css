@@ -1,5 +1,3 @@
-@import url("http://brickimedia.org/resources/fonts/fontawesome/fontawesome.css");
-
 @font-face {
 	font-family: 'Lato';
 	font-style: normal;
@@ -46,12 +44,6 @@ body {
 	padding-top: 0.2em;
 	padding-left: 0.5em;
 	margin-bottom: 0.3em;
-}
-
-/* removes page title on SocialProfile user pages */
-.ns-2 #maintitle,
-.ns-202 #maintitle {
-	display: none;
 }
 
 @media (min-width: 600px) {
@@ -175,9 +167,14 @@ body {
 	left: 12em;
 }
 #rightbar .shower {
+	height: 48px;
 	right: 12em;
+	background-image: url("images/mobile-icon-sprite.png");
+    	background-size: 422px 28px;
+    	background-repeat: no-repeat;
+    	background-position: 0;
+    	margin-right: 0;
 }
-
 #refreshed-toc {
 	position: relative;
 }

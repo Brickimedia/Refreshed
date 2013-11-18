@@ -9,8 +9,7 @@
 	background-color: rgba(25, 25, 112, 0.8);
 }
 #rightbar .shower {
-    padding-top: .5em;
-    padding-right: 1em;
+	width: 48px;
 }
 #contentwrapper {
 	margin-left: 12em;

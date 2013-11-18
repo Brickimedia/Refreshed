@@ -192,6 +192,10 @@ $( document ).ready( function() {
 			Refreshed.toggleHeader();
 		}
 	});
+	$("#smalltoolboxwrapper > a").click(function(){
+		$("#smalltoolbox").animate({'width': '100%'});
+		$(this).css({'display': 'none'});
+	});
 
 	$("#smalltoolboxwrapper > a").click(function(){
 			$("#smalltoolbox").animate({'width': '100%'});
