@@ -67,13 +67,13 @@ class RefreshedTemplate extends BaseTemplate {
 	<div id="header">
 		<?php
 		$logos = array(
-			'meta' => "<img src=\"$refreshedImagePath/brickimedia.png\" alt=\"\" />",
-			'en' => "<img src=\"$refreshedImagePath/brickipedia.png\" alt=\"\" />",
-			'customs' => "<img src=\"$refreshedImagePath/customs.png\" alt=\"\" />",
-			'stories' => "<img src=\"$refreshedImagePath/stories.png\" alt=\"\" />",
-			'cuusoo' => "<img src=\"$refreshedImagePath/cuusoo.png\" alt=\"\" />",
-			'admin' => "<img height=\"22\" src=\"$refreshedImagePath/admin.png\" alt=\"\" />",
-			'dev' => "<img height=\"26\" src=\"$refreshedImagePath/dev.png\" alt=\"\" />"
+			'meta' => "<img width=\"144\" height=\"30\" src=\"$refreshedImagePath/brickimedia.png\" alt=\"\" />",
+		     	'en' => "<img width=\"138\" height=\"30\" src=\"$refreshedImagePath/brickipedia.png\" alt=\"\" />",
+		      	'customs' => "<img width=\"100\" height=\"30\" src=\"$refreshedImagePath/customs.png\" alt=\"\" />",
+		     	'stories' => "<img width=\"144\" height=\"30\" src=\"$refreshedImagePath/stories.png\" alt=\"\" />",
+		     	'cuusoo' => "<img width=\"144\" height=\"36\" src=\"$refreshedImagePath/cuusoo.png\" alt=\"\" />",
+		    	'admin' => "<img width=\"81\" height=\"22\" src=\"$refreshedImagePath/admin.png\" alt=\"\" />",
+		     	'dev' => "<img width=\"169\" height=\"26\" src=\"$refreshedImagePath/dev.png\" alt=\"\" />"
 		);
 
 		global $bmProject;
@@ -83,7 +83,7 @@ class RefreshedTemplate extends BaseTemplate {
 				<?php
 					echo $logos[$bmProject];
 					unset( $logos[$bmProject] );
-					echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow.png\" alt=\"\" />";
+					echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow.png\" alt=\"\" width=\"15\" height=\"8\" />";
 				?>
 			</a>
 			<div class="headermenu" style="display:none;">
@@ -98,7 +98,7 @@ class RefreshedTemplate extends BaseTemplate {
 	<div id="fullwrapper">
 		<div id="leftbar">
 			<div class="shower">
-				<?php echo "<img class=\"arrow\" src=\"$refreshedImagePath/mobile-expand-edit.png\" alt=\"\" />"; ?>
+				<?php echo "<img class=\"arrow\" src=\"$refreshedImagePath/mobile-expand-edit.png\" alt=\"\" width=\"48\" height=\"58\" />"; ?>
 			</div>
 			<div id="userinfo">
 				<a href='javascript:;'>
@@ -114,7 +114,7 @@ class RefreshedTemplate extends BaseTemplate {
 						} else {
 							$avatar = '/images/avatars/default_m.gif';
 						}
-						echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow.png\" alt=\"\" /><img alt=\"\" class=\"avatar\" src=\"http://meta.brickimedia.org" . $avatar . "\" /><span>{$wgUser->getName()}</span>";
+						echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow.png\" alt=\"\" /><img alt=\"\" class=\"avatar\" src=\"http://meta.brickimedia.org" . $avatar . "\" width=\"30\" /><span>{$wgUser->getName()}</span>";
 					?>
 				</a>
 				<div class="headermenu" style="display:none;">
