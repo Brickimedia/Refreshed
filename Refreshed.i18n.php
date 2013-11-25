@@ -9,7 +9,7 @@ $messages = array();
 
 /** English */
 $messages['en'] = array(
-	'refreshed-article' => 'article: $1',
+	'refreshed-article' => 'article:$1',
 );
 
 /** Message documentation */
@@ -20,5 +20,5 @@ $messages['qqq'] = array(
 
 /** Finnish (suomi) */
 $messages['fi'] = array(
-	'refreshed-article' => 'artikkeli: $1',
+	'refreshed-article' => 'artikkeli:$1',
 );

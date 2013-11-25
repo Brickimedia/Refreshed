@@ -31,7 +31,7 @@ class RefreshedTemplate extends BaseTemplate {
 	}
 
 	public function execute() {
-		global $wgStylePath, $wgContentNamespaces, $refreshedTOC;
+		global $wgStylePath, $wgContentNamespaces, $refreshedTOC, $namespaceNames;
 
 		// new TOC processing
 		$tocHTML = '';
@@ -43,24 +43,21 @@ class RefreshedTemplate extends BaseTemplate {
 		}
 
 		// Title processing
-		$mySideTitle = $this->data['title'];
+		$title = $this->getSkin()->getTitle()->getSubjectPage();
+		$titleText = $title->getPrefixedText();
 
-		if (
-			in_array( $this->getSkin()->getTitle()->getNamespace(), $wgContentNamespaces ) &&
-			!in_array( $this->getSkin()->getRequest()->getVal( 'action' ), array( 'submit', 'preview', 'edit', 'diff' ) )
-		)
-		{
-			$mySideTitle = wfMessage( 'refreshed-article', $mySideTitle )->text();
+		if ( $title->inNamespace( 0 ) ) {
+			$titleText = wfMessage( 'refreshed-article', $titleText )->text();
 		}
-		$mySideTitle = str_replace( '/', '<wbr>/<wbr>', $mySideTitle );
-		$mySideTitle = str_replace( ':', '<wbr>:<wbr>', $mySideTitle );
+		$titleText = str_replace( '/', '<wbr>/<wbr>', $titleText );
+		$titleText = str_replace( ':', '<wbr>:<wbr>', $titleText );
 
 		// suppress warnings to prevent notices about missing indexes in $this->data
 		wfSuppressWarnings();
 
 		// Output the <html> tag and whatnot
 		$this->html( 'headelement' );
-		
+
 		$refreshedImagePath = "$wgStylePath/Refreshed/refreshed/images";
 ?>
 
@@ -135,7 +132,7 @@ class RefreshedTemplate extends BaseTemplate {
 						reset( $this->data['content_actions'] );
 						$pageTab = key( $this->data['content_actions'] );
 
-						$this->data['content_actions'][$pageTab]['text'] = $mySideTitle;
+						$this->data['content_actions'][$pageTab]['text'] = $titleText;
 
 						foreach ( $this->data['content_actions'] as $action ) {
 					 		echo '<a class="' . $action['class'] . '" ' .
@@ -175,7 +172,7 @@ class RefreshedTemplate extends BaseTemplate {
 					reset( $this->data['content_actions'] );
 					$pageTab = key( $this->data['content_actions'] );
 
-					$this->data['content_actions'][$pageTab]['text'] = $mySideTitle;
+					$this->data['content_actions'][$pageTab]['text'] = $titleText;
 
 					$firstAction = true;
 					foreach ( $this->data['content_actions'] as $action ) {
