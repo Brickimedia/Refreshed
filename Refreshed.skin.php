@@ -60,7 +60,7 @@ class RefreshedTemplate extends BaseTemplate {
 
 		// Output the <html> tag and whatnot
 		$this->html( 'headelement' );
-		
+
 		$refreshedImagePath = "$wgStylePath/Refreshed/refreshed/images";
 ?>
 
@@ -198,13 +198,7 @@ class RefreshedTemplate extends BaseTemplate {
 			<br clear="all" />
 		</div>
 		<div id="rightbar">
-<<<<<<< HEAD
-			<div class="shower">
-				<?php echo "<i class=\"fa fa-2x fa-bars\"></i>"; ?>
-			</div>
-=======
 			<div class="shower"></div>
->>>>>>> f9f39668eeb6489fef18e1254d4efbcf82eff101
 			<div id="search">
 				<form action="<?php $this->text( 'wgScript' ) ?>" method="get">
 					<input type="hidden" name="title" value="<?php $this->text( 'searchtitle' ) ?>"/>
