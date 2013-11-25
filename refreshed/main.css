@@ -74,6 +74,7 @@ body {
 	padding: 0em 1em;
 	font-size: 1em;
 	word-wrap: break-word;
+	font-family: sans-serif;
 }
 
 #leftbar, #rightbar {
