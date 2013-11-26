@@ -74,9 +74,10 @@ body {
 
 #content {
 	padding: 0em 1em;
-	font-size: 1em;
+	font-size: 0.9em;
 	word-wrap: break-word;
 	font-family: sans-serif;
+	line-height: 1.2em;
 }
 
 #leftbar, #rightbar {
@@ -399,11 +400,6 @@ h6 {
 
 #cats {
 	padding: 1em;
-}
-
-#content {
-	line-height: 1.2em;
-	font-size: 0.95em;
 }
 
 #contentwrapper p:first-of-type {
