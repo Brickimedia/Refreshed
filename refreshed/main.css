@@ -196,6 +196,9 @@ a.toclevel-4 {
 a.toclevel-5 {
 	padding-right: 50px !important;
 }
+a.toclevel-6 {
+	padding-right: 60px !important;
+}
 
 #userinfo {
 	position: relative;
