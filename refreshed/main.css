@@ -480,5 +480,5 @@ h6 {
 }
 
 .suggestions {
-	position: fixed;
+	position: fixed !important;
 }
