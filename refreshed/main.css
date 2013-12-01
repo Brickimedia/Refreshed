@@ -478,3 +478,7 @@ h6 {
 	background: url("../../monobook/document.png") center right no-repeat;
 	padding-right: 12px;
 }
+
+.suggestions {
+	position: fixed;
+}
