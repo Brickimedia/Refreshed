@@ -47,16 +47,16 @@ var Refreshed = {
 			overlap = $( window ).height() - top3 - bottom;
 
 		overlap = overlap - 10;
-		
+
 		if ( overlap < 0 ) {
 			var newHeight = $( '#leftbar-bottom div' ).outerHeight() + overlap;
-			
+
 			if ( newHeight <= 50 ) {
 				$('#leftbar-bottom').css( 'visibility', 'hidden' );
 			} else {
 				$('#leftbar-bottom').css( 'visibility', 'visible' );
 			}
-			
+
 			$( '#leftbar-bottom' ).height( newHeight );
 			$( '#leftbar-bottom' ).css( {
 				'overflow-y': 'scroll',
@@ -66,10 +66,10 @@ var Refreshed = {
 			} );
 
 			$( window ).scroll( Refreshed.onScroll );
-			
+
 		} else {
 			$("#leftbar-bottom").css({'visibility': 'visible'});
-			
+
 			$( '#leftbar-bottom' ).height( 'auto' );
 			$( '#leftbar-bottom' ).css( {
 				'overflow-y': 'auto',
@@ -194,6 +194,9 @@ $( document ).ready( function() {
 	});
 
 	$( window ).resize( Refreshed.rightbar );
-
 	Refreshed.rightbar();
-} ); // end "on DOM ready" wrapper
+} );
+
+$( window ).load( function() {
+	Refreshed.rightbar();
+} );

@@ -31,7 +31,7 @@ class RefreshedTemplate extends BaseTemplate {
 	}
 
 	public function execute() {
-		global $wgStylePath, $wgContentNamespaces, $refreshedTOC, $namespaceNames;
+		global $wgStylePath, $wgContentNamespaces, $refreshedTOC, $namespaceNames, $wgUser;
 
 		// new TOC processing
 		$tocHTML = '';
@@ -72,6 +72,16 @@ class RefreshedTemplate extends BaseTemplate {
 			'admin' => "<img width=\"81\" height=\"22\" src=\"$refreshedImagePath/admin.png\" alt=\"\" />",
 			'dev' => "<img width=\"169\" height=\"26\" src=\"$refreshedImagePath/dev.png\" alt=\"\" />"
 		);
+
+		$groups = $wgUser->getGroups();
+		//$globalGroups = efGURGetGroups();
+
+		if ( in_array( 'sysop', $groups ) ) {
+			$logos['admin'] = "<img width=\"81\" height=\"22\" src=\"$refreshedImagePath/admin.png\" alt=\"\" />";
+		}
+		if ( in_array( 'sysadmin', $groups ) ) {
+			$logos['dev'] = "<img width=\"169\" height=\"26\" src=\"$refreshedImagePath/dev.png\" alt=\"\" />";
+		}
 
 		global $bmProject;
 		?>
@@ -164,26 +174,6 @@ class RefreshedTemplate extends BaseTemplate {
 					<?php $this->html( 'title' ) ?>
 					<h1 class="title-overlay">&nbsp;</h1>
 				</h1>
-
-			</div>
-			<div id="smalltoolboxwrapper">
-				<div id="smalltoolbox">
-					<?php
-					reset( $this->data['content_actions'] );
-					$pageTab = key( $this->data['content_actions'] );
-
-					$this->data['content_actions'][$pageTab]['text'] = $titleText;
-
-					$firstAction = true;
-					foreach ( $this->data['content_actions'] as $action ) {
-						if ( !$firstAction ) {
-							echo '<a href="' . htmlspecialchars( $action['href'] ) . '"><i class="icon-2x icon-link" id="icon-' . $action['id'] . '"></i></a>';
-						} else {
-							$firstAction = false;
-						}
-					} ?>
-				</div>
-				<a href="javascript:;"><i class="icon-ellipsis-horizontal icon-2x icon-link"></i></a>
 			</div>
 			<div id="content">
 				<?php $this->html( 'bodytext' ); ?>
