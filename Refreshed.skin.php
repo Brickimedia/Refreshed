@@ -69,12 +69,9 @@ class RefreshedTemplate extends BaseTemplate {
 			'customs' => "<img width=\"100\" height=\"30\" src=\"$refreshedImagePath/customs.png\" alt=\"\" />",
 			'stories' => "<img width=\"144\" height=\"30\" src=\"$refreshedImagePath/stories.png\" alt=\"\" />",
 			'cuusoo' => "<img width=\"144\" height=\"36\" src=\"$refreshedImagePath/cuusoo.png\" alt=\"\" />",
-			'admin' => "<img width=\"81\" height=\"22\" src=\"$refreshedImagePath/admin.png\" alt=\"\" />",
-			'dev' => "<img width=\"169\" height=\"26\" src=\"$refreshedImagePath/dev.png\" alt=\"\" />"
 		);
 
 		$groups = $wgUser->getGroups();
-		//$globalGroups = efGURGetGroups();
 
 		if ( in_array( 'sysop', $groups ) ) {
 			$logos['admin'] = "<img width=\"81\" height=\"22\" src=\"$refreshedImagePath/admin.png\" alt=\"\" />";
@@ -197,9 +194,9 @@ class RefreshedTemplate extends BaseTemplate {
 			<div id="rightbar-main">
 				<div id="rightbar-top">
 					<?php
-						unset( $this->data['sidebar']['SEARCH'] );
-						unset( $this->data['sidebar']['TOOLBOX'] );
-						unset( $this->data['sidebar']['LANGUAGES'] );
+						//unset( $this->data['sidebar']['SEARCH'] );
+						//unset( $this->data['sidebar']['TOOLBOX'] );
+						//unset( $this->data['sidebar']['LANGUAGES'] );
 
 						foreach ( $this->data['sidebar'] as $main => $sub ) {
 							echo '<span class="main">' . htmlspecialchars( $main ) . '</span>';
