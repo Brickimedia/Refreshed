@@ -31,7 +31,8 @@ class RefreshedTemplate extends BaseTemplate {
 	}
 
 	public function execute() {
-		global $wgStylePath, $wgContentNamespaces, $refreshedTOC, $namespaceNames, $wgUser;
+		global $wgStylePath, $wgContentNamespaces, $refreshedTOC, $namespaceNames,
+			$wgUser, $wgArticlePath, $wgUploadPath;
 
 		// new TOC processing
 		$tocHTML = '';
@@ -107,18 +108,11 @@ class RefreshedTemplate extends BaseTemplate {
 			<div id="userinfo">
 				<a href='javascript:;'>
 					<?php
-						global $wgUser, $wgArticlePath;
-						$id = $wgUser->getId();
-						if ( is_file( '/var/www/wiki/images/avatars/' . $id . '_m.png' ) ) {
-							$avatar = '/images/avatars/' . $id . '_m.png';
-						} elseif ( is_file( '/var/www/wiki/images/avatars/' . $id . '_m.jpg' ) ) {
-							$avatar = '/images/avatars/' . $id . '_m.jpg';
-						} elseif ( is_file( '/var/www/wiki/images/avatars/' . $id . '_m.gif' ) ) {
-							$avatar = '/images/avatars/' . $id . '_m.gif';
-						} else {
-							$avatar = '/images/avatars/default_m.gif';
-						}
-						echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow.png\" alt=\"\" /><img alt=\"\" class=\"avatar\" src=\"http://meta.brickimedia.org" . $avatar . "\" width=\"30\" /><span>{$wgUser->getName()}</span>";
+						$avatar = new wAvatar( $wgUser->getId(), 'm' );
+						$avatarPath = $wgUploadPath . '/avatars/' . $avatar->getAvatarImage();
+						echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow.png\" alt=\"\" />
+							<img alt=\"\" class=\"avatar\" src=\"$avatarPath\" width=\"30\" />
+							<span>{$wgUser->getName()}</span>";
 					?>
 				</a>
 				<div class="headermenu" style="display:none;">
@@ -130,7 +124,6 @@ class RefreshedTemplate extends BaseTemplate {
 						}
 					?>
 				</div>
-				<!--<img alt="" class="avatar" />-->
 			</div>
 			<div id="leftbar-main">
 				<div id="leftbar-top">
@@ -194,9 +187,9 @@ class RefreshedTemplate extends BaseTemplate {
 			<div id="rightbar-main">
 				<div id="rightbar-top">
 					<?php
-						//unset( $this->data['sidebar']['SEARCH'] );
-						//unset( $this->data['sidebar']['TOOLBOX'] );
-						//unset( $this->data['sidebar']['LANGUAGES'] );
+						unset( $this->data['sidebar']['SEARCH'] );
+						unset( $this->data['sidebar']['TOOLBOX'] );
+						unset( $this->data['sidebar']['LANGUAGES'] );
 
 						foreach ( $this->data['sidebar'] as $main => $sub ) {
 							echo '<span class="main">' . htmlspecialchars( $main ) . '</span>';
