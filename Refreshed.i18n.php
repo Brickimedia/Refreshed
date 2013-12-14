@@ -22,3 +22,8 @@ $messages['qqq'] = array(
 $messages['fi'] = array(
 	'refreshed-article' => 'artikkeli:$1',
 );
+
+/** Vietnamese **/
+$messages['vi'] = array(
+	'refreshed-article' => 'Bài viết:$1',
+);
