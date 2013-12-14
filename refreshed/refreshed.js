@@ -195,6 +195,14 @@ $( document ).ready( function() {
 
 	$( window ).resize( Refreshed.rightbar );
 	Refreshed.rightbar();
+
+	$( "#toolbox-link" ).click( function() {
+		$("#toolbox").fadeToggle();
+		$(this).children().toggleClass( 'rotate' );
+	});
+	$( "#toolbox-link" ).hover( function() {
+		$(this).children().toggleClass( 'no-show' );
+	})
 } );
 
 $( window ).load( function() {

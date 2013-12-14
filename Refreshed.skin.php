@@ -127,19 +127,34 @@ class RefreshedTemplate extends BaseTemplate {
 			</div>
 			<div id="leftbar-main">
 				<div id="leftbar-top">
-					<div id="pagelinks">
-						<?php
+					<?php
 						reset( $this->data['content_actions'] );
 						$pageTab = key( $this->data['content_actions'] );
 
 						$this->data['content_actions'][$pageTab]['text'] = $titleText;
 
-						foreach ( $this->data['content_actions'] as $action ) {
-					 		echo '<a class="' . $action['class'] . '" ' .
-					 			'id="' . $action['id'] . '" ' .
-					 			'href="' . htmlspecialchars( $action['href'] ) . '">' .
-					 			$action['text'] . '</a>'; // no htmlspecialchars
-						} ?>
+						$title = $this->data['content_actions'][$pageTab];
+						echo '<a class="' . $title['class'] . '" ' .
+							'id="' . $title['id'] . '" ' .
+							'href="' . htmlspecialchars( $title['href'] ) . '">' .
+							$title['text'] . '</a>'; // no htmlspecialchars for <wbr>s
+						unset( $this->data['content_actions'][$pageTab] );
+
+						foreach ( $this->data['content_actions'] as $key => $action ) {
+							echo $this->makeLink( $key, $action );
+						}
+						echo "<a href=\"javascript:;\" id=\"toolbox-link\">
+							<img class=\"arrow\" src=\"$refreshedImagePath/arrow-small.png\" alt=\"\" width=\"11\" height=\"6\" />
+							<img class=\"arrow no-show\" src=\"$refreshedImagePath/arrow-small-hover.png\" alt=\"\" width=\"11\" height=\"6\" />
+							{$this->getMsg( 'toolbox' )->text()}</a>";
+					?>
+					<div id="toolbox" style="display:none;">
+						<?php
+							$toolbox = $this->getToolbox();
+							foreach( $toolbox as $tool => $toolData ) {
+								echo $this->makeLink( $tool, $toolData );
+							}
+						?>
 					</div>
 				</div>
 				<div id="leftbar-bottom">
@@ -194,10 +209,11 @@ class RefreshedTemplate extends BaseTemplate {
 						foreach ( $this->data['sidebar'] as $main => $sub ) {
 							echo '<span class="main">' . htmlspecialchars( $main ) . '</span>';
 							if ( is_array( $sub ) ) { // MW-generated stuff from the sidebar message
-								foreach ( $sub as $action ) {
-									echo '<a class="sub" id="' . $action['id'] . '" ' .
+								foreach ( $sub as $key => $action ) {
+									echo $this->makeLink( $key, $action, array( 'link-class' => 'sub' ) );
+									/*echo '<a class="sub" id="' . $action['id'] . '" ' .
 										'href="' . htmlspecialchars( $action['href'] ) . '">' .
-										htmlspecialchars( $action['text'] ) . '</a>';
+										htmlspecialchars( $action['text'] ) . '</a>';*/
 								}
 							} else {
 								// allow raw HTML block to be defined by extensions (like NewsBox)

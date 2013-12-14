@@ -145,14 +145,21 @@ body {
 	border-left: 5px solid #CCC;
 	margin-left: 0px;
 }
-#pagelinks a, #rightbar-top a {
+#leftbar-top a, #rightbar-top a {
 	text-transform: lowercase;
 }
-#pagelinks {
+#leftbar-top {
 	padding-top: 8px;
 }
 #rightbar-top {
 	padding-top: 8px;
+}
+#toolbox {
+	right: 0;
+	z-index: 5;
+	background-color: rgba(0, 0, 0, 0.5);
+	position: absolute;
+	width: 100%;
 }
 
 .shower {
@@ -221,16 +228,21 @@ a.toclevel-6 {
 	margin-left: 3.5em;
 }
 #userinfo .arrow {
+	position: absolute;
+	left: 1em;
+	top: 1.2em;
+	vertical-align: text-bottom;
+}
+#toolbox-link .arrow {
+	vertical-align: 2px;
+}
+#userinfo .arrow, #toolbox-link .arrow {
 	transition: transform 0.5s;
 	-webkit-transition: -webkit-transform 0.5s; /* Safari */
 	transform: rotateZ(0deg);
 	-webkit-transform: rotateZ(0deg); /* Safari */
-	vertical-align: text-bottom;
-	position: absolute;
-	left: 1em;
-	top: 1.2em;
 }
-#userinfo .arrow.rotate {
+#userinfo .arrow.rotate, #toolbox-link .arrow.rotate {
 	transform: rotateZ(-180deg);
 	-webkit-transform: rotateZ(-180deg); /* Safari */
 }
@@ -238,6 +250,9 @@ a.toclevel-6 {
 	position: absolute;
 	left: 2.5em;
 	width: 30px;
+}
+#toolbox-link .no-show {
+	display: none;
 }
 
 .headermenu {
