@@ -109,16 +109,16 @@ class RefreshedTemplate extends BaseTemplate {
 					<?php
 						global $wgUser, $wgArticlePath;
 						$id = $wgUser->getId();
-						if ( is_file( '/var/www/wiki/images/avatars/' . $id . '_m.png' ) ) {
-							$avatar = '/images/avatars/' . $id . '_m.png';
-						} elseif ( is_file( '/var/www/wiki/images/avatars/' . $id . '_m.jpg' ) ) {
-							$avatar = '/images/avatars/' . $id . '_m.jpg';
-						} elseif ( is_file( '/var/www/wiki/images/avatars/' . $id . '_m.gif' ) ) {
-							$avatar = '/images/avatars/' . $id . '_m.gif';
+						if ( is_file( '/var/www/images/avatars/' . $id . '_m.png' ) ) {
+							$avatar = '/avatars/' . $id . '_m.png';
+						} elseif ( is_file( '/var/www/images/avatars/' . $id . '_m.jpg' ) ) {
+							$avatar = '/avatars/' . $id . '_m.jpg';
+						} elseif ( is_file( '/var/www/images/avatars/' . $id . '_m.gif' ) ) {
+							$avatar = '/avatars/' . $id . '_m.gif';
 						} else {
-							$avatar = '/images/avatars/default_m.gif';
+							$avatar = '/avatars/default_m.gif';
 						}
-						echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow.png\" alt=\"\" /><img alt=\"\" class=\"avatar\" src=\"http://meta.brickimedia.org" . $avatar . "\" width=\"30\" /><span>{$wgUser->getName()}</span>";
+						echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow.png\" alt=\"\" /><img alt=\"\" class=\"avatar\" src=\"http://images.brickimedia.org" . $avatar . "\" width=\"30\" /><span>{$wgUser->getName()}</span>";
 					?>
 				</a>
 				<div class="headermenu" style="display:none;">
