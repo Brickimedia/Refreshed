@@ -154,6 +154,13 @@ body {
 #leftbar-top > a:first-of-type {
 	text-transform: none;
 }
+#leftbar-top .new {
+	color:#fdad9d;
+}
+#leftbar-top .new:hover {
+	color: #f47d64;
+	border-color: #f47d64;
+}
 #leftbar-top {
 	padding-top: 8px;
 }
@@ -285,7 +292,7 @@ a.toclevel-6 {
 	text-decoration: none;
 }
 .headermenu .new {
-	color: #f47d64 !important;
+	color: #fdad9d !important;
 }
 #userinfo .headermenu {
 	left: 1em;
