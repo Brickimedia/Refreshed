@@ -149,11 +149,10 @@ body {
 	text-transform: lowercase;
 }
 #leftbar-top a {
-	padding: 0.15em 20px 0.15em;
+	padding: 0.15em 10px 0.15em;
 }
 #leftbar-top > a:first-of-type {
 	text-transform: none;
-	padding: 0.15em 10px 0.15em 0;
 }
 #leftbar-top .new {
 	color: #f47d64;
