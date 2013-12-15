@@ -154,13 +154,6 @@ body {
 #leftbar-top > a:first-of-type {
 	text-transform: none;
 }
-#leftbar-top .new {
-	color: #f47d64;
-}
-#leftbar-top .new:hover {
-	color: #e2b1a7;
-	border-color: #e2b1a7;
-}
 #leftbar-top {
 	padding-top: 8px;
 }
