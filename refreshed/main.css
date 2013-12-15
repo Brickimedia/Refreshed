@@ -148,6 +148,20 @@ body {
 #leftbar-top a, #rightbar-top a {
 	text-transform: lowercase;
 }
+#leftbar-top a {
+	padding: 0.15em 20px 0.15em;
+}
+#leftbar-top > a:first-of-type {
+	text-transform: none;
+	padding: 0.15em 10px 0.15em 0;
+}
+#leftbar-top .new {
+	color: #f47d64;
+}
+#leftbar-top .new:hover {
+	color: #e2b1a7;
+	border-color: #e2b1a7;
+}
 #leftbar-top {
 	padding-top: 8px;
 }
@@ -156,7 +170,7 @@ body {
 }
 #toolbox {
 	right: 0;
-	z-index: 5;
+	z-index: 3;
 	background-color: rgba(0, 0, 0, 0.7);
 	position: absolute;
 	width: 12em;
@@ -277,6 +291,9 @@ a.toclevel-6 {
 	opacity: 1;
 	background-color: midnightblue;
 	text-decoration: none;
+}
+.headermenu .new {
+	color: #f47d64 !important;
 }
 #userinfo .headermenu {
 	left: 1em;
