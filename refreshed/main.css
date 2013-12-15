@@ -157,7 +157,7 @@ body {
 #toolbox {
 	right: 0;
 	z-index: 5;
-	background-color: rgba(0, 0, 0, 0.5);
+	background-color: rgba(0, 0, 0, 0.6);
 	position: absolute;
 	width: 100%;
 }

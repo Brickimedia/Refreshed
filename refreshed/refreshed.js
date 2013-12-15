@@ -120,7 +120,7 @@ var Refreshed = {
 
 		goTo = goTo + $( '#refreshed-toc a' ).height();
 
-		$( '#leftbar-bottom' ).scrollTop( goTo );
+		$( '#leftbar-bottom' ).stop().animate( {'scrollTop': goTo}, 200 );
 	},
 
 	rightbar: function() {
@@ -148,7 +148,7 @@ $( document ).ready( function() {
 	});
 
 	$( window ).scroll( function() {
-		if ( $( '.toctext' ).length !== 0 ) {
+		if ( $( '#refreshed-toc a' ).length != 0 ) {
 			Refreshed.moveBoxTo( $( this ).scrollTop() );
 		}
 	});
@@ -207,4 +207,5 @@ $( document ).ready( function() {
 
 $( window ).load( function() {
 	Refreshed.rightbar();
+	Refreshed.overlap();
 } );
