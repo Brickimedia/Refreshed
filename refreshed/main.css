@@ -155,6 +155,23 @@ body {
 #leftbar-top > a:first-of-type {
 	text-transform: none;
 }
+#leftbar-top > a:nth-of-type(3) {
+	margin-top: .65em;
+}
+#leftbar-top .selected {
+	border-right: 5px solid white;
+	margin-right: 0;
+}
+#leftbar-top .new {
+	color: #fdad9d;
+}
+#leftbar-top .new:hover {
+	color: #f47d64;
+	border-color: #f47d64;
+}
+#leftbar-top .new.selected {
+	border-right: 5px solid #fdad9d;
+}
 #leftbar-top {
 	padding-top: 8px;
 }
@@ -286,7 +303,7 @@ a.toclevel-6 {
 	text-decoration: none;
 }
 .headermenu .new {
-	color: #f47d64 !important;
+	color: #fdad9d !important;
 }
 #userinfo .headermenu {
 	left: 1em;
