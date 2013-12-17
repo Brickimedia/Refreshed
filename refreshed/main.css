@@ -257,6 +257,9 @@ a.toclevel-6 {
 	top: 1.2em;
 	vertical-align: text-bottom;
 }
+#toolbox-link {
+	margin-top: 0.65em;
+}
 #toolbox-link .arrow {
 	vertical-align: 2px;
 }
