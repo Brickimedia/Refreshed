@@ -156,7 +156,7 @@ body {
 	text-transform: none;
 }
 #leftbar-top > a:nth-of-type(3) {
-	margin-top: .65em;
+	margin-top: 0.5em;
 }
 #leftbar-top .selected {
 	border-right: 5px solid white;
@@ -258,7 +258,7 @@ a.toclevel-6 {
 	vertical-align: text-bottom;
 }
 #toolbox-link {
-	margin-top: 0.65em;
+	margin-top: 0.5em;
 }
 #toolbox-link .arrow {
 	vertical-align: 2px;
