@@ -110,7 +110,7 @@ class RefreshedTemplate extends BaseTemplate {
 					<?php
 						$avatar = new wAvatar( $wgUser->getId(), 'm' );
 						$avatarPath = $wgUploadPath . '/avatars/' . $avatar->getAvatarImage();
-						echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow.png\" alt=\"\" />
+						echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow.png\" alt=\"\" width=\"15\" height=\"8\" />
 							<img alt=\"\" class=\"avatar\" src=\"$avatarPath\" width=\"30\" />
 							<span>{$wgUser->getName()}</span>";
 					?>
@@ -144,7 +144,7 @@ class RefreshedTemplate extends BaseTemplate {
 							echo $this->makeLink( $key, $action );
 						}
 						echo "<a href=\"javascript:;\" id=\"toolbox-link\">
-							<img class=\"arrow\" src=\"$refreshedImagePath/arrow-small.png\" alt=\"\" width=\"11\" height=\"6\" />
+							<img class=\"arrow\" src=\"$refreshedImagePath/arrow.png\" alt=\"\" width=\"11\" height=\"6\" />
 							<img class=\"arrow no-show\" src=\"$refreshedImagePath/arrow-small-hover.png\" alt=\"\" width=\"11\" height=\"6\" />
 							{$this->getMsg( 'toolbox' )->text()}</a>";
 					?>
