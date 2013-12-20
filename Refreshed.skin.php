@@ -182,8 +182,8 @@ class RefreshedTemplate extends BaseTemplate {
 			</div>
 			<div id="content">
 				<?php $this->html( 'bodytext' ); ?>
-			<!-- I know it seems there should be a </div> here, but bodytext seems to be printing one to many.
-			An </div> here will actuall close contentwrapper, and that will force things later down to be in the wrong place -->
+			</div>
+			<!-- some strange stuff going on here... -->
 			<?php $this->html( 'catlinks' ); ?>
 			<?php if ( $this->data['dataAfterContent'] ) { $this->html( 'dataAfterContent' ); } ?>
 			<br clear="all" />
