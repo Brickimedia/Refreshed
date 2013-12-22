@@ -21,7 +21,7 @@
 	position: relative;
 }
 	#maintitle h1 {
-			overflow-x: scroll;
+		overflow-x: auto;
 		white-space: nowrap;
 		padding-right: 7px;
 	}
