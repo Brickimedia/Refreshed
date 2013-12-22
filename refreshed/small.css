@@ -9,7 +9,7 @@
 	background-color: rgba(25, 25, 112, 0.8);
 }
 #rightbar .shower {
-	width: 39px;
+	right: 12.5em;
 }
 #userinfo > a {
 	max-width: 11em;
