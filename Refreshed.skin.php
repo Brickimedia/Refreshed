@@ -233,6 +233,11 @@ class RefreshedTemplate extends BaseTemplate {
 		</div>
 	</div>
 	<div id="footer">
+		<?php
+			$showAdvert = false;
+			wfRunHooks( 'RefreshedAdvert', array( &$showAdvert ) );
+			if ( $showAdvert ):
+		?>
 		<div id="advert">
 			<p><?php echo wfMessage( 'refreshed-advert' )->text(); ?></p>
 			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -246,28 +251,30 @@ class RefreshedTemplate extends BaseTemplate {
 			</script>
 		</div>
 		<?php
-		foreach ( $this->getFooterLinks() as $category => $links ) {
-			$this->html( $category );
-			$noskip = false;
-			foreach ( $links as $link ) {
-				echo '&ensp;';
-				$this->html( $link );
-				echo '&ensp;';
-				$noskip = true;
+			endif;
+
+			foreach ( $this->getFooterLinks() as $category => $links ) {
+				$this->html( $category );
+				$noskip = false;
+				foreach ( $links as $link ) {
+					echo '&ensp;';
+					$this->html( $link );
+					echo '&ensp;';
+					$noskip = true;
+				}
+				echo '<br />';
 			}
-			echo '<br />';
-		}
-		$footerIcons = $this->getFooterIcons( 'icononly' );
-		if ( count( $footerIcons ) > 0 ) {
-			$noskip = false;
-			foreach ( $footerIcons as $blockName => $footerIcons ) {
-				foreach ( $footerIcons as $icon ) {
-					echo '&ensp;';
-					echo $this->getSkin()->makeFooterIcon( $icon );
-					echo '&ensp;';
+			$footerIcons = $this->getFooterIcons( 'icononly' );
+			if ( count( $footerIcons ) > 0 ) {
+				$noskip = false;
+				foreach ( $footerIcons as $blockName => $footerIcons ) {
+					foreach ( $footerIcons as $icon ) {
+						echo '&ensp;';
+						echo $this->getSkin()->makeFooterIcon( $icon );
+						echo '&ensp;';
+					}
 				}
 			}
-		}
 		?>
 	</div>
 <?php

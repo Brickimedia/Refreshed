@@ -403,7 +403,6 @@ a.toclevel-6 {
 	vertical-align: text-top;
 }
 #footer #advert {
-	margin-top: -1em; /* not too much spacing before ad */
 	margin-bottom: 1em; /* enough spacing after ad */
 }
 #footer #advert p {
