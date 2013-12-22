@@ -195,7 +195,11 @@ body {
 	left: 12em;
 }
 #rightbar .shower {
-	right: 12em;
+	width: 48px;
+	background-image: url("images/mobile-icon-sprite.png");
+	background-size: 421px 28px;
+	background-repeat: no-repeat;
+	background-position: 0;
 }
 
 #refreshed-toc {

@@ -65,9 +65,9 @@ class RefreshedTemplate extends BaseTemplate {
 	<div id="header">
 		<?php
 		$logos = array(
-			'meta' => "<img width=\"144\" height=\"30\" src=\"$refreshedImagePath/brickimedia.png\" alt=\"\" />",
-			'en' => "<img width=\"138\" height=\"30\" src=\"$refreshedImagePath/brickipedia.png\" alt=\"\" />",
-			'customs' => "<img width=\"100\" height=\"30\" src=\"$refreshedImagePath/customs.png\" alt=\"\" />",
+			'meta' => "<img width=\"144\" height=\"30\" src=\"$refreshedImagePath/brickimedia.svg\" alt=\"\" />",
+			'en' => "<img width=\"138\" height=\"30\" src=\"$refreshedImagePath/brickipedia.svg\" alt=\"\" />",
+			'customs' => "<img width=\"100\" height=\"30\" src=\"$refreshedImagePath/customs.svg\" alt=\"\" />",
 			'stories' => "<img width=\"144\" height=\"30\" src=\"$refreshedImagePath/stories.png\" alt=\"\" />",
 			'cuusoo' => "<img width=\"144\" height=\"36\" src=\"$refreshedImagePath/cuusoo.png\" alt=\"\" />",
 		);
@@ -75,7 +75,7 @@ class RefreshedTemplate extends BaseTemplate {
 		$groups = $wgUser->getGroups();
 
 		if ( in_array( 'sysop', $groups ) ) {
-			$logos['admin'] = "<img width=\"81\" height=\"22\" src=\"$refreshedImagePath/admin.png\" alt=\"\" />";
+			$logos['admin'] = "<img width=\"81\" height=\"22\" src=\"$refreshedImagePath/admin.svg\" alt=\"\" />";
 		}
 		if ( in_array( 'sysadmin', $groups ) ) {
 			$logos['dev'] = "<img width=\"169\" height=\"26\" src=\"$refreshedImagePath/dev.png\" alt=\"\" />";
@@ -88,7 +88,7 @@ class RefreshedTemplate extends BaseTemplate {
 				<?php
 					echo $logos[$bmProject];
 					unset( $logos[$bmProject] );
-					echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow.png\" alt=\"\" width=\"15\" height=\"8\" />";
+					echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow-highres.png\" alt=\"\" width=\"15\" height=\"8\" />";
 				?>
 			</a>
 			<div class="headermenu" style="display:none;">
@@ -110,7 +110,7 @@ class RefreshedTemplate extends BaseTemplate {
 					<?php
 						$avatar = new wAvatar( $wgUser->getId(), 'm' );
 						$avatarPath = $wgUploadPath . '/avatars/' . $avatar->getAvatarImage();
-						echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow.png\" alt=\"\" width=\"15\" height=\"8\" />
+						echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow-highres.png\" alt=\"\" width=\"15\" height=\"8\" />
 							<img alt=\"\" class=\"avatar\" src=\"$avatarPath\" width=\"30\" />
 							<span>{$wgUser->getName()}</span>";
 					?>
@@ -144,8 +144,8 @@ class RefreshedTemplate extends BaseTemplate {
 							echo $this->makeLink( $key, $action );
 						}
 						echo "<a href=\"javascript:;\" id=\"toolbox-link\">
-							<img class=\"arrow\" src=\"$refreshedImagePath/arrow.png\" alt=\"\" width=\"11\" height=\"6\" />
-							<img class=\"arrow no-show\" src=\"$refreshedImagePath/arrow-small-hover.png\" alt=\"\" width=\"11\" height=\"6\" />
+							<img class=\"arrow\" src=\"$refreshedImagePath/arrow-highres.png\" alt=\"\" width=\"11\" height=\"6\" />
+							<img class=\"arrow no-show\" src=\"$refreshedImagePath/arrow-highres-hover.png\" alt=\"\" width=\"11\" height=\"6\" />
 							{$this->getMsg( 'toolbox' )->text()}</a>";
 					?>
 					<div id="toolbox" style="display:none;">
@@ -189,9 +189,7 @@ class RefreshedTemplate extends BaseTemplate {
 			<br clear="all" />
 		</div>
 		<div id="rightbar">
-			<div class="shower">
-				<?php echo "<img class=\"arrow\" alt=\"\" src=\"$refreshedImagePath/mobile-expand.png\" width=\"48\" height=\"48\" />"; ?>
-			</div>
+			<div class="shower"></div>
 			<div id="search">
 				<form action="<?php $this->text( 'wgScript' ) ?>" method="get">
 					<input type="hidden" name="title" value="<?php $this->text( 'searchtitle' ) ?>"/>

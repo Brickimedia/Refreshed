@@ -8,7 +8,9 @@
 	right: -12em;
 	background-color: rgba(25, 25, 112, 0.8);
 }
-
+#rightbar .shower {
+	width: 39px;
+}
 #userinfo > a {
 	max-width: 11em;
 }
