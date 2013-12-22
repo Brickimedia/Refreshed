@@ -379,11 +379,9 @@ a.toclevel-6 {
 #preftoc li {
 	display: inline;
 }
-
 #preftoc li:before {
 	content: " - ";
 }
-
 #preftoc li:first-child:before {
 	content: none !important;
 }
@@ -403,6 +401,13 @@ a.toclevel-6 {
 }
 #footer img {
 	vertical-align: text-top;
+}
+#footer #advert {
+	margin-top: -1em; /* not too much spacing before ad */
+	margin-bottom: 1em; /* enough spacing after ad */
+}
+#footer #advert p {
+	margin: 0;
 }
 
 /******************************** CONTENT/OTHER THINGS BEYOND CONTROL ******************************/

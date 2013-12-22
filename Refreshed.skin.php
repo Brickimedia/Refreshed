@@ -233,6 +233,18 @@ class RefreshedTemplate extends BaseTemplate {
 		</div>
 	</div>
 	<div id="footer">
+		<div id="advert">
+			<p><?php echo wfMessage( 'refreshed-advert' )->text(); ?></p>
+			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			<!-- Refreshed ad -->
+			<ins class="adsbygoogle"
+     			style="display:inline-block;width:728px;height:90px"
+     			data-ad-client="ca-pub-9543775174763951"
+    			data-ad-slot="7733872730"></ins>
+			<script>
+				(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>
+		</div>
 		<?php
 		foreach ( $this->getFooterLinks() as $category => $links ) {
 			$this->html( $category );
