@@ -180,6 +180,26 @@ class RefreshedTemplate extends BaseTemplate {
 					<h1 id="title-overlay">&nbsp;</h1>
 				</h1>
 			</div>
+			<div id="smalltoolboxwrapper">
+                                <div id="smalltoolbox">
+                                        <?php 
+                                        reset($this->data['content_actions']);
+                                        $pageTab = key($this->data['content_actions']);
+        
+                                        $this->data['content_actions'][$pageTab]['text'] = $mySideTitle;
+        
+                                        $firstAction = true;
+                                        foreach ( $this->data['content_actions'] as $action ){
+                                                if (!$firstAction) {
+                                                        echo "<a href='" . htmlspecialchars( $action['href'] ) . "'><div class='small-icon' id='icon-" . $action['id'] . "'></div></a>";
+                                                } else {
+                                                        echo NULL;
+                                                        $firstAction = false;
+                                                }
+                                        } ?>
+                                </div>
+                                <a href="javascript:;"><div class="small-icon" id="icon-more"></div></a>
+                        </div>
 			<div id="content">
 				<?php $this->html( 'bodytext' ); ?>
 			</div>
