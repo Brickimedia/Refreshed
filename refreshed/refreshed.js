@@ -203,6 +203,11 @@ $( document ).ready( function() {
 	$( "#toolbox-link" ).hover( function() {
 		$(this).children().toggleClass( 'no-show' );
 	})
+	
+	$("#smalltoolboxwrapper > a").click(function(){
+    	$("#smalltoolbox").animate({'width': '100%'});
+		$(this).css({'display': 'none'});
+	});
 } );
 
 $( window ).load( function() {

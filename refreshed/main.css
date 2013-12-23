@@ -47,6 +47,10 @@ body {
 		display: none;
 	}
 
+#smalltoolboxwrapper {
+	display: none;
+}
+
 #site-notice {
 	width: 100%;
 	text-align: center;
