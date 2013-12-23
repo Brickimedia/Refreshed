@@ -10,7 +10,7 @@ $messages = array();
 /** English */
 $messages['en'] = array(
 	'refreshed-article' => 'article:$1',
-	'refreshed-advert' => 'Advert'
+	'refreshed-advert' => 'Advertisement'
 );
 
 /** Message documentation */
@@ -28,4 +28,10 @@ $messages['fi'] = array(
 /** Vietnamese **/
 $messages['vi'] = array(
 	'refreshed-article' => 'Bài viết:$1',
+);
+
+/** German (Deutsch) **/
+$messages['de'] = array(
+	'refreshed-article' => 'Seite:$1',
+	'refreshed-advert' => 'Werbung'
 );
