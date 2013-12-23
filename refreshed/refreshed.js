@@ -121,10 +121,6 @@ var Refreshed = {
 		goTo = goTo + $( '#refreshed-toc a' ).height();
 
 		$( '#leftbar-bottom' ).stop().animate( {'scrollTop': goTo}, 200 );
-	},
-
-	rightbar: function() {
-		$( '#rightbar-top' ).height( $( window ).height() - $( '#rightbar-top' ).position().top - 8 );
 	}
 };
 
@@ -193,9 +189,6 @@ $( document ).ready( function() {
 		}
 	});
 
-	$( window ).resize( Refreshed.rightbar );
-	Refreshed.rightbar();
-
 	$( "#toolbox-link" ).click( function() {
 		$("#toolbox").fadeToggle();
 		$(this).children().toggleClass( 'rotate' );
@@ -203,9 +196,4 @@ $( document ).ready( function() {
 	$( "#toolbox-link" ).hover( function() {
 		$(this).children().toggleClass( 'no-show' );
 	})
-} );
-
-$( window ).load( function() {
-	Refreshed.rightbar();
-	Refreshed.overlap();
 } );
