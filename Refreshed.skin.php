@@ -108,7 +108,7 @@ class RefreshedTemplate extends BaseTemplate {
 			<div id="userinfo">
 				<a href='javascript:;'>
 					<?php
-						$avatar = new wAvatar( $wgUser->getId(), 'm' );
+						$avatar = new wAvatar( $wgUser->getId(), 'l' );
 						$avatarPath = $wgUploadPath . '/avatars/' . $avatar->getAvatarImage();
 						echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow-highres.png\" alt=\"\" width=\"15\" height=\"8\" />
 							<img alt=\"\" class=\"avatar\" src=\"$avatarPath\" width=\"30\" />
