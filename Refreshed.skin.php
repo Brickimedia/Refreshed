@@ -31,7 +31,8 @@ class RefreshedTemplate extends BaseTemplate {
 	}
 
 	public function execute() {
-		global $wgStylePath, $wgContentNamespaces, $refreshedTOC;
+		global $wgStylePath, $wgContentNamespaces, $refreshedTOC, $namespaceNames,
+			$wgUser, $wgArticlePath, $wgUploadPath;
 
 		// new TOC processing
 		$tocHTML = '';
@@ -43,17 +44,14 @@ class RefreshedTemplate extends BaseTemplate {
 		}
 
 		// Title processing
-		$mySideTitle = $this->data['title'];
+		$title = $this->getSkin()->getTitle()->getSubjectPage();
+		$titleText = $title->getPrefixedText();
 
-		if (
-			in_array( $this->getSkin()->getTitle()->getNamespace(), $wgContentNamespaces ) &&
-			!in_array( $this->getSkin()->getRequest()->getVal( 'action' ), array( 'submit', 'preview', 'edit', 'diff' ) )
-		)
-		{
-			$mySideTitle = wfMessage( 'refreshed-article', $mySideTitle )->text();
+		if ( $title->inNamespace( 0 ) ) {
+			$titleText = wfMessage( 'refreshed-article', $titleText )->text();
 		}
-		$mySideTitle = str_replace( '/', '<wbr>/<wbr>', $mySideTitle );
-		$mySideTitle = str_replace( ':', '<wbr>:<wbr>', $mySideTitle );
+		$titleText = str_replace( '/', '<wbr>/<wbr>', $titleText );
+		$titleText = str_replace( ':', '<wbr>:<wbr>', $titleText );
 
 		// suppress warnings to prevent notices about missing indexes in $this->data
 		wfSuppressWarnings();
@@ -67,14 +65,21 @@ class RefreshedTemplate extends BaseTemplate {
 	<div id="header">
 		<?php
 		$logos = array(
-			'meta' => "<img width=\"144\" height=\"30\" src=\"$refreshedImagePath/brickimedia.png\" alt=\"\" />",
-		     	'en' => "<img width=\"138\" height=\"30\" src=\"$refreshedImagePath/brickipedia.png\" alt=\"\" />",
-		      	'customs' => "<img width=\"100\" height=\"30\" src=\"$refreshedImagePath/customs.png\" alt=\"\" />",
-		     	'stories' => "<img width=\"144\" height=\"30\" src=\"$refreshedImagePath/stories.png\" alt=\"\" />",
-		     	'cuusoo' => "<img width=\"144\" height=\"36\" src=\"$refreshedImagePath/cuusoo.png\" alt=\"\" />",
-		    	'admin' => "<img width=\"81\" height=\"22\" src=\"$refreshedImagePath/admin.png\" alt=\"\" />",
-		     	'dev' => "<img width=\"169\" height=\"26\" src=\"$refreshedImagePath/dev.png\" alt=\"\" />"
+			'meta' => "<img width=\"144\" height=\"30\" src=\"$refreshedImagePath/brickimedia.svg\" alt=\"\" />",
+			'en' => "<img width=\"138\" height=\"30\" src=\"$refreshedImagePath/brickipedia.svg\" alt=\"\" />",
+			'customs' => "<img width=\"100\" height=\"30\" src=\"$refreshedImagePath/customs.svg\" alt=\"\" />",
+			'stories' => "<img width=\"144\" height=\"30\" src=\"$refreshedImagePath/stories.png\" alt=\"\" />",
+			'cuusoo' => "<img width=\"144\" height=\"36\" src=\"$refreshedImagePath/cuusoo.png\" alt=\"\" />",
 		);
+
+		$groups = $wgUser->getGroups();
+
+		if ( in_array( 'sysop', $groups ) ) {
+			$logos['admin'] = "<img width=\"81\" height=\"22\" src=\"$refreshedImagePath/admin.svg\" alt=\"\" />";
+		}
+		if ( in_array( 'sysadmin', $groups ) ) {
+			$logos['dev'] = "<img width=\"169\" height=\"26\" src=\"$refreshedImagePath/dev.png\" alt=\"\" />";
+		}
 
 		global $bmProject;
 		?>
@@ -83,7 +88,7 @@ class RefreshedTemplate extends BaseTemplate {
 				<?php
 					echo $logos[$bmProject];
 					unset( $logos[$bmProject] );
-					echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow.png\" alt=\"\" width=\"15\" height=\"8\" />";
+					echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow-highres.png\" alt=\"\" width=\"15\" height=\"8\" />";
 				?>
 			</a>
 			<div class="headermenu" style="display:none;">
@@ -98,23 +103,16 @@ class RefreshedTemplate extends BaseTemplate {
 	<div id="fullwrapper">
 		<div id="leftbar">
 			<div class="shower">
-				<?php echo "<img class=\"arrow\" src=\"$refreshedImagePath/mobile-expand-edit.png\" alt=\"\" width=\"48\" height=\"58\" />"; ?>
+				<?php echo "<img class=\"arrow\" src=\"$refreshedImagePath/mobile-expand-edit.png\" alt=\"\" width=\"48\" height=\"48\" />"; ?>
 			</div>
 			<div id="userinfo">
 				<a href='javascript:;'>
 					<?php
-						global $wgUser, $wgArticlePath;
-						$id = $wgUser->getId();
-						if ( is_file( '/var/www/wiki/images/avatars/' . $id . '_m.png' ) ) {
-							$avatar = '/images/avatars/' . $id . '_m.png';
-						} elseif ( is_file( '/var/www/wiki/images/avatars/' . $id . '_m.jpg' ) ) {
-							$avatar = '/images/avatars/' . $id . '_m.jpg';
-						} elseif ( is_file( '/var/www/wiki/images/avatars/' . $id . '_m.gif' ) ) {
-							$avatar = '/images/avatars/' . $id . '_m.gif';
-						} else {
-							$avatar = '/images/avatars/default_m.gif';
-						}
-						echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow.png\" alt=\"\" /><img alt=\"\" class=\"avatar\" src=\"http://meta.brickimedia.org" . $avatar . "\" width=\"30\" /><span>{$wgUser->getName()}</span>";
+						$avatar = new wAvatar( $wgUser->getId(), 'l' );
+						$avatarPath = $wgUploadPath . '/avatars/' . $avatar->getAvatarImage();
+						echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow-highres.png\" alt=\"\" width=\"15\" height=\"8\" />
+							<img alt=\"\" class=\"avatar\" src=\"$avatarPath\" width=\"30\" />
+							<span>{$wgUser->getName()}</span>";
 					?>
 				</a>
 				<div class="headermenu" style="display:none;">
@@ -126,23 +124,37 @@ class RefreshedTemplate extends BaseTemplate {
 						}
 					?>
 				</div>
-				<!--<img alt="" class="avatar" />-->
 			</div>
 			<div id="leftbar-main">
 				<div id="leftbar-top">
-					<div id="pagelinks">
-						<?php
+					<?php
 						reset( $this->data['content_actions'] );
 						$pageTab = key( $this->data['content_actions'] );
 
-						$this->data['content_actions'][$pageTab]['text'] = $mySideTitle;
+						$this->data['content_actions'][$pageTab]['text'] = $titleText;
 
-						foreach ( $this->data['content_actions'] as $action ) {
-					 		echo '<a class="' . $action['class'] . '" ' .
-					 			'id="' . $action['id'] . '" ' .
-					 			'href="' . htmlspecialchars( $action['href'] ) . '">' .
-					 			$action['text'] . '</a>'; // no htmlspecialchars
-						} ?>
+						$title = $this->data['content_actions'][$pageTab];
+						echo '<a class="' . $title['class'] . '" ' .
+							'id="' . $title['id'] . '" ' .
+							'href="' . htmlspecialchars( $title['href'] ) . '">' .
+							$title['text'] . '</a>'; // no htmlspecialchars for <wbr>s
+						unset( $this->data['content_actions'][$pageTab] );
+
+						foreach ( $this->data['content_actions'] as $key => $action ) {
+							echo $this->makeLink( $key, $action );
+						}
+						echo "<a href=\"javascript:;\" id=\"toolbox-link\">
+							<img class=\"arrow\" src=\"$refreshedImagePath/arrow-highres.png\" alt=\"\" width=\"11\" height=\"6\" />
+							<img class=\"arrow no-show\" src=\"$refreshedImagePath/arrow-highres-hover.png\" alt=\"\" width=\"11\" height=\"6\" />
+							{$this->getMsg( 'toolbox' )->text()}</a>";
+					?>
+					<div id="toolbox" style="display:none;">
+						<?php
+							$toolbox = $this->getToolbox();
+							foreach( $toolbox as $tool => $toolData ) {
+								echo $this->makeLink( $tool, $toolData );
+							}
+						?>
 					</div>
 				</div>
 				<div id="leftbar-bottom">
@@ -165,40 +177,42 @@ class RefreshedTemplate extends BaseTemplate {
 			<div id="maintitle">
 				<h1>
 					<?php $this->html( 'title' ) ?>
-					<h1 class="title-overlay">&nbsp;</h1>
+					<h1 id="title-overlay">&nbsp;</h1>
 				</h1>
-
 			</div>
 			<div id="smalltoolboxwrapper">
-				<div id="smalltoolbox">
-					<?php
-					reset( $this->data['content_actions'] );
-					$pageTab = key( $this->data['content_actions'] );
+            	<div id="smalltoolbox">
+                	<?php
+                    	reset($this->data['content_actions']);
+                    	$pageTab = key($this->data['content_actions']);
 
-					$this->data['content_actions'][$pageTab]['text'] = $mySideTitle;
+                        $this->data['content_actions'][$pageTab]['text'] = $mySideTitle;
 
-					$firstAction = true;
-					foreach ( $this->data['content_actions'] as $action ) {
-						if ( !$firstAction ) {
-							echo '<a href="' . htmlspecialchars( $action['href'] ) . '"><div class="small-icon" id="icon-' . $action['id'] . '"></div></a>';
-						} else {
-							$firstAction = false;
-						}
-					} ?>
-				</div>
-				<a href="javascript:;"><div class="small-icon" id="icon-more"></div></a>
-			</div>
+                        $firstAction = true;
+                        foreach ( $this->data['content_actions'] as $action ){
+                        	if (!$firstAction) {
+                            	echo "<a href='" . htmlspecialchars( $action['href'] ) . "'><div class='small-icon' id='icon-" . $action['id'] . "'></div></a>";
+                            } else {
+                                echo NULL;
+                                $firstAction = false;
+                            }
+                    	}
+                    ?>
+                    </div>
+                    <a href="javascript:;"><div class="small-icon" id="icon-more"></div></a>
+                </div>
 			<div id="content">
 				<?php $this->html( 'bodytext' ); ?>
 			</div>
-			<div id="cats">
-				<?php $this->html( 'catlinks' ); ?>
-			</div>
+			<!-- some strange stuff going on here... -->
+			<?php $this->html( 'catlinks' ); ?>
 			<?php if ( $this->data['dataAfterContent'] ) { $this->html( 'dataAfterContent' ); } ?>
 			<br clear="all" />
 		</div>
 		<div id="rightbar">
-			<div class="shower"></div>
+			<div class="shower">
+				<?php echo "<img class=\"arrow\" src=\"$refreshedImagePath/mobile-expand.png\" alt=\"\" width=\"48\" height=\"48\" />"; ?>
+			</div>
 			<div id="search">
 				<form action="<?php $this->text( 'wgScript' ) ?>" method="get">
 					<input type="hidden" name="title" value="<?php $this->text( 'searchtitle' ) ?>"/>
@@ -215,10 +229,11 @@ class RefreshedTemplate extends BaseTemplate {
 						foreach ( $this->data['sidebar'] as $main => $sub ) {
 							echo '<span class="main">' . htmlspecialchars( $main ) . '</span>';
 							if ( is_array( $sub ) ) { // MW-generated stuff from the sidebar message
-								foreach ( $sub as $action ) {
-									echo '<a class="sub" id="' . $action['id'] . '" ' .
+								foreach ( $sub as $key => $action ) {
+									echo $this->makeLink( $key, $action, array( 'link-class' => 'sub' ) );
+									/*echo '<a class="sub" id="' . $action['id'] . '" ' .
 										'href="' . htmlspecialchars( $action['href'] ) . '">' .
-										htmlspecialchars( $action['text'] ) . '</a>';
+										htmlspecialchars( $action['text'] ) . '</a>';*/
 								}
 							} else {
 								// allow raw HTML block to be defined by extensions (like NewsBox)
@@ -240,28 +255,47 @@ class RefreshedTemplate extends BaseTemplate {
 	</div>
 	<div id="footer">
 		<?php
-		foreach ( $this->getFooterLinks() as $category => $links ) {
-			$this->html( $category );
-			$noskip = false;
-			foreach ( $links as $link ) {
-				echo '&ensp;';
-				$this->html( $link );
-				echo '&ensp;';
-				$noskip = true;
+			$showAdvert = false;
+			wfRunHooks( 'RefreshedAdvert', array( &$showAdvert ) );
+			if ( $showAdvert ):
+		?>
+		<div id="advert">
+			<p><?php echo wfMessage( 'refreshed-advert' )->text(); ?></p>
+			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			<!-- Refreshed ad -->
+			<ins class="adsbygoogle"
+     			style="display:inline-block;width:728px;height:90px"
+     			data-ad-client="ca-pub-9543775174763951"
+    			data-ad-slot="7733872730"></ins>
+			<script>
+				(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>
+		</div>
+		<?php
+			endif;
+
+			foreach ( $this->getFooterLinks() as $category => $links ) {
+				$this->html( $category );
+				$noskip = false;
+				foreach ( $links as $link ) {
+					echo '&ensp;';
+					$this->html( $link );
+					echo '&ensp;';
+					$noskip = true;
+				}
+				echo '<br />';
 			}
-			echo '<br />';
-		}
-		$footerIcons = $this->getFooterIcons( 'icononly' );
-		if ( count( $footerIcons ) > 0 ) {
-			$noskip = false;
-			foreach ( $footerIcons as $blockName => $footerIcons ) {
-				foreach ( $footerIcons as $icon ) {
-					echo '&ensp;';
-					echo $this->getSkin()->makeFooterIcon( $icon );
-					echo '&ensp;';
+			$footerIcons = $this->getFooterIcons( 'icononly' );
+			if ( count( $footerIcons ) > 0 ) {
+				$noskip = false;
+				foreach ( $footerIcons as $blockName => $footerIcons ) {
+					foreach ( $footerIcons as $icon ) {
+						echo '&ensp;';
+						echo $this->getSkin()->makeFooterIcon( $icon );
+						echo '&ensp;';
+					}
 				}
 			}
-		}
 		?>
 	</div>
 <?php

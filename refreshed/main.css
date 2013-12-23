@@ -20,9 +20,7 @@
 body {
 	font-family: "Lato", sans-serif;
 	margin: 0;
-	background-color: #D9DBF3;
-	/* @embed */
-	background-image: url("studs-tile-refreshed.png");
+	background-color: #194a8d;
 }
 
 #header {
@@ -45,11 +43,12 @@ body {
 	padding-left: 0.5em;
 	margin-bottom: 0.3em;
 }
-
-@media (min-width: 600px) {
-	.title-overlay {
+	#title-overlay {
 		display: none;
 	}
+
+#smalltoolboxwrapper {
+	display: none;
 }
 
 #site-notice {
@@ -72,7 +71,7 @@ body {
 
 #content {
 	padding: 0em 1em;
-	font-size: 1em;
+	font-size: 0.9em;
 	word-wrap: break-word;
 	font-family: sans-serif;
 }
@@ -121,6 +120,7 @@ body {
 	padding: 0.15em 10px 0.15em 0;
 	text-align: right;
 	margin-right: 5px;
+	direction: ltr; /* ensure direction is correct, as ToC changes it */
 }
 #rightbar-main a {
 	text-align: left;
@@ -149,14 +149,44 @@ body {
 	border-left: 5px solid #CCC;
 	margin-left: 0px;
 }
-#pagelinks a, #rightbar-top a {
+#leftbar-top a, #rightbar-top a {
 	text-transform: lowercase;
 }
-#pagelinks {
+#leftbar-top a {
+	padding: 0.15em 10px 0.15em;
+}
+#leftbar-top > a:first-of-type {
+	text-transform: none;
+}
+#leftbar-top > a:nth-of-type(3) {
+	margin-top: 0.5em;
+}
+#leftbar-top .selected {
+	border-right: 5px solid white;
+	margin-right: 0;
+}
+#leftbar-top .new {
+	color: #fdad9d;
+}
+#leftbar-top .new:hover {
+	color: #f47d64;
+	border-color: #f47d64;
+}
+#leftbar-top .new.selected {
+	border-right: 5px solid #fdad9d;
+}
+#leftbar-top {
 	padding-top: 8px;
 }
 #rightbar-top {
 	padding-top: 8px;
+}
+#toolbox {
+	right: 0;
+	z-index: 3;
+	background-color: rgba(0, 0, 0, 0.7);
+	position: absolute;
+	width: 12em;
 }
 
 .shower {
@@ -171,10 +201,10 @@ body {
 	height: 48px;
 	right: 12em;
 	background-image: url("images/mobile-icon-sprite.png");
-    	background-size: 422px 28px;
-    	background-repeat: no-repeat;
-    	background-position: 0;
-    	margin-right: 0;
+    background-size: 422px 28px;
+    background-repeat: no-repeat;
+    background-position: 0;
+    margin-right: 0;
 }
 #refreshed-toc {
 	position: relative;
@@ -197,6 +227,9 @@ a.toclevel-4 {
 }
 a.toclevel-5 {
 	padding-right: 50px !important;
+}
+a.toclevel-6 {
+	padding-right: 60px !important;
 }
 
 #userinfo {
@@ -227,16 +260,24 @@ a.toclevel-5 {
 	margin-left: 3.5em;
 }
 #userinfo .arrow {
+	position: absolute;
+	left: 1em;
+	top: 1.2em;
+	vertical-align: text-bottom;
+}
+#toolbox-link {
+	margin-top: 0.5em;
+}
+#toolbox-link .arrow {
+	vertical-align: 2px;
+}
+#userinfo .arrow, #toolbox-link .arrow {
 	transition: transform 0.5s;
 	-webkit-transition: -webkit-transform 0.5s; /* Safari */
 	transform: rotateZ(0deg);
 	-webkit-transform: rotateZ(0deg); /* Safari */
-	vertical-align: text-bottom;
-	position: absolute;
-	left: 1em;
-	top: 1.2em;
 }
-#userinfo .arrow.rotate {
+#userinfo .arrow.rotate, #toolbox-link .arrow.rotate {
 	transform: rotateZ(-180deg);
 	-webkit-transform: rotateZ(-180deg); /* Safari */
 }
@@ -244,6 +285,9 @@ a.toclevel-5 {
 	position: absolute;
 	left: 2.5em;
 	width: 30px;
+}
+#toolbox-link .no-show {
+	display: none;
 }
 
 .headermenu {
@@ -268,6 +312,9 @@ a.toclevel-5 {
 	opacity: 1;
 	background-color: midnightblue;
 	text-decoration: none;
+}
+.headermenu .new {
+	color: #fdad9d !important;
 }
 #userinfo .headermenu {
 	left: 1em;
@@ -340,11 +387,9 @@ a.toclevel-5 {
 #preftoc li {
 	display: inline;
 }
-
 #preftoc li:before {
 	content: " - ";
 }
-
 #preftoc li:first-child:before {
 	content: none !important;
 }
@@ -364,6 +409,12 @@ a.toclevel-5 {
 }
 #footer img {
 	vertical-align: text-top;
+}
+#footer #advert {
+	margin-bottom: 1em; /* enough spacing after ad */
+}
+#footer #advert p {
+	margin: 0;
 }
 
 /******************************** CONTENT/OTHER THINGS BEYOND CONTROL ******************************/
@@ -402,11 +453,6 @@ h6 {
 
 #cats {
 	padding: 1em;
-}
-
-#content {
-	line-height: 1.2em;
-	font-size: 0.95em;
 }
 
 #contentwrapper p:first-of-type {
@@ -481,4 +527,13 @@ h6 {
 	/* @embed */
 	background: url("../../monobook/document.png") center right no-repeat;
 	padding-right: 12px;
+}
+
+.suggestions {
+	position: fixed !important;
+}
+
+#catlinks {
+	margin-left: 1em;
+	margin-right: 1em;
 }

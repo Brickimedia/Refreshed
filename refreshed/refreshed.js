@@ -47,16 +47,16 @@ var Refreshed = {
 			overlap = $( window ).height() - top3 - bottom;
 
 		overlap = overlap - 10;
-		
+
 		if ( overlap < 0 ) {
 			var newHeight = $( '#leftbar-bottom div' ).outerHeight() + overlap;
-			
+
 			if ( newHeight <= 50 ) {
 				$('#leftbar-bottom').css( 'visibility', 'hidden' );
 			} else {
 				$('#leftbar-bottom').css( 'visibility', 'visible' );
 			}
-			
+
 			$( '#leftbar-bottom' ).height( newHeight );
 			$( '#leftbar-bottom' ).css( {
 				'overflow-y': 'scroll',
@@ -66,10 +66,10 @@ var Refreshed = {
 			} );
 
 			$( window ).scroll( Refreshed.onScroll );
-			
+
 		} else {
 			$("#leftbar-bottom").css({'visibility': 'visible'});
-			
+
 			$( '#leftbar-bottom' ).height( 'auto' );
 			$( '#leftbar-bottom' ).css( {
 				'overflow-y': 'auto',
@@ -120,7 +120,7 @@ var Refreshed = {
 
 		goTo = goTo + $( '#refreshed-toc a' ).height();
 
-		$( '#leftbar-bottom' ).scrollTop( goTo );
+		$( '#leftbar-bottom' ).stop().animate( {'scrollTop': goTo}, 200 );
 	},
 
 	rightbar: function() {
@@ -148,7 +148,7 @@ $( document ).ready( function() {
 	});
 
 	$( window ).scroll( function() {
-		if ( $( '.toctext' ).length !== 0 ) {
+		if ( $( '#refreshed-toc a' ).length != 0 ) {
 			Refreshed.moveBoxTo( $( this ).scrollTop() );
 		}
 	});
@@ -203,6 +203,18 @@ $( document ).ready( function() {
 	});
 
 	$( window ).resize( Refreshed.rightbar );
-
 	Refreshed.rightbar();
-} ); // end "on DOM ready" wrapper
+
+	$( "#toolbox-link" ).click( function() {
+		$("#toolbox").fadeToggle();
+		$(this).children().toggleClass( 'rotate' );
+	});
+	$( "#toolbox-link" ).hover( function() {
+		$(this).children().toggleClass( 'no-show' );
+	})
+
+	$("#smalltoolboxwrapper > a").click(function(){
+    	$("#smalltoolbox").animate({'width': '100%'});
+		$(this).css({'display': 'none'});
+	});
+} );
