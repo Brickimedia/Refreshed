@@ -51,11 +51,15 @@
 	#maintitle h1:not(.title-overlay):after {
 	        content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAABCAYAAADJsB7sAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QsQFBICyGjZjAAAAAh0RVh0Q29tbWVudAD2zJa/AAAADElEQVQI12NgGCAAAAB5AAFAoyNVAAAAAElFTkSuQmCC);
 	}
+	#back-to-subject {
+		display: inline;
+		font-size: .95em;
+	}
 
 #smalltoolboxwrapper {
+	display: block;
     border-bottom: 1px solid #eaeaea;
     margin-left: 15px;
-    display: block;
 }
 
 #smalltoolbox {
