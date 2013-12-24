@@ -46,6 +46,9 @@ body {
 	#title-overlay {
 		display: none;
 	}
+	#back-to-subject {
+		display: none;
+	}
 
 #smalltoolboxwrapper {
 	display: none;
@@ -199,14 +202,9 @@ body {
 	left: 12em;
 }
 #rightbar .shower {
-	height: 48px;
 	right: 12em;
-	background-image: url("images/mobile-icon-sprite.png");
-    background-size: 422px 28px;
-    background-repeat: no-repeat;
-    background-position: 0;
-    margin-right: 0;
 }
+
 #refreshed-toc {
 	position: relative;
 }
