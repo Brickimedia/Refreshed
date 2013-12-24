@@ -8,6 +8,9 @@
 	right: -12em;
 	background-color: rgba(25, 25, 112, 0.8);
 }
+#rightbar .shower {
+	width: 48px;
+}
 #contentwrapper {
 	margin-left: 12em;
 	margin-right: 1em;
@@ -23,4 +26,8 @@
 #siteinfo > a {
 	margin-left: calc(50% - 1em);
 	margin-left: -webkit-calc(50% - 1em);
+}
+
+#smalltoolboxwrapper {
+	display: none;
 }

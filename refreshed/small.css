@@ -19,13 +19,20 @@
 }
 
 #maintitle {
-	width: 100%;
 	position: relative;
+	margin-bottom: 5px;
+	margin-left: 15px;
+	padding-left: .1em;
+	border-bottom: 1px solid #eaeaea;
+	font-size:. 9em;
+	padding-bottom:5px;
 }
 	#maintitle h1 {
 		overflow-x: auto;
 		white-space: nowrap;
-		padding-right: 7px;
+		border: 0;
+		margin: 0;
+		padding: 0;
 	}
 	#title-overlay {
 		display: block !important;
@@ -44,3 +51,83 @@
 	#maintitle h1:not(.title-overlay):after {
 	        content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAABCAYAAADJsB7sAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3QsQFBICyGjZjAAAAAh0RVh0Q29tbWVudAD2zJa/AAAADElEQVQI12NgGCAAAAB5AAFAoyNVAAAAAElFTkSuQmCC);
 	}
+
+#smalltoolboxwrapper {
+    border-bottom: 1px solid #eaeaea;
+    margin-left: 15px;
+    display: block;
+}
+
+#smalltoolbox {
+    width: 96px;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+}
+.small-icon {
+    width: 48px;
+    height: 48px;
+    background-size: 48px 48px;
+	display: inline-block;
+}
+#icon-ca-talk {
+	/* @embed */
+	background-image: url("images/icon-talk.png");
+}
+
+#icon-ca-viewsource {
+	/* @embed */
+	background-image: url("images/icon-edit.png");
+    opacity: .3;
+}
+
+#icon-ca-edit {
+	/* @embed */
+	background-image: url("images/icon-edit.png");
+}
+
+#icon-ca-history {
+	/* @embed */
+	background-image: url("images/icon-history.png");
+}
+
+#icon-ca-delete {
+	/* @embed */
+	background-image: url("images/icon-delete.png");
+}
+
+#icon-ca-move {
+	/* @embed */
+	background-image: url("images/icon-move.png");
+}
+
+#icon-ca-protect {
+	/* @embed */
+	background-image: url("images/icon-protect.png");
+}
+
+#icon-ca-unprotect {
+	/* @embed */
+	background-image: url("images/icon-unprotect.png");
+}
+
+#icon-ca-watch {
+	/* @embed */
+	background-image: url("images/icon-watch.png");
+}
+
+#icon-ca-unwatch {
+	/* @embed */
+	background-image: url("images/icon-unwatch.png");
+}
+
+#icon-more {
+	/* @embed */
+	background-image: url("images/icon-more.png");
+}
+
+#icon-ca-addsection,
+#icon-ca-purge,
+#icon-ca-talk.selected {
+    display: none;
+}
