@@ -44,8 +44,11 @@ class RefreshedTemplate extends BaseTemplate {
 		}
 
 		// Title processing
-		$title = $this->getSkin()->getTitle()->getSubjectPage();
+		$titleBase = $this->getSkin()->getTitle();
+		$title = $titleBase->getSubjectPage();
+		$titleNamespace = $titleBase->getNamespace();
 		$titleText = $title->getPrefixedText();
+		$titleURL = $title->getLinkURL();
 
 		if ( $title->inNamespace( 0 ) ) {
 			$titleText = wfMessage( 'refreshed-article', $titleText )->text();
@@ -179,28 +182,44 @@ class RefreshedTemplate extends BaseTemplate {
 					<?php $this->html( 'title' ) ?>
 					<h1 id="title-overlay">&nbsp;</h1>
 				</h1>
+                <?php
+				$title = $titleBase->getSubjectPage(); //reassigning it because it's changed in #leftbar-top
+                if ($titleNamespace % 2 == 1 && $titleNamespace > 0) { //if talk namespace: talk namespaces are odd positive integers
+					echo '<a href="' . $titleURL . '" id="back-to-subject">Back to "' . $title . '"</a>';
+				}
+				?>
+
 			</div>
-			<div id="smalltoolboxwrapper">
-            	<div id="smalltoolbox">
-                	<?php
-                    	reset($this->data['content_actions']);
-                    	$pageTab = key($this->data['content_actions']);
-
-                        $this->data['content_actions'][$pageTab]['text'] = $mySideTitle;
-
-                        $firstAction = true;
-                        foreach ( $this->data['content_actions'] as $action ){
-                        	if (!$firstAction) {
-                            	echo "<a href='" . htmlspecialchars( $action['href'] ) . "'><div class='small-icon' id='icon-" . $action['id'] . "'></div></a>";
-                            } else {
-                                echo NULL;
-                                $firstAction = false;
-                            }
-                    	}
-                    ?>
-                    </div>
-                    <a href="javascript:;"><div class="small-icon" id="icon-more"></div></a>
-                </div>
+            <?php 
+            reset($this->data['content_actions']);
+            $pageTab = key($this->data['content_actions']);
+            $totalActions = count($pageTab);
+			if ($totalActions > 0) {
+				echo "<div id='smalltoolboxwrapper'>";
+					echo "<div id='smalltoolbox'>";
+						$actionCount = 1;
+						if ($titleNamespace % 2 == 1 && $titleNamespace > 0) { //if talk namespace: talk namespaces are odd positive integers	
+							foreach ( $this->data['content_actions'] as $action ) {
+								if ($actionCount > 1) {
+									echo "<a href='" . htmlspecialchars( $action['href'] ) . "'><div class='small-icon' id='icon-" . $action['id'] . "'></div></a>";
+									$actionCount++;
+								} else {
+									echo NULL;
+									$actionCount++;
+								}
+							}
+						} else { //if not talk namespace
+							foreach ( $this->data['content_actions'] as $action ) {
+								echo "<a href='" . htmlspecialchars( $action['href'] ) . "'><div class='small-icon' id='icon-" . $action['id'] . "'></div></a>";
+								$actionCount++;
+							}
+						}
+					echo "</div>";
+					if ($actionCount > 2) {
+						echo "<a href='javascript:;'><div class='small-icon' id='icon-more'></div></a>";
+					} 
+				echo "</div>";
+			} ?>
 			<div id="content">
 				<?php $this->html( 'bodytext' ); ?>
 			</div>
