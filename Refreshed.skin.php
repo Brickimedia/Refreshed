@@ -111,7 +111,7 @@ class RefreshedTemplate extends BaseTemplate {
 						$avatar = new wAvatar( $wgUser->getId(), 'l' );
 						$avatarPath = $wgUploadPath . '/avatars/' . $avatar->getAvatarImage();
 						echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow-highres.png\" alt=\"\" width=\"15\" height=\"8\" />
-							<img alt=\"\" class=\"avatar\" src=\"$avatarPath\" width=\"30\" />
+							<img alt=\"\" class=\"avatar\" src=\"$avatarPath\" width=\"30\" height=\"30\"/>
 							<span>{$wgUser->getName()}</span>";
 					?>
 				</a>
