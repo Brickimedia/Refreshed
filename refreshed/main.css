@@ -46,6 +46,9 @@ body {
 	#title-overlay {
 		display: none;
 	}
+	#back-to-subject {
+		display: none;
+	}
 
 #smalltoolboxwrapper {
 	display: none;
@@ -74,6 +77,7 @@ body {
 	font-size: 0.9em;
 	word-wrap: break-word;
 	font-family: sans-serif;
+	line-height: 1.2em;
 }
 
 #leftbar, #rightbar {
@@ -88,7 +92,6 @@ body {
 #rightbar-top {
 	overflow-y: auto;
 	width: 100%;
-	height: calc( 100% - 3.5em );
 }
 #leftbar-top, #rightbar-top {
 	position: absolute;
@@ -199,14 +202,9 @@ body {
 	left: 12em;
 }
 #rightbar .shower {
-	height: 48px;
 	right: 12em;
-	background-image: url("images/mobile-icon-sprite.png");
-    background-size: 422px 28px;
-    background-repeat: no-repeat;
-    background-position: 0;
-    margin-right: 0;
 }
+
 #refreshed-toc {
 	position: relative;
 }
