@@ -43,12 +43,12 @@ body {
 	padding-left: 0.5em;
 	margin-bottom: 0.3em;
 }
-	#title-overlay {
-		display: none;
-	}
-	#back-to-subject {
-		display: none;
-	}
+#title-overlay {
+	display: none;
+}
+#back-to-subject {
+	display: none;
+}
 
 #smalltoolboxwrapper {
 	display: none;
@@ -86,6 +86,15 @@ body {
 	top: 0;
 	color: white;
 	z-index: 3;
+}
+
+/*
+ * Hide the list bullet icons. This is not terribly useful by default, but there
+ * are extensions which can add entire portlets to the sidebar, and said portlets
+ * might be using the <ul> HTML tag...
+ */
+#rightbar-top li {
+	list-style-type: none;
 }
 
 #rightbar-top {
@@ -447,7 +456,7 @@ h6 {
 }
 
 .printfooter {
-	display:none;
+	display: none;
 }
 
 #cats {

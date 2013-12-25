@@ -4,27 +4,27 @@
  *
  * @file
  * @ingroup Skins
- * @version 1.0
+ * @version 2.0
  */
 
 if ( !defined( 'MEDIAWIKI' ) ) {
 	die();
 }
 
-//Hide ToC, as refreshed create's it's own
+// Hide tables of content, as Refreshed creates its own
 $wgExtensionCredits['parserhook'][] = array(
-		'name' => 'NoTOC',
-		'author' =>'[http://swiftlytilting.com Andrew Fitzgerald]',
-		'url' => 'http://www.mediawiki.org/wiki/Extension:NoTOC',
-		'description' => 'Turns off TOC by default on all pages',
-		'descriptionmsg' => "notoc-desc",
-		'version' => '0.1.0',
-		'path' => __FILE__,
+	'path' => __FILE__,
+	'name' => 'NoTOC',
+	'version' => '0.1.0',
+	'author' => '[http://swiftlytilting.com Andrew Fitzgerald]',
+	'url' => 'http://www.mediawiki.org/wiki/Extension:NoTOC',
+	'description' => 'Turns off TOC by default on all pages',
+	//'descriptionmsg' => 'notoc-desc',
 );
 
 $wgHooks['ParserClearState'][] = 'efMWNoTOC';
 
-function efMWNoTOC($parser) {
+function efMWNoTOC( $parser ) {
 	$parser->mShowToc = false;
 	return true;
 }

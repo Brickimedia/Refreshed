@@ -52,9 +52,9 @@ var Refreshed = {
 			var newHeight = $( '#leftbar-bottom div' ).outerHeight() + overlap;
 
 			if ( newHeight <= 50 ) {
-				$('#leftbar-bottom').css( 'visibility', 'hidden' );
+				$( '#leftbar-bottom' ).css( 'visibility', 'hidden' );
 			} else {
-				$('#leftbar-bottom').css( 'visibility', 'visible' );
+				$( '#leftbar-bottom' ).css( 'visibility', 'visible' );
 			}
 
 			$( '#leftbar-bottom' ).height( newHeight );
@@ -68,7 +68,7 @@ var Refreshed = {
 			$( window ).scroll( Refreshed.onScroll );
 
 		} else {
-			$("#leftbar-bottom").css({'visibility': 'visible'});
+			$( '#leftbar-bottom' ).css({'visibility': 'visible'});
 
 			$( '#leftbar-bottom' ).height( 'auto' );
 			$( '#leftbar-bottom' ).css( {
@@ -189,17 +189,17 @@ $( document ).ready( function() {
 		}
 	});
 
-	$( "#toolbox-link" ).click( function() {
-		$("#toolbox").fadeToggle();
-		$(this).children().toggleClass( 'rotate' );
+	$( '#toolbox-link' ).click( function() {
+		$( '#toolbox' ).fadeToggle();
+		$( this ).children().toggleClass( 'rotate' );
 	});
-	$( "#toolbox-link" ).hover( function() {
-		$(this).children().toggleClass( 'no-show' );
-	})
+	$( '#toolbox-link' ).hover( function() {
+		$( this ).children().toggleClass( 'no-show' );
+	});
 
-	$("#smalltoolboxwrapper > a").click(function(){
-		$("#smalltoolbox").css({'overflow': 'auto'});
-		$("#smalltoolbox").animate({'width': '100%'});
-		$(this).css({'display': 'none'});
+	$( '#smalltoolboxwrapper > a' ).click( function() {
+		$( '#smalltoolbox' ).css({'overflow': 'auto'});
+		$( '#smalltoolbox' ).animate({'width': '100%'});
+		$( this ).css({'display': 'none'});
 	});
 } );

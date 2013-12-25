@@ -31,8 +31,9 @@ class RefreshedTemplate extends BaseTemplate {
 	}
 
 	public function execute() {
-		global $wgStylePath, $wgContentNamespaces, $refreshedTOC, $namespaceNames,
-			$wgUser, $wgArticlePath, $wgUploadPath;
+		global $wgStylePath, $refreshedTOC;
+
+		$user = $this->getSkin()->getUser();
 
 		// new TOC processing
 		$tocHTML = '';
@@ -56,9 +57,6 @@ class RefreshedTemplate extends BaseTemplate {
 		$titleText = str_replace( '/', '<wbr>/<wbr>', $titleText );
 		$titleText = str_replace( ':', '<wbr>:<wbr>', $titleText );
 
-		// suppress warnings to prevent notices about missing indexes in $this->data
-		wfSuppressWarnings();
-
 		// Output the <html> tag and whatnot
 		$this->html( 'headelement' );
 
@@ -75,7 +73,7 @@ class RefreshedTemplate extends BaseTemplate {
 			'cuusoo' => "<img width=\"144\" height=\"36\" src=\"$refreshedImagePath/cuusoo.png\" alt=\"\" />",
 		);
 
-		$groups = $wgUser->getGroups();
+		$groups = $user->getGroups();
 
 		if ( in_array( 'sysop', $groups ) ) {
 			$logos['admin'] = "<img width=\"81\" height=\"22\" src=\"$refreshedImagePath/admin.svg\" alt=\"\" />";
@@ -111,18 +109,26 @@ class RefreshedTemplate extends BaseTemplate {
 			<div id="userinfo">
 				<a href='javascript:;'>
 					<?php
-						$avatar = new wAvatar( $wgUser->getId(), 'l' );
-						$avatarPath = $wgUploadPath . '/avatars/' . $avatar->getAvatarImage();
+						$avatarImage = '';
+						// Show the user's avatar image in the top left drop-down
+						// menu, but only if SocialProfile is installed
+						if ( class_exists( 'wAvatar' ) ) {
+							$avatar = new wAvatar( $user->getId(), 'l' );
+							$avatarImage = $avatar->getAvatarURL( array(
+								'width' => 30,
+								'class' => 'avatar'
+							) );
+						}
 						echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow-highres.png\" alt=\"\" width=\"15\" height=\"8\" />
-							<img alt=\"\" class=\"avatar\" src=\"$avatarPath\" width=\"30\" />
-							<span>{$wgUser->getName()}</span>";
+							{$avatarImage}
+							<span>{$user->getName()}</span>";
 					?>
 				</a>
 				<div class="headermenu" style="display:none;">
 					<?php
 						foreach ( $this->getPersonalTools() as $key => $tool ) {
 							foreach ( $tool['links'] as $linkKey => $link ) {
-								echo $this->makeLink( $linkKey, $link, $options );
+								echo $this->makeLink( $linkKey, $link );
 							}
 						}
 					?>
@@ -180,44 +186,59 @@ class RefreshedTemplate extends BaseTemplate {
 			<div id="maintitle">
 				<h1>
 					<?php $this->html( 'title' ) ?>
-					<div class='mobile-overlay'></div>
+					<div class="mobile-overlay"></div>
 				</h1>
-                <?php
-				$title = $titleBase->getSubjectPage(); //reassigning it because it's changed in #leftbar-top
-                if ($titleNamespace % 2 == 1 && $titleNamespace > 0) { //if talk namespace: talk namespaces are odd positive integers
-					echo '<a href="' . $titleURL . '" id="back-to-subject">Back to "' . $title . '"</a>';
-				} ?>
+				<?php
+				$title = $titleBase->getSubjectPage(); // reassigning it because it's changed in #leftbar-top
+				if ( $titleNamespace % 2 == 1 && $titleNamespace > 0 ) { // if talk namespace: talk namespaces are odd positive integers
+					echo Linker::link(
+						$title,
+						wfMessage( 'refreshed-back', $title->getPrefixedText() )->escaped(),
+						array( 'id' => 'back-to-subject' )
+					);
+				}
+				?>
 			</div>
-            <?php 
-            reset($this->data['content_actions']);
-            $pageTab = key($this->data['content_actions']);
-            $totalActions = count($pageTab);
-			global $wgRequest;
-			if ($totalActions > 0 && $wgRequest->getText( 'action' ) != 'edit') { //if there's more than zero buttons and the user isn't editing a page
-				echo "<div id='smalltoolboxwrapper'>";
-					echo "<div id='smalltoolbox'>";
-						$actionCount = 1;
-						if ($titleNamespace % 2 == 1 && $titleNamespace > 0) { //if talk namespace: talk namespaces are odd positive integers	
-							foreach ( $this->data['content_actions'] as $action ) {
-								if ($actionCount > 1) {
-									echo "<a href='" . htmlspecialchars( $action['href'] ) . "'><div class='small-icon' id='icon-" . $action['id'] . "'></div></a>";
-									$actionCount++;
-								} else {
-									$actionCount++;
-								}
-							}
-						} else { //if not talk namespace
-							foreach ( $this->data['content_actions'] as $action ) {
-								echo "<a href='" . htmlspecialchars( $action['href'] ) . "'><div class='small-icon' id='icon-" . $action['id'] . "'></div></a>";
-								$actionCount++;
-							}
+			<?php 
+			reset( $this->data['content_actions'] );
+			$pageTab = key( $this->data['content_actions'] );
+			$totalActions = count( $pageTab );
+			$isEditing = in_array(
+				$this->getSkin()->getRequest()->getText( 'action' ),
+				array( 'edit', 'submit' )
+			);
+
+			if ( $totalActions > 0 && !$isEditing ) { // if there's more than zero buttons and the user isn't editing a page
+				echo '<div id="smalltoolboxwrapper">';
+				echo '<div id="smalltoolbox">';
+				$actionCount = 1;
+
+				if ( $titleNamespace % 2 == 1 && $titleNamespace > 0 ) { // if talk namespace: talk namespaces are odd positive integers	
+					foreach ( $this->data['content_actions'] as $action ) {
+						if ( $actionCount > 1 ) {
+							// @todo Maybe write a custom makeLink()-like function for generating this code?
+							echo '<a href="' . htmlspecialchars( $action['href'] ) .
+								'"><div class="small-icon" id="icon-' . $action['id'] . '"></div></a>';
+							$actionCount++;
+						} else {
+							$actionCount++;
 						}
-					echo "</div>";
-					if ($actionCount > 2) {
-						echo "<a href='javascript:;'><div class='small-icon' id='icon-more'></div></a>";
-					} 
-				echo "<div class='mobile-overlay'></div>";
-				echo "</div>";
+					}
+				} else { // if not talk namespace
+					foreach ( $this->data['content_actions'] as $action ) {
+						echo '<a href="' . htmlspecialchars( $action['href'] ) .
+							'"><div class="small-icon" id="icon-' . $action['id'] . '"></div></a>';
+						$actionCount++;
+					}
+				}
+
+				echo '</div>';
+				if ( $actionCount > 2 ) {
+					echo '<a href="javascript:;"><div class="small-icon" id="icon-more"></div></a>';
+				} 
+
+				echo '<div class="mobile-overlay"></div>';
+				echo '</div>';
 			} ?>
 			<div id="content">
 				<?php $this->html( 'bodytext' ); ?>
@@ -249,9 +270,6 @@ class RefreshedTemplate extends BaseTemplate {
 							if ( is_array( $sub ) ) { // MW-generated stuff from the sidebar message
 								foreach ( $sub as $key => $action ) {
 									echo $this->makeLink( $key, $action, array( 'link-class' => 'sub' ) );
-									/*echo '<a class="sub" id="' . $action['id'] . '" ' .
-										'href="' . htmlspecialchars( $action['href'] ) . '">' .
-										htmlspecialchars( $action['text'] ) . '</a>';*/
 								}
 							} else {
 								// allow raw HTML block to be defined by extensions (like NewsBox)
@@ -273,18 +291,22 @@ class RefreshedTemplate extends BaseTemplate {
 	</div>
 	<div id="footer">
 		<?php
+			// @todo FIXME:
+			// 1) Make this more configurable (right now it's horribly site-specific)
+			// 2) Consider renaming the hook to something like RefreshedInFooter, RefreshedFooter, etc.
+			// 3) Move the ad code somewhere else, hard-coding it in is nasty
 			$showAdvert = false;
 			wfRunHooks( 'RefreshedAdvert', array( &$showAdvert ) );
 			if ( $showAdvert ):
 		?>
 		<div id="advert">
-			<p><?php echo wfMessage( 'refreshed-advert' )->text(); ?></p>
+			<p><?php echo wfMessage( 'refreshed-advert' )->plain(); ?></p>
 			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 			<!-- Refreshed ad -->
 			<ins class="adsbygoogle"
-     			style="display:inline-block;width:728px;height:90px"
-     			data-ad-client="ca-pub-9543775174763951"
-    			data-ad-slot="7733872730"></ins>
+				style="display:inline-block;width:728px;height:90px"
+				data-ad-client="ca-pub-9543775174763951"
+				data-ad-slot="7733872730"></ins>
 			<script>
 				(adsbygoogle = window.adsbygoogle || []).push({});
 			</script>
@@ -293,7 +315,6 @@ class RefreshedTemplate extends BaseTemplate {
 			endif;
 
 			foreach ( $this->getFooterLinks() as $category => $links ) {
-				$this->html( $category );
 				$noskip = false;
 				foreach ( $links as $link ) {
 					echo '&ensp;';
@@ -303,6 +324,7 @@ class RefreshedTemplate extends BaseTemplate {
 				}
 				echo '<br />';
 			}
+
 			$footerIcons = $this->getFooterIcons( 'icononly' );
 			if ( count( $footerIcons ) > 0 ) {
 				$noskip = false;
