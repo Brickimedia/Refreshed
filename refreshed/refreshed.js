@@ -198,7 +198,8 @@ $( document ).ready( function() {
 	})
 
 	$("#smalltoolboxwrapper > a").click(function(){
-    	$("#smalltoolbox").animate({'width': '100%'});
+		$("#smalltoolbox").css({'overflow': 'auto'});
+		$("#smalltoolbox").animate({'width': '100%'});
 		$(this).css({'display': 'none'});
 	});
 } );

@@ -180,7 +180,7 @@ class RefreshedTemplate extends BaseTemplate {
 			<div id="maintitle">
 				<h1>
 					<?php $this->html( 'title' ) ?>
-					<h1 id="title-overlay">&nbsp;</h1>
+					<div class='mobile-overlay'></div>
 				</h1>
                 <?php
 				$title = $titleBase->getSubjectPage(); //reassigning it because it's changed in #leftbar-top
@@ -204,7 +204,6 @@ class RefreshedTemplate extends BaseTemplate {
 									echo "<a href='" . htmlspecialchars( $action['href'] ) . "'><div class='small-icon' id='icon-" . $action['id'] . "'></div></a>";
 									$actionCount++;
 								} else {
-									echo NULL;
 									$actionCount++;
 								}
 							}
@@ -218,6 +217,7 @@ class RefreshedTemplate extends BaseTemplate {
 					if ($actionCount > 2) {
 						echo "<a href='javascript:;'><div class='small-icon' id='icon-more'></div></a>";
 					} 
+				echo "<div class='mobile-overlay'></div>";
 				echo "</div>";
 			} ?>
 			<div id="content">
