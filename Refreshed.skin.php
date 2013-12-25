@@ -186,15 +186,14 @@ class RefreshedTemplate extends BaseTemplate {
 				$title = $titleBase->getSubjectPage(); //reassigning it because it's changed in #leftbar-top
                 if ($titleNamespace % 2 == 1 && $titleNamespace > 0) { //if talk namespace: talk namespaces are odd positive integers
 					echo '<a href="' . $titleURL . '" id="back-to-subject">Back to "' . $title . '"</a>';
-				}
-				?>
-
+				} ?>
 			</div>
             <?php 
             reset($this->data['content_actions']);
             $pageTab = key($this->data['content_actions']);
             $totalActions = count($pageTab);
-			if ($totalActions > 0) {
+			global $wgRequest;
+			if ($totalActions > 0 && $wgRequest->getText( 'action' ) != 'edit') { //if there's more than zero buttons and the user isn't editing a page
 				echo "<div id='smalltoolboxwrapper'>";
 					echo "<div id='smalltoolbox'>";
 						$actionCount = 1;
