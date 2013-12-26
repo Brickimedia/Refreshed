@@ -103,9 +103,6 @@ class RefreshedTemplate extends BaseTemplate {
 	</div>
 	<div id="fullwrapper">
 		<div id="leftbar">
-			<div class="shower">
-				<?php echo "<img class=\"arrow\" src=\"$refreshedImagePath/mobile-expand-edit.png\" alt=\"\" width=\"48\" height=\"48\" />"; ?>
-			</div>
 			<div id="userinfo">
 				<a href='javascript:;'>
 					<?php
@@ -211,29 +208,29 @@ class RefreshedTemplate extends BaseTemplate {
 			if ( $totalActions > 0 && !$isEditing ) { // if there's more than zero buttons and the user isn't editing a page
 				echo '<div id="smalltoolboxwrapper">';
 				echo '<div id="smalltoolbox">';
-				$actionCount = 1;
+				$actionLinkCount = 1;
 
 				if ( $titleNamespace % 2 == 1 && $titleNamespace > 0 ) { // if talk namespace: talk namespaces are odd positive integers	
 					foreach ( $this->data['content_actions'] as $action ) {
-						if ( $actionCount > 1 ) {
+						if ( $actionLinkCount > 1 ) {
 							// @todo Maybe write a custom makeLink()-like function for generating this code?
 							echo '<a href="' . htmlspecialchars( $action['href'] ) .
 								'"><div class="small-icon" id="icon-' . $action['id'] . '"></div></a>';
-							$actionCount++;
+							$actionLinkCount++;
 						} else {
-							$actionCount++;
+							$actionLinkCount++;
 						}
 					}
 				} else { // if not talk namespace
 					foreach ( $this->data['content_actions'] as $action ) {
 						echo '<a href="' . htmlspecialchars( $action['href'] ) .
 							'"><div class="small-icon" id="icon-' . $action['id'] . '"></div></a>';
-						$actionCount++;
+						$actionLinkCount++;
 					}
 				}
 
 				echo '</div>';
-				if ( $actionCount > 2 ) {
+				if ( $actionLinkCount > 2 ) {
 					echo '<a href="javascript:;"><div class="small-icon" id="icon-more"></div></a>';
 				} 
 
@@ -249,9 +246,7 @@ class RefreshedTemplate extends BaseTemplate {
 			<br clear="all" />
 		</div>
 		<div id="rightbar">
-			<div class="shower">
-				<?php echo "<img class=\"arrow\" src=\"$refreshedImagePath/mobile-expand.png\" alt=\"\" width=\"48\" height=\"48\" />"; ?>
-			</div>
+			<div class="shower"></div>
 			<div id="search">
 				<form action="<?php $this->text( 'wgScript' ) ?>" method="get">
 					<input type="hidden" name="title" value="<?php $this->text( 'searchtitle' ) ?>"/>
@@ -266,7 +261,7 @@ class RefreshedTemplate extends BaseTemplate {
 						unset( $this->data['sidebar']['LANGUAGES'] );
 
 						foreach ( $this->data['sidebar'] as $main => $sub ) {
-							echo '<span class="main">' . htmlspecialchars( $main ) . '</span>';
+							echo '<div class="sidebar-group"><span class="main">' . htmlspecialchars( $main ) . '</span>';
 							if ( is_array( $sub ) ) { // MW-generated stuff from the sidebar message
 								foreach ( $sub as $key => $action ) {
 									echo $this->makeLink( $key, $action, array( 'link-class' => 'sub' ) );
@@ -275,8 +270,17 @@ class RefreshedTemplate extends BaseTemplate {
 								// allow raw HTML block to be defined by extensions (like NewsBox)
 								echo $sub;
 							}
-						} ?>
-				</div>
+							echo "</div>";
+						}
+						echo '<div id="sidebar-userlinks" class="sidebar-group">';
+						foreach ( $this->getPersonalTools() as $key => $tool ) {
+							// @todo Maybe write a custom makeLink()-like function for generating this code?
+							foreach ( $tool['links'] as $linkKey => $link ) {
+								echo $this->makeLink( $linkKey, $link, array( 'link-class' => 'sub' ) );
+							}
+						}
+						echo "</div>";
+					?>
 				<div id="rightbar-bottom">
 					<div id="sitelinks">
 						<?php /*foreach ( $this->data['sidebar']['bottom'] as $action ) {
