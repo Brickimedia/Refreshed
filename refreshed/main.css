@@ -154,6 +154,9 @@ body {
 	color: #CCC;
 	cursor: pointer;
 }
+#sidebar-userlinks {
+	display: none;
+}
 #leftbar-main a:hover {
 	border-right: 5px solid #CCC;
 	margin-right: 0px;
@@ -207,11 +210,13 @@ body {
 	height: 3em;
 	cursor: pointer;
 }
-#leftbar .shower {
-	left: 12em;
-}
 #rightbar .shower {
-	right: 12em;
+	/* @embed */
+	background-image: url("images/icon-rightbar.png");
+	right: 12.5em;
+	background-size: 48px 48px;
+	width: 48px;
+	height: 48px;
 }
 
 #refreshed-toc {

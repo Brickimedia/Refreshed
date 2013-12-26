@@ -4,7 +4,6 @@ var Refreshed = {
 	i: 0,
 	user: false,
 	header: false,
-	left: false,
 	right: false,
 
 	getHeight: function( self ) {
@@ -93,16 +92,6 @@ var Refreshed = {
 		Refreshed.header = !Refreshed.header;
 	},
 
-	toggleLeft: function() {
-		if ( Refreshed.left ) {
-			$( '#leftbar' ).animate({'left': '-12em'});
-		} else {
-			$( '#leftbar' ).animate({'left': '0em'});
-		}
-		$( '#leftbar .shower' ).fadeToggle();
-		Refreshed.left = !Refreshed.left;
-	},
-
 	toggleRight: function() {
 		if ( Refreshed.right ) {
 			$( '#rightbar' ).animate({'right': '-12em'});
@@ -160,24 +149,11 @@ $( document ).ready( function() {
 		Refreshed.toggleSite();
 	});
 
-	$( '#leftbar .shower' ).click( function() {
-		Refreshed.toggleLeft();
-		if ( Refreshed.right ) {
-			Refreshed.toggleRight();
-		}
-	});
-
 	$( '#rightbar .shower' ).click( function() {
 		Refreshed.toggleRight();
-		if ( Refreshed.left ) {
-			Refreshed.toggleLeft();
-		}
 	});
 
 	$( '#contentwrapper' ).click( function() {
-		if ( Refreshed.left ) {
-			Refreshed.toggleLeft();
-		}
 		if ( Refreshed.right ) {
 			Refreshed.toggleRight();
 		}

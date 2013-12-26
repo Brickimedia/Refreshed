@@ -1,21 +1,30 @@
 /* anything 600px and under - phones */
 
 #leftbar {
-	left: -12em;
-	background-color: rgba(25, 25, 112, 0.8);
+	display: none;
 }
 #rightbar {
 	right: -12em;
-	background-color: rgba(25, 25, 112, 0.8);
+	background-color: #191970;
 }
 #rightbar .shower {
-	right: 12.5em;
+	right: 12em;
 }
-#userinfo > a {
-	max-width: 11em;
+#rightbar .sidebar-group {
+	padding-bottom: 1em;
 }
-#userinfo > a span {
-	max-width: 4.2em;
+#rightbar .main {
+	display: none;
+}
+#rightbar .sub {
+	padding: 0.2em 0.4em 0.2em 0.4em;
+	font-size: 14pt;
+}
+#sidebar-userlinks {
+	display: block;
+}
+#sidebar-userlinks > a:first-of-type {
+	text-transform: none; /* username retains correct capitalization */
 }
 
 #maintitle {
