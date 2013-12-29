@@ -106,7 +106,7 @@ body {
 	position: absolute;
 	top: 3em;
 }
-#leftbar-bottom, #rightbar-bottom {
+#leftbar-bottom {
 	position: absolute;
 	bottom: 1em;
 }
@@ -120,9 +120,6 @@ body {
 }
 #rightbar-top {
 	left: 0px;
-}
-#rightbar-bottom {
-	left: 0px
 }
 #leftbar-main a, #rightbar-main a {
 	display: block;
@@ -249,7 +246,7 @@ a.toclevel-6 {
 	padding: 0.5em;
 	height: 2em;
 	text-decoration: none;
-	min-width: 10.5em;
+	min-width: 11em; /* 11em - 12em minus 1/2em padding on each side */
 	position: relative;
 	white-space: nowrap;
 	overflow-x: hidden;

@@ -87,8 +87,9 @@ class RefreshedTemplate extends BaseTemplate {
 		<div id="siteinfo">
 			<a href='javascript:;'>
 				<?php
-					echo $logos[$bmProject];
-					unset( $logos[$bmProject] );
+					if ( isset( $logos[$bmProject] ) ) {
+						unset( $logos[$bmProject] );
+					}
 					echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow-highres.png\" alt=\"\" width=\"15\" height=\"8\" />";
 				?>
 			</a>
@@ -199,7 +200,7 @@ class RefreshedTemplate extends BaseTemplate {
 				}
 				?>
 			</div>
-			<?php 
+			<?php
 			reset( $this->data['content_actions'] );
 			$pageTab = key( $this->data['content_actions'] );
 			$totalActions = count( $pageTab );
@@ -213,7 +214,7 @@ class RefreshedTemplate extends BaseTemplate {
 				echo '<div id="smalltoolbox">';
 				$actionCount = 1;
 
-				if ( $titleNamespace % 2 == 1 && $titleNamespace > 0 ) { // if talk namespace: talk namespaces are odd positive integers	
+				if ( $titleNamespace % 2 == 1 && $titleNamespace > 0 ) { // if talk namespace: talk namespaces are odd positive integers
 					foreach ( $this->data['content_actions'] as $action ) {
 						if ( $actionCount > 1 ) {
 							// @todo Maybe write a custom makeLink()-like function for generating this code?
@@ -235,7 +236,7 @@ class RefreshedTemplate extends BaseTemplate {
 				echo '</div>';
 				if ( $actionCount > 2 ) {
 					echo '<a href="javascript:;"><div class="small-icon" id="icon-more"></div></a>';
-				} 
+				}
 
 				echo '<div class="mobile-overlay"></div>';
 				echo '</div>';
@@ -276,15 +277,6 @@ class RefreshedTemplate extends BaseTemplate {
 								echo $sub;
 							}
 						} ?>
-				</div>
-				<div id="rightbar-bottom">
-					<div id="sitelinks">
-						<?php /*foreach ( $this->data['sidebar']['bottom'] as $action ) {
-					 		echo "<a id='" . $action['id'] . "' " .
-					 			"href='" . htmlspecialchars( $action['href'] ) . "'>" .
-					 			htmlspecialchars( $action['text'] ) . "</a>";
-						}*/ ?>
-					</div>
 				</div>
 			</div>
 		</div>
