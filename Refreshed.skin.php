@@ -273,6 +273,7 @@ class RefreshedTemplate extends BaseTemplate {
 							echo "</div>";
 						}
 						echo '<div id="sidebar-userlinks" class="sidebar-group">';
+						echo '<span class="main">' . wfMessage( 'refreshed-you' )->plain() . '</span>';
 						foreach ( $this->getPersonalTools() as $key => $tool ) {
 							// @todo Maybe write a custom makeLink()-like function for generating this code?
 							foreach ( $tool['links'] as $linkKey => $link ) {
@@ -280,7 +281,6 @@ class RefreshedTemplate extends BaseTemplate {
 							}
 						}
 						echo "</div>";
-					?>
 				<div id="rightbar-bottom">
 					<div id="sitelinks">
 						<?php /*foreach ( $this->data['sidebar']['bottom'] as $action ) {
