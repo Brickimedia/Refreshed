@@ -12,6 +12,7 @@ $messages['en'] = array(
 	'refreshed-advert' => 'Advertisement',
 	'refreshed-article' => 'article:$1',
 	'refreshed-back' => 'Back to "$1"',
+	'refreshed-you' => 'You',
 );
 
 /** Message documentation */
