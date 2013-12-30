@@ -283,28 +283,9 @@ class RefreshedTemplate extends BaseTemplate {
 	</div>
 	<div id="footer">
 		<?php
-			// @todo FIXME:
-			// 1) Make this more configurable (right now it's horribly site-specific)
-			// 2) Consider renaming the hook to something like RefreshedInFooter, RefreshedFooter, etc.
-			// 3) Move the ad code somewhere else, hard-coding it in is nasty
-			$showAdvert = false;
-			wfRunHooks( 'RefreshedAdvert', array( &$showAdvert ) );
-			if ( $showAdvert ):
-		?>
-		<div id="advert">
-			<p><?php echo wfMessage( 'refreshed-advert' )->plain(); ?></p>
-			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-			<!-- Refreshed ad -->
-			<ins class="adsbygoogle"
-				style="display:inline-block;width:728px;height:90px"
-				data-ad-client="ca-pub-9543775174763951"
-				data-ad-slot="7733872730"></ins>
-			<script>
-				(adsbygoogle = window.adsbygoogle || []).push({});
-			</script>
-		</div>
-		<?php
-			endif;
+			$footerExtra = '';
+			wfRunHooks( 'RefreshedFooter', array( &$footerExtra ) );
+			echo $footerExtra;
 
 			foreach ( $this->getFooterLinks() as $category => $links ) {
 				$noskip = false;
