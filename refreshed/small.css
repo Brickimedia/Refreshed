@@ -14,10 +14,10 @@
 	padding-bottom: 1em;
 }
 #rightbar .main {
-	font-size: 18pt;
+	font-size: 14pt;
 }
 #rightbar .sub {
-	padding: 0.2em 0.4em 0.2em 0.4em;
+	padding: 0.2em 0 0.2em 1em;
 	font-size: 14pt;
 }
 #sidebar-userlinks {
