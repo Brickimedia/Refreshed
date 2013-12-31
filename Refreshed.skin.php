@@ -88,6 +88,7 @@ class RefreshedTemplate extends BaseTemplate {
 			<a href='javascript:;'>
 				<?php
 					if ( isset( $logos[$bmProject] ) ) {
+						echo $logos[$bmProject];
 						unset( $logos[$bmProject] );
 					}
 					echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow-highres.png\" alt=\"\" width=\"15\" height=\"8\" />";
@@ -270,7 +271,14 @@ class RefreshedTemplate extends BaseTemplate {
 							echo '<span class="main">' . htmlspecialchars( $main ) . '</span>';
 							if ( is_array( $sub ) ) { // MW-generated stuff from the sidebar message
 								foreach ( $sub as $key => $action ) {
-									echo $this->makeLink( $key, $action, array( 'link-class' => 'sub' ) );
+									echo $this->makeLink(
+										$key,
+										$action,
+										array(
+											'link-class' => 'sub',
+											'link-fallback' => 'span'
+										)
+									);
 								}
 							} else {
 								// allow raw HTML block to be defined by extensions (like NewsBox)
