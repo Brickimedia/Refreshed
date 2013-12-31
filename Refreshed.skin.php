@@ -88,6 +88,7 @@ class RefreshedTemplate extends BaseTemplate {
 			<a href='javascript:;'>
 				<?php
 					if ( isset( $logos[$bmProject] ) ) {
+						echo $logos[$bmProject];
 						unset( $logos[$bmProject] );
 					}
 					echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow-highres.png\" alt=\"\" width=\"15\" height=\"8\" />";
