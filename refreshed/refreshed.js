@@ -203,3 +203,7 @@ $( document ).ready( function() {
 		$( this ).css({'display': 'none'});
 	});
 } );
+
+$( window ).load( function() {
+	Refreshed.overlap();
+});
