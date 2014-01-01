@@ -70,7 +70,7 @@ class RefreshedTemplate extends BaseTemplate {
 			'en' => "<img width=\"138\" height=\"30\" src=\"$refreshedImagePath/brickipedia.svg\" alt=\"\" />",
 			'customs' => "<img width=\"100\" height=\"30\" src=\"$refreshedImagePath/customs.svg\" alt=\"\" />",
 			'stories' => "<img width=\"144\" height=\"30\" src=\"$refreshedImagePath/stories.svg\" alt=\"\" />",
-			'cuusoo' => "<img width=\"144\" height=\"36\" src=\"$refreshedImagePath/cuusoo.png\" alt=\"\" />",
+			'cuusoo' => "<img width=\"144\" height=\"36\" src=\"$refreshedImagePath/cuusoo.svg\" alt=\"\" />",
 		);
 
 		$groups = $user->getGroups();
