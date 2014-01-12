@@ -542,3 +542,21 @@ h6 {
 	margin-left: 1em;
 	margin-right: 1em;
 }
+
+/* refresh-ify postedit, reset all the shadows and stuff */
+.postedit {
+	font-family: "Lato", sans-serif !important;
+	font-size: 1.1em !important;
+	line-height: 1em !important;
+	top: 3px !important;
+	border: none !important;
+	-webkit-text-shadow: none !important;
+	-moz-text-shadow: none !important;
+	text-shadow: none !important;
+	-webkit-border-radius: 0px !important;
+	-moz-border-radius: 0px !important;
+	border-radius: 0px !important;
+	-webkit-box-shadow: none !important;
+	-moz-box-shadow: none !important;
+	box-shadow: none !important;
+}
