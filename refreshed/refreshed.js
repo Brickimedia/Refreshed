@@ -17,7 +17,7 @@ var Refreshed = {
 	},
 
 	moveBoxTo: function( height ) {
-		var heightAbove = 0, idAbove;
+		var heightAbove = 0, idAbove = -1, goTo;
 
 		Refreshed.heights.forEach( function( elem, index ) {
 			if ( elem <= height ) {
@@ -25,20 +25,26 @@ var Refreshed = {
 				idAbove = index;
 			}
 		});
-		var idBelow = idAbove + 1,
-			heightBelow = Refreshed.heights[idBelow],
-			heightDiff = heightBelow - heightAbove,
-			heightMeRelative = height - heightAbove,
-			fractMe = heightMeRelative / heightDiff;
+		if ( idAbove == -1 ) {
+			goTo = { 'top': 0 };
+		} else if ( idAbove == Refreshed.heights.length - 1 ) {
+			goTo = { 'bottom': 0 };
+		} else {
+			var idBelow = idAbove + 1,
+				heightBelow = Refreshed.heights[idBelow],
+				heightDiff = heightBelow - heightAbove,
+				heightMeRelative = height - heightAbove,
+				fractMe = heightMeRelative / heightDiff;
+	
+			var elemAbove = $( 'a[data-numid=' + idAbove + ']' ),
+				elemAboveOffset = elemAbove.position().top,
+				elemBelow = $( 'a[data-numid=' + idBelow + ']' ),
+				elemBelowOffset = elemBelow.position().top,
+				elemOffsetDiff = elemBelowOffset - elemAboveOffset;
+			goTo = { 'top': elemAboveOffset + ( elemOffsetDiff * fractMe ) };
+		}
 
-		var elemAbove = $( 'a[data-numid=' + idAbove + ']' ),
-			elemAboveOffset = elemAbove.position().top,
-			elemBelow = $( 'a[data-numid=' + idBelow + ']' ),
-			elemBelowOffset = elemBelow.position().top,
-			elemOffsetDiff = elemBelowOffset - elemAboveOffset,
-			goTo = elemAboveOffset + ( elemOffsetDiff * fractMe );
-
-		$( '#toc-box' ).stop().animate( {'top': goTo}, 200 );
+		$( '#toc-box' ).stop().animate( goTo, 200 );
 	},
 
 	overlap: function() {
@@ -149,8 +155,13 @@ $( document ).ready( function() {
 		}
 	});
 
-	$( window ).resize( Refreshed.overlap );
-	Refreshed.overlap();
+	$( window ).resize( function() {
+		Refreshed.overlap();
+		$( window ).scroll();
+		$( '#refreshed-toc a' ).each( function() {
+			Refreshed.getHeight( $( this ) );
+		});
+	});
 
 	$( '#userinfo > a' ).click( function() {
 		Refreshed.toggleUser();
