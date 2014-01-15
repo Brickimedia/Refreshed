@@ -26,9 +26,9 @@ var Refreshed = {
 			}
 		});
 		if ( idAbove == -1 ) {
-			goTo = { 'top': 0 };
+			goTo = 0;
 		} else if ( idAbove == Refreshed.heights.length - 1 ) {
-			goTo = { 'bottom': 0 };
+			goTo = $('#refreshed-toc').height() - 28;
 		} else {
 			var idBelow = idAbove + 1,
 				heightBelow = Refreshed.heights[idBelow],
@@ -41,21 +41,19 @@ var Refreshed = {
 				elemBelow = $( 'a[data-numid=' + idBelow + ']' ),
 				elemBelowOffset = elemBelow.position().top,
 				elemOffsetDiff = elemBelowOffset - elemAboveOffset;
-			goTo = { 'top': elemAboveOffset + ( elemOffsetDiff * fractMe ) };
+			goTo = elemAboveOffset + ( elemOffsetDiff * fractMe );
 		}
 
-		$( '#toc-box' ).stop().animate( goTo, 200 );
+		$( '#toc-box' ).stop().animate( { 'top': goTo }, 200 );
 	},
 
 	overlap: function() {
 		var bottom = $( '#leftbar-top' ).position().top + $( '#leftbar-top' ).outerHeight(),
 			top3 = $( '#refreshed-toc' ).outerHeight(),
-			overlap = $( window ).height() - top3 - bottom;
-
-		overlap = overlap - 10;
+			overlap = $( window ).height() - top3 - bottom - 10;
 
 		if ( overlap < 0 ) {
-			var newHeight = $( '#leftbar-bottom div' ).outerHeight() + overlap;
+			var newHeight = top3 + overlap;
 
 			if ( newHeight <= 50 ) {
 				$( '#leftbar-bottom' ).css( 'visibility', 'hidden' );
@@ -72,12 +70,17 @@ var Refreshed = {
 			} );
 
 			$( window ).scroll( Refreshed.onScroll );
-
+			
+		} else if ( overlap < 16 ) {
+			$( '#leftbar-bottom' ).css( {
+				'overflow-y': 'hidden',
+				'bottom': overlap + 'px',
+				'direction': 'ltr'
+			} );
 		} else {
-			$( '#leftbar-bottom' ).css({'visibility': 'visible'});
-
 			$( '#leftbar-bottom' ).height( 'auto' );
 			$( '#leftbar-bottom' ).css( {
+				'visibility': 'visible',
 				'overflow-y': 'auto',
 				'bottom': '1em',
 				'direction': 'ltr'
