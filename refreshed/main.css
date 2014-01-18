@@ -383,6 +383,7 @@ a.toclevel-6 {
 	padding: 0.25em;
 	font-family: Lato, sans-serif;
 	width: 11em;
+	-webkit-appearance: none;
 }
 
 #refreshed-toc #toc-box:last-child {
