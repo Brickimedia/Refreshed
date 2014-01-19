@@ -2,10 +2,12 @@
 
 #leftbar {
 	left: -12em;
+	background-color: rgb(25, 25, 112);
 	background-color: rgba(25, 25, 112, 0.8);
 }
 #rightbar {
 	right: -12em;
+	background-color: rgba(25, 25, 112);
 	background-color: rgba(25, 25, 112, 0.8);
 }
 #rightbar .shower {
@@ -20,8 +22,7 @@
 
 #maintitle {
 	position: relative;
-	margin-bottom: 5px;
-	margin-left: 15px;
+	margin: 0 0 5 15px;
 	padding-left: .1em;
 	border-bottom: 1px solid #eaeaea;
 	font-size:. 9em;
