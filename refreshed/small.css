@@ -1,36 +1,47 @@
 /* anything 600px and under - phones */
 
 #leftbar {
+	left: 0;
+	height: 48px;
+}
+#leftbar-main {
 	display: none;
 }
 #rightbar {
 	right: -12em;
-	background-color: #191970;
+	background-color: rgba(25, 25, 112);
+	background-color: rgba(25, 25, 112, 0.8);
 }
 #rightbar .shower {
-	right: 12em;
+	right: 12.5em;
 }
-#rightbar .sidebar-group {
-	padding-bottom: 1em;
+#userinfo .arrow {
+	display: none;
 }
-#rightbar .main {
-	font-size: 14pt;
+#userinfo .avatar {
+	left: .5em;
 }
-#rightbar .sub {
-	padding: 0.2em 0 0.2em 1em;
-	font-size: 14pt;
-}
-#sidebar-userlinks {
+#userinfo .avatar-none {
 	display: block;
 }
-#sidebar-userlinks > a:first-of-type {
-	text-transform: none; /* username retains correct capitalization */
+#userinfo > a {
+	width: 30px;
+	min-width: 30px;
+}
+#userinfo > a span {
+	display: none;
+}
+#userinfo .headermenu {
+	left: 0;
+	background-color: rgb(25, 25, 112) !important;
+}
+#userinfo .headermenu a {
+	text-align: left;
 }
 
 #maintitle {
 	position: relative;
-	margin-bottom: 5px;
-	margin-left: 15px;
+	margin: 0 0 5 15px;
 	padding-left: .1em;
 	border-bottom: 1px solid #eaeaea;
 	font-size:. 9em;

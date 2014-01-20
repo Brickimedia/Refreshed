@@ -69,8 +69,8 @@ class RefreshedTemplate extends BaseTemplate {
 			'meta' => "<img width=\"144\" height=\"30\" src=\"$refreshedImagePath/brickimedia.svg\" alt=\"\" />",
 			'en' => "<img width=\"138\" height=\"30\" src=\"$refreshedImagePath/brickipedia.svg\" alt=\"\" />",
 			'customs' => "<img width=\"100\" height=\"30\" src=\"$refreshedImagePath/customs.svg\" alt=\"\" />",
-			'stories' => "<img width=\"144\" height=\"30\" src=\"$refreshedImagePath/stories.png\" alt=\"\" />",
-			'cuusoo' => "<img width=\"144\" height=\"36\" src=\"$refreshedImagePath/cuusoo.png\" alt=\"\" />",
+			'stories' => "<img width=\"144\" height=\"30\" src=\"$refreshedImagePath/stories.svg\" alt=\"\" />",
+			'cuusoo' => "<img width=\"144\" height=\"36\" src=\"$refreshedImagePath/cuusoo.svg\" alt=\"\" />",
 		);
 
 		$groups = $user->getGroups();
@@ -87,8 +87,10 @@ class RefreshedTemplate extends BaseTemplate {
 		<div id="siteinfo">
 			<a href='javascript:;'>
 				<?php
-					echo $logos[$bmProject];
-					unset( $logos[$bmProject] );
+					if ( isset( $logos[$bmProject] ) ) {
+						echo $logos[$bmProject];
+						unset( $logos[$bmProject] );
+					}
 					echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow-highres.png\" alt=\"\" width=\"15\" height=\"8\" />";
 				?>
 			</a>
@@ -115,10 +117,16 @@ class RefreshedTemplate extends BaseTemplate {
 								'width' => 30,
 								'class' => 'avatar'
 							) );
+							echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow-highres.png\" alt=\"\" width=\"15\" height=\"8\" />
+								{$avatarImage}
+								<span>{$user->getName()}</span>";
+						} else {
+							echo "<img class=\"avatar avatar-none\" src=\"$refreshedImagePath/avatar-none.png\" alt=\"\" width=\"30\" height=\"30\" height=\"8\" />";
+							echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow-highres.png\" alt=\"\" width=\"15\" height=\"8\" />
+								{$avatarImage}
+								<span id=\"username-avatar-none\">{$user->getName()}</span>";
 						}
-						echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow-highres.png\" alt=\"\" width=\"15\" height=\"8\" />
-							{$avatarImage}
-							<span>{$user->getName()}</span>";
+						
 					?>
 				</a>
 				<div class="headermenu" style="display:none;">
@@ -196,7 +204,7 @@ class RefreshedTemplate extends BaseTemplate {
 				}
 				?>
 			</div>
-			<?php 
+			<?php
 			reset( $this->data['content_actions'] );
 			$pageTab = key( $this->data['content_actions'] );
 			$totalActions = count( $pageTab );
@@ -208,31 +216,31 @@ class RefreshedTemplate extends BaseTemplate {
 			if ( $totalActions > 0 && !$isEditing ) { // if there's more than zero buttons and the user isn't editing a page
 				echo '<div id="smalltoolboxwrapper">';
 				echo '<div id="smalltoolbox">';
-				$actionLinkCount = 1;
+				$actionCount = 1;
 
-				if ( $titleNamespace % 2 == 1 && $titleNamespace > 0 ) { // if talk namespace: talk namespaces are odd positive integers	
+				if ( $titleNamespace % 2 == 1 && $titleNamespace > 0 ) { // if talk namespace: talk namespaces are odd positive integers
 					foreach ( $this->data['content_actions'] as $action ) {
-						if ( $actionLinkCount > 1 ) {
+						if ( $actionCount > 1 ) {
 							// @todo Maybe write a custom makeLink()-like function for generating this code?
 							echo '<a href="' . htmlspecialchars( $action['href'] ) .
 								'"><div class="small-icon" id="icon-' . $action['id'] . '"></div></a>';
-							$actionLinkCount++;
+							$actionCount++;
 						} else {
-							$actionLinkCount++;
+							$actionCount++;
 						}
 					}
 				} else { // if not talk namespace
 					foreach ( $this->data['content_actions'] as $action ) {
 						echo '<a href="' . htmlspecialchars( $action['href'] ) .
 							'"><div class="small-icon" id="icon-' . $action['id'] . '"></div></a>';
-						$actionLinkCount++;
+						$actionCount++;
 					}
 				}
 
 				echo '</div>';
-				if ( $actionLinkCount > 2 ) {
+				if ( $actionCount > 2 ) {
 					echo '<a href="javascript:;"><div class="small-icon" id="icon-more"></div></a>';
-				} 
+				}
 
 				echo '<div class="mobile-overlay"></div>';
 				echo '</div>';
@@ -246,7 +254,9 @@ class RefreshedTemplate extends BaseTemplate {
 			<br clear="all" />
 		</div>
 		<div id="rightbar">
-			<div class="shower"></div>
+			<div class="shower">
+				<?php echo "<img class=\"arrow\" src=\"$refreshedImagePath/mobile-expand.png\" alt=\"\" width=\"48\" height=\"48\" />"; ?>
+			</div>
 			<div id="search">
 				<form action="<?php $this->text( 'wgScript' ) ?>" method="get">
 					<input type="hidden" name="title" value="<?php $this->text( 'searchtitle' ) ?>"/>
@@ -261,62 +271,32 @@ class RefreshedTemplate extends BaseTemplate {
 						unset( $this->data['sidebar']['LANGUAGES'] );
 
 						foreach ( $this->data['sidebar'] as $main => $sub ) {
-							echo '<div class="sidebar-group"><span class="main">' . htmlspecialchars( $main ) . '</span>';
+							echo '<span class="main">' . htmlspecialchars( $main ) . '</span>';
 							if ( is_array( $sub ) ) { // MW-generated stuff from the sidebar message
 								foreach ( $sub as $key => $action ) {
-									echo $this->makeLink( $key, $action, array( 'link-class' => 'sub' ) );
+									echo $this->makeLink(
+										$key,
+										$action,
+										array(
+											'link-class' => 'sub',
+											'link-fallback' => 'span'
+										)
+									);
 								}
 							} else {
 								// allow raw HTML block to be defined by extensions (like NewsBox)
 								echo $sub;
 							}
-							echo "</div>";
-						}
-						echo '<div id="sidebar-userlinks" class="sidebar-group">';
-						echo '<span class="main">' . wfMessage( 'refreshed-you' )->plain() . '</span>';
-						foreach ( $this->getPersonalTools() as $key => $tool ) {
-							// @todo Maybe write a custom makeLink()-like function for generating this code?
-							foreach ( $tool['links'] as $linkKey => $link ) {
-								echo $this->makeLink( $linkKey, $link, array( 'link-class' => 'sub' ) );
-							}
-						}
-						echo "</div>";
-				<div id="rightbar-bottom">
-					<div id="sitelinks">
-						<?php /*foreach ( $this->data['sidebar']['bottom'] as $action ) {
-					 		echo "<a id='" . $action['id'] . "' " .
-					 			"href='" . htmlspecialchars( $action['href'] ) . "'>" .
-					 			htmlspecialchars( $action['text'] ) . "</a>";
-						}*/ ?>
-					</div>
+						} ?>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div id="footer">
 		<?php
-			// @todo FIXME:
-			// 1) Make this more configurable (right now it's horribly site-specific)
-			// 2) Consider renaming the hook to something like RefreshedInFooter, RefreshedFooter, etc.
-			// 3) Move the ad code somewhere else, hard-coding it in is nasty
-			$showAdvert = false;
-			wfRunHooks( 'RefreshedAdvert', array( &$showAdvert ) );
-			if ( $showAdvert ):
-		?>
-		<div id="advert">
-			<p><?php echo wfMessage( 'refreshed-advert' )->plain(); ?></p>
-			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-			<!-- Refreshed ad -->
-			<ins class="adsbygoogle"
-				style="display:inline-block;width:728px;height:90px"
-				data-ad-client="ca-pub-9543775174763951"
-				data-ad-slot="7733872730"></ins>
-			<script>
-				(adsbygoogle = window.adsbygoogle || []).push({});
-			</script>
-		</div>
-		<?php
-			endif;
+			$footerExtra = '';
+			wfRunHooks( 'RefreshedFooter', array( &$footerExtra ) );
+			echo $footerExtra;
 
 			foreach ( $this->getFooterLinks() as $category => $links ) {
 				$noskip = false;

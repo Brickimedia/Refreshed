@@ -100,13 +100,15 @@ body {
 #rightbar-top {
 	overflow-y: auto;
 	width: 100%;
+	height: webkit-calc( 100% - 3.5em );
+	height: moz-calc( 100% - 3.5em );
 	height: calc( 100% - 3.5em );
 }
 #leftbar-top, #rightbar-top {
 	position: absolute;
 	top: 3em;
 }
-#leftbar-bottom, #rightbar-bottom {
+#leftbar-bottom {
 	position: absolute;
 	bottom: 1em;
 }
@@ -120,9 +122,6 @@ body {
 }
 #rightbar-top {
 	left: 0px;
-}
-#rightbar-bottom {
-	left: 0px
 }
 #leftbar-main a, #rightbar-main a {
 	display: block;
@@ -154,16 +153,13 @@ body {
 	color: #CCC;
 	cursor: pointer;
 }
-#sidebar-userlinks {
-	display: none;
-}
 #leftbar-main a:hover {
 	border-right: 5px solid #CCC;
-	margin-right: 0px;
+	margin-right: 0;
 }
 #rightbar-main a:hover {
 	border-left: 5px solid #CCC;
-	margin-left: 0px;
+	margin-left: 0;
 }
 #leftbar-top a, #rightbar-top a {
 	text-transform: lowercase;
@@ -200,6 +196,7 @@ body {
 #toolbox {
 	right: 0;
 	z-index: 3;
+	background-color: rgb(0, 0, 0);
 	background-color: rgba(0, 0, 0, 0.7);
 	position: absolute;
 	width: 12em;
@@ -210,13 +207,11 @@ body {
 	height: 3em;
 	cursor: pointer;
 }
+#leftbar .shower {
+	left: 12em;
+}
 #rightbar .shower {
-	/* @embed */
-	background-image: url("images/icon-rightbar.png");
-	right: 12.5em;
-	background-size: 48px 48px;
-	width: 48px;
-	height: 48px;
+	right: 12em;
 }
 
 #refreshed-toc {
@@ -254,7 +249,7 @@ a.toclevel-6 {
 	padding: 0.5em;
 	height: 2em;
 	text-decoration: none;
-	min-width: 10.5em;
+	min-width: 11em; /* 11em - 12em minus 1/2em padding on each side */
 	position: relative;
 	white-space: nowrap;
 	overflow-x: hidden;
@@ -272,6 +267,9 @@ a.toclevel-6 {
 	padding-right: 10px;
 	margin-left: 3.5em;
 }
+#userinfo > a #username-avatar-none {
+	margin-left: 1.75em;
+}
 #userinfo .arrow {
 	position: absolute;
 	left: 1em;
@@ -285,19 +283,30 @@ a.toclevel-6 {
 	vertical-align: 2px;
 }
 #userinfo .arrow, #toolbox-link .arrow {
-	transition: transform 0.5s;
 	-webkit-transition: -webkit-transform 0.5s; /* Safari */
-	transform: rotateZ(0deg);
+	-moz-transition: -moz-transform 0.5s; /* Firefox */
+	-ms-transition: -ms-trasform 0.5s; /* IE */
+	transition: transform 0.5s;
 	-webkit-transform: rotateZ(0deg); /* Safari */
+	-moz-transform: rotateZ(0deg); /* Firefox */
+	-ms-transform: rotateZ(0deg); /* IE */
+	transform: rotateZ(0deg);
+
 }
 #userinfo .arrow.rotate, #toolbox-link .arrow.rotate {
-	transform: rotateZ(-180deg);
 	-webkit-transform: rotateZ(-180deg); /* Safari */
+	-moz-transform: rotateZ(-180deg); /* Firefox */
+	-ms-transform: rotateZ(-180deg); /* IE */
+	transform: rotateZ(-180deg);
+
 }
 #userinfo .avatar {
 	position: absolute;
 	left: 2.5em;
 	width: 30px;
+}
+#userinfo .avatar-none {
+	display: none;
 }
 #toolbox-link .no-show {
 	display: none;
@@ -309,9 +318,11 @@ a.toclevel-6 {
 	z-index: 4;
 }
 #userinfo .headermenu {
+	background-color: rgb(25, 25, 112);
 	background-color: rgba(25, 25, 112, 0.8);
 }
 #siteinfo .headermenu {
+	background-color: rgb(0, 0, 0);
 	background-color: rgba(0, 0, 0, 0.8);
 }
 .headermenu a {
@@ -364,17 +375,24 @@ a.toclevel-6 {
 	text-align: center;
 }
 #siteinfo .arrow {
-	transition: transform .5s;
 	-webkit-transition: -webkit-transform .5s; /* Safari */
-	transform: rotateZ(0deg);
+	-moz-transition: -moz-tranform .5s; /* Firefox */
+	-ms-transition: -ms-transform .5s; /* IE */
+	transition: transform .5s;
 	-webkit-transform: rotateZ(0deg); /* Safari */
+	-moz-transform: rotateZ(0deg); /* Firefox */
+	-ms-transform: rotateZ(0deg); /* IE */
+	transform: rotateZ(0deg);
 	vertical-align: middle;
 	margin-left: 1em;
 	display: inline-block;
 }
 #siteinfo .arrow.rotate {
-	transform: rotateZ(180deg);
 	-webkit-transform: rotateZ(180deg); /* Safari */
+	-moz-transform: rotateZ(180deg);  /* Firefox */
+	-ms-transform: rotateZ(180deg); /* IE */
+	transform: rotateZ(180deg);
+
 }
 
 #search {
@@ -391,6 +409,7 @@ a.toclevel-6 {
 	padding: 0.25em;
 	font-family: Lato, sans-serif;
 	width: 11em;
+	-webkit-appearance: none;
 }
 
 #refreshed-toc #toc-box:last-child {
@@ -412,7 +431,7 @@ a.toclevel-6 {
 	top: 3.5em;
 	text-align: center;
 	padding-bottom: 15px;
-	color: #CCC;
+	color: #ccc;
 }
 #footer a {
 	color: white;
@@ -549,4 +568,22 @@ h6 {
 #catlinks {
 	margin-left: 1em;
 	margin-right: 1em;
+}
+
+/* refresh-ify postedit, reset all the shadows and stuff */
+.postedit {
+	font-family: "Lato", sans-serif !important;
+	font-size: 1.1em !important;
+	line-height: 1em !important;
+	top: 3px !important;
+	border: none !important;
+	-webkit-text-shadow: none !important;
+	-moz-text-shadow: none !important;
+	text-shadow: none !important;
+	-webkit-border-radius: 0px !important;
+	-moz-border-radius: 0px !important;
+	border-radius: 0px !important;
+	-webkit-box-shadow: none !important;
+	-moz-box-shadow: none !important;
+	box-shadow: none !important;
 }

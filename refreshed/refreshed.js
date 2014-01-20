@@ -4,6 +4,7 @@ var Refreshed = {
 	i: 0,
 	user: false,
 	header: false,
+	left: false,
 	right: false,
 
 	getHeight: function( self ) {
@@ -16,7 +17,7 @@ var Refreshed = {
 	},
 
 	moveBoxTo: function( height ) {
-		var heightAbove = 0, idAbove;
+		var heightAbove = 0, idAbove = -1, goTo;
 
 		Refreshed.heights.forEach( function( elem, index ) {
 			if ( elem <= height ) {
@@ -24,31 +25,35 @@ var Refreshed = {
 				idAbove = index;
 			}
 		});
-		var idBelow = idAbove + 1,
-			heightBelow = Refreshed.heights[idBelow],
-			heightDiff = heightBelow - heightAbove,
-			heightMeRelative = height - heightAbove,
-			fractMe = heightMeRelative / heightDiff;
-
-		var elemAbove = $( 'a[data-numid=' + idAbove + ']' ),
-			elemAboveOffset = elemAbove.position().top,
-			elemBelow = $( 'a[data-numid=' + idBelow + ']' ),
-			elemBelowOffset = elemBelow.position().top,
-			elemOffsetDiff = elemBelowOffset - elemAboveOffset,
+		if ( idAbove == -1 ) {
+			goTo = 0;
+		} else if ( idAbove == Refreshed.heights.length - 1 ) {
+			goTo = $('#refreshed-toc').height() - 28;
+		} else {
+			var idBelow = idAbove + 1,
+				heightBelow = Refreshed.heights[idBelow],
+				heightDiff = heightBelow - heightAbove,
+				heightMeRelative = height - heightAbove,
+				fractMe = heightMeRelative / heightDiff;
+	
+			var elemAbove = $( 'a[data-numid=' + idAbove + ']' ),
+				elemAboveOffset = elemAbove.position().top,
+				elemBelow = $( 'a[data-numid=' + idBelow + ']' ),
+				elemBelowOffset = elemBelow.position().top,
+				elemOffsetDiff = elemBelowOffset - elemAboveOffset;
 			goTo = elemAboveOffset + ( elemOffsetDiff * fractMe );
+		}
 
-		$( '#toc-box' ).stop().animate( {'top': goTo}, 200 );
+		$( '#toc-box' ).stop().animate( { 'top': goTo }, 200 );
 	},
 
 	overlap: function() {
 		var bottom = $( '#leftbar-top' ).position().top + $( '#leftbar-top' ).outerHeight(),
 			top3 = $( '#refreshed-toc' ).outerHeight(),
-			overlap = $( window ).height() - top3 - bottom;
-
-		overlap = overlap - 10;
+			overlap = $( window ).height() - top3 - bottom - 10;
 
 		if ( overlap < 0 ) {
-			var newHeight = $( '#leftbar-bottom div' ).outerHeight() + overlap;
+			var newHeight = top3 + overlap;
 
 			if ( newHeight <= 50 ) {
 				$( '#leftbar-bottom' ).css( 'visibility', 'hidden' );
@@ -65,12 +70,17 @@ var Refreshed = {
 			} );
 
 			$( window ).scroll( Refreshed.onScroll );
-
+			
+		} else if ( overlap < 16 ) {
+			$( '#leftbar-bottom' ).css( {
+				'overflow-y': 'hidden',
+				'bottom': overlap + 'px',
+				'direction': 'ltr'
+			} );
 		} else {
-			$( '#leftbar-bottom' ).css({'visibility': 'visible'});
-
 			$( '#leftbar-bottom' ).height( 'auto' );
 			$( '#leftbar-bottom' ).css( {
+				'visibility': 'visible',
 				'overflow-y': 'auto',
 				'bottom': '1em',
 				'direction': 'ltr'
@@ -90,6 +100,16 @@ var Refreshed = {
 		$( '#siteinfo .headermenu' ).fadeToggle( 150 );
 		$( '#siteinfo .arrow' ).toggleClass( 'rotate' );
 		Refreshed.header = !Refreshed.header;
+	},
+
+	toggleLeft: function() {
+		if ( Refreshed.left ) {
+			$( '#leftbar' ).animate({'left': '-12em'});
+		} else {
+			$( '#leftbar' ).animate({'left': '0em'});
+		}
+		$( '#leftbar .shower' ).fadeToggle();
+		Refreshed.left = !Refreshed.left;
 	},
 
 	toggleRight: function() {
@@ -138,8 +158,13 @@ $( document ).ready( function() {
 		}
 	});
 
-	$( window ).resize( Refreshed.overlap );
-	Refreshed.overlap();
+	$( window ).resize( function() {
+		Refreshed.overlap();
+		$( window ).scroll();
+		$( '#refreshed-toc a' ).each( function() {
+			Refreshed.getHeight( $( this ) );
+		});
+	});
 
 	$( '#userinfo > a' ).click( function() {
 		Refreshed.toggleUser();
@@ -149,11 +174,24 @@ $( document ).ready( function() {
 		Refreshed.toggleSite();
 	});
 
+	$( '#leftbar .shower' ).click( function() {
+		Refreshed.toggleLeft();
+		if ( Refreshed.right ) {
+			Refreshed.toggleRight();
+		}
+	});
+
 	$( '#rightbar .shower' ).click( function() {
 		Refreshed.toggleRight();
+		if ( Refreshed.left ) {
+			Refreshed.toggleLeft();
+		}
 	});
 
 	$( '#contentwrapper' ).click( function() {
+		if ( Refreshed.left ) {
+			Refreshed.toggleLeft();
+		}
 		if ( Refreshed.right ) {
 			Refreshed.toggleRight();
 		}
@@ -179,3 +217,7 @@ $( document ).ready( function() {
 		$( this ).css({'display': 'none'});
 	});
 } );
+
+$( window ).load( function() {
+	Refreshed.overlap();
+});
