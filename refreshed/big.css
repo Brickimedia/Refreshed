@@ -7,10 +7,12 @@
 	right: 0 !important;
 }
 #contentwrapper {
-	margin: 0 12em;
+	margin-left: 12em;
+	margin-right: 12em;
 }
 #footer {
-	margin: 0 14em;
+	margin-left: 14em;
+	margin-right: 14em;
 }
 #leftbar .shower, #rightbar .shower {
 	display: none !important;

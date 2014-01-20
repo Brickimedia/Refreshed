@@ -13,10 +13,12 @@
 	width: 48px;
 }
 #contentwrapper {
-	margin: 0 12em 0 1em;
+	margin-left: 12em;
+	margin-right: 1em;
 }
 #footer {
-	margin: 0 2em 0 14em;
+	margin-left: 14em;
+	margin-right: 2em;
 }
 #leftbar .shower {
 	display: none;

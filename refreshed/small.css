@@ -22,11 +22,12 @@
 
 #maintitle {
 	position: relative;
-	margin: 0 0 5 15px;
-	padding-left: .1em;
+	margin-bottom: 5px;
+	margin-left: 15px;
+	padding-left: 0.1em;
 	border-bottom: 1px solid #eaeaea;
-	font-size:. 9em;
-	padding-bottom:5px;
+	font-size: 0.9em;
+	padding-bottom: 5px;
 }
 	#maintitle h1 {
 		overflow-x: auto;
