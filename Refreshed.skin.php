@@ -118,15 +118,14 @@ class RefreshedTemplate extends BaseTemplate {
 								'class' => 'avatar'
 							) );
 							echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow-highres.png\" alt=\"\" width=\"15\" height=\"8\" />
-								{$avatarImage}
-								<span>{$user->getName()}</span>";
+							{$avatarImage}
+							<span>{$user->getName()}</span>";
 						} else {
 							echo "<img class=\"avatar avatar-none\" src=\"$refreshedImagePath/avatar-none.png\" alt=\"\" width=\"30\" height=\"30\" height=\"8\" />";
 							echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow-highres.png\" alt=\"\" width=\"15\" height=\"8\" />
-								{$avatarImage}
-								<span id=\"username-avatar-none\">{$user->getName()}</span>";
+							{$avatarImage}
+							<span id=\"username-avatar-none\">{$user->getName()}</span>";
 						}
-						
 					?>
 				</a>
 				<div class="headermenu" style="display:none;">
