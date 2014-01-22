@@ -267,6 +267,9 @@ a.toclevel-6 {
 	padding-right: 10px;
 	margin-left: 3.5em;
 }
+#userinfo > a #username-avatar-none {
+	margin-left: 1.75em;
+}
 #userinfo .arrow {
 	position: absolute;
 	left: 1em;
@@ -301,6 +304,9 @@ a.toclevel-6 {
 	position: absolute;
 	left: 2.5em;
 	width: 30px;
+}
+#userinfo .avatar-none {
+	display: none;
 }
 #toolbox-link .no-show {
 	display: none;

@@ -105,9 +105,6 @@ class RefreshedTemplate extends BaseTemplate {
 	</div>
 	<div id="fullwrapper">
 		<div id="leftbar">
-			<div class="shower">
-				<?php echo "<img class=\"arrow\" src=\"$refreshedImagePath/mobile-expand-edit.png\" alt=\"\" width=\"48\" height=\"48\" />"; ?>
-			</div>
 			<div id="userinfo">
 				<a href='javascript:;'>
 					<?php
@@ -120,10 +117,16 @@ class RefreshedTemplate extends BaseTemplate {
 								'width' => 30,
 								'class' => 'avatar'
 							) );
+							echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow-highres.png\" alt=\"\" width=\"15\" height=\"8\" />
+								{$avatarImage}
+								<span>{$user->getName()}</span>";
+						} else {
+							echo "<img class=\"avatar avatar-none\" src=\"$refreshedImagePath/avatar-none.png\" alt=\"\" width=\"30\" height=\"30\" height=\"8\" />";
+							echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow-highres.png\" alt=\"\" width=\"15\" height=\"8\" />
+								{$avatarImage}
+								<span id=\"username-avatar-none\">{$user->getName()}</span>";
 						}
-						echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow-highres.png\" alt=\"\" width=\"15\" height=\"8\" />
-							{$avatarImage}
-							<span>{$user->getName()}</span>";
+						
 					?>
 				</a>
 				<div class="headermenu" style="display:none;">
