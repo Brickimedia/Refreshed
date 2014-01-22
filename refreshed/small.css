@@ -1,9 +1,11 @@
 /* anything 600px and under - phones */
 
 #leftbar {
-	left: -12em;
-	background-color: rgb(25, 25, 112);
-	background-color: rgba(25, 25, 112, 0.8);
+	left: 0;
+	height: 48px;
+}
+#leftbar-main {
+        display: none;
 }
 #rightbar {
 	right: -12em;
@@ -13,13 +15,32 @@
 #rightbar .shower {
 	right: 12.5em;
 }
+#userinfo .arrow {
+	display: none;
+}
+#userinfo .avatar {
+	left: .5em;
+}
+#userinfo .avatar-none {
+	display: block;
+}
 #userinfo > a {
-	max-width: 11em;
+	width: 30px;
+	min-width: 30px;
+}
+#userinfo .avatar-none {
+	display: block;
 }
 #userinfo > a span {
-	max-width: 4.2em;
+	display: none;
 }
-
+#userinfo .headermenu {
+	left: 0;
+	background-color: rgb(25, 25, 112);
+}
+#userinfo .headermenu a {
+	text-align: left;
+}
 #maintitle {
 	position: relative;
 	margin-bottom: 5px;

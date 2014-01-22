@@ -207,13 +207,9 @@ body {
 	height: 3em;
 	cursor: pointer;
 }
-#leftbar .shower {
-	left: 12em;
-}
 #rightbar .shower {
 	right: 12em;
 }
-
 #refreshed-toc {
 	position: relative;
 }
@@ -259,6 +255,9 @@ a.toclevel-6 {
 	background-color: midnightblue;
 	color: #CCC;
 }
+#userinfo .avatar-none {
+	display: none;
+}
 #userinfo > a span {
 	display: block;
 	margin-top: 0.1em;
@@ -266,6 +265,9 @@ a.toclevel-6 {
 	color: white !important;
 	padding-right: 10px;
 	margin-left: 3.5em;
+}
+#username-avatar-none {
+	margin-left: 1.75em !important;
 }
 #userinfo .arrow {
 	position: absolute;

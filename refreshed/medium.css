@@ -20,9 +20,6 @@
 	margin-left: 14em;
 	margin-right: 2em;
 }
-#leftbar .shower {
-	display: none;
-}
 #siteinfo .headermenu,
 #siteinfo > a {
 	margin-left: -webkit-calc(50% - 1em);
