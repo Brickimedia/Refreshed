@@ -2,6 +2,7 @@
 
 #leftbar {
 	left: 0;
+	width: 46px;
 	height: 48px;
 }
 #leftbar-main {
@@ -13,7 +14,7 @@
 	background-color: rgba(25, 25, 112, 0.8);
 }
 #rightbar .shower {
-	right: 12.5em;
+	right: 12em;
 }
 #userinfo .arrow {
 	display: none;
