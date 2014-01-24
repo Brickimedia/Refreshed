@@ -43,8 +43,8 @@ body {
 	padding-left: 0.5em;
 	margin-bottom: 0.3em;
 }
-#title-overlay {
-	display: none;
+.scrollshadow {
+	background: none;
 }
 #back-to-subject {
 	display: none;

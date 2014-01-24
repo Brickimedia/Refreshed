@@ -72,26 +72,26 @@
 		border: 0;
 		margin: 0;
 		padding: 0;
+		font-size: 2.25em;
 	}
 	#back-to-subject {
 		display: inline;
 		font-size: .95em;
 	}
-
-.mobile-overlay {
-	display: inline-block;
-	position: absolute;
-	top: 0;
-	right: 0;
-	height: 100%;
-	background: -moz-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,255,255,0)), color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(left, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(left, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(left, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* IE10+ */
-	background: linear-gradient(to right, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
-	width: 30px;
+.scrollshadow {
+	background: 
+		-webkit-linear-gradient(90deg, white 20%, rgba(255,255,255,0)),
+		-webkit-linear-gradient(270deg, white 20%, rgba(255,255,255,0)) 100% 0,
+		-webkit-linear-gradient(90deg, #e3e3e3 10%, rgba(255,255,255,0)),
+		-webkit-linear-gradient(270deg, #e3e3e3 10%, rgba(255,255,255,0)) 100% 0;
+	background: 
+		linear-gradient(90deg, white 20%, rgba(255,255,255,0)),
+		linear-gradient(270deg, white 20%, rgba(255,255,255,0)) 100% 0,
+		linear-gradient(90deg, #e3e3e3 10%, rgba(255,255,255,0)),
+		linear-gradient(270deg, #e3e3e3 10%, rgba(255,255,255,0)) 100% 0;
+	background-repeat: no-repeat;
+	background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
+	background-attachment: local, local, scroll, scroll;
 }
 
 #smalltoolboxwrapper {
