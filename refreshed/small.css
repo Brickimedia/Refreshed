@@ -6,15 +6,18 @@
 	height: 48px;
 }
 #leftbar-main {
-        display: none;
+	display: none;
 }
 #rightbar {
 	right: -12em;
-	background-color: rgba(25, 25, 112);
-	background-color: rgba(25, 25, 112, 0.8);
+	background-color: rgb(25, 25, 112);
 }
 #rightbar .shower {
 	right: 12em;
+}
+#rightbar #rightbar-main {
+	font-size: 14pt;
+	font-weight: normal;
 }
 #userinfo .arrow {
 	display: none;
@@ -38,9 +41,21 @@
 #userinfo .headermenu {
 	left: 0;
 	background-color: rgb(25, 25, 112);
+	padding: 0.15em 0 0.15em 0;
 }
 #userinfo .headermenu a {
 	text-align: left;
+	padding-left: 15px;
+	font-weight: normal;
+}
+#userinfo .headermenu a:hover {
+	border-left: 5px solid #CCC;
+	color: #CCC;
+	padding-left: 10px;
+}
+#userinfo .headermenu a.new:hover {
+	color: #f47d64 !important;
+	border-color: #f47d64;
 }
 #maintitle {
 	position: relative;
