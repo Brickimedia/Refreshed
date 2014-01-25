@@ -212,8 +212,7 @@ $( document ).ready( function() {
 	});
 
 	$( '#smalltoolboxwrapper > a' ).click( function() {
-		$( '#smalltoolbox' ).css({'overflow': 'auto'});
-		$( '#smalltoolbox' ).animate({'width': '100%'});
+		$( '#smalltoolbox' ).css({'overflow': 'auto'}).animate({'width': '100%'}).addClass("scrollshadow");
 		$( this ).css({'display': 'none'});
 	});
 } );

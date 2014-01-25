@@ -188,10 +188,7 @@ class RefreshedTemplate extends BaseTemplate {
 			<?php } ?>
 			<div id="newtalk"><?php $this->html( 'newtalk' ) ?></div>
 			<div id="maintitle">
-				<h1>
-					<?php $this->html( 'title' ) ?>
-					<div class="mobile-overlay"></div>
-				</h1>
+				<h1 class="scrollshadow"><?php $this->html( 'title' ) ?></h1>
 				<?php
 				$title = $titleBase->getSubjectPage(); // reassigning it because it's changed in #leftbar-top
 				if ( $titleNamespace % 2 == 1 && $titleNamespace > 0 ) { // if talk namespace: talk namespaces are odd positive integers
@@ -241,7 +238,6 @@ class RefreshedTemplate extends BaseTemplate {
 					echo '<a href="javascript:;"><div class="small-icon" id="icon-more"></div></a>';
 				}
 
-				echo '<div class="mobile-overlay"></div>';
 				echo '</div>';
 			} ?>
 			<div id="content">

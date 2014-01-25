@@ -30,3 +30,23 @@
 #smalltoolboxwrapper {
 	display: none;
 }
+#maintitle h1 {
+	white-space: nowrap;
+	font-size: 2.25em;
+	overflow-x: scroll;
+}
+.scrollshadow {
+	background: 
+		-webkit-linear-gradient(90deg, white 20%, rgba(255,255,255,0)),
+		-webkit-linear-gradient(270deg, white 20%, rgba(255,255,255,0)) 100% 0,
+		-webkit-linear-gradient(90deg, #e3e3e3 10%, rgba(255,255,255,0)),
+		-webkit-linear-gradient(270deg, #e3e3e3 10%, rgba(255,255,255,0)) 100% 0;
+	background: 
+		linear-gradient(90deg, white 20%, rgba(255,255,255,0)),
+		linear-gradient(270deg, white 20%, rgba(255,255,255,0)) 100% 0,
+		linear-gradient(90deg, #e3e3e3 10%, rgba(255,255,255,0)),
+		linear-gradient(270deg, #e3e3e3 10%, rgba(255,255,255,0)) 100% 0;
+	background-repeat: no-repeat;
+	background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
+	background-attachment: local, local, scroll, scroll;
+}
