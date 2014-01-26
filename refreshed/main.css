@@ -93,8 +93,13 @@ body {
  * are extensions which can add entire portlets to the sidebar, and said portlets
  * might be using the <ul> HTML tag...
  */
-#rightbar-top li {
+#rightbar li, #leftbar li {
 	list-style-type: none;
+	margin: 0;
+}
+#rightbar ul, #leftbar ul {
+	margin: 0;
+	padding: 0;
 }
 
 #rightbar-top {
@@ -103,16 +108,16 @@ body {
 	height: webkit-calc( 100% - 3.5em );
 	height: moz-calc( 100% - 3.5em );
 	height: calc( 100% - 3.5em );
+	left: 0px;
 }
 #leftbar-top, #rightbar-top {
 	position: absolute;
 	top: 3em;
+	padding-top: 8px !important;
 }
 #leftbar-bottom {
 	position: absolute;
 	bottom: 1em;
-}
-#leftbar-bottom {
 	border-right: 1px solid white;
 	width: 100%;
 	right: -1px;
@@ -120,16 +125,13 @@ body {
 #leftbar-top {
 	right: 0px;
 }
-#rightbar-top {
-	left: 0px;
-}
 #leftbar-main a, #rightbar-main a {
 	display: block;
 	color: white;
 	text-decoration: none;
 }
 #leftbar-main a {
-	padding: 0.15em 10px 0.15em 0;
+	padding-left: 10px;
 	text-align: right;
 	margin-right: 5px;
 	direction: ltr; /* ensure direction is correct, as ToC changes it */
@@ -139,7 +141,7 @@ body {
 	margin-left: 5px;
 }
 #rightbar .main {
-	padding: 0.15em 0 0.15em 10px;
+	padding-left: 10px;
 	display: block;
 	margin-top: 0.5em;
 }
@@ -147,33 +149,33 @@ body {
 	margin-top: 0em;
 }
 #rightbar .sub {
-	padding: 0.15em 0 0.15em 20px;
+	padding-left: 20px;
 }
 #leftbar-main a:hover, #rightbar-main a:hover {
 	color: #CCC;
 	cursor: pointer;
 }
 #leftbar-main a:hover {
-	border-right: 5px solid #CCC;
+	border-right: 5px solid #CCC !important;
 	margin-right: 0;
 }
 #rightbar-main a:hover {
-	border-left: 5px solid #CCC;
+	border-left: 5px solid #CCC !important;
 	margin-left: 0;
 }
-#leftbar-top a, #rightbar-top a {
+#leftbar-top li, #rightbar-top li {
 	text-transform: lowercase;
 }
 #leftbar-top a {
-	padding: 0.15em 10px 0.15em;
+	padding-right: 10px;
 }
-#leftbar-top > a:first-of-type {
+#leftbar-top > li:first-of-type {
 	text-transform: none;
 }
-#leftbar-top > a:nth-of-type(3) {
+#leftbar-top > li:nth-of-type(3) > a {
 	margin-top: 0.5em;
 }
-#leftbar-top .selected {
+#leftbar-top .selected a {
 	border-right: 5px solid white;
 	margin-right: 0;
 }
@@ -184,15 +186,10 @@ body {
 	color: #f47d64;
 	border-color: #f47d64;
 }
-#leftbar-top .new.selected {
+#leftbar-top .new.selected a {
 	border-right: 5px solid #fdad9d;
 }
-#leftbar-top {
-	padding-top: 8px;
-}
-#rightbar-top {
-	padding-top: 8px;
-}
+
 #toolbox {
 	right: 0;
 	z-index: 3;
@@ -326,7 +323,7 @@ a.toclevel-6 {
 	background-color: rgba(0, 0, 0, 0.8);
 }
 .headermenu a {
-	font-size: 15pt;
+	font-size: 14pt;
 	text-decoration: none;
 	display: block;
 	color: white;
@@ -342,7 +339,7 @@ a.toclevel-6 {
 }
 #userinfo .headermenu {
 	left: 1em;
-	width: 10.6em;
+	width: 11em;
 	position: absolute;
 }
 #userinfo .headermenu a {

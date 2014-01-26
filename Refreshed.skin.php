@@ -128,18 +128,16 @@ class RefreshedTemplate extends BaseTemplate {
 						}
 					?>
 				</a>
-				<div class="headermenu" style="display:none;">
+				<ul class="headermenu" style="display:none;">
 					<?php
 						foreach ( $this->getPersonalTools() as $key => $tool ) {
-							foreach ( $tool['links'] as $linkKey => $link ) {
-								echo $this->makeLink( $linkKey, $link );
-							}
+							echo $this->makeListItem( $key, $tool );
 						}
 					?>
-				</div>
+				</ul>
 			</div>
 			<div id="leftbar-main">
-				<div id="leftbar-top">
+				<ul id="leftbar-top">
 					<?php
 						reset( $this->data['content_actions'] );
 						$pageTab = key( $this->data['content_actions'] );
@@ -147,29 +145,31 @@ class RefreshedTemplate extends BaseTemplate {
 						$this->data['content_actions'][$pageTab]['text'] = $titleText;
 
 						$title = $this->data['content_actions'][$pageTab];
-						echo '<a class="' . $title['class'] . '" ' .
+						echo '<li><a class="' . $title['class'] . '" ' .
 							'id="' . $title['id'] . '" ' .
 							'href="' . htmlspecialchars( $title['href'] ) . '">' .
-							$title['text'] . '</a>'; // no htmlspecialchars for <wbr>s
+							$title['text'] . '</a></li>'; // no htmlspecialchars for <wbr>s
+						//echo $this->makeListItem( 'title', $titleLink );
 						unset( $this->data['content_actions'][$pageTab] );
 
 						foreach ( $this->data['content_actions'] as $key => $action ) {
-							echo $this->makeLink( $key, $action );
+							echo $this->makeListItem( $key, $action );
 						}
-						echo "<a href=\"javascript:;\" id=\"toolbox-link\">
+
+						echo "<li><a href=\"javascript:;\" id=\"toolbox-link\">
 							<img class=\"arrow\" src=\"$refreshedImagePath/arrow-highres.png\" alt=\"\" width=\"11\" height=\"6\" />
 							<img class=\"arrow no-show\" src=\"$refreshedImagePath/arrow-highres-hover.png\" alt=\"\" width=\"11\" height=\"6\" />
-							{$this->getMsg( 'toolbox' )->text()}</a>";
+							{$this->getMsg( 'toolbox' )->text()}</a></li>";
 					?>
-					<div id="toolbox" style="display:none;">
+					<li><ul id="toolbox" style="display:none;">
 						<?php
 							$toolbox = $this->getToolbox();
 							foreach( $toolbox as $tool => $toolData ) {
-								echo $this->makeLink( $tool, $toolData );
+								echo $this->makeListItem( $tool, $toolData );
 							}
 						?>
-					</div>
-				</div>
+					</ul></li>
+				</ul>
 				<div id="leftbar-bottom">
 					<div id="refreshed-toc">
 						<div id="toc-box"></div>
@@ -257,7 +257,7 @@ class RefreshedTemplate extends BaseTemplate {
 				</form>
 			</div>
 			<div id="rightbar-main">
-				<div id="rightbar-top">
+				<ul id="rightbar-top">
 					<?php
 						unset( $this->data['sidebar']['SEARCH'] );
 						unset( $this->data['sidebar']['TOOLBOX'] );
@@ -267,7 +267,7 @@ class RefreshedTemplate extends BaseTemplate {
 							echo '<span class="main">' . htmlspecialchars( $main ) . '</span>';
 							if ( is_array( $sub ) ) { // MW-generated stuff from the sidebar message
 								foreach ( $sub as $key => $action ) {
-									echo $this->makeLink(
+									echo $this->makeListItem(
 										$key,
 										$action,
 										array(
@@ -281,7 +281,7 @@ class RefreshedTemplate extends BaseTemplate {
 								echo $sub;
 							}
 						} ?>
-				</div>
+				</ul>
 			</div>
 		</div>
 	</div>
