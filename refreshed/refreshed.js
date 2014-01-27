@@ -35,7 +35,7 @@ var Refreshed = {
 				heightDiff = heightBelow - heightAbove,
 				heightMeRelative = height - heightAbove,
 				fractMe = heightMeRelative / heightDiff;
-	
+
 			var elemAbove = $( 'a[data-numid=' + idAbove + ']' ),
 				elemAboveOffset = elemAbove.position().top,
 				elemBelow = $( 'a[data-numid=' + idBelow + ']' ),
@@ -70,7 +70,7 @@ var Refreshed = {
 			} );
 
 			$( window ).scroll( Refreshed.onScroll );
-			
+
 		} else if ( overlap < 16 ) {
 			$( '#leftbar-bottom' ).css( {
 				'overflow-y': 'hidden',
@@ -153,7 +153,7 @@ $( document ).ready( function() {
 	});
 
 	$( window ).scroll( function() {
-		if ( $( '#refreshed-toc a' ).length != 0 ) {
+		if ( $( '#refreshed-toc a' ).length !== 0 ) {
 			Refreshed.moveBoxTo( $( this ).scrollTop() );
 		}
 	});

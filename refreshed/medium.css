@@ -3,23 +3,28 @@
 #leftbar {
 	left: 0 !important;
 }
+
 #rightbar {
 	width: 12em;
 	right: -12em;
 	background: rgb(25, 25, 112);
 	background-color: rgba(25, 25, 112, 0.8);
 }
+
 #rightbar .shower {
 	width: 48px;
 }
+
 #contentwrapper {
 	margin-left: 12em;
 	margin-right: 1em;
 }
+
 #footer {
 	margin-left: 14em;
 	margin-right: 2em;
 }
+
 #siteinfo .headermenu,
 #siteinfo > a {
 	margin-left: -webkit-calc(50% - 1em);
@@ -30,18 +35,20 @@
 #smalltoolboxwrapper {
 	display: none;
 }
+
 #maintitle h1 {
 	white-space: nowrap;
 	font-size: 2.25em;
 	overflow-x: scroll;
 }
+
 .scrollshadow {
-	background: 
+	background:
 		-webkit-linear-gradient(90deg, white 20%, rgba(255,255,255,0)),
 		-webkit-linear-gradient(270deg, white 20%, rgba(255,255,255,0)) 100% 0,
 		-webkit-linear-gradient(90deg, #e3e3e3 10%, rgba(255,255,255,0)),
 		-webkit-linear-gradient(270deg, #e3e3e3 10%, rgba(255,255,255,0)) 100% 0;
-	background: 
+	background:
 		linear-gradient(90deg, white 20%, rgba(255,255,255,0)),
 		linear-gradient(270deg, white 20%, rgba(255,255,255,0)) 100% 0,
 		linear-gradient(90deg, #e3e3e3 10%, rgba(255,255,255,0)),

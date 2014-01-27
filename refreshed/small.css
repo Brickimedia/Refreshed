@@ -5,58 +5,73 @@
 	width: 46px;
 	height: 48px;
 }
+
 #leftbar-main {
 	display: none;
 }
+
 #rightbar {
 	right: -12em;
 	background-color: rgb(25, 25, 112);
 }
+
 #rightbar .shower {
 	right: 12em;
 }
+
 #rightbar #rightbar-main {
 	font-size: 14pt;
 	font-weight: normal;
 }
+
 #userinfo .arrow {
 	display: none;
 }
+
 #userinfo .avatar {
 	left: .5em;
 }
+
 #userinfo .avatar-none {
 	display: block;
 }
+
 #userinfo > a {
 	width: 30px;
 	min-width: 30px;
 }
+
 #userinfo .avatar-none {
 	display: block;
 }
+
 #userinfo > a span {
 	display: none;
 }
+
 #userinfo .headermenu {
 	left: 0;
 	background-color: rgb(25, 25, 112);
 	padding: 0.15em 0 0.15em 0;
 }
+
 #userinfo .headermenu a {
 	text-align: left;
 	padding-left: 15px;
 	font-weight: normal;
 }
+
 #userinfo .headermenu a:hover {
 	border-left: 5px solid #CCC;
 	color: #CCC;
 	padding-left: 10px;
 }
+
 #userinfo .headermenu a.new:hover {
 	color: #f47d64 !important;
 	border-color: #f47d64;
 }
+
 #maintitle {
 	position: relative;
 	margin-bottom: 5px;
@@ -66,18 +81,21 @@
 	font-size: 0.9em;
 	padding-bottom: 5px;
 }
-	#maintitle h1 {
-		overflow-x: auto;
-		white-space: nowrap;
-		border: 0;
-		margin: 0;
-		padding: 0;
-		font-size: 2.25em;
-	}
-	#back-to-subject {
-		display: inline;
-		font-size: .95em;
-	}
+
+#maintitle h1 {
+	overflow-x: auto;
+	white-space: nowrap;
+	border: 0;
+	margin: 0;
+	padding: 0;
+	font-size: 2.25em;
+}
+
+#back-to-subject {
+	display: inline;
+	font-size: .95em;
+}
+
 .scrollshadow {
 	background:
 		-webkit-linear-gradient(90deg, white 20%, rgba(255,255,255,0)),
@@ -97,22 +115,22 @@
 #smalltoolboxwrapper {
 	position: relative;
 	display: block;
-    border-bottom: 1px solid #eaeaea;
-    margin-left: 15px;
+	border-bottom: 1px solid #eaeaea;
+	margin-left: 15px;
 }
 
 #smalltoolbox {
 	position: relative;
-    width: 96px;
-    white-space: nowrap;
-    overflow: hidden;
-    display: inline-block;
+	width: 96px;
+	white-space: nowrap;
+	overflow: hidden;
+	display: inline-block;
 }
 
 .small-icon {
-    width: 48px;
-    height: 48px;
-    background-size: 48px 48px;
+	width: 48px;
+	height: 48px;
+	background-size: 48px 48px;
 	display: inline-block;
 }
 #icon-ca-talk {
@@ -123,7 +141,7 @@
 #icon-ca-viewsource {
 	/* @embed */
 	background-image: url("images/icon-edit.png");
-    opacity: .3;
+	opacity: .3;
 }
 
 #icon-ca-edit {
@@ -174,7 +192,7 @@
 #icon-ca-addsection,
 #icon-ca-purge,
 #icon-ca-talk.selected {
-    display: none;
+	display: none;
 }
 
 /* CONTENT AREA ********************************************/
