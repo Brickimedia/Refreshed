@@ -172,12 +172,12 @@ body {
 }
 
 #leftbar-main a:hover {
-	border-right: 5px solid #CCC !important;
+	border-right: 5px solid #CCC;
 	margin-right: 0;
 }
 
 #rightbar-main a:hover {
-	border-left: 5px solid #CCC !important;
+	border-left: 5px solid #CCC;
 	margin-left: 0;
 }
 
@@ -197,22 +197,28 @@ body {
 	margin-top: 0.5em;
 }
 
+#leftbar-top a.selected,
 #leftbar-top .selected a {
 	border-right: 5px solid white;
 	margin-right: 0;
 }
 
-#leftbar-top .new {
+#leftbar-top a.new,
+#leftbar-top .new a {
 	color: #fdad9d;
+	border-color: #fdad9d;
 }
 
-#leftbar-top .new:hover {
+#leftbar-top a.new:hover,
+#leftbar-top .new a:hover {
 	color: #f47d64;
 	border-color: #f47d64;
 }
 
+#leftbar-top a.new.selected,
 #leftbar-top .new.selected a {
-	border-right: 5px solid #fdad9d;
+	color: #fdad9d;
+	border-color: #fdad9d;
 }
 
 #toolbox {
