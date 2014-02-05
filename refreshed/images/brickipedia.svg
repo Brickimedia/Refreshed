@@ -11,10 +11,10 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    id="svg3061"
    version="1.1"
-   inkscape:version="0.48.2 r9819"
-   width="544.38123"
-   height="118.9"
-   sodipodi:docname="Brickipedia.png">
+   inkscape:version="0.48.4 r9939"
+   width="138"
+   height="30.151598"
+   sodipodi:docname="Brickipedia-White.svg">
   <metadata
      id="metadata3067">
     <rdf:RDF>
@@ -23,7 +23,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -38,8 +38,8 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1360"
-     inkscape:window-height="744"
+     inkscape:window-width="1366"
+     inkscape:window-height="703"
      id="namedview3063"
      showgrid="false"
      inkscape:snap-grids="true"
@@ -51,11 +51,11 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:zoom="1.0902394"
-     inkscape:cx="272.51054"
-     inkscape:cy="57.412688"
+     inkscape:zoom="12.334651"
+     inkscape:cx="43.862095"
+     inkscape:cy="17.61119"
      inkscape:window-x="0"
-     inkscape:window-y="24"
+     inkscape:window-y="28"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg3061">
     <inkscape:grid
@@ -65,11 +65,13 @@
        dotted="true"
        visible="true"
        enabled="true"
-       snapvisiblegridlinesonly="true" />
+       snapvisiblegridlinesonly="true"
+       originx="-2.520621e-09px"
+       originy="-88.748404px" />
   </sodipodi:namedview>
   <g
      id="g3917"
-     transform="translate(-3.348302,7.020164)">
+     transform="matrix(0.25349881,0,0,0.25358786,-0.84879057,1.7802284)">
     <path
        d="m 61.748302,65.279837 c 0,-16.699983 -12.000016,-29.3 -27.9,-29.3 -7.199993,0 -12.100005,2.000005 -17.2,7.1 l 0,-23.6 -13.3,0 0,73.9 12.2,0 0,-7.1 c 5.699994,6.099994 11.000008,8.4 19.2,8.4 15.599984,0 27,-12.700017 27,-29.4 m -13.4,0.1 c 0,10.09999 -6.600009,17.1 -16.1,17.1 -9.59999,0 -16.4,-7.10001 -16.4,-17.2 0,-9.99999 6.800009,-17.1 16.1,-17.1 9.499991,0 16.4,7.30001 16.4,17.2"
        style="font-size:100px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:TeXGyreAdventor;-inkscape-font-specification:TeXGyreAdventor Bold"
@@ -128,7 +130,7 @@
   </g>
   <g
      id="g3934"
-     transform="translate(-3.348302,7.020164)">
+     transform="matrix(0.25349881,0,0,0.25358786,-0.84879057,1.7802284)">
     <path
        inkscape:connector-curvature="0"
        id="rect3851"
@@ -142,12 +144,12 @@
   </g>
   <path
      style="fill:#00aa00;fill-opacity:1;fill-rule:nonzero;stroke:none"
-     d="m 317.7026,20.85972 -2.62893,4.253083 -4.25309,-2.628931 -10.51572,17.012334 34.02466,21.031454 10.51573,-17.012334 -4.25308,-2.628931 2.62893,-4.253084 -8.50617,-5.257863 -2.62893,4.253083 -8.50617,-5.257864 2.62894,-4.253083 -8.50617,-5.257864 z"
+     d="m 80.53723,5.2897714 -0.666429,1.07853 -1.078154,-0.666665 -2.665722,4.3141206 8.62521,5.333322 2.665725,-4.314122 -1.078151,-0.666665 0.666431,-1.0785296 -2.156303,-1.33333 -0.666431,1.07853 -2.156305,-1.33333 0.666434,-1.07853 -2.156305,-1.333331 z"
      id="path3911"
      inkscape:connector-curvature="0" />
   <g
      id="g3930"
-     transform="translate(-3.348302,7.020164)">
+     transform="matrix(0.25349881,0,0,0.25358786,-0.84879057,1.7802284)">
     <path
        inkscape:connector-curvature="0"
        id="path3913"
