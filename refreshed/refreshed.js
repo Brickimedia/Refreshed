@@ -141,10 +141,6 @@ $( document ).ready( function() {
 		Refreshed.i++;
 	});
 
-	$( '#refreshed-toc a' ).each( function() {
-		Refreshed.getHeight( $( this ) );
-	});
-
 	$( '#refreshed-toc a' ).click( function() {
 		event.preventDefault();
 		var heightTo = Refreshed.getHeight( $(this ) );
@@ -159,11 +155,11 @@ $( document ).ready( function() {
 	});
 
 	$( window ).resize( function() {
-		Refreshed.overlap();
-		$( window ).scroll();
 		$( '#refreshed-toc a' ).each( function() {
 			Refreshed.getHeight( $( this ) );
 		});
+		Refreshed.overlap();
+		$( window ).scroll();
 	});
 
 	$( '#userinfo > a' ).click( function() {
@@ -218,5 +214,5 @@ $( document ).ready( function() {
 } );
 
 $( window ).load( function() {
-	Refreshed.overlap();
+	$( window ).resize();
 });
