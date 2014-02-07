@@ -282,6 +282,10 @@ a.toclevel-6 {
 	padding-right: 60px !important;
 }
 
+.toc, #toc { /* hide inline toc if it has somehow scraped in. */
+	display: none;
+}
+
 #userinfo {
 	position: relative;
 	float: left;
