@@ -54,8 +54,8 @@ class RefreshedTemplate extends BaseTemplate {
 		if ( $title->inNamespace( 0 ) ) {
 			$titleText = wfMessage( 'refreshed-article', $titleText )->text();
 		}
-		$titleText = str_replace( '/', '<wbr>/<wbr>', $titleText );
-		$titleText = str_replace( ':', '<wbr>:<wbr>', $titleText );
+		$titleText = str_replace( '/', '&#8203;/&#8203;', $titleText );
+		$titleText = str_replace( ':', '&#8203;:&#8203;', $titleText );
 
 		// Output the <html> tag and whatnot
 		$this->html( 'headelement' );
