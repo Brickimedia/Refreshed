@@ -16,15 +16,17 @@ $messages['en'] = array(
 
 /** Message documentation */
 $messages['qqq'] = array(
+	'refreshed-advert' => 'The header shown above the footer advert',
 	'refreshed-article' => 'Shown on the left-hand floating "sidebar" on content namespaces. Parameters:
 * $1 is the name of the page we\'re viewing, such as "Foo"',
-	'refreshed-advert' => 'The header, shown above the footer advert'
+	'refreshed-back' => 'A message shown on mobile beneath the article name on talk pages. Parameters:
+* $1 is the name of the page the discussion page we\'re viewing is for, such as "Foo" for "Talk:Foo"',
 );
 
 /** German (Deutsch) **/
 $messages['de'] = array(
+	'refreshed-advert' => 'Werbung',
 	'refreshed-article' => 'Seite:$1',
-	'refreshed-advert' => 'Werbung'
 );
 
 /** Finnish (suomi) */
@@ -32,6 +34,13 @@ $messages['fi'] = array(
 	'refreshed-advert' => 'Mainos',
 	'refreshed-article' => 'artikkeli:$1',
 	'refreshed-back' => 'Takaisin sivulle "$1"',
+);
+
+/** Latin (Latina) **/
+$messages['la'] = array(
+	'refreshed-advert' => 'Praeconium Mercatorium',
+	'refreshed-article' => 'Commentarius:$1',
+	'refreshed-back' => 'Revertere ad "$1"',
 );
 
 /** Vietnamese (Tiếng Việt) **/
