@@ -169,6 +169,19 @@ class RefreshedTemplate extends BaseTemplate {
 							}
 						?>
 					</ul></li>
+					<?php
+						if ( $this->data['language_urls'] ) {
+							echo "<li><a href=\"javascript:;\" id=\"languages-link\">
+								<img class=\"arrow\" src=\"$refreshedImagePath/arrow-highres.png\" alt=\"\" width=\"11\" height=\"6\" />
+								<img class=\"arrow no-show\" src=\"$refreshedImagePath/arrow-highres-hover.png\" alt=\"\" width=\"11\" height=\"6\" />
+								{$this->getMsg( 'otherlanguages' )->text()}</a></li>";
+							echo "<li><ul id='languages' style='display:none;'>";
+							foreach ( $this->data['language_urls'] as $key => $link ) {
+								echo $this->makeListItem( $key, $link );
+							}
+							echo "</ul></li>";
+						}
+					?>
 				</ul>
 				<div id="leftbar-bottom">
 					<div id="refreshed-toc">

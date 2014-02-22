@@ -207,6 +207,14 @@ $( document ).ready( function() {
 		$( this ).children().toggleClass( 'no-show' );
 	});
 
+	$( '#languages-link' ).click( function() {
+		$( '#languages' ).fadeToggle();
+		$( this ).children().toggleClass( 'rotate' );
+	});
+	$( '#languages-link' ).hover( function() {
+		$( this ).children().toggleClass( 'no-show' );
+	});
+
 	$( '#smalltoolboxwrapper > a' ).click( function() {
 		$( '#smalltoolbox' ).css({'overflow': 'auto'}).animate({'width': '100%'}).addClass("scrollshadow");
 		$( this ).css({'display': 'none'});

@@ -221,7 +221,7 @@ body {
 	border-color: #fdad9d;
 }
 
-#toolbox {
+#toolbox, #languages {
 	right: 0;
 	z-index: 3;
 	background-color: rgb(0, 0, 0);
@@ -336,11 +336,11 @@ a.toclevel-6 {
 	margin-top: 0.5em;
 }
 
-#toolbox-link .arrow {
+#toolbox-link .arrow, #languages-link .arrow {
 	vertical-align: 2px;
 }
 
-#userinfo .arrow, #toolbox-link .arrow {
+#userinfo .arrow, #toolbox-link .arrow, #languages-link .arrow {
 	-webkit-transition: -webkit-transform 0.5s; /* Safari */
 	-moz-transition: -moz-transform 0.5s; /* Firefox */
 	-ms-transition: -ms-trasform 0.5s; /* IE */
@@ -352,7 +352,7 @@ a.toclevel-6 {
 	transform: rotateZ(0deg);
 }
 
-#userinfo .arrow.rotate, #toolbox-link .arrow.rotate {
+#userinfo .arrow.rotate, #toolbox-link .arrow.rotate, #languages-link .arrow.rotate {
 	-webkit-transform: rotateZ(-180deg); /* Safari */
 	-moz-transform: rotateZ(-180deg); /* Firefox */
 	-ms-transform: rotateZ(-180deg); /* IE */
@@ -365,7 +365,7 @@ a.toclevel-6 {
 	width: 30px;
 }
 
-#toolbox-link .no-show {
+.no-show {
 	display: none;
 }
 
