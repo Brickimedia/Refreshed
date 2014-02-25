@@ -17,7 +17,7 @@ var Refreshed = {
 	},
 
 	moveBoxTo: function( height ) {
-		var heightAbove = 0, idAbove = -1, goTo;
+		var heightAbove = 0, idAbove = -1, goTo, tocHeight = $('#refreshed-toc').height();
 
 		Refreshed.heights.forEach( function( elem, index ) {
 			if ( elem <= height ) {
@@ -28,7 +28,7 @@ var Refreshed = {
 		if ( idAbove == -1 ) {
 			goTo = 0;
 		} else if ( idAbove == Refreshed.heights.length - 1 ) {
-			goTo = $('#refreshed-toc').height() - 28;
+			goTo = tocHeight - 28;
 		} else {
 			var idBelow = idAbove + 1,
 				heightBelow = Refreshed.heights[idBelow],
@@ -41,7 +41,12 @@ var Refreshed = {
 				elemBelow = $( 'a[data-numid=' + idBelow + ']' ),
 				elemBelowOffset = elemBelow.position().top,
 				elemOffsetDiff = elemBelowOffset - elemAboveOffset;
+			
 			goTo = elemAboveOffset + ( elemOffsetDiff * fractMe );
+			
+			if ( goTo > tocHeight - 28 ) {
+				goTo = tocHeight - 28;
+			}
 		}
 
 		$( '#toc-box' ).stop().animate( { 'top': goTo }, 200 );

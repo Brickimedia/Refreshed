@@ -246,12 +246,13 @@ body {
 
 #refreshed-toc {
 	position: relative;
+	min-height: 28px;
 }
 
 #toc-box {
 	width: 5px;
 	background-color: white;
-	height: 1.7em;
+	height: 28px;
 	position: absolute;
 	right: 0;
 }
