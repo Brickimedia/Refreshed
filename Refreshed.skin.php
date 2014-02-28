@@ -11,11 +11,42 @@ class SkinRefreshed extends SkinTemplate {
 	var $skinname = 'refreshed', $stylename = 'refreshed',
 		$template = 'RefreshedTemplate', $useHeadElement = true;
 
+	/**
+	 * Initializes OutputPage and sets up skin-specific parameters
+	 *
+	 * @param OutputPage $out
+	 */
+	public function initPage( OutputPage $out ) {
+		parent::initPage( $out );
+
+		// Append CSS which includes IE only behavior fixes for hover support -
+		// this is better than including this in a CSS file since it doesn't
+		// wait for the CSS file to load before fetching the HTC file.
+		$min = $this->getRequest()->getFuzzyBool( 'debug' ) ? '.src' : '.min';
+		// Add CSS @media support for older browsers (such as Internet Explorer
+		// 8) that do not support it natively
+		// @see https://github.com/Brickimedia/brickimedia/issues/224
+		// @todo FIXME: add Respond into the resources directory
+		// (skins/Refreshed/refreshed) and load it from there instead of from GitHub
+		// Remember to use the global variable $wgLocalStylePath, just like how
+		// Vector does!
+		$out->addHeadItem( 'css3mediaquerypolyfill',
+			'<!--[if lt IE 9]>' .
+			Html::element( 'script', array(
+				'src' => "https://raw.github.com/scottjehl/Respond/master/dest/respond{$min}.js",
+				'type' => 'text/javascript'
+			) ) . '<![endif]-->'
+		);
+
+		// Add JavaScript via ResourceLoader
+		$out->addModules( 'skins.refreshed.js' );
+	}
+
 	function setupSkinUserCss( OutputPage $out ) {
 		parent::setupSkinUserCss( $out );
 
-		// Add CSS & JS via ResourceLoader
-		$out->addModules( 'skins.refreshed' );
+		// Add CSS via ResourceLoader
+		$out->addModuleStyles( 'skins.refreshed' );
 	}
 }
 

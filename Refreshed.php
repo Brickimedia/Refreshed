@@ -5,6 +5,7 @@
  * @file
  * @ingroup Skins
  * @version 2.0
+ * @link https://www.mediawiki.org/wiki/Skin:Refreshed Documentation
  */
 
 if ( !defined( 'MEDIAWIKI' ) ) {
@@ -65,18 +66,19 @@ $wgResourceModules['skins.refreshed'] = array(
 		'skins/Refreshed/refreshed/medium.css' => array( 'media' => '(min-width: 601px) and (max-width: 1000px)' ),
 		'skins/Refreshed/refreshed/big.css' => array( 'media' => '(min-width: 1001px)' ),
 	),
-	'scripts' => 'skins/Refreshed/refreshed/refreshed.js',
 	'position' => 'top'
+);
+
+$wgResourceModules['skins.refreshed.js'] = array(
+	'scripts' => 'skins/Refreshed/refreshed/refreshed.js',
 );
 
 $wgHooks['OutputPageParserOutput'][] = 'RefreshedTemplate::onOutputPageParserOutput';
 
 $wgHooks['BeforePageDisplay'][] = function( &$out, &$skin ) {
-	global $wgUser;
-
 	// Add the viewport meta tag for users who are using this skin
 	// The skin class check has to be present because hooks are global!
-	if ( get_class( $wgUser->getSkin() ) == 'SkinRefreshed' ) {
+	if ( get_class( $skin ) == 'SkinRefreshed' ) {
 		$out->addMeta( 'viewport', 'width=device-width' );
 	}
 
