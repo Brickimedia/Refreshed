@@ -17,9 +17,9 @@ var Refreshed = {
 	},
 
 	moveBoxTo: function( height ) {
-		var heightAbove = 0, idAbove = -1, goTo, tocHeight = $('#refreshed-toc').height();
+		var heightAbove = 0, idAbove = -1, tocHeight = $('#refreshed-toc').height() - 28, goTo;
 
-		Refreshed.heights.forEach( function( elem, index ) {
+		$.each( Refreshed.heights, function( index, elem ) {
 			if ( elem <= height ) {
 				heightAbove = elem;
 				idAbove = index;
@@ -28,7 +28,7 @@ var Refreshed = {
 		if ( idAbove == -1 ) {
 			goTo = 0;
 		} else if ( idAbove == Refreshed.heights.length - 1 ) {
-			goTo = tocHeight - 28;
+			goTo = tocHeight;
 		} else {
 			var idBelow = idAbove + 1,
 				heightBelow = Refreshed.heights[idBelow],
@@ -44,8 +44,8 @@ var Refreshed = {
 			
 			goTo = elemAboveOffset + ( elemOffsetDiff * fractMe );
 			
-			if ( goTo > tocHeight - 28 ) {
-				goTo = tocHeight - 28;
+			if ( goTo > tocHeight ) {
+				goTo = tocHeight;
 			}
 		}
 
