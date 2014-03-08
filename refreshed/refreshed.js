@@ -1,7 +1,6 @@
 /* global $ */
 var Refreshed = {
 	heights: [],
-	i: 0,
 	user: false,
 	header: false,
 	left: false,
@@ -41,9 +40,9 @@ var Refreshed = {
 				elemBelow = $( 'a[data-numid=' + idBelow + ']' ),
 				elemBelowOffset = elemBelow.position().top,
 				elemOffsetDiff = elemBelowOffset - elemAboveOffset;
-			
+
 			goTo = elemAboveOffset + ( elemOffsetDiff * fractMe );
-			
+
 			if ( goTo > tocHeight ) {
 				goTo = tocHeight;
 			}
@@ -139,13 +138,6 @@ var Refreshed = {
 };
 
 $( document ).ready( function() {
-	$( '#refreshed-toc a' ).each( function() {
-		var href = $( this ).attr( 'href' );
-		$( this ).attr({'data-to': href});
-		$( this ).attr({'data-numid': Refreshed.i});
-		Refreshed.i++;
-	});
-
 	$( '#refreshed-toc a' ).click( function() {
 		event.preventDefault();
 		var heightTo = Refreshed.getHeight( $(this ) );

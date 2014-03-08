@@ -69,9 +69,12 @@ class RefreshedTemplate extends BaseTemplate {
 		// new TOC processing
 		$tocHTML = '';
 		if ( isset( $refreshedTOC ) ) {
+			$i = 0;
 			foreach ( $refreshedTOC as $tocpart ) {
 				$class = "toclevel-{$tocpart['toclevel']}";
-				$tocHTML .= "<a href=\"#{$tocpart['anchor']}\" class=\"$class\">{$tocpart['line']}</a>";
+				$href = "#{$tocpart['anchor']}";
+				$tocHTML .= "<a href='$href' data-to='$href' data-numid='$i' class='$class'>{$tocpart['line']}</a>";
+				$i++;
 			}
 		}
 
