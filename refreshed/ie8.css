@@ -1,0 +1,7 @@
+/* Internet Explorer 8 fixes for the Refreshed skin */
+
+/* Fix search suggestions positioning (well, it's literally off by one pixel, but that's acceptable) */
+div.suggestions {
+	right: 0.55em !important;
+	top: 2.2em !important;
+}

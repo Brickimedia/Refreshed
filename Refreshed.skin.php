@@ -43,10 +43,15 @@ class SkinRefreshed extends SkinTemplate {
 	}
 
 	function setupSkinUserCss( OutputPage $out ) {
+		global $wgStylePath;
+
 		parent::setupSkinUserCss( $out );
 
 		// Add CSS via ResourceLoader
 		$out->addModuleStyles( 'skins.refreshed' );
+
+		// Internet Explorer fixes
+		$out->addStyle( $wgStylePath . '/Refreshed/refreshed/ie8.css', 'screen', 'IE 8' );
 	}
 }
 

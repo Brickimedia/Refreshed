@@ -30,6 +30,11 @@ body {
 	background-image: -moz-linear-gradient(left, #040f28 0, #103ca2 50%, #040f28 100%);
 	background-image: -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(0, #040f28), color-stop(50%, #103ca2), color-stop(100%, #040f28));
 	background-image: -o-linear-gradient(left, #040f28 0, #103ca2 50%, #040f28 100%);
+	/* IE5.5-IE7 */
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#040f28', endColorstr='#103ca2', GradientType=1);
+	/* IE8 */
+	-ms-filter: "progid:DXImageTransform.Microsoft.Gradient(GradientType=1,StartColorStr=#040f28,EndColorStr=#103ca2)";
+	/* IE9+ */
 	background-image: -ms-linear-gradient(left, #040f28 0, #103ca2 50%, #040f28 100%);
 	background-image: linear-gradient(to left, #040f28 0, #103ca2 50%, #040f28 100%);
 	-webkit-font-smoothing: antialiased;
@@ -189,7 +194,13 @@ body {
 	padding-right: 10px;
 }
 
+/* Don't apply text-transform to the page name in the left-hand sidebar */
 #leftbar-top > li:first-of-type {
+	text-transform: none;
+}
+
+/* At least Internet Explorer 8 doesn't understand first-of-type... */
+ul#leftbar-top li a[id ^="ca-nstab"] {
 	text-transform: none;
 }
 
