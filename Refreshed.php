@@ -87,3 +87,9 @@ $wgHooks['BeforePageDisplay'][] = function( &$out, &$skin ) {
 
 // Don't leak variables to global scope.
 unset( $skinID, $dir );
+
+$wgRefreshedHeader = array(
+	'img' => '<img src="http://meta.brickimedia.org/skins/Refreshed/refreshed/images/brickimedia.svg" width="144" />',
+	'url' => 'http://meta.brickimedia.org/wiki/Main_Page',
+	'dropdown' => array() // format: array( 'http://exampleurl.com' => '<img src="http://exampleimage.png" width="100" />', );
+);

@@ -434,23 +434,33 @@ a.toclevel-6 {
 	width: 200px;
 }
 
-#siteinfo > a {
-	height: 2em;
-	display: block;
+#siteinfo-main {
 	margin: auto;
-	width: 11em;
-	padding: 0.5em 1em 0.5em 1em;
+	width: 14em;
+	height: 3em;
 }
 
-#siteinfo > a:hover {
+#siteinfo-main a.main {
+	padding: 0.5em;
+	display: inline-block;
+	width: 10em;
+}
+
+#siteinfo-main a.main img {
+	height: 2em;
+}
+
+#siteinfo-main a.arrow-link {
+	padding: 0.5em;
+	display: inline-block;
+	height: 2em;
+}
+
+#siteinfo-main a:hover {
 	background-color: #222;
 }
 
-#siteinfo > a > img {
-	display: inline-block;
-}
-
-#siteinfo > a > span {
+#siteinfo a span { /* for when there is no image, just text */
 	font-size: 15pt;
 	color: white;
 }
@@ -459,7 +469,7 @@ a.toclevel-6 {
 	text-align: center;
 }
 
-#siteinfo .arrow {
+#siteinfo img.arrow {
 	-webkit-transition: -webkit-transform .5s; /* Safari */
 	-moz-transition: -moz-tranform .5s; /* Firefox */
 	-ms-transition: -ms-transform .5s; /* IE */
@@ -471,11 +481,9 @@ a.toclevel-6 {
 	transform: rotateZ(0deg);
 
 	vertical-align: middle;
-	margin-left: 1em;
-	display: inline-block;
 }
 
-#siteinfo .arrow.rotate {
+#siteinfo img.arrow.rotate {
 	-webkit-transform: rotateZ(180deg); /* Safari */
 	-moz-transform: rotateZ(180deg);  /* Firefox */
 	-ms-transform: rotateZ(180deg); /* IE */

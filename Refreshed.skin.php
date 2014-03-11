@@ -67,7 +67,7 @@ class RefreshedTemplate extends BaseTemplate {
 	}
 
 	public function execute() {
-		global $wgStylePath, $refreshedTOC;
+		global $wgStylePath, $refreshedTOC, $wgRefreshedHeader;
 
 		$user = $this->getSkin()->getUser();
 
@@ -101,45 +101,23 @@ class RefreshedTemplate extends BaseTemplate {
 
 		$refreshedImagePath = "$wgStylePath/Refreshed/refreshed/images";
 ?>
-
 	<div id="header">
-		<?php
-		$logos = array(
-			'meta' => "<img width=\"144\" height=\"30\" src=\"$refreshedImagePath/brickimedia.svg\" alt=\"\" />",
-			'en' => "<img width=\"138\" height=\"30\" src=\"$refreshedImagePath/brickipedia.svg\" alt=\"\" />",
-			'customs' => "<img width=\"100\" height=\"30\" src=\"$refreshedImagePath/customs.svg\" alt=\"\" />",
-			'stories' => "<img width=\"144\" height=\"30\" src=\"$refreshedImagePath/stories.svg\" alt=\"\" />",
-			'cuusoo' => "<img width=\"144\" height=\"36\" src=\"$refreshedImagePath/cuusoo.svg\" alt=\"\" />",
-		);
-
-		$groups = $user->getGroups();
-
-		if ( in_array( 'sysop', $groups ) ) {
-			$logos['admin'] = "<img width=\"81\" height=\"22\" src=\"$refreshedImagePath/admin.svg\" alt=\"\" />";
-		}
-		if ( in_array( 'sysadmin', $groups ) ) {
-			$logos['dev'] = "<img width=\"169\" height=\"26\" src=\"$refreshedImagePath/dev.png\" alt=\"\" />";
-		}
-
-		global $bmProject;
-		?>
 		<div id="siteinfo">
-			<a href='javascript:;'>
-				<?php
-					if ( isset( $logos[$bmProject] ) ) {
-						echo $logos[$bmProject];
-						unset( $logos[$bmProject] );
+			<div id="siteinfo-main">
+				<a class="main" href='<?php echo $wgRefreshedHeader['url']; ?>'><?php echo $wgRefreshedHeader['img']; ?></a>
+			<?php
+				if ( $wgRefreshedHeader['dropdown'] ) {
+					echo "<a href='javascript:;' class='arrow-link'><img class='arrow' src='{$refreshedImagePath}/arrow-highres.png' alt='' width='15' height='8' /></a>";
+					echo "</div>";
+					echo "<div class='headermenu' style='display:none;'>";
+					foreach ( $wgRefreshedHeader['dropdown'] as $url => $img ) {
+						echo "<a href='$url'>{$img}</a>";
 					}
-					echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow-highres.png\" alt=\"\" width=\"15\" height=\"8\" />";
-				?>
-			</a>
-			<div class="headermenu" style="display:none;">
-				<?php
-					foreach ( $logos as $site => $logo ) {
-						echo "<a href=\"http://$site.brickimedia.org\">{$logo}</a>";
-					}
-				?>
-			</div>
+					echo "</div>";
+				} else {
+					echo "</div>";
+				}
+			?>
 		</div>
 	</div>
 	<div id="fullwrapper">

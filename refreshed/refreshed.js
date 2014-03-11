@@ -163,7 +163,7 @@ $( document ).ready( function() {
 		Refreshed.toggleUser();
 	});
 
-	$( '#siteinfo > a' ).click( function() {
+	$( '#siteinfo a.arrow-link' ).click( function() {
 		Refreshed.toggleSite();
 	});
 
