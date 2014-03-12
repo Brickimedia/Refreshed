@@ -441,9 +441,10 @@ a.toclevel-6 {
 }
 
 #siteinfo-main a.main {
-	padding: 0.5em;
+	padding: 0.5em 0.25em;
 	display: inline-block;
 	width: 10em;
+	margin-left: .5em;
 }
 
 #siteinfo-main a.main img {
@@ -451,7 +452,11 @@ a.toclevel-6 {
 }
 
 #siteinfo-main a.arrow-link {
-	padding: 0.5em;
+	position: absolute;
+	padding-top: .9em;
+	padding-right: .75em;
+	padding-bottom: .1em;
+	padding-left: .75em;
 	display: inline-block;
 	height: 2em;
 }
