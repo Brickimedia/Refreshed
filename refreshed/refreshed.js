@@ -1,6 +1,8 @@
 /* global $ */
 var Refreshed = {
 	heights: [],
+	offsets: [],
+	tocHeight: 0,
 	user: false,
 	header: false,
 	left: false,
@@ -12,22 +14,22 @@ var Refreshed = {
 			to = $( document.getElementById( id ) ),
 			heightTo = to.offset().top - 50;
 		Refreshed.heights[numid] = heightTo;
+		Refreshed.offsets[numid] = self.position().top;
 		return heightTo;
 	},
 
 	moveBoxTo: function( height ) {
-		var heightAbove = 0, idAbove = -1, tocHeight = $('#refreshed-toc').height() - 28, goTo;
+		var heightAbove = 0, idAbove = -1, goTo;
 
-		$.each( Refreshed.heights, function( index, elem ) {
-			if ( elem <= height ) {
-				heightAbove = elem;
-				idAbove = index;
-			}
-		});
+		for ( var i = 0; Refreshed.heights[i] <= height; i++ ) {
+			heightAbove = Refreshed.heights[i];
+			idAbove = i;
+		}
+
 		if ( idAbove == -1 ) {
 			goTo = 0;
 		} else if ( idAbove == Refreshed.heights.length - 1 ) {
-			goTo = tocHeight;
+			goTo = Refreshed.tocHeight;
 		} else {
 			var idBelow = idAbove + 1,
 				heightBelow = Refreshed.heights[idBelow],
@@ -35,16 +37,14 @@ var Refreshed = {
 				heightMeRelative = height - heightAbove,
 				fractMe = heightMeRelative / heightDiff;
 
-			var elemAbove = $( 'a[data-numid=' + idAbove + ']' ),
-				elemAboveOffset = elemAbove.position().top,
-				elemBelow = $( 'a[data-numid=' + idBelow + ']' ),
-				elemBelowOffset = elemBelow.position().top,
+			var elemAboveOffset = Refreshed.offsets[idAbove],
+				elemBelowOffset = Refreshed.offsets[idBelow],
 				elemOffsetDiff = elemBelowOffset - elemAboveOffset;
 
 			goTo = elemAboveOffset + ( elemOffsetDiff * fractMe );
 
-			if ( goTo > tocHeight ) {
-				goTo = tocHeight;
+			if ( goTo > Refreshed.tocHeight ) {
+				goTo = Refreshed.tocHeight;
 			}
 		}
 
@@ -219,5 +219,6 @@ $( document ).ready( function() {
 } );
 
 $( window ).load( function() {
+	Refreshed.tocHeight = $('#refreshed-toc').height() - 28;
 	$( window ).resize();
 });
