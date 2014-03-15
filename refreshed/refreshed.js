@@ -103,6 +103,8 @@ var Refreshed = {
 	toggleSite: function() {
 		$( '#siteinfo .headermenu' ).fadeToggle( 150 );
 		$( '#siteinfo .arrow' ).toggleClass( 'rotate' );
+		$( '#siteinfo-main a.arrow-link' ).toggleClass( 'dropdown-highlighted' );
+		$( '#siteinfo-main' ).toggleClass( 'dropdown-bg-highlighted' );
 		Refreshed.header = !Refreshed.header;
 	},
 
@@ -162,7 +164,7 @@ $( document ).ready( function() {
 	$( '#userinfo > a' ).click( function() {
 		Refreshed.toggleUser();
 	});
-
+	
 	$( '#siteinfo a.arrow-link' ).click( function() {
 		Refreshed.toggleSite();
 	});

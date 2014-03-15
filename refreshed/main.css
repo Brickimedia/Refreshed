@@ -431,20 +431,29 @@ a.toclevel-6 {
 
 #siteinfo .headermenu {
 	margin: auto;
-	width: 200px;
+	width: 12.6em;
 }
 
 #siteinfo-main {
 	margin: auto;
-	width: 14em;
+	width: 13em;
 	height: 3em;
+}
+
+#siteinfo-main:hover,
+.dropdown-bg-highlighted {
+	background-color: #333;
+}
+
+#siteinfo-main a:hover,
+.dropdown-highlighted {
+	background-color: #222;
 }
 
 #siteinfo-main a.main {
 	padding: 0.5em;
 	display: inline-block;
 	width: 10em;
-	margin-left: .5em;
 }
 
 #siteinfo-main a.main img {
@@ -459,10 +468,7 @@ a.toclevel-6 {
 	padding-left: .5em;
 	display: inline-block;
 	height: 2em;
-}
-
-#siteinfo-main a:hover {
-	background-color: #222;
+	width: 1em;
 }
 
 #siteinfo a span { /* for when there is no image, just text */
