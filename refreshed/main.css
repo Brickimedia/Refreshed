@@ -713,3 +713,8 @@ h6 {
 	-moz-box-shadow: none !important;
 	box-shadow: none !important;
 }
+
+/* Fix funky diff padding to make diffs fully readable */
+td.diff-addedline .diffchange, td.diff-deletedline .diffchange {
+	padding: 0;
+}
