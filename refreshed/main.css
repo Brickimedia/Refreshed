@@ -718,3 +718,8 @@ h6 {
 td.diff-addedline .diffchange, td.diff-deletedline .diffchange {
 	padding: 0;
 }
+
+/*Better line spacing on recent changes*/
+table.mw-enhanced-rc {
+	line-height: 1.5em;
+}
