@@ -26,7 +26,8 @@
 }
 
 #siteinfo .headermenu,
-#siteinfo > a {
+#siteinfo > a,
+#siteinfo #siteinfo-main {
 	margin-left: -webkit-calc(50% - 1em);
 	margin-left: -moz-calc(50% - 1em);
 	margin-left: calc(50% - 1em);
