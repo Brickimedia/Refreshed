@@ -42,7 +42,6 @@
 	font-size: 2.25em;
 	overflow-x: scroll;
 }
-
 .scrollshadow {
 	background:
 		-webkit-linear-gradient(90deg, white 20%, rgba(255,255,255,0)),
@@ -57,4 +56,7 @@
 	background-repeat: no-repeat;
 	background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
 	background-attachment: local, local, scroll, scroll;
+}
+#siteSub {
+	display: none !important;
 }

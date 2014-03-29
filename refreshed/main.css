@@ -50,11 +50,23 @@ body {
 	padding-top: 0.2em;
 	padding-left: 0.5em;
 	margin-bottom: 0.3em;
+	padding-bottom: .05em;
 }
-
 .scrollshadow {
 	background: none;
 }
+#maintitlemessages {
+	padding-left: 1.5em;
+}
+#siteSub {
+	font-size: 84%;
+	padding-bottom: .25em;
+}
+#contentSub {
+	margin: 0;
+	margin-bottom: .25em;
+}
+
 #back-to-subject {
 	display: none;
 }

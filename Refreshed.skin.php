@@ -219,6 +219,10 @@ class RefreshedTemplate extends BaseTemplate {
 			<div id="newtalk"><?php $this->html( 'newtalk' ) ?></div>
 			<div id="maintitle">
 				<h1 class="scrollshadow"><?php $this->html( 'title' ) ?></h1>
+                <div id="maintitlemessages">
+                    <div id="siteSub"><?php $this->msg('tagline') ?></div>
+                    <div id="contentSub"<?php $this->html( 'userlangattributes' ) ?>><?php $this->html( 'subtitle' ) ?></div>
+                </div>
 				<?php
 				$title = $titleBase->getSubjectPage(); // reassigning it because it's changed in #leftbar-top
 				if ( $titleNamespace % 2 == 1 && $titleNamespace > 0 ) { // if talk namespace: talk namespaces are odd positive integers
