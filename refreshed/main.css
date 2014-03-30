@@ -90,14 +90,13 @@ body {
 	top: 3em;
 	background-color: white;
 	z-index: 2;
-	font-family: "Lato Body", sans-serif;
+	font-family: sans-serif;
 }
 
 #content {
 	padding: 0em 1em;
 	font-size: 0.9em;
 	word-wrap: break-word;
-	font-family: sans-serif;
 }
 
 #leftbar, #rightbar {
