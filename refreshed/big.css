@@ -25,3 +25,7 @@
 #smalltoolboxwrapper {
 	display: none;
 }
+
+#contentSub {
+	margin-top: -10px;
+}
