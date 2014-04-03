@@ -199,3 +199,8 @@
 .nosmall, .articleFeedbackv5 {
 	display: none !important;
 }
+
+/* Hide ads on mobile until mobile ads are implemented */
+#advert {
+	display: none;
+}
