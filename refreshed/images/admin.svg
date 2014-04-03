@@ -4,6 +4,7 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="753.988px" height="204.875px" viewBox="0 0 753.988 204.875" enable-background="new 0 0 753.988 204.875"
 	 xml:space="preserve">
+<image xlink:href="admin.svg" src="admin.png" width="81" />
 <g>
 	<path fill="#FFFFFF" d="M115.75,201.698v-18c-13.25,15-26.5,21.25-46,21.25c-40.5,0-69.75-30.25-69.75-72c0-42.25,29.5-73,70.5-73
 		c20,0,33.75,6.5,45.25,21.75v-18.5h30.5v138.5H115.75z M74,90.447c-23.75,0-40.5,18-40.5,43.25c0,24.25,16.75,40.75,41,40.75
