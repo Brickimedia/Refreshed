@@ -100,6 +100,9 @@ var Refreshed = {
 		Refreshed.user = !Refreshed.user;
 	},
 
+	/**
+	 * Show/hide the list of sites in header when the small arrow is clicked.
+	 */
 	toggleSite: function() {
 		$( '#siteinfo .headermenu' ).fadeToggle( 150 );
 		$( '#siteinfo .arrow' ).toggleClass( 'rotate' );
@@ -140,9 +143,9 @@ var Refreshed = {
 };
 
 $( document ).ready( function() {
-	$( '#refreshed-toc a' ).click( function() {
+	$( '#refreshed-toc a' ).on( 'click', function() {
 		event.preventDefault();
-		var heightTo = Refreshed.getHeight( $(this ) );
+		var heightTo = Refreshed.getHeight( $( this ) );
 		$( 'html, body' ).animate( {scrollTop: heightTo}, 800 );
 		return false;
 	});
@@ -161,29 +164,29 @@ $( document ).ready( function() {
 		$( window ).scroll();
 	});
 
-	$( '#userinfo > a' ).click( function() {
+	$( '#userinfo > a' ).on( 'click', function() {
 		Refreshed.toggleUser();
 	});
-	
-	$( '#siteinfo a.arrow-link' ).click( function() {
+
+	$( '#siteinfo a.arrow-link' ).on( 'click', function() {
 		Refreshed.toggleSite();
 	});
 
-	$( '#leftbar .shower' ).click( function() {
+	$( '#leftbar .shower' ).on( 'click', function() {
 		Refreshed.toggleLeft();
 		if ( Refreshed.right ) {
 			Refreshed.toggleRight();
 		}
 	});
 
-	$( '#rightbar .shower' ).click( function() {
+	$( '#rightbar .shower' ).on( 'click', function() {
 		Refreshed.toggleRight();
 		if ( Refreshed.left ) {
 			Refreshed.toggleLeft();
 		}
 	});
 
-	$( '#contentwrapper' ).click( function() {
+	$( '#contentwrapper' ).on( 'click', function() {
 		if ( Refreshed.left ) {
 			Refreshed.toggleLeft();
 		}
@@ -194,33 +197,37 @@ $( document ).ready( function() {
 			Refreshed.toggleUser();
 		}
 		if ( Refreshed.header ) {
-			Refreshed.toggleHeader();
+			Refreshed.toggleSite();
 		}
 	});
 
-	$( '#toolbox-link' ).click( function() {
-		$( '#toolbox' ).fadeToggle();
-		$( this ).children().toggleClass( 'rotate' );
-	});
-	$( '#toolbox-link' ).hover( function() {
-		$( this ).children().toggleClass( 'no-show' );
-	});
-
-	$( '#languages-link' ).click( function() {
-		$( '#languages' ).fadeToggle();
-		$( this ).children().toggleClass( 'rotate' );
-	});
-	$( '#languages-link' ).hover( function() {
-		$( this ).children().toggleClass( 'no-show' );
+	$( '#toolbox-link' ).on({
+		'click': function() {
+			$( '#toolbox' ).fadeToggle();
+			$( this ).children().toggleClass( 'rotate' );
+		},
+		'hover': function() {
+			$( this ).children().toggleClass( 'no-show' );
+		}
 	});
 
-	$( '#smalltoolboxwrapper > a' ).click( function() {
-		$( '#smalltoolbox' ).css({'overflow': 'auto'}).animate({'width': '100%'}).addClass("scrollshadow");
+	$( '#languages-link' ).on({
+		'click': function() {
+			$( '#languages' ).fadeToggle();
+			$( this ).children().toggleClass( 'rotate' );
+		},
+		'hover': function() {
+			$( this ).children().toggleClass( 'no-show' );
+		}
+	});
+
+	$( '#smalltoolboxwrapper > a' ).on( 'click', function() {
+		$( '#smalltoolbox' ).css({'overflow': 'auto'}).animate({'width': '100%'}).addClass( 'scrollshadow' );
 		$( this ).css({'display': 'none'});
 	});
 } );
 
 $( window ).load( function() {
-	Refreshed.tocHeight = $('#refreshed-toc').height() - 28;
+	Refreshed.tocHeight = $( '#refreshed-toc' ).height() - 28;
 	$( window ).resize();
 });
