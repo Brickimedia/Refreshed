@@ -14,7 +14,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="New document 1">
+   sodipodi:docname="books.svg">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -24,9 +24,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.35"
-     inkscape:cx="-374.95312"
-     inkscape:cy="-6.3839963"
+     inkscape:zoom="5.6"
+     inkscape:cx="192.19587"
+     inkscape:cy="27.147382"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -47,7 +47,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -56,29 +56,101 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(-19.4,-434.23359)">
-    <text
-       xml:space="preserve"
+    <g
        style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="17.142857"
-       y="512.36218"
-       id="text2989"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan2991"
-         x="17.142857"
-         y="512.36218"
-         style="font-size:100px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#ed8400;fill-opacity:1;font-family:TeX Gyre Adventor;-inkscape-font-specification:TeX Gyre Adventor Bold">brickibooks</tspan></text>
-    <text
-       xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="14"
-       y="510.93359"
-       id="text2985"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan2987"
-         x="14"
-         y="510.93359"
-         style="font-size:100px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#ffffff;fill-opacity:1;font-family:TeX Gyre Adventor;-inkscape-font-specification:TeX Gyre Adventor Bold">brickibooks</tspan></text>
+       id="text2989">
+      <path
+         d="m 80.942857,484.26218 c 0,-16.69998 -12.000016,-29.3 -27.9,-29.3 -7.199993,0 -12.100006,2.00001 -17.2,7.1 l 0,-23.6 -13.3,0 0,73.9 12.2,0 0,-7.1 c 5.699994,6.1 11.000008,8.4 19.2,8.4 15.599984,0 27,-12.70001 27,-29.4 m -13.4,0.1 c 0,10.09999 -6.60001,17.1 -16.1,17.1 -9.599991,0 -16.4,-7.10001 -16.4,-17.2 0,-9.99999 6.800009,-17.1 16.1,-17.1 9.49999,0 16.4,7.30001 16.4,17.2"
+         style="font-size:100px;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#ed8400;font-family:TeX Gyre Adventor;-inkscape-font-specification:TeX Gyre Adventor Bold"
+         id="path3010" />
+      <path
+         d="m 113.75848,468.46218 0,-12.8 -1,0 c -5.69999,0 -8.5,1.60001 -12,6.7 l 0,-5.4 -12.199998,0 0,55.4 13.299998,0 0,-30.8 c 0,-8.59999 3.90001,-12.9 11.9,-13.1"
+         style="font-size:100px;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#ed8400;font-family:TeX Gyre Adventor;-inkscape-font-specification:TeX Gyre Adventor Bold"
+         id="path3012" />
+      <path
+         d="m 133.88973,512.36218 0,-55.4 -13.3,0 0,55.4 13.3,0 m 0.1,-63.4 0,-13.3 -13.3,0 0,13.3 13.3,0"
+         style="font-size:100px;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#ed8400;font-family:TeX Gyre Adventor;-inkscape-font-specification:TeX Gyre Adventor Bold"
+         id="path3014" />
+      <path
+         d="m 199.31317,494.16218 -15,0 c -3.3,5.1 -7.10001,7.3 -12.6,7.3 -9.19999,0 -16.1,-7.20001 -16.1,-16.9 0,-9.69999 6.60001,-16.7 15.8,-16.7 5.99999,0 10.2,2.50001 12.9,7.6 l 15,0 c -4.3,-12.69998 -15.30001,-19.8 -27.9,-19.8 -16.39998,0 -29.2,12.70002 -29.2,29 0,16.09999 13.20002,29 29.6,29 12.89999,0 22.9,-7.10001 27.5,-19.5"
+         style="font-size:100px;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#ed8400;font-family:TeX Gyre Adventor;-inkscape-font-specification:TeX Gyre Adventor Bold"
+         id="path3016" />
+      <path
+         d="m 258.77567,512.36218 -23,-28.3 19.8,-27.1 -15.9,0 -17.7,26.1 0,-44.6 -13.3,0 0,73.9 13.3,0 0,-25.9 18.9,25.9 17.9,0"
+         style="font-size:100px;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#ed8400;font-family:TeX Gyre Adventor;-inkscape-font-specification:TeX Gyre Adventor Bold"
+         id="path3018" />
+      <path
+         d="m 279.98348,512.36218 0,-55.4 -13.3,0 0,55.4 13.3,0 m 0.1,-63.4 0,-13.3 -13.3,0 0,13.3 13.3,0"
+         style="font-size:100px;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#ed8400;font-family:TeX Gyre Adventor;-inkscape-font-specification:TeX Gyre Adventor Bold"
+         id="path3020" />
+      <path
+         d="m 349.10692,484.26218 c 0,-16.69998 -12.00002,-29.3 -27.9,-29.3 -7.19999,0 -12.10001,2.00001 -17.2,7.1 l 0,-23.6 -13.3,0 0,73.9 12.2,0 0,-7.1 c 5.69999,6.1 11.00001,8.4 19.2,8.4 15.59998,0 27,-12.70001 27,-29.4 m -13.4,0.1 c 0,10.09999 -6.60001,17.1 -16.1,17.1 -9.59999,0 -16.4,-7.10001 -16.4,-17.2 0,-9.99999 6.80001,-17.1 16.1,-17.1 9.49999,0 16.4,7.30001 16.4,17.2"
+         style="font-size:100px;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#ed8400;font-family:TeX Gyre Adventor;-inkscape-font-specification:TeX Gyre Adventor Bold"
+         id="path3022" />
+      <path
+         d="m 413.22254,485.06218 c 0,-16.49998 -12.90001,-29.4 -29.6,-29.4 -16.09998,0 -29.3,13.10002 -29.3,29 0,15.99999 13.20002,29 29.4,29 16.09999,0 29.5,-13.00001 29.5,-28.6 m -13.4,-0.4 c 0,9.29999 -7.2,16.8 -16,16.8 -8.99999,0 -16.1,-7.50001 -16.1,-17 0,-9.09999 7.30001,-16.6 16,-16.6 8.9,0 16.1,7.60001 16.1,16.8"
+         style="font-size:100px;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#ed8400;font-family:TeX Gyre Adventor;-inkscape-font-specification:TeX Gyre Adventor Bold"
+         id="path3024" />
+      <path
+         d="m 477.28504,485.06218 c 0,-16.49998 -12.90001,-29.4 -29.6,-29.4 -16.09998,0 -29.3,13.10002 -29.3,29 0,15.99999 13.20002,29 29.4,29 16.09999,0 29.5,-13.00001 29.5,-28.6 m -13.4,-0.4 c 0,9.29999 -7.2,16.8 -16,16.8 -8.99999,0 -16.1,-7.50001 -16.1,-17 0,-9.09999 7.30001,-16.6 16,-16.6 8.9,0 16.1,7.60001 16.1,16.8"
+         style="font-size:100px;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#ed8400;font-family:TeX Gyre Adventor;-inkscape-font-specification:TeX Gyre Adventor Bold"
+         id="path3026" />
+      <path
+         d="m 534.94754,512.36218 -23,-28.3 19.8,-27.1 -15.9,0 -17.7,26.1 0,-44.6 -13.3,0 0,73.9 13.3,0 0,-25.9 18.9,25.9 17.9,0"
+         style="font-size:100px;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#ed8400;font-family:TeX Gyre Adventor;-inkscape-font-specification:TeX Gyre Adventor Bold"
+         id="path3028" />
+      <path
+         d="m 576.52567,494.76218 c 0,-8.19999 -3.80001,-12.6 -15.4,-16.2 -9.09999,-2.89999 -9.4,-3.1 -9.4,-6 0,-2.69999 2.2,-4.7 5.1,-4.7 2.8,0 4.6,1.50001 5.2,4.4 l 13,0 c -0.5,-10.39999 -8.80001,-16.6 -18.2,-16.6 -10.29999,0 -18.4,7.40001 -18.4,16.9 0,8.09999 4.40001,12.70001 15.4,16.4 8.89999,3 9.4,3.90001 9.4,7.1 0,3.1 -2.6,5.4 -6,5.4 -3.9,0 -6.1,-2 -7.4,-6.7 l -13.4,0 c 1.4,12.89999 9.30001,18.9 20.3,18.9 11.09999,0 19.8,-8.30001 19.8,-18.9"
+         style="font-size:100px;font-variant:normal;font-weight:bold;font-stretch:normal;fill:#ed8400;font-family:TeX Gyre Adventor;-inkscape-font-specification:TeX Gyre Adventor Bold"
+         id="path3030" />
+    </g>
+    <g
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
+       id="text2985">
+      <path
+         d="m 77.8,482.83359 c 0,-16.69998 -12.000016,-29.3 -27.9,-29.3 -7.199993,0 -12.100005,2.00001 -17.2,7.1 l 0,-23.6 -13.3,0 0,73.9 12.2,0 0,-7.1 c 5.699994,6.1 11.000008,8.4 19.2,8.4 15.599984,0 27,-12.70001 27,-29.4 m -13.4,0.1 c 0,10.09999 -6.60001,17.1 -16.1,17.1 -9.59999,0 -16.4,-7.10001 -16.4,-17.2 0,-9.99999 6.800009,-17.1 16.1,-17.1 9.49999,0 16.4,7.30001 16.4,17.2"
+         style="font-size:100px;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:TeX Gyre Adventor;-inkscape-font-specification:TeX Gyre Adventor Bold;fill:#ffffff"
+         id="path2987" />
+      <path
+         d="m 110.61562,467.03359 0,-12.8 -1,0 c -5.69999,0 -8.5,1.60001 -11.999995,6.7 l 0,-5.4 -12.2,0 0,55.4 13.3,0 0,-30.8 c 0,-8.59999 3.900005,-12.9 11.899995,-13.1"
+         style="font-size:100px;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:TeX Gyre Adventor;-inkscape-font-specification:TeX Gyre Adventor Bold;fill:#ffffff"
+         id="path2989" />
+      <path
+         d="m 130.74687,510.93359 0,-55.4 -13.29999,0 0,55.4 13.29999,0 m 0.1,-63.4 0,-13.3 -13.29999,0 0,13.3 13.29999,0"
+         style="font-size:100px;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:TeX Gyre Adventor;-inkscape-font-specification:TeX Gyre Adventor Bold;fill:#ffffff"
+         id="path2991" />
+      <path
+         d="m 196.17031,492.73359 -15,0 c -3.29999,5.1 -7.1,7.3 -12.6,7.3 -9.19999,0 -16.1,-7.20001 -16.1,-16.9 0,-9.69999 6.60001,-16.7 15.8,-16.7 6,0 10.20001,2.50001 12.9,7.6 l 15,0 c -4.29999,-12.69998 -15.30001,-19.8 -27.9,-19.8 -16.39998,0 -29.2,12.70002 -29.2,29 0,16.09999 13.20002,29 29.6,29 12.89999,0 22.90001,-7.10001 27.5,-19.5"
+         style="font-size:100px;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:TeX Gyre Adventor;-inkscape-font-specification:TeX Gyre Adventor Bold;fill:#ffffff"
+         id="path2993" />
+      <path
+         d="m 255.63281,510.93359 -23,-28.3 19.8,-27.1 -15.9,0 -17.7,26.1 0,-44.6 -13.3,0 0,73.9 13.3,0 0,-25.9 18.9,25.9 17.9,0"
+         style="font-size:100px;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:TeX Gyre Adventor;-inkscape-font-specification:TeX Gyre Adventor Bold;fill:#ffffff"
+         id="path2995" />
+      <path
+         d="m 276.84062,510.93359 0,-55.4 -13.3,0 0,55.4 13.3,0 m 0.1,-63.4 0,-13.3 -13.3,0 0,13.3 13.3,0"
+         style="font-size:100px;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:TeX Gyre Adventor;-inkscape-font-specification:TeX Gyre Adventor Bold;fill:#ffffff"
+         id="path2997" />
+      <path
+         d="m 345.96406,482.83359 c 0,-16.69998 -12.00001,-29.3 -27.9,-29.3 -7.19999,0 -12.1,2.00001 -17.2,7.1 l 0,-23.6 -13.3,0 0,73.9 12.2,0 0,-7.1 c 5.7,6.1 11.00001,8.4 19.2,8.4 15.59999,0 27,-12.70001 27,-29.4 m -13.4,0.1 c 0,10.09999 -6.60001,17.1 -16.1,17.1 -9.59999,0 -16.4,-7.10001 -16.4,-17.2 0,-9.99999 6.80001,-17.1 16.1,-17.1 9.49999,0 16.4,7.30001 16.4,17.2"
+         style="font-size:100px;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:TeX Gyre Adventor;-inkscape-font-specification:TeX Gyre Adventor Bold;fill:#ffffff"
+         id="path2999" />
+      <path
+         d="m 410.07969,483.63359 c 0,-16.49998 -12.90002,-29.4 -29.6,-29.4 -16.09999,0 -29.3,13.10002 -29.3,29 0,15.99999 13.20001,29 29.4,29 16.09998,0 29.5,-13.00001 29.5,-28.6 m -13.4,-0.4 c 0,9.29999 -7.20001,16.8 -16,16.8 -8.99999,0 -16.1,-7.50001 -16.1,-17 0,-9.09999 7.30001,-16.6 16,-16.6 8.89999,0 16.1,7.60001 16.1,16.8"
+         style="font-size:100px;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:TeX Gyre Adventor;-inkscape-font-specification:TeX Gyre Adventor Bold;fill:#ffffff"
+         id="path3001" />
+      <path
+         d="m 474.14219,483.63359 c 0,-16.49998 -12.90002,-29.4 -29.6,-29.4 -16.09999,0 -29.3,13.10002 -29.3,29 0,15.99999 13.20001,29 29.4,29 16.09998,0 29.5,-13.00001 29.5,-28.6 m -13.4,-0.4 c 0,9.29999 -7.20001,16.8 -16,16.8 -8.99999,0 -16.1,-7.50001 -16.1,-17 0,-9.09999 7.30001,-16.6 16,-16.6 8.89999,0 16.1,7.60001 16.1,16.8"
+         style="font-size:100px;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:TeX Gyre Adventor;-inkscape-font-specification:TeX Gyre Adventor Bold;fill:#ffffff"
+         id="path3003" />
+      <path
+         d="m 531.80469,510.93359 -23,-28.3 19.8,-27.1 -15.9,0 -17.7,26.1 0,-44.6 -13.3,0 0,73.9 13.3,0 0,-25.9 18.9,25.9 17.9,0"
+         style="font-size:100px;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:TeX Gyre Adventor;-inkscape-font-specification:TeX Gyre Adventor Bold;fill:#ffffff"
+         id="path3005" />
+      <path
+         d="m 573.38281,493.33359 c 0,-8.19999 -3.80001,-12.6 -15.4,-16.2 -9.09999,-2.89999 -9.4,-3.1 -9.4,-6 0,-2.69999 2.20001,-4.7 5.1,-4.7 2.8,0 4.6,1.50001 5.2,4.4 l 13,0 c -0.5,-10.39999 -8.80001,-16.6 -18.2,-16.6 -10.29999,0 -18.4,7.40001 -18.4,16.9 0,8.1 4.40001,12.70001 15.4,16.4 8.89999,3 9.4,3.90001 9.4,7.1 0,3.1 -2.6,5.4 -6,5.4 -3.89999,0 -6.1,-2 -7.4,-6.7 l -13.4,0 c 1.4,12.89999 9.30001,18.9 20.3,18.9 11.09999,0 19.8,-8.30001 19.8,-18.9"
+         style="font-size:100px;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:TeX Gyre Adventor;-inkscape-font-specification:TeX Gyre Adventor Bold;fill:#ffffff"
+         id="path3007" />
+    </g>
   </g>
 </svg>
