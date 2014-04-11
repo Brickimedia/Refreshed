@@ -27,6 +27,7 @@ $messages['qqq'] = array(
 $messages['de'] = array(
 	'refreshed-advert' => 'Werbung',
 	'refreshed-article' => 'Seite:$1',
+	'refreshed-back' => 'Zurück zu',
 );
 
 /** Finnish (suomi) */
