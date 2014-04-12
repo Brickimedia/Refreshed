@@ -225,6 +225,33 @@ $( document ).ready( function() {
 		$( '#smalltoolbox' ).css({'overflow': 'auto'}).animate({'width': '100%'}).addClass( 'scrollshadow' );
 		$( this ).css({'display': 'none'});
 	});
+	
+	$( '#icon-ca-watch, #icon-ca-unwatch' ).parent().click( function( e ) {
+		//ajax for watch icons
+		var action, api, $link, title, otherAction;
+
+		e.preventDefault();
+		e.stopPropagation();
+
+		title = mw.config.get( 'wgRelevantPageName', mw.config.get( 'wgPageName' ) );
+		mw.loader.load( ['mediawiki.notification'], null, true );
+		action = mw.util.getParamValue( 'action', this.href );
+		otherAction = action === 'watch' ? 'unwatch' : 'watch';
+		$link = $( this );
+		$( 'div', this ).attr( 'id', 'icon-ca-' + otherAction );
+		$( this ).attr( 'href', this.href.replace( action, otherAction ) );
+
+		api = new mw.Api();
+		api[action]( title )
+			.done( function ( watchResponse ) {
+				mw.notify( $.parseHTML( watchResponse.message ), {
+					tag: 'watch-self'
+				} );
+
+				$( '#wpWatchthis' ).prop( 'checked', watchResponse.watched !== undefined );
+			} );
+	});
+
 } );
 
 $( window ).load( function() {
