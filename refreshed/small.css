@@ -104,6 +104,9 @@
 	background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
 	background-attachment: local, local, scroll, scroll;
 }
+#standardtoolbox {
+	display: none !important;
+}
 #siteSub {
 	display: none !important;
 }

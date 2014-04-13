@@ -55,6 +55,16 @@ body {
 .scrollshadow {
 	background: none;
 }
+#standardtoolbox {
+	padding-left: .5em;
+}
+#standardtoolbox a {
+	font-family: "Lato", sans-serif;
+	padding-left: .5em;
+	text-transform: lowercase;
+	font-weight: normal;
+}
+
 #maintitlemessages {
 	padding-left: 1.5em;
 }
