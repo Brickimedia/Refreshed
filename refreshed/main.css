@@ -109,10 +109,10 @@ body {
 }
 
 /*
-* Hide the list bullet icons. This is not terribly useful by default, but there
-* are extensions which can add entire portlets to the sidebar, and said portlets
-* might be using the <ul> HTML tag...
-*/
+ * Hide the list bullet icons. This is not terribly useful by default, but there
+ * are extensions which can add entire portlets to the sidebar, and said portlets
+ * might be using the <ul> HTML tag...
+ */
 #rightbar li, #leftbar li {
 	list-style-type: none;
 	margin: 0;
@@ -246,7 +246,7 @@ ul#leftbar-top li a[id ^="ca-nstab"] {
 #toolbox, #languages {
 	right: 0;
 	z-index: 3;
-	background-color: rgb(0, 0, 0);
+	background-color: #000;
 	background-color: rgba(0, 0, 0, 0.7);
 	position: absolute;
 	width: 12em;
@@ -402,12 +402,12 @@ a.toclevel-6 {
 }
 
 #userinfo .headermenu {
-	background-color: rgb(25, 25, 112);
+	background-color: #191970;
 	background-color: rgba(25, 25, 112, 0.8);
 }
 
 #siteinfo .headermenu {
-	background-color: rgb(0, 0, 0);
+	background-color: #000;
 	background-color: rgba(0, 0, 0, 0.8);
 }
 
@@ -732,7 +732,7 @@ td.diff-addedline .diffchange, td.diff-deletedline .diffchange {
 	padding: 0;
 }
 
-/*Better line spacing on recent changes*/
+/* Better line spacing on recent changes */
 table.mw-enhanced-rc {
 	line-height: 1.5em;
 }
