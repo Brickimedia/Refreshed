@@ -203,7 +203,7 @@ $( document ).ready( function() {
 
 	$( '#toolbox-link' ).on({
 		'click': function() {
-			$( '#toolbox' ).fadeToggle();
+			$( '#standardtoolboxdropdown' ).fadeToggle();
 			$( this ).children().toggleClass( 'rotate' );
 		},
 		'hover': function() {
