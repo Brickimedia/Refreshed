@@ -7,7 +7,24 @@ var Refreshed = {
 	header: false,
 	left: false,
 	right: false,
+	mainTitleIsDocked: false,
+	mainTitleInitialOffset: $( '#maintitle' ).offset().top,
+	mainTitleH1Em: $( '#maintitle h1' ).css( 'font-size' ),
 
+	dockMainTitle: function() {
+		if (!Refreshed.mainTitleIsDocked && ( $( '#maintitle' ).offset().top - $( 'body' ).scrollTop() - 40 < 0 ) ) {
+			$( '#maintitle' ).css({ 'position': 'fixed', 'top': $( '#header' ).height() - $( '#maintitle h1' ).height() + 40 + 'px', 'box-shadow': '0 3px 9px 0 rgba(75, 75, 75, ' + .2 + ')' })
+			$( '#maintitle h1' ).animate({'font-size': '24pt', 'margin-bottom': '0'}, 200);
+			Refreshed.mainTitleIsDocked = true;
+			$( '#content' ).css({'padding-top': $( '#maintitle' ).height() + 'px'});
+		} else if (Refreshed.mainTitleIsDocked && $( 'body' ).scrollTop() + 40 <= Refreshed.mainTitleInitialOffset) {
+			$( '#maintitle' ).css({'position': 'static', 'top': 0, 'box-shadow': '0 0 0 0'});
+			$( '#maintitle h1' ).animate({'font-size': '32pt', 'margin-bottom': '.3em'}, 200);
+			Refreshed.mainTitleIsDocked = false;
+			$( '#content' ).css({'padding-top': 0});
+		}
+	},
+	
 	getHeight: function( self ) {
 		var id = self.attr( 'data-to' ).substring( 1 ),
 			numid = self.attr( 'data-numid' ),
@@ -143,6 +160,7 @@ var Refreshed = {
 };
 
 $( document ).ready( function() {
+	Refreshed.dockMainTitle();
 	$( '#refreshed-toc a' ).on( 'click', function() {
 		event.preventDefault();
 		var heightTo = Refreshed.getHeight( $( this ) );
@@ -154,6 +172,7 @@ $( document ).ready( function() {
 		if ( $( '#refreshed-toc a' ).length !== 0 ) {
 			Refreshed.moveBoxTo( $( this ).scrollTop() );
 		}
+		Refreshed.dockMainTitle();
 	});
 
 	$( window ).resize( function() {
@@ -203,7 +222,9 @@ $( document ).ready( function() {
 
 	$( '#toolbox-link' ).on({
 		'click': function() {
-			$( '#standardtoolboxdropdown' ).fadeToggle();
+			if ( !$( '#standardtoolboxdropdown' ).is( ':visible' ) ) {
+				$( '#standardtoolboxdropdown' ).fadeIn();
+			}
 			$( this ).children().toggleClass( 'rotate' );
 		},
 		'hover': function() {
@@ -211,21 +232,26 @@ $( document ).ready( function() {
 		}
 	});
 
-	$( '#languages-link' ).on({
-		'click': function() {
-			$( '#languages' ).fadeToggle();
-			$( this ).children().toggleClass( 'rotate' );
-		},
-		'hover': function() {
-			$( this ).children().toggleClass( 'no-show' );
-		}
+	var mainTitleIsDocked = false;
+	var mainTitleInitialOffset = $( '#maintitle' ).offset().top;
+	
+	$(window).scroll(function() {
+		Refreshed.dockMainTitle();
 	});
-
+	
 	$( '#smalltoolboxwrapper > a' ).on( 'click', function() {
 		$( '#smalltoolbox' ).css({'overflow': 'auto'}).animate({'width': '100%'}).addClass( 'scrollshadow' );
 		$( this ).css({'display': 'none'});
 	});
 	
+	$(document).mouseup( function ( e ) {
+		if ( $( '#standardtoolboxdropdown' ).is( ':visible' ) ) {
+			if ( !$( '#standardtoolboxdropdown' ).is( e.target ) && $( '#standardtoolboxdropdown' ).has( e.target ).length === 0 ) { // if the target of the click isn't the container and isn't a descendant of the container
+				$( '#standardtoolboxdropdown' ).fadeOut();
+			}
+		}
+	});
+
 	$( '#icon-ca-watch, #icon-ca-unwatch' ).parent().click( function( e ) {
 		//ajax for watch icons
 		var action, api, $link, title, otherAction;

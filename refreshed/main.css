@@ -44,6 +44,10 @@ body {
 	position: fixed;
 }
 
+#maintitle {
+	background: #fff;
+	width: 100%;
+}
 #maintitle h1 {
 	font-size: 32pt;
 	font-family: "Lato Body", sans-serif;
@@ -88,7 +92,7 @@ body {
 	border-bottom: .5em solid #ccc;
 	position: absolute;
 	top: -.5em;
-	left: .75em;
+	left: .1em;
 }
 #standardtoolboxdropdown a {
 	width: 100%;
@@ -170,7 +174,7 @@ body {
 	height: webkit-calc( 100% - 3.5em );
 	height: moz-calc( 100% - 3.5em );
 	height: calc( 100% - 3.5em );
-	left: 0px;
+	left: 0;
 }
 
 #leftbar-top, #rightbar-top {
@@ -206,16 +210,18 @@ body {
 
 #rightbar-main a {
 	text-align: left;
+	padding-left: 1em;
 	margin-left: 5px;
+	
 }
 
-#rightbar .main {
-	padding-left: 10px;
+#rightbar-top .main {
+	margin-left: .5em;
 	display: block;
 	margin-top: 0.5em;
 }
 
-#rightbar .main:first-of-type {
+#rightbar-top .main:first-of-type {
 	margin-top: 0em;
 }
 
@@ -343,10 +349,6 @@ a.toclevel-5 {
 
 a.toclevel-6 {
 	padding-right: 60px !important;
-}
-
-.toc, #toc { /* hide inline toc if it has somehow scraped in. */
-	display: none;
 }
 
 #userinfo {

@@ -12,7 +12,8 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 	die();
 }
 
-// Hide tables of content, as Refreshed creates its own
+
+/*// Hide tables of content, as Refreshed creates its own
 $wgExtensionCredits['parserhook'][] = array(
 	'path' => __FILE__,
 	'name' => 'NoTOC',
@@ -28,7 +29,7 @@ $wgHooks['ParserClearState'][] = 'efMWNoTOC';
 function efMWNoTOC( $parser ) {
 	$parser->mShowToc = false;
 	return true;
-}
+}*/
 
 // Skin credits that will show up on Special:Version
 $wgExtensionCredits['skin'][] = array(
