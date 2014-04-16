@@ -154,10 +154,10 @@ body {
 }
 
 /*
-* Hide the list bullet icons. This is not terribly useful by default, but there
-* are extensions which can add entire portlets to the sidebar, and said portlets
-* might be using the <ul> HTML tag...
-*/
+ * Hide the list bullet icons. This is not terribly useful by default, but there
+ * are extensions which can add entire portlets to the sidebar, and said portlets
+ * might be using the <ul> HTML tag...
+ */
 #rightbar li, #leftbar li {
 	list-style-type: none;
 	margin: 0;
@@ -441,12 +441,12 @@ a.toclevel-6 {
 }
 
 #userinfo .headermenu {
-	background-color: rgb(25, 25, 112);
+	background-color: #191970;
 	background-color: rgba(25, 25, 112, 0.8);
 }
 
 #siteinfo .headermenu {
-	background-color: rgb(0, 0, 0);
+	background-color: #000;
 	background-color: rgba(0, 0, 0, 0.8);
 }
 
@@ -736,11 +736,13 @@ h6 {
 	padding-right: 12px;
 }
 
+/* Search suggestions */
 .suggestions {
 	position: fixed !important;
 	top: 2.5em !important; /* there is some JS doing odd stuff, this forces our value */
 }
 
+/* Category links */
 #catlinks {
 	margin-left: 1em;
 	margin-right: 1em;
@@ -771,7 +773,21 @@ td.diff-addedline .diffchange, td.diff-deletedline .diffchange {
 	padding: 0;
 }
 
-/*Better line spacing on recent changes*/
+/* Better line spacing on recent changes */
 table.mw-enhanced-rc {
 	line-height: 1.5em;
+}
+
+/* "Updated since your last visit" marker on the page history of pages that are on your watchlist */
+span.updatedmarker {
+	background-color: #0f0;
+	color: #000;
+}
+
+/* [[MediaWiki:Noarticletext]] (the notice shown on nonexistent pages) */
+div.noarticletext {
+	border: 1px solid #ccc;
+	background: #fff;
+	color: #000;
+	padding: .2em 1em;
 }
