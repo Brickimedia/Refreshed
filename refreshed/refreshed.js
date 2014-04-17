@@ -9,20 +9,22 @@ var Refreshed = {
 	right: false,
 	mainTitleIsDocked: false,
 	mainTitleInitialOffset: $( '#maintitle' ).offset().top,
-	mainTitleH1Em: $( '#maintitle h1' ).css( 'font-size' ),
 
-	dockMainTitle: function() {
-		if (!Refreshed.mainTitleIsDocked && ( $( '#maintitle' ).offset().top - $( 'body' ).scrollTop() - 40 < 0 ) ) {
-			$( '#maintitle' ).css({ 'position': 'fixed', 'top': $( '#header' ).height() - $( '#maintitle h1' ).height() + 40 + 'px', 'box-shadow': '0 3px 9px 0 rgba(75, 75, 75, ' + .2 + ')' })
-			$( '#maintitle h1' ).animate({'font-size': '24pt', 'margin-bottom': '0'}, 200);
+	flyOutScrollHeader: function() {
+		if (!Refreshed.mainTitleIsDocked && ( $( '#maintitle' ).offset().top - $( 'body' ).scrollTop() < 0 ) ) {
+			$( '#maintitlescrolloverlay' ).animate({'top': $( '#header' ).height()});
 			Refreshed.mainTitleIsDocked = true;
-			$( '#content' ).css({'padding-top': $( '#maintitle' ).height() + 'px'});
-		} else if (Refreshed.mainTitleIsDocked && $( 'body' ).scrollTop() + 40 <= Refreshed.mainTitleInitialOffset) {
-			$( '#maintitle' ).css({'position': 'static', 'top': 0, 'box-shadow': '0 0 0 0'});
-			$( '#maintitle h1' ).animate({'font-size': '32pt', 'margin-bottom': '.3em'}, 200);
+			$( '#maintitle > #standardtoolbox #standardtoolboxdropdown' ).fadeOut();
+		} else if (Refreshed.mainTitleIsDocked && $( 'body' ).scrollTop() <= Refreshed.mainTitleInitialOffset) {
 			Refreshed.mainTitleIsDocked = false;
-			$( '#content' ).css({'padding-top': 0});
+			$( '#maintitlescrolloverlay' ).animate({'top': -$( '#maintitlescrolloverlay' ).height()});
+			$( '#maintitlescrolloverlay #standardtoolboxdropdown' ).fadeOut();
 		}
+	},
+	
+	generateScrollHeader: function() {
+		$( '#maintitle' ).clone().attr( 'id', 'maintitlescrolloverlay' ).appendTo( '#maintitle' );
+		$( '#maintitlescrolloverlay' ).css({'top': -$( '#maintitlescrolloverlay' ).height()});
 	},
 	
 	getHeight: function( self ) {
@@ -160,7 +162,8 @@ var Refreshed = {
 };
 
 $( document ).ready( function() {
-	Refreshed.dockMainTitle();
+	Refreshed.generateScrollHeader();
+	Refreshed.flyOutScrollHeader();
 	$( '#refreshed-toc a' ).on( 'click', function() {
 		event.preventDefault();
 		var heightTo = Refreshed.getHeight( $( this ) );
@@ -172,7 +175,7 @@ $( document ).ready( function() {
 		if ( $( '#refreshed-toc a' ).length !== 0 ) {
 			Refreshed.moveBoxTo( $( this ).scrollTop() );
 		}
-		Refreshed.dockMainTitle();
+		Refreshed.flyOutScrollHeader();
 	});
 
 	$( window ).resize( function() {
@@ -220,10 +223,10 @@ $( document ).ready( function() {
 		}
 	});
 
-	$( '#toolbox-link' ).on({
+	$( '#maintitle > #standardtoolbox #toolbox-link' ).on({
 		'click': function() {
-			if ( !$( '#standardtoolboxdropdown' ).is( ':visible' ) ) {
-				$( '#standardtoolboxdropdown' ).fadeIn();
+			if ( !$( '#maintitle > #standardtoolbox #standardtoolboxdropdown' ).is( ':visible' ) ) {
+				$( '#maintitle > #standardtoolbox #standardtoolboxdropdown' ).fadeIn();
 			}
 			$( this ).children().toggleClass( 'rotate' );
 		},
@@ -231,12 +234,25 @@ $( document ).ready( function() {
 			$( this ).children().toggleClass( 'no-show' );
 		}
 	});
-
-	var mainTitleIsDocked = false;
-	var mainTitleInitialOffset = $( '#maintitle' ).offset().top;
 	
-	$(window).scroll(function() {
-		Refreshed.dockMainTitle();
+	$( '#maintitlescrolloverlay #toolbox-link' ).on({
+		'click': function() {
+			if ( !$( '#maintitlescrolloverlay #standardtoolboxdropdown' ).is( ':visible' ) ) {
+				$( '#maintitlescrolloverlay #standardtoolboxdropdown' ).fadeIn();
+			}
+			$( this ).children().toggleClass( 'rotate' );
+		},
+		'hover': function() {
+			$( this ).children().toggleClass( 'no-show' );
+		}
+	});
+	
+	$(document).mouseup( function ( e ) {
+		if ( $( '#maintitle > #standardtoolbox #standardtoolboxdropdown' ).is( ':visible' ) ) {
+			if ( !$( '#maintitle > #standardtoolbox #standardtoolboxdropdown' ).is( e.target ) && $( '#maintitle > #standardtoolbox #standardtoolboxdropdown' ).has( e.target ).length === 0 ) { // if the target of the click isn't the container and isn't a descendant of the container
+				$( '#maintitle > #standardtoolbox #standardtoolboxdropdown' ).fadeOut();
+			}
+		}
 	});
 	
 	$( '#smalltoolboxwrapper > a' ).on( 'click', function() {
@@ -245,9 +261,9 @@ $( document ).ready( function() {
 	});
 	
 	$(document).mouseup( function ( e ) {
-		if ( $( '#standardtoolboxdropdown' ).is( ':visible' ) ) {
-			if ( !$( '#standardtoolboxdropdown' ).is( e.target ) && $( '#standardtoolboxdropdown' ).has( e.target ).length === 0 ) { // if the target of the click isn't the container and isn't a descendant of the container
-				$( '#standardtoolboxdropdown' ).fadeOut();
+		if ( $( '#maintitlescrolloverlay #standardtoolboxdropdown' ).is( ':visible' ) ) {
+			if ( !$( '#maintitlescrolloverlay #standardtoolboxdropdown' ).is( e.target ) && $( '#maintitlescrolloverlay #standardtoolboxdropdown' ).has( e.target ).length === 0 ) { // if the target of the click isn't the container and isn't a descendant of the container
+				$( '#maintitlescrolloverlay #standardtoolboxdropdown' ).fadeOut();
 			}
 		}
 	});

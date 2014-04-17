@@ -70,8 +70,14 @@ body {
 	font-weight: normal;
 	text-decoration: none;
 }
+#standardtoolbox a:hover {
+	text-decoration: underline;
+}
 #standardtoolbox a.selected {
 	border-bottom: 3px solid #0b0080;
+}
+#standardtoolbox a.selected:hover {
+	text-decoration: none;
 }
 #standardtoolboxdropdown {
 	left: .5em;
@@ -98,6 +104,20 @@ body {
 	width: 100%;
 	height: 100%;
 	display: inline-block;
+}
+#standardtoolboxdropdown a:hover {
+	text-decoration: underline;
+}
+#maintitlescrolloverlay {
+	position: fixed;
+	box-shadow: 0 3px 9px 0 rgba(75, 75, 75, .2);
+	background: #fff;
+	width: inherit;
+}
+#maintitlescrolloverlay h1 {
+	font-size: 24pt;
+	border: 0;
+	margin-bottom: 0;
 }
 
 #maintitlemessages {
