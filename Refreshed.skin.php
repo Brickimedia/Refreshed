@@ -91,13 +91,6 @@ class RefreshedTemplate extends BaseTemplate {
 		$titleText = $title->getPrefixedText();
 		$titleURL = $title->getLinkURL();
 
-		if ( $title->inNamespace( 0 ) ) {
-			$titleText = wfMessage( 'refreshed-article', $titleText )->text();
-		}
-		
-		$titleText = str_replace( '/', '&#8203;/&#8203;', $titleText );
-		$titleText = str_replace( ':', '&#8203;:&#8203;', $titleText );
-
 		// Output the <html> tag and whatnot
 		$this->html( 'headelement' );
 
@@ -105,10 +98,10 @@ class RefreshedTemplate extends BaseTemplate {
 ?>
 	<div id="header">
 		<div id="siteinfo">
-			<div id="siteinfo-main">
-				<a class="main" href='<?php echo $wgRefreshedHeader['url']; ?>'><?php echo $wgRefreshedHeader['img']; ?></a>
 			<?php
-				if ( $wgRefreshedHeader['dropdown'] ) {
+				if ( $wgRefreshedHeader['dropdown'] ) { // if there is a site dropdown (so there are multiple wikis)
+					echo "<div id='siteinfo-main' class='multiplewikis'>";
+					echo "<a class='main' href='" . $wgRefreshedHeader['url'] . "'>" .  $wgRefreshedHeader['img'] . "</a>";
 					echo "<a href='javascript:;' class='arrow-link'><img class='arrow' src='{$refreshedImagePath}/arrow-highres.png' alt='' width='15' height='8' /></a>";
 					echo "</div>";
 					echo "<div class='headermenu' style='display:none;'>";
@@ -117,46 +110,54 @@ class RefreshedTemplate extends BaseTemplate {
 					}
 					echo "</div>";
 				} else {
+					echo "<div id='siteinfo-main'>";
+					echo "<a class='main' href='" . $wgRefreshedHeader['url'] . "'>" .  $wgRefreshedHeader['img'] . "</a>";
 					echo "</div>";
 				}
 			?>
 		</div>
+        <div id="search">
+			<form action="<?php $this->text( 'wgScript' ) ?>" method="get">
+				<input type="hidden" name="title" value="<?php $this->text( 'searchtitle' ) ?>"/>
+				<?php echo $this->makeSearchInput( array( 'id' => 'searchInput' ) ); ?>
+			</form>
+		</div>
+        <div id="userinfo">
+			<a href='javascript:;'>
+				<?php
+					$avatarImage = '';
+					// Show the user's avatar image in the top left drop-down
+					// menu, but only if SocialProfile is installed
+					if ( class_exists( 'wAvatar' ) ) {
+						$avatar = new wAvatar( $user->getId(), 'l' );
+						$avatarImage = $avatar->getAvatarURL( array(
+							'width' => 30,
+							'class' => 'avatar'
+						) );
+						echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow-highres.png\" alt=\"\" width=\"15\" height=\"8\" />
+						{$avatarImage}
+						<span>{$user->getName()}</span>";
+					} else {
+						echo "<img class=\"avatar avatar-none\" src=\"$refreshedImagePath/avatar-none.png\" alt=\"\" width=\"30\" height=\"30\" height=\"8\" />";
+						echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow-highres.png\" alt=\"\" width=\"15\" height=\"8\" />
+						{$avatarImage}
+						<span id=\"username-avatar-none\">{$user->getName()}</span>";
+					}
+				?>
+			</a>
+			<ul class="headermenu" style="display:none;">
+				<?php
+					foreach ( $this->getPersonalTools() as $key => $tool ) {
+						echo $this->makeListItem( $key, $tool );
+					}
+				?>
+			</ul>
+		</div>
 	</div>
 	<div id="fullwrapper">
-		<div id="leftbar">
-			<div id="userinfo">
-				<a href='javascript:;'>
-					<?php
-						$avatarImage = '';
-						// Show the user's avatar image in the top left drop-down
-						// menu, but only if SocialProfile is installed
-						if ( class_exists( 'wAvatar' ) ) {
-							$avatar = new wAvatar( $user->getId(), 'l' );
-							$avatarImage = $avatar->getAvatarURL( array(
-								'width' => 30,
-								'class' => 'avatar'
-							) );
-							echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow-highres.png\" alt=\"\" width=\"15\" height=\"8\" />
-							{$avatarImage}
-							<span>{$user->getName()}</span>";
-						} else {
-							echo "<img class=\"avatar avatar-none\" src=\"$refreshedImagePath/avatar-none.png\" alt=\"\" width=\"30\" height=\"30\" height=\"8\" />";
-							echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow-highres.png\" alt=\"\" width=\"15\" height=\"8\" />
-							{$avatarImage}
-							<span id=\"username-avatar-none\">{$user->getName()}</span>";
-						}
-					?>
-				</a>
-				<ul class="headermenu" style="display:none;">
-					<?php
-						foreach ( $this->getPersonalTools() as $key => $tool ) {
-							echo $this->makeListItem( $key, $tool );
-						}
-					?>
-				</ul>
-			</div>
-			<div id="rightbar-main">
-				<ul id="rightbar-top">
+		<div id="sidebarwrapper">
+			<div id="sidebar">
+				<ul>
 					<?php
 						unset( $this->data['sidebar']['SEARCH'] );
 						unset( $this->data['sidebar']['TOOLBOX'] );
@@ -255,7 +256,6 @@ class RefreshedTemplate extends BaseTemplate {
                     <div id="contentSub"<?php $this->html( 'userlangattributes' ) ?>><?php $this->html( 'subtitle' ) ?></div>
                 </div>
 				<?php
-				$title = $titleBase->getSubjectPage(); // reassigning it because it's changed in #leftbar-top
 				if ( $titleNamespace % 2 == 1 && $titleNamespace > 0 ) { // if talk namespace: talk namespaces are odd positive integers
 					echo Linker::link(
 						$title,
@@ -315,47 +315,6 @@ class RefreshedTemplate extends BaseTemplate {
 		</div>
 		<div id="rightbar">
 			<div class="shower"></div>
-			<div id="search">
-				<form action="<?php $this->text( 'wgScript' ) ?>" method="get">
-					<input type="hidden" name="title" value="<?php $this->text( 'searchtitle' ) ?>"/>
-					<?php echo $this->makeSearchInput( array( 'id' => 'searchInput' ) ); ?>
-				</form>
-			</div>
-			<!--<div id="rightbar-main">
-				<ul id="rightbar-top">
-					<?php
-						/*unset( $this->data['sidebar']['SEARCH'] );
-						unset( $this->data['sidebar']['TOOLBOX'] );
-						unset( $this->data['sidebar']['LANGUAGES'] );
-
-						foreach ( $this->data['sidebar'] as $main => $sub ) {
-							echo '<span class="main">' . htmlspecialchars( $main ) . '</span>';
-							if ( is_array( $sub ) ) { // MW-generated stuff from the sidebar message
-								foreach ( $sub as $key => $action ) {
-									echo $this->makeListItem(
-										$key,
-										$action,
-										array(
-											'link-class' => 'sub',
-											'link-fallback' => 'span'
-										)
-									);
-								}
-							} else {
-								// allow raw HTML block to be defined by extensions (like NewsBox)
-								echo $sub;
-							}
-						}
-						
-						if ( $this->data['language_urls'] ) {
-							echo '<span class="main">' . $this->getMsg( 'otherlanguages' )->text() . '</span>';
-							echo "<li><ul id='languages' style='display:none;'>";
-							foreach ( $this->data['language_urls'] as $key => $link ) {
-								echo $this->makeListItem( $key, $link, array( 'link-class' => 'sub', 'link-fallback' => 'span' ) );
-							}
-						}*/ ?>
-				</ul>
-			</div>-->
 		</div>
 	</div>
 	<div id="footer">

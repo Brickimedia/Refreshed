@@ -198,31 +198,37 @@ body {
 	word-wrap: break-word;
 }
 
-#leftbar, #rightbar {
+#sidebarwrapper {
 	width: 12em;
-	height: 100%;
 	position: fixed;
 	top: 0;
 	color: white;
-	z-index: 3;
+	z-index: 2;
 }
 
+#sidebarwrapper {
+	height: 100%;
+}
+
+#rightbar {
+	height: auto;
+}
 /*
  * Hide the list bullet icons. This is not terribly useful by default, but there
- * are extensions which can add entire portlets to the sidebar, and said portlets
+ * are extensions which can add entire portlets to the sidebarwrapper, and said portlets
  * might be using the <ul> HTML tag...
  */
-#rightbar li, #leftbar li {
+#rightbar li, #sidebarwrapper li {
 	list-style-type: none;
 	margin: 0;
 }
 
-#rightbar ul, #leftbar ul {
+#rightbar ul, #sidebarwrapper ul {
 	margin: 0;
 	padding: 0;
 }
 
-#rightbar-top {
+#sidebar ul {
 	overflow-y: auto;
 	width: 100%;
 	height: webkit-calc( 100% - 3.5em );
@@ -231,51 +237,32 @@ body {
 	left: 0;
 }
 
-#leftbar-top, #rightbar-top {
+#sidebar ul {
 	position: absolute;
 	top: 3em;
 	padding-top: 8px !important;
 }
 
-#leftbar-bottom {
-	position: absolute;
-	bottom: 1em;
-	border-right: 1px solid white;
-	width: 100%;
-	right: -1px;
-}
-
-#leftbar-top {
-	right: 0px;
-}
-
-#leftbar-main a, #rightbar-main a {
+#sidebar a {
 	display: block;
 	color: white;
 	text-decoration: none;
 }
 
-#leftbar-main a {
-	padding-left: 10px;
-	text-align: right;
-	margin-right: 5px;
-	direction: ltr; /* ensure direction is correct, as ToC changes it */
-}
-
-#rightbar-main a {
+#sidebar a {
 	text-align: left;
 	padding-left: 1em;
 	margin-left: 5px;
 	
 }
 
-#rightbar-top .main {
+#sidebar ul .main {
 	margin-left: .5em;
 	display: block;
 	margin-top: 0.5em;
 }
 
-#rightbar-top .main:first-of-type {
+#sidebar ul .main:first-of-type {
 	margin-top: 0em;
 }
 
@@ -283,65 +270,18 @@ body {
 	padding-left: 20px;
 }
 
-#leftbar-main a:hover, #rightbar-main a:hover {
+#sidebar a:hover {
 	color: #CCC;
 	cursor: pointer;
 }
 
-#leftbar-main a:hover {
-	border-right: 5px solid #CCC;
-	margin-right: 0;
-}
-
-#rightbar-main a:hover {
+#sidebar a:hover {
 	border-left: 5px solid #CCC;
 	margin-left: 0;
 }
 
-#leftbar-top li, #rightbar-top li {
+#sidebar ul li {
 	text-transform: lowercase;
-}
-
-#leftbar-top a {
-	padding-right: 10px;
-}
-
-/* Don't apply text-transform to the page name in the left-hand sidebar */
-#leftbar-top > li:first-of-type {
-	text-transform: none;
-}
-
-/* At least Internet Explorer 8 doesn't understand first-of-type... */
-ul#leftbar-top li a[id ^="ca-nstab"] {
-	text-transform: none;
-}
-
-#leftbar-top > li:nth-of-type(3) > a {
-	margin-top: 0.5em;
-}
-
-#leftbar-top a.selected,
-#leftbar-top .selected a {
-	border-right: 5px solid white;
-	margin-right: 0;
-}
-
-#leftbar-top a.new,
-#leftbar-top .new a {
-	color: #fdad9d;
-	border-color: #fdad9d;
-}
-
-#leftbar-top a.new:hover,
-#leftbar-top .new a:hover {
-	color: #f47d64;
-	border-color: #f47d64;
-}
-
-#leftbar-top a.new.selected,
-#leftbar-top .new.selected a {
-	color: #fdad9d;
-	border-color: #fdad9d;
 }
 
 #toolboxcontainer {
@@ -379,12 +319,6 @@ ul#leftbar-top li a[id ^="ca-nstab"] {
 	height: 28px;
 }
 
-#leftbar-bottom a {
-	padding-right: 10px;
-	padding-top: 0.15em;
-	padding-bottom: 0.15em;
-}
-
 a.toclevel-2 {
 	padding-right: 20px !important;
 }
@@ -407,7 +341,8 @@ a.toclevel-6 {
 
 #userinfo {
 	position: relative;
-	float: left;
+	float: right;
+	margin-right: 1em;
 }
 
 #userinfo > a {
@@ -415,11 +350,12 @@ a.toclevel-6 {
 	padding: 0.5em;
 	height: 2em;
 	text-decoration: none;
-	min-width: 11em; /* 11em - 12em minus 1/2em padding on each side */
+	/*min-width: 11em; /* 11em - 12em minus 1/2em padding on each side */
 	position: relative;
 	white-space: nowrap;
 	overflow-x: hidden;
 	text-overflow: ellipsis;
+	font-family: "Lato Body", sans-serif;
 }
 
 #userinfo > a:hover {
@@ -492,14 +428,7 @@ a.toclevel-6 {
 	padding: 0 0.2em 0.2em 0.2em;
 	margin: 0;
 	z-index: 4;
-}
-
-#userinfo .headermenu {
-	background-color: #191970;
-	background-color: rgba(25, 25, 112, 0.8);
-}
-
-#siteinfo .headermenu {
+	list-style: none;
 	background-color: #000;
 	background-color: rgba(0, 0, 0, 0.8);
 }
@@ -523,7 +452,7 @@ a.toclevel-6 {
 }
 
 #userinfo .headermenu {
-	left: 1em;
+	right: 0;
 	width: 11em;
 	position: absolute;
 }
@@ -534,14 +463,20 @@ a.toclevel-6 {
 }
 
 #siteinfo .headermenu {
-	margin: auto;
-	width: 12.6em;
+	width: 11.6em;
+	position: absolute;
+	top: 48px;
+	left: 0;
 }
 
 #siteinfo-main {
+	float: left;
 	margin: auto;
-	width: 13em;
+	width: 12em;
 	height: 3em;
+}
+#siteinfo-main.multiplewikis .main {
+	width: 10em;
 }
 
 #siteinfo-main:hover,
@@ -555,9 +490,9 @@ a.toclevel-6 {
 }
 
 #siteinfo-main a.main {
-	padding: 0.5em;
+	padding: 0.5em 0;
 	display: inline-block;
-	width: 10em;
+	width: 12em;
 	height: 2em;
 }
 
@@ -608,9 +543,10 @@ a.toclevel-6 {
 
 #search {
 	width: 11em;
-	position: absolute;
+	position: static;
+	float: right;
+	margin-right: .5em; /* .5em right + .5em padding = 1em */
 	top: 0;
-	right: 0;
 	padding: 0.5em;
 }
 
@@ -685,11 +621,6 @@ h6 {
 
 #localNotice {
 	margin-bottom: 0em !important;
-}
-
-#search {
-	position: static !important;
-	float: right;
 }
 
 .mw-search-formheader {
