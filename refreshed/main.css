@@ -53,16 +53,18 @@ body {
 	font-family: "Lato Body", sans-serif;
 	padding-top: 0.2em;
 	padding-left: 0.5em;
-	margin-bottom: 0.3em;
+	margin-bottom: 0.1em;
 	padding-bottom: .05em;
 }
 .scrollshadow {
 	background: none;
 }
-#standardtoolbox {
-	padding-left: .5em;
+#standardtoolbox,
+#standardtoolboxscrolloverlay {
+	padding-left: .4em; /* lining up first tool with beginning of content */
 }
-#standardtoolbox a {
+#standardtoolbox a,
+#standardtoolboxscrolloverlay a {
 	font-family: "Lato", sans-serif;
 	margin-left: .5em;
 	padding-bottom: .1em;
@@ -70,15 +72,38 @@ body {
 	font-weight: normal;
 	text-decoration: none;
 }
-#standardtoolbox a:hover {
-	text-decoration: underline;
+#standardtoolbox a:hover,
+#standardtoolboxscrolloverlay a:hover {
+	border-bottom: .2em solid #0645ad;
 }
-#standardtoolbox a.selected {
-	border-bottom: 3px solid #0b0080;
+
+#standardtoolbox a:visited:hover,
+#standardtoolboxscrolloverlay a:visited:hover,
+#standardtoolbox a.selected,
+#standardtoolboxscrolloverlay a.selected,
+#standardtoolbox a.selected:visited,
+#standardtoolboxscrolloverlay a.selected:visited {
+	border-bottom: .2em solid #0b0080;
 }
-#standardtoolbox a.selected:hover {
+
+#standardtoolbox a.new:hover,
+#standardtoolboxscrolloverlay a.new:hover {
+	border-bottom: .2em solid #ba0000;
+}
+
+#standardtoolbox a.new:visited:hover,
+#standardtoolboxscrolloverlay a.new:visited:hover,
+#standardtoolbox a.new.selected,
+#standardtoolboxscrolloverlay a.new.selected,
+#standardtoolbox a.new.selected:visited,
+#standardtoolboxscrolloverlay a.new.selected:visited {
+	border-bottom: .2em solid #a55858;
+}
+
+/*#standardtoolbox a.selected:hover,
+#standardtoolboxscrolloverlay a.selected:hover {
 	text-decoration: none;
-}
+}*/
 #standardtoolboxdropdown {
 	left: .5em;
 	z-index: 3;
@@ -89,6 +114,7 @@ body {
 	margin-left: 0;
 	box-shadow: 0 3px 9px 0 rgba(75, 75, 75, 0.4);
 	border: 1px solid #ddd;
+	margin-top: .25em;
 }
 .dropdowntriangle {
 	width: 0; 
@@ -106,22 +132,30 @@ body {
 	display: inline-block;
 }
 #standardtoolboxdropdown a:hover {
-	text-decoration: underline;
+	border: 0;
 }
-#maintitlescrolloverlay {
+#standardtoolboxdropdown a:hover span {
+	border-bottom: .2em solid #0645ad;
+}
+#standardtoolboxdropdown a:visited:hover span {
+	border-bottom: .2em solid #0b0080;
+}
+#standardtoolboxscrolloverlay {
 	position: fixed;
 	box-shadow: 0 3px 9px 0 rgba(75, 75, 75, .2);
 	background: #fff;
 	width: inherit;
-}
-#maintitlescrolloverlay h1 {
-	font-size: 24pt;
-	border: 0;
-	margin-bottom: 0;
+	padding-top: .25em;
+	padding-bottom: .25em;
+	width: -webkit-calc(100% - 13.4em);
+	width: -moz-calc(100% - 13.4em);
+	width: calc(100% - 13.4em);
 }
 
 #maintitlemessages {
-	padding-left: 1.5em;
+	font-size: .9em;
+	padding-left: 1em;
+	padding-top: 1.25em;
 }
 #siteSub {
 	font-size: 84%;

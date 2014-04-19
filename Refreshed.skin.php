@@ -221,14 +221,14 @@ class RefreshedTemplate extends BaseTemplate {
 								<ul id=\"standardtoolboxdropdown\" style=\"display:none;\"><div class=\"dropdowntriangle\"></div>";
 								}
 							} else if ( !$moreToolsLinkHasBeenGenerated ) {
-								echo $this->makeLink( $key, $action );
+								echo $this->makeLink( $key, $action, array( 'text-wrapper' => array( 'tag' => 'span' ) ) );
 								$moreToolsLinkHasBeenGenerated = true;
 							} else {
-								echo $this->makeListItem( $key, $action );
+								echo $this->makeListItem( $key, $action, array( 'text-wrapper' => array( 'tag' => 'span' ) ) );
 							}
 						}
 						foreach( $toolbox as $tool => $toolData ) {
-							echo $this->makeListItem( $tool, $toolData );
+							echo $this->makeListItem( $tool, $toolData, array( 'text-wrapper' => array( 'tag' => 'span' ) ) );
 						}
                     } else {
 						foreach ( $this->data['content_actions'] as $key => $action ) {
@@ -243,7 +243,7 @@ class RefreshedTemplate extends BaseTemplate {
 								<img class=\"arrow no-show\" src=\"$refreshedImagePath/arrow-highres-hover.png\" alt=\"\" width=\"11\" height=\"6\" />
 								<ul id=\"standardtoolboxdropdown\" style=\"display:none;\"><div class=\"dropdowntriangle\"></div>";
 						foreach( $toolbox as $tool => $toolData ) {
-							echo $this->makeListItem( $tool, $toolData );
+							echo $this->makeListItem( $tool, $toolData, array( 'text-wrapper' => array( 'tag' => 'span' ) ) );
 						}
 					}
 					echo '</ul>

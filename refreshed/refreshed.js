@@ -7,24 +7,27 @@ var Refreshed = {
 	header: false,
 	left: false,
 	right: false,
-	mainTitleIsDocked: false,
-	mainTitleInitialOffset: $( '#maintitle' ).offset().top,
+	standardToolboxIsDocked: false,
+	standardToolboxInitialOffset: $( '#standardtoolbox' ).offset().top,
 
 	flyOutScrollHeader: function() {
-		if (!Refreshed.mainTitleIsDocked && ( $( '#maintitle' ).offset().top - $( 'body' ).scrollTop() < 0 ) ) {
-			$( '#maintitlescrolloverlay' ).animate({'top': $( '#header' ).height()});
-			Refreshed.mainTitleIsDocked = true;
+		if ($( '#contentwrapper' ).height() > $( window ).height() - $( '#header' ).height() && !Refreshed.standardToolboxIsDocked && ( $( '#standardtoolbox' ).offset().top - $( 'body' ).scrollTop() - $( '#header' ).height() < 0 ) ) { // first condition: only move the scroll header if the article content is bigger than the page (i.e. preventing it from being triggered when a user "rubber band scrolls" in OS X for example)
+			$( '#standardtoolboxscrolloverlay' ).animate({'top': $( '#header' ).height()});
+			Refreshed.standardToolboxIsDocked = true;
 			$( '#maintitle > #standardtoolbox #standardtoolboxdropdown' ).fadeOut();
-		} else if (Refreshed.mainTitleIsDocked && $( 'body' ).scrollTop() <= Refreshed.mainTitleInitialOffset) {
-			Refreshed.mainTitleIsDocked = false;
-			$( '#maintitlescrolloverlay' ).animate({'top': -$( '#maintitlescrolloverlay' ).height()});
-			$( '#maintitlescrolloverlay #standardtoolboxdropdown' ).fadeOut();
+		} else if (Refreshed.standardToolboxIsDocked && $( 'body' ).scrollTop() +  $( '#header' ).height() <= Refreshed.standardToolboxInitialOffset) {
+			Refreshed.standardToolboxIsDocked = false;
+			$( '#standardtoolboxscrolloverlay' ).animate({'top': -$( '#standardtoolboxscrolloverlay' ).height()});
+			$( '#standardtoolboxscrolloverlay #standardtoolboxdropdown' ).fadeOut();
 		}
 	},
 	
 	generateScrollHeader: function() {
-		$( '#maintitle' ).clone().attr( 'id', 'maintitlescrolloverlay' ).appendTo( '#maintitle' );
-		$( '#maintitlescrolloverlay' ).css({'top': -$( '#maintitlescrolloverlay' ).height()});
+		$( '#standardtoolbox' ).clone().attr( 'id', 'standardtoolboxscrolloverlay' ).insertAfter( '#standardtoolbox' );
+		$( '#standardtoolboxscrolloverlay' ).css({'top': -$( '#standardtoolboxscrolloverlay' ).height()});
+		if ( $( '#standardtoolboxscrolloverlay' ).outerWidth() != $( '#content' ).outerWidth() ) { //if standardtoolboxoverlay hasn't has its width set by CSS calc
+			$( '#standardtoolboxscrolloverlay' ).css({'width': $( '#content' ).outerWidth() - ( $( '#standardtoolboxscrolloverlay' ).outerWidth() - $( '#standardtoolboxscrolloverlay' ).width() )}); // set #standardtoolboxscrolloverlay's width to the width of #content minus #standardtoolboxscrolloverlay's padding (and border, which is 0)
+		}
 	},
 	
 	getHeight: function( self ) {
@@ -164,6 +167,7 @@ var Refreshed = {
 $( document ).ready( function() {
 	Refreshed.generateScrollHeader();
 	Refreshed.flyOutScrollHeader();
+	
 	$( '#refreshed-toc a' ).on( 'click', function() {
 		event.preventDefault();
 		var heightTo = Refreshed.getHeight( $( this ) );
@@ -235,10 +239,10 @@ $( document ).ready( function() {
 		}
 	});
 	
-	$( '#maintitlescrolloverlay #toolbox-link' ).on({
+	$( '#standardtoolboxscrolloverlay #toolbox-link' ).on({
 		'click': function() {
-			if ( !$( '#maintitlescrolloverlay #standardtoolboxdropdown' ).is( ':visible' ) ) {
-				$( '#maintitlescrolloverlay #standardtoolboxdropdown' ).fadeIn();
+			if ( !$( '#standardtoolboxscrolloverlay #standardtoolboxdropdown' ).is( ':visible' ) ) {
+				$( '#standardtoolboxscrolloverlay #standardtoolboxdropdown' ).fadeIn();
 			}
 			$( this ).children().toggleClass( 'rotate' );
 		},
@@ -255,17 +259,17 @@ $( document ).ready( function() {
 		}
 	});
 	
+	$(document).mouseup( function ( e ) {
+		if ( $( '#standardtoolboxscrolloverlay #standardtoolboxdropdown' ).is( ':visible' ) ) {
+			if ( !$( '#standardtoolboxscrolloverlay #standardtoolboxdropdown' ).is( e.target ) && $( '#standardtoolboxscrolloverlay #standardtoolboxdropdown' ).has( e.target ).length === 0 ) { // if the target of the click isn't the container and isn't a descendant of the container
+				$( '#standardtoolboxscrolloverlay #standardtoolboxdropdown' ).fadeOut();
+			}
+		}
+	});
+	
 	$( '#smalltoolboxwrapper > a' ).on( 'click', function() {
 		$( '#smalltoolbox' ).css({'overflow': 'auto'}).animate({'width': '100%'}).addClass( 'scrollshadow' );
 		$( this ).css({'display': 'none'});
-	});
-	
-	$(document).mouseup( function ( e ) {
-		if ( $( '#maintitlescrolloverlay #standardtoolboxdropdown' ).is( ':visible' ) ) {
-			if ( !$( '#maintitlescrolloverlay #standardtoolboxdropdown' ).is( e.target ) && $( '#maintitlescrolloverlay #standardtoolboxdropdown' ).has( e.target ).length === 0 ) { // if the target of the click isn't the container and isn't a descendant of the container
-				$( '#maintitlescrolloverlay #standardtoolboxdropdown' ).fadeOut();
-			}
-		}
 	});
 
 	$( '#icon-ca-watch, #icon-ca-unwatch' ).parent().click( function( e ) {
