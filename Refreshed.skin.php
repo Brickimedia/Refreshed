@@ -206,6 +206,7 @@ class RefreshedTemplate extends BaseTemplate {
 					<?php
 					$lastLinkOutsideOfStandardToolboxDropdownHasBeenGenerated = false;
 					$moreToolsLinkHasBeenGenerated = false;
+					$amountOfToolsGenerated = 0;
 					
 					$toolbox = $this->getToolbox();
 					
@@ -213,7 +214,8 @@ class RefreshedTemplate extends BaseTemplate {
 						foreach ( $this->data['content_actions'] as $key => $action ) {
 							if ( !$lastLinkOutsideOfStandardToolboxDropdownHasBeenGenerated ) {
 								echo $this->makeLink( $key, $action );
-								if ( $key == "history" || $key == "protect" ) {
+								$amountOfToolsGenerated++;
+								if ( sizeof( $this->data['content_actions'] ) == $amountOfToolsGenerated || $key == "history" || $key == "addsection" || $key == "protect" || $key == "unprotect" ) { // if this is the last link or it is the history, new section, or protect/unprotect link (whichever comes first)
 									$lastLinkOutsideOfStandardToolboxDropdownHasBeenGenerated = true;
 									echo "<div id=\"toolboxcontainer\">
 								<a href=\"javascript:;\" id=\"toolbox-link\">" . $this->getMsg( 'moredotdotdot' )->text() . "</a>
