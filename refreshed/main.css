@@ -387,6 +387,10 @@ a.toclevel-6 {
 	vertical-align: text-bottom;
 }
 
+.dropdown-highlighted {
+	background-color: midnightblue !important;
+}
+
 #toolbox-link {
 	margin-top: 0.5em;
 }
@@ -480,12 +484,12 @@ a.toclevel-6 {
 }
 
 #siteinfo-main:hover,
-.dropdown-bg-highlighted {
+.sitedropdown-bg-highlighted {
 	background-color: #333;
 }
 
 #siteinfo-main a:hover,
-.dropdown-highlighted {
+.sitedropdown-highlighted {
 	background-color: #222;
 }
 

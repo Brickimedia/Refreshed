@@ -122,6 +122,7 @@ class RefreshedTemplate extends BaseTemplate {
 				<?php echo $this->makeSearchInput( array( 'id' => 'searchInput' ) ); ?>
 			</form>
 		</div>
+        <div id="searchshower"></div>
         <div id="userinfo">
 			<a href='javascript:;'>
 				<?php

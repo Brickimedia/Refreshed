@@ -134,68 +134,73 @@
 	width: 48px;
 	height: 48px;
 	background-size: 48px 48px;
-	display: inline-block;
+	display: none;
 }
 #icon-ca-talk {
+	display: inline-block;
 	/* @embed */
 	background-image: url("images/icon-talk.png");
 }
 
 #icon-ca-viewsource {
+	display: inline-block;
 	/* @embed */
 	background-image: url("images/icon-edit.png");
 	opacity: .3;
 }
 
 #icon-ca-edit {
+	display: inline-block;
 	/* @embed */
 	background-image: url("images/icon-edit.png");
 }
 
 #icon-ca-history {
+	display: inline-block;
 	/* @embed */
 	background-image: url("images/icon-history.png");
 }
 
 #icon-ca-delete {
+	display: inline-block;
 	/* @embed */
 	background-image: url("images/icon-delete.png");
 }
 
 #icon-ca-move {
+	display: inline-block;
 	/* @embed */
 	background-image: url("images/icon-move.png");
 }
 
 #icon-ca-protect {
+	display: inline-block;
 	/* @embed */
 	background-image: url("images/icon-protect.png");
 }
 
 #icon-ca-unprotect {
+	display: inline-block;
 	/* @embed */
 	background-image: url("images/icon-unprotect.png");
 }
 
 #icon-ca-watch {
+	display: inline-block;
 	/* @embed */
 	background-image: url("images/icon-watch.png");
 }
 
 #icon-ca-unwatch {
+	display: inline-block;
 	/* @embed */
 	background-image: url("images/icon-unwatch.png");
 }
 
 #icon-more {
+	display: inline-block;
 	/* @embed */
 	background-image: url("images/icon-more.png");
-}
-
-#icon-ca-addsection,
-#icon-ca-purge,
-#icon-ca-talk.selected {
-	display: none;
 }
 
 /* CONTENT AREA ********************************************/

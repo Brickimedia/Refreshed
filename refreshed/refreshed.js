@@ -9,6 +9,8 @@ var Refreshed = {
 	right: false,
 	standardToolboxIsDocked: false,
 	standardToolboxInitialOffset: $( '#standardtoolbox' ).offset().top,
+	usingIOS: false,
+	thresholdForBigCSS: 1001,
 
 	flyOutScrollHeader: function() {
 		if ($( '#contentwrapper' ).height() > $( window ).height() - $( '#header' ).height() && !Refreshed.standardToolboxIsDocked && ( $( '#standardtoolbox' ).offset().top - $( 'body' ).scrollTop() - $( '#header' ).height() < 0 ) ) { // first condition: only move the scroll header if the article content is bigger than the page (i.e. preventing it from being triggered when a user "rubber band scrolls" in OS X for example)
@@ -116,23 +118,6 @@ var Refreshed = {
 		}
 	},
 
-	toggleUser: function() {
-		$( '#userinfo .headermenu' ).fadeToggle( 150 );
-		$( '#userinfo .arrow' ).toggleClass( 'rotate' );
-		Refreshed.user = !Refreshed.user;
-	},
-
-	/**
-	 * Show/hide the list of sites in header when the small arrow is clicked.
-	 */
-	toggleSite: function() {
-		$( '#siteinfo .headermenu' ).fadeToggle( 150 );
-		$( '#siteinfo .arrow' ).toggleClass( 'rotate' );
-		$( '#siteinfo-main a.arrow-link' ).toggleClass( 'dropdown-highlighted' );
-		$( '#siteinfo-main' ).toggleClass( 'dropdown-bg-highlighted' );
-		Refreshed.header = !Refreshed.header;
-	},
-
 	toggleLeft: function() {
 		if ( Refreshed.left ) {
 			$( '#leftbar' ).animate({'left': '-12em'});
@@ -165,8 +150,13 @@ var Refreshed = {
 };
 
 $( document ).ready( function() {
-	Refreshed.generateScrollHeader();
-	Refreshed.flyOutScrollHeader();
+	if ( navigator.userAgent.toLowerCase().match(/(iPad|iPhone|iPod)/i) ) { //detect if on iOS device
+		Refreshed.usingIOS = true;
+	}
+	if (!Refreshed.usingIOS) { //only perform if not on an iOS device (animations triggered by scroll cannot be played during scroll on iOS Safari)
+		Refreshed.generateScrollHeader();
+		Refreshed.flyOutScrollHeader();
+	}
 	
 	$( '#refreshed-toc a' ).on( 'click', function() {
 		event.preventDefault();
@@ -174,28 +164,22 @@ $( document ).ready( function() {
 		$( 'html, body' ).animate( {scrollTop: heightTo}, 800 );
 		return false;
 	});
-
+	
 	$( window ).scroll( function() {
 		if ( $( '#refreshed-toc a' ).length !== 0 ) {
 			Refreshed.moveBoxTo( $( this ).scrollTop() );
 		}
-		Refreshed.flyOutScrollHeader();
+		if (!Refreshed.usingIOS) { //only perform if not on an iOS device (animations triggered by scroll cannot be played during scroll on iOS Safari)
+			Refreshed.flyOutScrollHeader();
+		}
 	});
-
+	
 	$( window ).resize( function() {
 		$( '#refreshed-toc a' ).each( function() {
 			Refreshed.getHeight( $( this ) );
 		});
 		Refreshed.overlap();
 		$( window ).scroll();
-	});
-
-	$( '#userinfo > a' ).on( 'click', function() {
-		Refreshed.toggleUser();
-	});
-
-	$( '#siteinfo a.arrow-link' ).on( 'click', function() {
-		Refreshed.toggleSite();
 	});
 
 	$( '#leftbar .shower' ).on( 'click', function() {
@@ -227,22 +211,11 @@ $( document ).ready( function() {
 		}
 	});
 
+	/* tools dropdown attached to maintitle */
 	$( '#maintitle > #standardtoolbox #toolbox-link' ).on({
 		'click': function() {
 			if ( !$( '#maintitle > #standardtoolbox #standardtoolboxdropdown' ).is( ':visible' ) ) {
 				$( '#maintitle > #standardtoolbox #standardtoolboxdropdown' ).fadeIn();
-			}
-			$( this ).children().toggleClass( 'rotate' );
-		},
-		'hover': function() {
-			$( this ).children().toggleClass( 'no-show' );
-		}
-	});
-	
-	$( '#standardtoolboxscrolloverlay #toolbox-link' ).on({
-		'click': function() {
-			if ( !$( '#standardtoolboxscrolloverlay #standardtoolboxdropdown' ).is( ':visible' ) ) {
-				$( '#standardtoolboxscrolloverlay #standardtoolboxdropdown' ).fadeIn();
 			}
 			$( this ).children().toggleClass( 'rotate' );
 		},
@@ -259,6 +232,19 @@ $( document ).ready( function() {
 		}
 	});
 	
+	/* tools dropdown on the "scroll header" */
+	$( '#standardtoolboxscrolloverlay #toolbox-link' ).on({
+		'click': function() {
+			if ( !$( '#standardtoolboxscrolloverlay #standardtoolboxdropdown' ).is( ':visible' ) ) {
+				$( '#standardtoolboxscrolloverlay #standardtoolboxdropdown' ).fadeIn();
+			}
+			$( this ).children().toggleClass( 'rotate' );
+		},
+		'hover': function() {
+			$( this ).children().toggleClass( 'no-show' );
+		}
+	});
+	
 	$(document).mouseup( function ( e ) {
 		if ( $( '#standardtoolboxscrolloverlay #standardtoolboxdropdown' ).is( ':visible' ) ) {
 			if ( !$( '#standardtoolboxscrolloverlay #standardtoolboxdropdown' ).is( e.target ) && $( '#standardtoolboxscrolloverlay #standardtoolboxdropdown' ).has( e.target ).length === 0 ) { // if the target of the click isn't the container and isn't a descendant of the container
@@ -267,10 +253,76 @@ $( document ).ready( function() {
 		}
 	});
 	
+	/* search dropdown */
+	$( '#searchshower' ).on({
+		'click': function() {
+			if ( !$( '#search' ).is( ':visible' ) ) {
+				$( '#search' ).fadeIn();
+				$( '#search input' ).focus();
+				$( this ).toggleClass( 'dropdown-highlighted' );
+			}
+		}
+	});
+	
+	$(document).mouseup( function ( e ) {
+		if ( $( '#search' ).is( ':visible' ) && $( window ).width() < Refreshed.thresholdForBigCSS ) { // window size must be checked because we only want to hide the search bar if we're not in "big" mode
+			if ( !$( '#search' ).is( e.target ) && $( '#search' ).has( e.target ).length === 0 ) { // if the target of the click isn't the container and isn't a descendant of the container
+				$( '#search' ).fadeOut();
+				$( '#search input' ).val( '' );
+				$( '#searchshower' ).removeClass( 'dropdown-highlighted' );
+			}
+		}
+	});
+	
+	/* user tools dropdown */
+	$( '#userinfo > a' ).on({
+		'click': function() {
+			if ( !$( '#userinfo .headermenu' ).is( ':visible' ) ) {
+				$( '#userinfo .headermenu' ).fadeIn();
+				$( this ).toggleClass( 'dropdown-highlighted' );
+				$( '#userinfo .arrow' ).toggleClass( 'rotate' );
+			}
+		}
+	});
+	
+	$(document).mouseup( function ( e ) {
+		if ( $( '#userinfo .headermenu' ).is( ':visible' ) ) {
+			if ( !$( '#userinfo .headermenu' ).is( e.target ) && $( '#userinfo .headermenu' ).has( e.target ).length === 0 ) { // if the target of the click isn't the container and isn't a descendant of the container
+				$( '#userinfo .headermenu' ).fadeOut();
+				$( '#userinfo > a' ).removeClass( 'dropdown-highlighted' );
+				$( '#userinfo .arrow' ).removeClass( 'rotate' );
+			}
+		}
+	});
+
+	/* site navigation dropdown */
+	$( '#siteinfo-main a.arrow-link' ).on({
+		'click': function() {
+			if ( !$( '#siteinfo .headermenu' ).is( ':visible' ) ) {
+				$( '#siteinfo .headermenu' ).fadeIn();
+				$( '#siteinfo-main a.arrow-link' ).toggleClass( 'sitedropdown-highlighted' );
+				$( '#siteinfo-main' ).toggleClass( 'sitedropdown-bg-highlighted' );
+				$( '#siteinfo .arrow' ).toggleClass( 'rotate' );
+			}
+		}
+	});
+	
+	$(document).mouseup( function ( e ) {
+		if ( $( '#siteinfo .headermenu' ).is( ':visible' ) ) {
+			if ( !$( '#siteinfo .headermenu' ).is( e.target ) && $( '#siteinfo .headermenu' ).has( e.target ).length === 0 ) { // if the target of the click isn't the container and isn't a descendant of the container
+				$( '#siteinfo .headermenu' ).fadeOut();
+				$( '#siteinfo-main a.arrow-link' ).removeClass( 'sitedropdown-highlighted' );
+				$( '#siteinfo-main' ).removeClass( 'sitedropdown-bg-highlighted' );
+				$( '#siteinfo .arrow' ).removeClass( 'rotate' );
+			}
+		}
+	});
+
 	$( '#smalltoolboxwrapper > a' ).on( 'click', function() {
 		$( '#smalltoolbox' ).css({'overflow': 'auto'}).animate({'width': '100%'}).addClass( 'scrollshadow' );
 		$( this ).css({'display': 'none'});
 	});
+
 
 	$( '#icon-ca-watch, #icon-ca-unwatch' ).parent().click( function( e ) {
 		//ajax for watch icons

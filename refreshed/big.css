@@ -8,6 +8,10 @@
 	right: 0 !important;
 }
 
+#search {
+	display: block !important;
+}
+
 #contentwrapper {
 	margin-left: 12em;
 	margin-right: 1em;

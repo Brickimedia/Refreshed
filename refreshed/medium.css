@@ -25,14 +25,6 @@
 	margin-right: 2em;
 }
 
-#siteinfo .headermenu,
-#siteinfo > a,
-#siteinfo #siteinfo-main {
-	margin-left: -webkit-calc(50% - 1em);
-	margin-left: -moz-calc(50% - 1em);
-	margin-left: calc(50% - 1em);
-}
-
 #smalltoolboxwrapper {
 	display: none;
 }
@@ -57,6 +49,34 @@
 	background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
 	background-attachment: local, local, scroll, scroll;
 }
+#userinfo {
+	position: absolute;
+	right: 3em;
+}
+#search {
+	margin-top: 3em;
+	margin-right: 1em;
+	background: midnightblue;
+	width: 20em;
+	display: none;
+}
+#search input {
+	width: 100%;
+}
+#searchshower {
+	width: 48px;
+	height: 48px;
+	/* @embed */
+	background: url("images/icon-search.png") top left no-repeat;
+	background-size: 48px 48px;
+	position: absolute;
+	right: 1em;
+	cursor: pointer;
+}
+#searchshower:hover {
+	background-color: midnightblue !important;
+}
+
 #siteSub {
 	display: none !important;
 }
@@ -64,4 +84,10 @@
 /* Hide ads on mobile until mobile ads are implemented */
 #advert {
 	display: none;
+}
+
+.suggestions {
+	top: 6em !important;
+	right: 1em !important;
+	width: 21em !important;
 }
