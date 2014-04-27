@@ -97,6 +97,7 @@ class RefreshedTemplate extends BaseTemplate {
 		$refreshedImagePath = "$wgStylePath/Refreshed/refreshed/images";
 ?>
 	<div id="header">
+    	<div id="sidebarshower"></div>
 		<div id="siteinfo">
 			<?php
 				if ( $wgRefreshedHeader['dropdown'] ) { // if there is a site dropdown (so there are multiple wikis)
@@ -281,28 +282,31 @@ class RefreshedTemplate extends BaseTemplate {
 				echo '<div id="smalltoolboxwrapper">';
 				echo '<div id="smalltoolbox">';
 				$smallToolboxActionCount = 1;
+				$amountOfSmallToolsToSkipInFront = 1;
+				$amountOfSmallToolsToSkipInMiddle = 0;
 
 				if ( $titleNamespace % 2 == 1 && $titleNamespace > 0 ) { // if talk namespace: talk namespaces are odd positive integers
+					$amountOfSmallToolsToSkipInFront = 2;
+				}
+			
 					foreach ( $this->data['content_actions'] as $action ) {
-						if ( $smallToolboxActionCount > 1 ) {
+						if ( $smallToolboxActionCount > $amountOfSmallToolsToSkipInFront ) {
 							// @todo Maybe write a custom makeLink()-like function for generating this code?
-							echo '<a href="' . htmlspecialchars( $action['href'] ) .
+							if ( in_array( $action['id'], array ('ca-talk', 'ca-viewsource', 'ca-edit', 'ca-history', 'ca-delete', 'ca-move', 'ca-protect', 'ca-unprotect', 'ca-watch', 'ca-unwatch' ) ) ) { //if the icon being rendered is one of the listed ones
+								echo '<a href="' . htmlspecialchars( $action['href'] ) .
 								'"><div class="small-icon" id="icon-' . $action['id'] . '"></div></a>';
 							$smallToolboxActionCount++;
+							} else {
+								$amountOfSmallToolsToSkipInMiddle++;
+							}
+							
 						} else {
 							$smallToolboxActionCount++;
 						}
 					}
-				} else { // if not talk namespace
-					foreach ( $this->data['content_actions'] as $action ) {
-						echo '<a href="' . htmlspecialchars( $action['href'] ) .
-							'"><div class="small-icon" id="icon-' . $action['id'] . '"></div></a>';
-						$smallToolboxActionCount++;
-					}
-				}
 
 				echo '</div>';
-				if ( $smallToolboxActionCount > 2 ) {
+				if ( $smallToolboxActionCount - $amountOfSmallToolsToSkipInFront - $amountOfSmallToolsToSkipInMiddle > 2 ) {
 					echo '<a href="javascript:;"><div class="small-icon" id="icon-more"></div></a>';
 				}
 
@@ -315,9 +319,6 @@ class RefreshedTemplate extends BaseTemplate {
 			<?php $this->html( 'catlinks' ); ?>
 			<?php if ( $this->data['dataAfterContent'] ) { $this->html( 'dataAfterContent' ); } ?>
 			<br clear="all" />
-		</div>
-		<div id="rightbar">
-			<div class="shower"></div>
 		</div>
 	</div>
 	<div id="footer">

@@ -273,9 +273,6 @@ body {
 #sidebar a:hover {
 	color: #CCC;
 	cursor: pointer;
-}
-
-#sidebar a:hover {
 	border-left: 5px solid #CCC;
 	margin-left: 0;
 }
@@ -387,7 +384,9 @@ a.toclevel-6 {
 	vertical-align: text-bottom;
 }
 
-.dropdown-highlighted {
+.dropdown-highlighted,
+#searchshower:hover,
+#sidebarshower:hover {
 	background-color: midnightblue !important;
 }
 
@@ -451,8 +450,8 @@ a.toclevel-6 {
 	text-decoration: none;
 }
 
-.headermenu .new {
-	color: #fdad9d !important;
+.headermenu a.new {
+	color: #fdad9d;
 }
 
 #userinfo .headermenu {
@@ -464,6 +463,18 @@ a.toclevel-6 {
 #userinfo .headermenu a {
 	padding-right: 0.7em !important;
 	text-align: right;
+}
+
+#sidebarshower {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 48px;
+	height: 48px;
+	background: url("images/icon-rightbar.png") top left no-repeat;
+	background-size: 48px 48px;
+	display: none;
+	cursor: pointer;
 }
 
 #siteinfo .headermenu {
@@ -545,6 +556,17 @@ a.toclevel-6 {
 	transform: rotateZ(180deg);
 }
 
+#searchshower {
+	width: 48px;
+	height: 48px;
+	/* @embed */
+	background: url("images/icon-search.png") top left no-repeat;
+	background-size: 48px 48px;
+	position: absolute;
+	right: 1em;
+	cursor: pointer;
+	display: none;
+}
 #search {
 	width: 11em;
 	position: static;

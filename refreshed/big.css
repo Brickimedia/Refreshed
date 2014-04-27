@@ -1,5 +1,8 @@
 /* anything 1001px and over - most laptops, desktops */
 
+#sidebarwrapper {
+	left: 0 !important; /* preventing sidebar from moving left of viewport if not on mobile */
+}
 #leftbar {
 	left: 0 !important;
 }

@@ -11,6 +11,8 @@ var Refreshed = {
 	standardToolboxInitialOffset: $( '#standardtoolbox' ).offset().top,
 	usingIOS: false,
 	thresholdForBigCSS: 1001,
+	sidebarOut: false,
+	test: 0,
 
 	flyOutScrollHeader: function() {
 		if ($( '#contentwrapper' ).height() > $( window ).height() - $( '#header' ).height() && !Refreshed.standardToolboxIsDocked && ( $( '#standardtoolbox' ).offset().top - $( 'body' ).scrollTop() - $( '#header' ).height() < 0 ) ) { // first condition: only move the scroll header if the article content is bigger than the page (i.e. preventing it from being triggered when a user "rubber band scrolls" in OS X for example)
@@ -257,6 +259,7 @@ $( document ).ready( function() {
 	$( '#searchshower' ).on({
 		'click': function() {
 			if ( !$( '#search' ).is( ':visible' ) ) {
+				$( '#header' ).css({'position': 'absolute'}); /* workaround preventing header from moving from top when search is focused in iOS */
 				$( '#search' ).fadeIn();
 				$( '#search input' ).focus();
 				$( this ).toggleClass( 'dropdown-highlighted' );
@@ -267,6 +270,7 @@ $( document ).ready( function() {
 	$(document).mouseup( function ( e ) {
 		if ( $( '#search' ).is( ':visible' ) && $( window ).width() < Refreshed.thresholdForBigCSS ) { // window size must be checked because we only want to hide the search bar if we're not in "big" mode
 			if ( !$( '#search' ).is( e.target ) && $( '#search' ).has( e.target ).length === 0 ) { // if the target of the click isn't the container and isn't a descendant of the container
+				$( '#header' ).css({'position': 'fixed'});
 				$( '#search' ).fadeOut();
 				$( '#search input' ).val( '' );
 				$( '#searchshower' ).removeClass( 'dropdown-highlighted' );
@@ -318,6 +322,42 @@ $( document ).ready( function() {
 		}
 	});
 
+	/* mobile sidebar */
+	$( '#sidebarshower' ).on({
+		'click': function() {
+			if (!Refreshed.sidebarOut) {
+				$( 'body' ).animate({'margin-left': '12em'}, 200);
+				$( '#sidebarwrapper' ).animate({'left': '0'}, 200);
+				Refreshed.sidebarOut = true;
+				$( this ).addClass( 'dropdown-highlighted' );
+			} else {
+				$( 'body' ).animate({'margin-left': '0'}, 200);
+				$( '#sidebarwrapper' ).animate({'left': '-12em'}, 200);
+				Refreshed.sidebarOut = false;
+				$( this ).removeClass( 'dropdown-highlighted' );
+			}
+		}
+	});
+	
+	/*$( 'body' ).on({
+		'click': function() {
+			if (Refreshed.sidebarOut) {
+				$( 'this' ).animate({'margin-left': '0'}, 200);
+				$( '#sidebarshower' ).toggleClass( 'dropdown-highlighted' );
+				Refreshed.sidebarOut = !Refreshed.sidebarOut;
+			}
+		}
+	});*/
+	$(document).mouseup( function ( e ) {
+		if ( !$( '#sidebarshower' ).is( e.target ) && !$( '#sidebarwrapper' ).is( e.target ) && $( '#sidebarwrapper' ).has( e.target ).length === 0 ) { // if the target of the click isn't the shower, the container, or a descendant of the container
+			$( 'body' ).animate({'margin-left': '0'}, 200);
+			$( '#sidebarwrapper' ).animate({'left': '-12em'}, 200);
+			$( '#sidebarshower' ).removeClass( 'dropdown-highlighted' );
+			Refreshed.sidebarOut = false;
+		}
+	});
+
+	
 	$( '#smalltoolboxwrapper > a' ).on( 'click', function() {
 		$( '#smalltoolbox' ).css({'overflow': 'auto'}).animate({'width': '100%'}).addClass( 'scrollshadow' );
 		$( this ).css({'display': 'none'});

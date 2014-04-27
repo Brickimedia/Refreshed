@@ -1,29 +1,62 @@
 /* anything 600px and under - phones */
 
-#leftbar {
-	left: 0;
-	width: 46px;
-	height: 48px;
+html {
+	width: 100%;
+	overflow: hidden;
 }
 
-#leftbar-main {
+body {
+	width: 100%;
+}
+
+#contentwrapper {
+	-webkit-tap-highlight-color: transparent; /* preventing gray overlay when pressed on mobile webkit browsers (e.g. mobile Safari) */
+}
+
+#contentwrapper * {
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0.4);
+}
+
+#sidebarwrapper {
+	background: midnightblue;
+	left: -12em;
+}
+#sidebar ul {
+	top: 1.5em;
+	font-size: 14pt;
+}
+#sidebar a:hover {
+	border: 0;
+	margin-left: 5px;
+}
+
+#sidebarshower {
+	display: block;
+}
+#search {
+	margin-right: 0;
+	background: midnightblue;
+	width: 100%;
 	display: none;
 }
-
-#rightbar {
-	right: -12em;
-	background-color: rgb(25, 25, 112);
+#search form {
+	margin-left: 1em;
+}
+#search input {
+	width: 100%;
+}
+#search input:focus {
+	font-size: 16px; /* preventing zoom on input on focus */
+}
+#searchshower {
+	display: block;
+	right: 0;
 }
 
-#rightbar .shower {
-	right: 12em;
+#userinfo {
+	position: absolute;
+	right: 2em;
 }
-
-#rightbar #rightbar-main {
-	font-size: 14pt;
-	font-weight: normal;
-}
-
 #userinfo .arrow {
 	display: none;
 }
@@ -50,7 +83,6 @@
 }
 
 #userinfo .headermenu {
-	left: 0;
 	background-color: rgb(25, 25, 112);
 	padding: 0.15em 0 0.15em 0;
 }
@@ -62,24 +94,28 @@
 }
 
 #userinfo .headermenu a:hover {
-	border-left: 5px solid #CCC;
 	color: #CCC;
-	padding-left: 10px;
 }
 
 #userinfo .headermenu a.new:hover {
-	color: #f47d64 !important;
-	border-color: #f47d64;
+	color: #f47d64;
+}
+#siteinfo-main {
+	margin-left: 3em;
+}
+#siteinfo .headermenu {
+	left: 3em;
 }
 
 #maintitle {
 	position: relative;
 	margin-bottom: 5px;
-	margin-left: 15px;
-	padding-left: 0.1em;
+	padding-left: 1em;
+	margin-right: 1em;
 	border-bottom: 1px solid #eaeaea;
 	font-size: 0.9em;
 	padding-bottom: 5px;
+	width: auto;
 }
 #maintitle h1 {
 	overflow-x: auto;
@@ -104,11 +140,12 @@
 	background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
 	background-attachment: local, local, scroll, scroll;
 }
-#standardtoolbox {
+#standardtoolbox,
+#standardtoolboxscrolloverlay {
 	display: none !important;
 }
-#siteSub {
-	display: none !important;
+#maintitlemessages {
+	display: none;
 }
 #back-to-subject {
 	display: inline;
@@ -134,8 +171,13 @@
 	width: 48px;
 	height: 48px;
 	background-size: 48px 48px;
-	display: none;
+	display: none; /* hiding the button unless it's whitelisted; shouldn't be necessary since the PHP doesn't render any outside the whitelist, but just in case */
 }
+
+.small-icon:hover {
+	opacity: .5;
+}
+
 #icon-ca-talk {
 	display: inline-block;
 	/* @embed */
@@ -147,6 +189,9 @@
 	/* @embed */
 	background-image: url("images/icon-edit.png");
 	opacity: .3;
+}
+#icon-ca-viewsource:hover {
+	opacity: .2;
 }
 
 #icon-ca-edit {
@@ -211,4 +256,11 @@
 /* Hide ads on mobile until mobile ads are implemented */
 #advert {
 	display: none;
+}
+
+.suggestions {
+	top: 6em !important;
+	right: 0 !important;
+	left: 0 !important;
+	width: 100% !important;
 }
