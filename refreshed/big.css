@@ -3,13 +3,6 @@
 #sidebarwrapper {
 	left: 0 !important; /* preventing sidebar from moving left of viewport if not on mobile */
 }
-#leftbar {
-	left: 0 !important;
-}
-
-#rightbar {
-	right: 0 !important;
-}
 
 #search {
 	display: block !important;
@@ -23,10 +16,6 @@
 #footer {
 	margin-left: 14em;
 	margin-right: 14em;
-}
-
-#rightbar .shower {
-	display: none !important;
 }
 
 #smalltoolboxwrapper {

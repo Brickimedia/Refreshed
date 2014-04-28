@@ -1,18 +1,12 @@
 /* global $ */
 var Refreshed = {
-	heights: [],
-	offsets: [],
-	tocHeight: 0,
-	user: false,
-	header: false,
-	left: false,
-	right: false,
 	standardToolboxIsDocked: false,
 	standardToolboxInitialOffset: $( '#standardtoolbox' ).offset().top,
 	usingIOS: false,
+	thresholdForSmallCSS: 601,
+	windowStartedSmall: false,
 	thresholdForBigCSS: 1001,
 	sidebarOut: false,
-	test: 0,
 
 	flyOutScrollHeader: function() {
 		if ($( '#contentwrapper' ).height() > $( window ).height() - $( '#header' ).height() && !Refreshed.standardToolboxIsDocked && ( $( '#standardtoolbox' ).offset().top - $( 'body' ).scrollTop() - $( '#header' ).height() < 0 ) ) { // first condition: only move the scroll header if the article content is bigger than the page (i.e. preventing it from being triggered when a user "rubber band scrolls" in OS X for example)
@@ -32,122 +26,6 @@ var Refreshed = {
 		if ( $( '#standardtoolboxscrolloverlay' ).outerWidth() != $( '#content' ).outerWidth() ) { //if standardtoolboxoverlay hasn't has its width set by CSS calc
 			$( '#standardtoolboxscrolloverlay' ).css({'width': $( '#content' ).outerWidth() - ( $( '#standardtoolboxscrolloverlay' ).outerWidth() - $( '#standardtoolboxscrolloverlay' ).width() )}); // set #standardtoolboxscrolloverlay's width to the width of #content minus #standardtoolboxscrolloverlay's padding (and border, which is 0)
 		}
-	},
-	
-	getHeight: function( self ) {
-		var id = self.attr( 'data-to' ).substring( 1 ),
-			numid = self.attr( 'data-numid' ),
-			to = $( document.getElementById( id ) ),
-			heightTo = to.offset().top - 50;
-		Refreshed.heights[numid] = heightTo;
-		Refreshed.offsets[numid] = self.position().top;
-		return heightTo;
-	},
-
-	moveBoxTo: function( height ) {
-		var heightAbove = 0, idAbove = -1, goTo;
-
-		for ( var i = 0; Refreshed.heights[i] <= height; i++ ) {
-			heightAbove = Refreshed.heights[i];
-			idAbove = i;
-		}
-
-		if ( idAbove == -1 ) {
-			goTo = 0;
-		} else if ( idAbove == Refreshed.heights.length - 1 ) {
-			goTo = Refreshed.tocHeight;
-		} else {
-			var idBelow = idAbove + 1,
-				heightBelow = Refreshed.heights[idBelow],
-				heightDiff = heightBelow - heightAbove,
-				heightMeRelative = height - heightAbove,
-				fractMe = heightMeRelative / heightDiff;
-
-			var elemAboveOffset = Refreshed.offsets[idAbove],
-				elemBelowOffset = Refreshed.offsets[idBelow],
-				elemOffsetDiff = elemBelowOffset - elemAboveOffset;
-
-			goTo = elemAboveOffset + ( elemOffsetDiff * fractMe );
-
-			if ( goTo > Refreshed.tocHeight ) {
-				goTo = Refreshed.tocHeight;
-			}
-		}
-
-		$( '#toc-box' ).stop().animate( { 'top': goTo }, 200 );
-	},
-
-	overlap: function() {
-		var bottom = $( '#leftbar-top' ).position().top + $( '#leftbar-top' ).outerHeight(),
-			top3 = $( '#refreshed-toc' ).outerHeight(),
-			overlap = $( window ).height() - top3 - bottom - 10;
-
-		if ( overlap < 0 ) {
-			var newHeight = top3 + overlap;
-
-			if ( newHeight <= 50 ) {
-				$( '#leftbar-bottom' ).css( 'visibility', 'hidden' );
-			} else {
-				$( '#leftbar-bottom' ).css( 'visibility', 'visible' );
-			}
-
-			$( '#leftbar-bottom' ).height( newHeight );
-			$( '#leftbar-bottom' ).css( {
-				'overflow-y': 'scroll',
-				'bottom': '0',
-				// @todo FIXME: why hard-code this in? This is not internationally compatible... - it moves the scrollbar to the left hand side
-				'direction': 'rtl'
-			} );
-
-			$( window ).scroll( Refreshed.onScroll );
-
-		} else if ( overlap < 16 ) {
-			$( '#leftbar-bottom' ).css( {
-				'overflow-y': 'hidden',
-				'bottom': overlap + 'px',
-				'direction': 'ltr'
-			} );
-		} else {
-			$( '#leftbar-bottom' ).height( 'auto' );
-			$( '#leftbar-bottom' ).css( {
-				'visibility': 'visible',
-				'overflow-y': 'auto',
-				'bottom': '1em',
-				'direction': 'ltr'
-			} );
-
-			$( window ).off( 'scroll', Refreshed.onScroll );
-		}
-	},
-
-	toggleLeft: function() {
-		if ( Refreshed.left ) {
-			$( '#leftbar' ).animate({'left': '-12em'});
-		} else {
-			$( '#leftbar' ).animate({'left': '0em'});
-		}
-		$( '#leftbar .shower' ).fadeToggle();
-		Refreshed.left = !Refreshed.left;
-	},
-
-	toggleRight: function() {
-		if ( Refreshed.right ) {
-			$( '#rightbar' ).animate({'right': '-12em'});
-		} else {
-			$( '#rightbar' ).animate({'right': '0em'});
-		}
-		$( '#rightbar .shower' ).fadeToggle();
-		Refreshed.right = !Refreshed.right;
-	},
-
-	onScroll: function() {
-		var pos = $( '#toc-box' ).position().top,
-			height = $( '#leftbar-bottom' ).height(),
-			goTo = pos - ( height / 2 );
-
-		goTo = goTo + $( '#refreshed-toc a' ).height();
-
-		$( '#leftbar-bottom' ).stop().animate( {'scrollTop': goTo}, 200 );
 	}
 };
 
@@ -155,67 +33,26 @@ $( document ).ready( function() {
 	if ( navigator.userAgent.toLowerCase().match(/(iPad|iPhone|iPod)/i) ) { //detect if on iOS device
 		Refreshed.usingIOS = true;
 	}
-	if (!Refreshed.usingIOS) { //only perform if not on an iOS device (animations triggered by scroll cannot be played during scroll on iOS Safari)
+	if ( $( window ).width() < Refreshed.thresholdForSmallCSS ) {
+		Refreshed.windowStartedSmall = true;
+	}
+	if (!Refreshed.usingIOS && !Refreshed.windowStartedSmall) { //only perform if not on an iOS device (animations triggered by scroll cannot be played during scroll on iOS Safari) and if the window was running small.css when loaded
 		Refreshed.generateScrollHeader();
 		Refreshed.flyOutScrollHeader();
 	}
 	
-	$( '#refreshed-toc a' ).on( 'click', function() {
-		event.preventDefault();
-		var heightTo = Refreshed.getHeight( $( this ) );
-		$( 'html, body' ).animate( {scrollTop: heightTo}, 800 );
-		return false;
-	});
-	
 	$( window ).scroll( function() {
-		if ( $( '#refreshed-toc a' ).length !== 0 ) {
-			Refreshed.moveBoxTo( $( this ).scrollTop() );
-		}
-		if (!Refreshed.usingIOS) { //only perform if not on an iOS device (animations triggered by scroll cannot be played during scroll on iOS Safari)
+		if (!Refreshed.usingIOS && !Refreshed.windowStartedSmall ) { //only perform if not on an iOS device (animations triggered by scroll cannot be played during scroll on iOS Safari) and if the window wasn't running small.css when loaded
 			Refreshed.flyOutScrollHeader();
 		}
 	});
 	
 	$( window ).resize( function() {
-		$( '#refreshed-toc a' ).each( function() {
-			Refreshed.getHeight( $( this ) );
-		});
-		Refreshed.overlap();
 		$( window ).scroll();
 	});
 
-	$( '#leftbar .shower' ).on( 'click', function() {
-		Refreshed.toggleLeft();
-		if ( Refreshed.right ) {
-			Refreshed.toggleRight();
-		}
-	});
-
-	$( '#rightbar .shower' ).on( 'click', function() {
-		Refreshed.toggleRight();
-		if ( Refreshed.left ) {
-			Refreshed.toggleLeft();
-		}
-	});
-
-	$( '#contentwrapper' ).on( 'click', function() {
-		if ( Refreshed.left ) {
-			Refreshed.toggleLeft();
-		}
-		if ( Refreshed.right ) {
-			Refreshed.toggleRight();
-		}
-		if ( Refreshed.user ) {
-			Refreshed.toggleUser();
-		}
-		if ( Refreshed.header ) {
-			Refreshed.toggleSite();
-		}
-	});
-
 	/* tools dropdown attached to maintitle */
-	$( '#maintitle > #standardtoolbox #toolbox-link' ).on({
-		'click': function() {
+	$( '#maintitle > #standardtoolbox #toolbox-link' ).on({'click': function() {
 			if ( !$( '#maintitle > #standardtoolbox #standardtoolboxdropdown' ).is( ':visible' ) ) {
 				$( '#maintitle > #standardtoolbox #standardtoolboxdropdown' ).fadeIn();
 			}
@@ -226,7 +63,7 @@ $( document ).ready( function() {
 		}
 	});
 	
-	$(document).mouseup( function ( e ) {
+	$( document ).mouseup( function ( e ) {
 		if ( $( '#maintitle > #standardtoolbox #standardtoolboxdropdown' ).is( ':visible' ) ) {
 			if ( !$( '#maintitle > #standardtoolbox #standardtoolboxdropdown' ).is( e.target ) && $( '#maintitle > #standardtoolbox #standardtoolboxdropdown' ).has( e.target ).length === 0 ) { // if the target of the click isn't the container and isn't a descendant of the container
 				$( '#maintitle > #standardtoolbox #standardtoolboxdropdown' ).fadeOut();
@@ -247,7 +84,7 @@ $( document ).ready( function() {
 		}
 	});
 	
-	$(document).mouseup( function ( e ) {
+	$( document ).mouseup( function ( e ) {
 		if ( $( '#standardtoolboxscrolloverlay #standardtoolboxdropdown' ).is( ':visible' ) ) {
 			if ( !$( '#standardtoolboxscrolloverlay #standardtoolboxdropdown' ).is( e.target ) && $( '#standardtoolboxscrolloverlay #standardtoolboxdropdown' ).has( e.target ).length === 0 ) { // if the target of the click isn't the container and isn't a descendant of the container
 				$( '#standardtoolboxscrolloverlay #standardtoolboxdropdown' ).fadeOut();
@@ -259,7 +96,6 @@ $( document ).ready( function() {
 	$( '#searchshower' ).on({
 		'click': function() {
 			if ( !$( '#search' ).is( ':visible' ) ) {
-				$( '#header' ).css({'position': 'absolute'}); /* workaround preventing header from moving from top when search is focused in iOS */
 				$( '#search' ).fadeIn();
 				$( '#search input' ).focus();
 				$( this ).toggleClass( 'dropdown-highlighted' );
@@ -267,10 +103,9 @@ $( document ).ready( function() {
 		}
 	});
 	
-	$(document).mouseup( function ( e ) {
+	$( document ).mouseup( function ( e ) {
 		if ( $( '#search' ).is( ':visible' ) && $( window ).width() < Refreshed.thresholdForBigCSS ) { // window size must be checked because we only want to hide the search bar if we're not in "big" mode
 			if ( !$( '#search' ).is( e.target ) && $( '#search' ).has( e.target ).length === 0 ) { // if the target of the click isn't the container and isn't a descendant of the container
-				$( '#header' ).css({'position': 'fixed'});
 				$( '#search' ).fadeOut();
 				$( '#search input' ).val( '' );
 				$( '#searchshower' ).removeClass( 'dropdown-highlighted' );
@@ -289,7 +124,7 @@ $( document ).ready( function() {
 		}
 	});
 	
-	$(document).mouseup( function ( e ) {
+	$( document ).mouseup( function ( e ) {
 		if ( $( '#userinfo .headermenu' ).is( ':visible' ) ) {
 			if ( !$( '#userinfo .headermenu' ).is( e.target ) && $( '#userinfo .headermenu' ).has( e.target ).length === 0 ) { // if the target of the click isn't the container and isn't a descendant of the container
 				$( '#userinfo .headermenu' ).fadeOut();
@@ -311,7 +146,7 @@ $( document ).ready( function() {
 		}
 	});
 	
-	$(document).mouseup( function ( e ) {
+	$( document ).mouseup( function ( e ) {
 		if ( $( '#siteinfo .headermenu' ).is( ':visible' ) ) {
 			if ( !$( '#siteinfo .headermenu' ).is( e.target ) && $( '#siteinfo .headermenu' ).has( e.target ).length === 0 ) { // if the target of the click isn't the container and isn't a descendant of the container
 				$( '#siteinfo .headermenu' ).fadeOut();
@@ -339,16 +174,7 @@ $( document ).ready( function() {
 		}
 	});
 	
-	/*$( 'body' ).on({
-		'click': function() {
-			if (Refreshed.sidebarOut) {
-				$( 'this' ).animate({'margin-left': '0'}, 200);
-				$( '#sidebarshower' ).toggleClass( 'dropdown-highlighted' );
-				Refreshed.sidebarOut = !Refreshed.sidebarOut;
-			}
-		}
-	});*/
-	$(document).mouseup( function ( e ) {
+	$( document ).mouseup( function ( e ) {
 		if ( !$( '#sidebarshower' ).is( e.target ) && !$( '#sidebarwrapper' ).is( e.target ) && $( '#sidebarwrapper' ).has( e.target ).length === 0 ) { // if the target of the click isn't the shower, the container, or a descendant of the container
 			$( 'body' ).animate({'margin-left': '0'}, 200);
 			$( '#sidebarwrapper' ).animate({'left': '-12em'}, 200);
@@ -356,7 +182,7 @@ $( document ).ready( function() {
 			Refreshed.sidebarOut = false;
 		}
 	});
-
+	
 	
 	$( '#smalltoolboxwrapper > a' ).on( 'click', function() {
 		$( '#smalltoolbox' ).css({'overflow': 'auto'}).animate({'width': '100%'}).addClass( 'scrollshadow' );
@@ -392,7 +218,6 @@ $( document ).ready( function() {
 
 } );
 
-$( window ).load( function() {
-	Refreshed.tocHeight = $( '#refreshed-toc' ).height() - 28;
-	$( window ).resize();
-});
+/* For whatever reason, if this line is not here, you can't hide shown elements (i.e. user info, site info, etc.) by clicking outside of them. */
+$( '#contentwrapper' ).on( 'click', function() {
+})

@@ -2,21 +2,16 @@
 
 html {
 	width: 100%;
-	overflow: hidden;
+	overflow-x: hidden;
 }
 
 body {
 	width: 100%;
 }
 
-#contentwrapper {
-	-webkit-tap-highlight-color: transparent; /* preventing gray overlay when pressed on mobile webkit browsers (e.g. mobile Safari) */
+#header {
+	height: 2.5em;
 }
-
-#contentwrapper * {
-	-webkit-tap-highlight-color: rgba(0, 0, 0, 0.4);
-}
-
 #sidebarwrapper {
 	background: midnightblue;
 	left: -12em;
@@ -44,18 +39,22 @@ body {
 }
 #search input {
 	width: 100%;
-}
-#search input:focus {
-	font-size: 16px; /* preventing zoom on input on focus */
+	font-size: 16pt; /* enlarging and preventing zoom on input on focus */
 }
 #searchshower {
 	display: block;
 	right: 0;
+	width: 2.5em;
+	height: 2.5em;
+	background-size: 2.5em 2.5em;
 }
 
 #userinfo {
 	position: absolute;
-	right: 2em;
+	right: 2.5em;
+	margin: 0;
+	width: 2.5em;
+	height: 2.5em;
 }
 #userinfo .arrow {
 	display: none;
@@ -70,10 +69,13 @@ body {
 }
 
 #userinfo > a {
-	width: 30px;
-	min-width: 30px;
+	padding: .3em 0 0 0;
 }
 
+#userinfo .avatar {
+	width: 25px; /* 30px * 5/6 */
+	height: 25px; /* 30px * 5/6 */
+}
 #userinfo .avatar-none {
 	display: block;
 }
@@ -83,6 +85,7 @@ body {
 }
 
 #userinfo .headermenu {
+	top: 2.5em;
 	background-color: rgb(25, 25, 112);
 	padding: 0.15em 0 0.15em 0;
 }
@@ -101,10 +104,31 @@ body {
 	color: #f47d64;
 }
 #siteinfo-main {
-	margin-left: 3em;
+	height: 2.5em;
+	margin-left: 2.5em;
+	width: 9em;
+}
+#siteinfo-main.multiplewikis {
+	width: 11em;
+}
+#siteinfo-main a,
+#siteinfo-main a.main img {
+	height: 1.5em;
+}
+#siteinfo-main .main {
+	width: 9em !important;
+}
+#siteinfo-main a.arrow-link {
+	padding-top: .6em;
 }
 #siteinfo .headermenu {
-	left: 3em;
+	top: 2.5em;
+	left: 2.5em;
+	width: 10.6em;
+}
+
+#contentwrapper {
+	top: 2.5em;
 }
 
 #maintitle {
@@ -156,7 +180,7 @@ body {
 	position: relative;
 	display: block;
 	border-bottom: 1px solid #eaeaea;
-	margin-left: 15px;
+	margin-left: .5em;
 }
 
 #smalltoolbox {
@@ -168,9 +192,9 @@ body {
 }
 
 .small-icon {
-	width: 48px;
-	height: 48px;
-	background-size: 48px 48px;
+	width: 3em;
+	height: 3em;
+	background-size: 3em 3em;
 	display: none; /* hiding the button unless it's whitelisted; shouldn't be necessary since the PHP doesn't render any outside the whitelist, but just in case */
 }
 
@@ -259,8 +283,11 @@ body {
 }
 
 .suggestions {
-	top: 6em !important;
-	right: 0 !important;
+	top: 6em !important; /* 2.5em for the header, 3.5em for the search bar */
 	left: 0 !important;
 	width: 100% !important;
+	font-size: 16px !important;
+}
+.suggestions div {
+	font-size: 16pt;
 }

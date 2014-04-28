@@ -190,6 +190,11 @@ body {
 	background-color: white;
 	z-index: 2;
 	font-family: sans-serif;
+	-webkit-tap-highlight-color: transparent; /* preventing gray overlay when pressed on mobile webkit browsers (e.g. mobile Safari) */
+}
+
+#contentwrapper * {
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0.4);
 }
 
 #content {
@@ -210,20 +215,17 @@ body {
 	height: 100%;
 }
 
-#rightbar {
-	height: auto;
-}
 /*
  * Hide the list bullet icons. This is not terribly useful by default, but there
  * are extensions which can add entire portlets to the sidebarwrapper, and said portlets
  * might be using the <ul> HTML tag...
  */
-#rightbar li, #sidebarwrapper li {
+#sidebarwrapper li {
 	list-style-type: none;
 	margin: 0;
 }
 
-#rightbar ul, #sidebarwrapper ul {
+#sidebarwrapper ul {
 	margin: 0;
 	padding: 0;
 }
@@ -266,10 +268,6 @@ body {
 	margin-top: 0em;
 }
 
-#rightbar .sub {
-	padding-left: 20px;
-}
-
 #sidebar a:hover {
 	color: #CCC;
 	cursor: pointer;
@@ -290,14 +288,6 @@ body {
 	position: absolute;
 	height: 3em;
 	cursor: pointer;
-}
-
-#rightbar .shower {
-	right: 12.5em;
-	width: 48px;
-	height: 48px;
-	background: url("images/icon-rightbar.png") top left no-repeat;
-	background-size: 48px 48px;
 }
 
 #refreshed-toc {
@@ -469,10 +459,10 @@ a.toclevel-6 {
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: 48px;
-	height: 48px;
+	width: 2.5em;
+	height: 2.5em;
 	background: url("images/icon-rightbar.png") top left no-repeat;
-	background-size: 48px 48px;
+	background-size: 2.5em 2.5em;
 	display: none;
 	cursor: pointer;
 }
@@ -480,7 +470,7 @@ a.toclevel-6 {
 #siteinfo .headermenu {
 	width: 11.6em;
 	position: absolute;
-	top: 48px;
+	top: 3em;
 	left: 0;
 }
 
@@ -504,15 +494,15 @@ a.toclevel-6 {
 	background-color: #222;
 }
 
+#siteinfo-main a,
+#siteinfo-main a.main img {
+	height: 2em;
+}
+
 #siteinfo-main a.main {
 	padding: 0.5em 0;
 	display: inline-block;
 	width: 12em;
-	height: 2em;
-}
-
-#siteinfo-main a.main img {
-	height: 2em;
 }
 
 #siteinfo-main a.arrow-link {
@@ -522,7 +512,6 @@ a.toclevel-6 {
 	padding-bottom: .1em;
 	padding-left: .5em;
 	display: inline-block;
-	height: 2em;
 	width: 1em;
 }
 
@@ -557,11 +546,11 @@ a.toclevel-6 {
 }
 
 #searchshower {
-	width: 48px;
-	height: 48px;
+	width: 3em;
+	height: 3em;
 	/* @embed */
 	background: url("images/icon-search.png") top left no-repeat;
-	background-size: 48px 48px;
+	background-size: 3em 3em;
 	position: absolute;
 	right: 1em;
 	cursor: pointer;

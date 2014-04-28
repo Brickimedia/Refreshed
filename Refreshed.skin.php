@@ -272,16 +272,28 @@ class RefreshedTemplate extends BaseTemplate {
 			<?php
 			reset( $this->data['content_actions'] );
 			$pageTab = key( $this->data['content_actions'] );
-			$totalActions = count( $pageTab );
+			$totalTools = count( $pageTab );
 			$isEditing = in_array(
 				$this->getSkin()->getRequest()->getText( 'action' ),
 				array( 'edit', 'submit' )
 			);
+			$totalSmallToolsToBeRendered = 0;
 
-			if ( $totalActions > 0 && !$isEditing ) { // if there's more than zero buttons and the user isn't editing a page
+			//determining how many tools need to be rendered
+			foreach ( $this->data['content_actions'] as $action ) {
+				if ( in_array( $action['id'], array ('ca-talk', 'ca-viewsource', 'ca-edit', 'ca-history', 'ca-delete', 'ca-move', 'ca-protect', 'ca-unprotect', 'ca-watch', 'ca-unwatch' ) ) ) { //if the icon in question is one of the listed ones
+					$totalSmallToolsToBeRendered++;
+				}
+			}
+			if ( $titleNamespace % 2 == 1 && $titleNamespace > 0 ) { // if talk namespace: talk namespaces are odd positive integers
+				$totalSmallToolsToBeRendered--; // remove a tool (the talk page tool) if the user is on a talk page
+			}
+			
+
+			if ( $totalSmallToolsToBeRendered > 0 && !$isEditing ) { // if there's more than zero tools to be rendered and the user isn't editing a page
 				echo '<div id="smalltoolboxwrapper">';
 				echo '<div id="smalltoolbox">';
-				$smallToolboxActionCount = 1;
+				$smallToolboxToolCount = 1;
 				$amountOfSmallToolsToSkipInFront = 1;
 				$amountOfSmallToolsToSkipInMiddle = 0;
 
@@ -290,23 +302,23 @@ class RefreshedTemplate extends BaseTemplate {
 				}
 			
 					foreach ( $this->data['content_actions'] as $action ) {
-						if ( $smallToolboxActionCount > $amountOfSmallToolsToSkipInFront ) {
+						if ( $smallToolboxToolCount > $amountOfSmallToolsToSkipInFront ) {
 							// @todo Maybe write a custom makeLink()-like function for generating this code?
 							if ( in_array( $action['id'], array ('ca-talk', 'ca-viewsource', 'ca-edit', 'ca-history', 'ca-delete', 'ca-move', 'ca-protect', 'ca-unprotect', 'ca-watch', 'ca-unwatch' ) ) ) { //if the icon being rendered is one of the listed ones
 								echo '<a href="' . htmlspecialchars( $action['href'] ) .
 								'"><div class="small-icon" id="icon-' . $action['id'] . '"></div></a>';
-							$smallToolboxActionCount++;
+							$smallToolboxToolCount++;
 							} else {
 								$amountOfSmallToolsToSkipInMiddle++;
 							}
 							
 						} else {
-							$smallToolboxActionCount++;
+							$smallToolboxToolCount++;
 						}
 					}
 
 				echo '</div>';
-				if ( $smallToolboxActionCount - $amountOfSmallToolsToSkipInFront - $amountOfSmallToolsToSkipInMiddle > 2 ) {
+				if ( $totalSmallToolsToBeRendered > 2 ) {
 					echo '<a href="javascript:;"><div class="small-icon" id="icon-more"></div></a>';
 				}
 

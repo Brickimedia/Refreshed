@@ -1,20 +1,5 @@
 /* anything between 601px and 1000px - tablets, big phones in landscape, very small laptops */
 
-#leftbar {
-	left: 0 !important;
-}
-
-#rightbar {
-	width: 12em;
-	right: -12em;
-	background: rgb(25, 25, 112);
-	background-color: rgba(25, 25, 112, 0.8);
-}
-
-#rightbar .shower {
-	width: 48px;
-}
-
 #sidebarwrapper {
 	width: 10em;
 	left: 0 !important; /* preventing sidebar from moving left of viewport if not on mobile */
@@ -67,11 +52,12 @@
 	margin-top: 3em;
 	margin-right: 1em;
 	background: midnightblue;
-	width: 20em;
+	width: 15em;
 	display: none;
 }
 #search input {
 	width: 100%;
+	font-size: 16pt; /* enlarging and preventing zoom on input on focus */
 }
 #searchshower {
 	display: block;
@@ -87,7 +73,12 @@
 }
 
 .suggestions {
-	top: 6em !important;
+	top: 6.5em !important; /* 3em for the header, 3.5em for the search bar */
 	right: 1em !important;
-	width: 21em !important;
+	width: 16em !important;
+	font-size: 16px !important;
+	border: 0 !important;
+}
+.suggestions div {
+	font-size: 16pt !important;
 }
