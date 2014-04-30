@@ -25,7 +25,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.66628164"
-     inkscape:cx="842.50455"
+     inkscape:cx="847.08575"
      inkscape:cy="118.23268"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -49,7 +49,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -61,23 +61,23 @@
     <g
        id="g3023">
       <g
-         id="g3019">
+         id="g2993">
         <path
-           style="fill:#231f20;fill-opacity:1;stroke:none"
+           style="fill:#ffffff;fill-opacity:1;stroke:none"
            d="m -39.31645,765.57908 0,-142.74611 79.552435,-58.48781 0,142.20271 z"
            id="path3087"
            inkscape:connector-curvature="0" />
         <path
            inkscape:connector-curvature="0"
-           style="font-size:16px;text-anchor:middle;fill:#231f20;fill-opacity:1;stroke:none;font-family:sans-serif"
+           style="font-size:16px;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;font-family:sans-serif"
            stroke-miterlimit="4"
            d="m -85.444827,536.19124 a 44.911069,22.226067 0 0 0 89.8206475,0 v 21.37364 a 44.911069,22.226067 0 0 1 -89.8206475,0 z"
            id="path3332-5" />
       </g>
       <g
-         id="g3006">
+         id="g3010">
         <g
-           id="g2993">
+           id="g3003">
           <path
              sodipodi:nodetypes="ccccc"
              d="m 99.912668,764.65644 0,-202.11639 39.523132,-27.05267 0,229.16906 -39.523132,0"
@@ -110,27 +110,27 @@
              inkscape:connector-curvature="0" />
         </g>
         <g
-           id="g3000">
+           id="g2997">
           <path
              d="m 1285.6594,764.90483 -50.519,0 -27.569,-134.3076 c -0.8662,-4.0648 -1.8284,-8.89875 -2.8868,-14.50193 -0.9624,-5.60284 -1.8766,-11.04106 -2.7425,-16.31468 -1.0586,-6.04226 -2.0208,-12.30447 -2.8868,-18.78655 -1.0585,6.48208 -2.117,12.79921 -3.1754,18.95138 -0.4813,2.63685 -0.9625,5.38343 -1.4435,8.23972 -0.4812,2.74673 -1.0104,5.4933 -1.5877,8.23973 -0.4812,2.63687 -0.9623,5.16371 -1.4433,7.58056 -0.3851,2.41711 -0.8182,4.61436 -1.2991,6.59177 l -27.4246,134.3076 -50.5191,0 -52.3955,-232.19559 43.1578,0 25.4038,129.19897 c 1.4434,7.03133 2.7905,13.9527 4.0415,20.76413 1.251,6.81155 2.4056,12.90897 3.4642,18.29219 1.1546,6.26225 2.2131,12.2498 3.1755,17.96261 1.4433,-8.12983 2.8386,-16.03994 4.1858,-23.73043 0.5773,-3.2958 1.2028,-6.70154 1.8764,-10.21724 0.6735,-3.51554 1.2991,-6.97623 1.8764,-10.38207 0.6736,-3.40567 1.2991,-6.64662 1.8765,-9.72289 0.6735,-3.18591 1.2509,-6.04238 1.7321,-8.56932 l 25.1151,-123.59595 47.6323,0 25.6926,123.59595 c 0.5771,2.63683 1.1545,5.60311 1.7321,8.89893 0.577,3.18611 1.1544,6.53694 1.732,10.05246 0.5772,3.40585 1.1545,6.8665 1.7321,10.38208 0.5772,3.40579 1.1064,6.75662 1.5878,10.05246 1.1544,7.69045 2.3092,15.4358 3.4641,23.23602 1.1545,-6.15228 2.3574,-12.52433 3.6084,-19.11616 1.0583,-5.60293 2.2612,-11.75528 3.6086,-18.457 1.3469,-6.70158 2.6941,-13.18347 4.0415,-19.44577 l 24.5379,-129.19897 43.1576,0 -52.5398,232.19559"
-             style="font-size:144px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#231f20;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans Bold"
+             style="font-size:144px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans Bold"
              id="path4574"
              inkscape:connector-curvature="0" />
           <path
              d="m 1596.7925,764.91699 -66.3303,-106.86143 -22.8091,21.96688 0,84.89455 -38.6707,0 0,-232.71674 38.6707,0 0,105.5401 83.2405,-105.5401 45.0939,0 -78.9145,98.43803 85.3377,134.27871 -45.6182,0"
-             style="font-size:144px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#231f20;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans Bold"
+             style="font-size:144px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Liberation Sans;-inkscape-font-specification:Liberation Sans Bold"
              id="path4576"
              inkscape:connector-curvature="0" />
           <path
              sodipodi:nodetypes="ccccc"
              d="m 1381.7497,763.96977 0,-204.66489 40.0214,-27.39375 0,232.05864 -40.0214,0"
-             style="font-size:80px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:condensed;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#231f20;fill-opacity:1;stroke:none;font-family:Liberation Sans Narrow;-inkscape-font-specification:Liberation Sans Narrow Bold Condensed"
+             style="font-size:80px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:condensed;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Liberation Sans Narrow;-inkscape-font-specification:Liberation Sans Narrow Bold Condensed"
              id="path3915-3"
              inkscape:connector-curvature="0" />
           <path
              sodipodi:nodetypes="ccccc"
              d="m 1674.073,763.50268 0,-204.66489 40.0215,-27.39376 0,232.05865 -40.0215,0"
-             style="font-size:80px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:condensed;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#231f20;fill-opacity:1;stroke:none;font-family:Liberation Sans Narrow;-inkscape-font-specification:Liberation Sans Narrow Bold Condensed"
+             style="font-size:80px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:condensed;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Liberation Sans Narrow;-inkscape-font-specification:Liberation Sans Narrow Bold Condensed"
              id="path3915-3-8"
              inkscape:connector-curvature="0" />
         </g>
