@@ -8,14 +8,10 @@
 	display: block !important;
 }
 
-#contentwrapper {
+#contentwrapper,
+#footer {
 	margin-left: 12em;
 	margin-right: 1em;
-}
-
-#footer {
-	margin-left: 14em;
-	margin-right: 14em;
 }
 
 #smalltoolboxwrapper {

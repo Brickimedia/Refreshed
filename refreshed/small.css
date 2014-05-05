@@ -61,6 +61,7 @@ body {
 }
 
 #userinfo .avatar {
+	top: .3em;
 	left: .5em;
 }
 
@@ -69,7 +70,7 @@ body {
 }
 
 #userinfo > a {
-	padding: .3em 0 0 0;
+	padding: .5em 0 0 0;
 }
 
 #userinfo .avatar {
@@ -120,6 +121,7 @@ body {
 }
 #siteinfo-main a.arrow-link {
 	padding-top: .6em;
+	padding-bottom: .4em;
 }
 #siteinfo .headermenu {
 	top: 2.5em;

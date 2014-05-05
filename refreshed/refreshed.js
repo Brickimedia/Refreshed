@@ -2,6 +2,7 @@
 var Refreshed = {
 	standardToolboxIsDocked: false,
 	standardToolboxInitialOffset: $( '#standardtoolbox' ).offset().top,
+	scrollHeaderHasBeenGenerated: false,
 	usingIOS: false,
 	thresholdForSmallCSS: 601,
 	windowStartedSmall: false,
@@ -9,11 +10,11 @@ var Refreshed = {
 	sidebarOut: false,
 
 	flyOutScrollHeader: function() {
-		if ($( '#contentwrapper' ).height() > $( window ).height() - $( '#header' ).height() && !Refreshed.standardToolboxIsDocked && ( $( '#standardtoolbox' ).offset().top - $( 'body' ).scrollTop() - $( '#header' ).height() < 0 ) ) { // first condition: only move the scroll header if the article content is bigger than the page (i.e. preventing it from being triggered when a user "rubber band scrolls" in OS X for example)
+		if ( $( '#contentwrapper' ).height() > $( window ).height() - $( '#header' ).height() && !Refreshed.standardToolboxIsDocked && ( $( '#standardtoolbox' ).offset().top - $( 'body' ).scrollTop() - $( '#header' ).height() < 0 ) ) { // first condition: only move the scroll header if the article content is bigger than the page (i.e. preventing it from being triggered when a user "rubber band scrolls" in OS X for example)
 			$( '#standardtoolboxscrolloverlay' ).animate({'top': $( '#header' ).height()});
 			Refreshed.standardToolboxIsDocked = true;
 			$( '#maintitle > #standardtoolbox #standardtoolboxdropdown' ).fadeOut();
-		} else if (Refreshed.standardToolboxIsDocked && $( 'body' ).scrollTop() +  $( '#header' ).height() <= Refreshed.standardToolboxInitialOffset) {
+		} else if ( Refreshed.standardToolboxIsDocked && $( 'body' ).scrollTop() +  $( '#header' ).height() <= Refreshed.standardToolboxInitialOffset ) {
 			Refreshed.standardToolboxIsDocked = false;
 			$( '#standardtoolboxscrolloverlay' ).animate({'top': -$( '#standardtoolboxscrolloverlay' ).height()});
 			$( '#standardtoolboxscrolloverlay #standardtoolboxdropdown' ).fadeOut();
@@ -26,6 +27,11 @@ var Refreshed = {
 		if ( $( '#standardtoolboxscrolloverlay' ).outerWidth() != $( '#content' ).outerWidth() ) { //if standardtoolboxoverlay hasn't has its width set by CSS calc
 			$( '#standardtoolboxscrolloverlay' ).css({'width': $( '#content' ).outerWidth() - ( $( '#standardtoolboxscrolloverlay' ).outerWidth() - $( '#standardtoolboxscrolloverlay' ).width() )}); // set #standardtoolboxscrolloverlay's width to the width of #content minus #standardtoolboxscrolloverlay's padding (and border, which is 0)
 		}
+		Refreshed.scrollHeaderHasBeenGenerated = true;
+	},
+	
+	resizeScrollHeader: function() {
+		$( '#standardtoolboxscrolloverlay' ).css({'width': $( '#content' ).outerWidth() - ( $( '#standardtoolboxscrolloverlay' ).outerWidth() - $( '#standardtoolboxscrolloverlay' ).width() )}); // set #standardtoolboxscrolloverlay's width to the width of #content minus #standardtoolboxscrolloverlay's padding (and border, which is 0)
 	}
 };
 
@@ -36,19 +42,19 @@ $( document ).ready( function() {
 	if ( $( window ).width() < Refreshed.thresholdForSmallCSS ) {
 		Refreshed.windowStartedSmall = true;
 	}
-	if (!Refreshed.usingIOS && !Refreshed.windowStartedSmall) { //only perform if not on an iOS device (animations triggered by scroll cannot be played during scroll on iOS Safari) and if the window was running small.css when loaded
+	if (!Refreshed.usingIOS && !Refreshed.windowStartedSmall ) { //only perform if not on an iOS device (animations triggered by scroll cannot be played during scroll on iOS Safari) and if the window was running small.css when loaded
 		Refreshed.generateScrollHeader();
 		Refreshed.flyOutScrollHeader();
 	}
 	
 	$( window ).scroll( function() {
-		if (!Refreshed.usingIOS && !Refreshed.windowStartedSmall ) { //only perform if not on an iOS device (animations triggered by scroll cannot be played during scroll on iOS Safari) and if the window wasn't running small.css when loaded
-			Refreshed.flyOutScrollHeader();
-		}
+		Refreshed.flyOutScrollHeader();
 	});
 	
 	$( window ).resize( function() {
-		$( window ).scroll();
+		if ( Refreshed.scrollHeaderHasBeenGenerated && $( '#standardtoolboxscrolloverlay' ).outerWidth() != $( '#content' ).outerWidth() ) { //only perform if the scroll header has already been generated and it needs to be resized (not already done by CSS calc)
+			Refreshed.resizeScrollHeader();
+		}
 	});
 
 	/* tools dropdown attached to maintitle */

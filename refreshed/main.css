@@ -62,19 +62,20 @@ body {
 #standardtoolbox,
 #standardtoolboxscrolloverlay {
 	padding-left: .4em; /* lining up first tool with beginning of content */
+	font-family: "Lato", sans-serif; /* assigning here so em values match em values of the links inside */
 }
 #standardtoolbox a,
 #standardtoolboxscrolloverlay a {
-	font-family: "Lato", sans-serif;
 	margin-left: .5em;
-	padding-bottom: .1em;
+	padding-top: .25em;
+	padding-bottom: .25em;
 	text-transform: lowercase;
 	font-weight: normal;
 	text-decoration: none;
 }
 #standardtoolbox a:hover,
 #standardtoolboxscrolloverlay a:hover {
-	border-bottom: .2em solid #0645ad;
+	border-bottom: .25em solid #0645ad;
 }
 
 #standardtoolbox a:visited:hover,
@@ -83,12 +84,12 @@ body {
 #standardtoolboxscrolloverlay a.selected,
 #standardtoolbox a.selected:visited,
 #standardtoolboxscrolloverlay a.selected:visited {
-	border-bottom: .2em solid #0b0080;
+	border-bottom: .25em solid #0b0080;
 }
 
 #standardtoolbox a.new:hover,
 #standardtoolboxscrolloverlay a.new:hover {
-	border-bottom: .2em solid #ba0000;
+	border-bottom: .25em solid #ba0000;
 }
 
 #standardtoolbox a.new:visited:hover,
@@ -97,7 +98,7 @@ body {
 #standardtoolboxscrolloverlay a.new.selected,
 #standardtoolbox a.new.selected:visited,
 #standardtoolboxscrolloverlay a.new.selected:visited {
-	border-bottom: .2em solid #a55858;
+	border-bottom: .25em solid #a55858;
 }
 
 /*#standardtoolbox a.selected:hover,
@@ -130,19 +131,22 @@ body {
 	width: 100%;
 	height: 100%;
 	display: inline-block;
+	padding-top: 0;
+	padding-bottom: 0;
 }
 #standardtoolboxdropdown a:hover {
 	border: 0;
 }
 #standardtoolboxdropdown a:hover span {
-	border-bottom: .2em solid #0645ad;
+	border-bottom: .25em solid #0645ad;
 }
 #standardtoolboxdropdown a:visited:hover span {
-	border-bottom: .2em solid #0b0080;
+	border-bottom: .25em solid #0b0080;
 }
 #standardtoolboxscrolloverlay {
 	position: fixed;
-	box-shadow: 0 3px 9px 0 rgba(75, 75, 75, .2);
+	/*box-shadow: 0 3px 9px 0 rgba(75, 75, 75, .2);*/
+	border-bottom: .25em solid #eee;
 	background: #fff;
 	width: inherit;
 	padding-top: .25em;
@@ -191,6 +195,7 @@ body {
 	z-index: 2;
 	font-family: sans-serif;
 	-webkit-tap-highlight-color: transparent; /* preventing gray overlay when pressed on mobile webkit browsers (e.g. mobile Safari) */
+	border-bottom: .25em solid #eee;
 }
 
 #contentwrapper * {
@@ -381,7 +386,7 @@ a.toclevel-6 {
 }
 
 #toolbox-link {
-	margin-top: 0.5em;
+	/*margin-top: 0.5em;*/
 }
 
 #toolbox-link .arrow, #languages-link .arrow {
@@ -604,7 +609,7 @@ a.toclevel-6 {
 }
 
 #footer * {
-	line-height: 1.5
+	line-height: 1.5;
 }
 
 #footer img {

@@ -10,14 +10,10 @@
 #sidebar ul li {
 	padding-top: .1em;
 }
-#contentwrapper {
+#contentwrapper,
+#footer {
 	margin-left: 10em;
 	margin-right: 1em;
-}
-
-#footer {
-	margin-left: 14em;
-	margin-right: 2em;
 }
 
 #smalltoolboxwrapper {
@@ -44,6 +40,13 @@
 	background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
 	background-attachment: local, local, scroll, scroll;
 }
+
+#standardtoolboxscrolloverlay {
+	width: -webkit-calc(100% - 11.4em);
+	width: -moz-calc(100% - 11.4em);
+	width: calc(100% - 11.4em);
+}
+
 #userinfo {
 	position: absolute;
 	right: 3em;
