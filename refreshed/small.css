@@ -1,12 +1,23 @@
 /* anything 600px and under - phones */
 
 html {
-	width: 100%;
 	overflow-x: hidden;
+	height: 100%;
+	-webkit-transition: 0.2s ease;
+	transition: 0.2s ease;
+}
+.sidebar-open {
+	-webkit-transform: translateX(12em);
+	-ms-transform: translateX(12em);
+	transform: translateX(12em);
+	position: fixed;
 }
 
 body {
-	width: 100%;
+	height: 100%;
+	overflow: auto; /* part of a workaround to get #sidebarwrapper position:fixed during a transform
+	(position:fixed descendants of a transformed parent become fixed relative to the parent, causing them
+	to behave like position:absolute) */
 }
 
 #header {
@@ -46,6 +57,7 @@ body {
 	right: 0;
 	width: 2.5em;
 	height: 2.5em;
+	-webkit-background-size: 2.5em 2.5em;
 	background-size: 2.5em 2.5em;
 }
 
@@ -135,12 +147,8 @@ body {
 
 #maintitle {
 	position: relative;
-	margin-bottom: 5px;
-	padding-left: 1em;
-	margin-right: 1em;
-	border-bottom: 1px solid #eaeaea;
 	font-size: 0.9em;
-	padding-bottom: 5px;
+	padding: 0 1em;
 	width: auto;
 }
 #maintitle h1 {
@@ -158,11 +166,16 @@ body {
 		-webkit-linear-gradient(90deg, #e3e3e3 10%, rgba(255,255,255,0)),
 		-webkit-linear-gradient(270deg, #e3e3e3 10%, rgba(255,255,255,0)) 100% 0;
 	background:
+		linear-gradient(90deg, white 20%, rgba(255,255,255,0)), linear-gradient(270deg, white 20%, rgba(255,255,255,0)) 100% 0, linear-gradient(90deg, #e3e3e3 10%, rgba(255,255,255,0)), linear-gradient(270deg, #e3e3e3 10%, rgba(255,255,255,0)) 100% 0;
+	background:
+		-webkit-linear-gradient(0deg, white 20%, rgba(255,255,255,0)), -webkit-linear-gradient(180deg, white 20%, rgba(255,255,255,0)) 100% 0, -webkit-linear-gradient(0deg, #e3e3e3 10%, rgba(255,255,255,0)), -webkit-linear-gradient(180deg, #e3e3e3 10%, rgba(255,255,255,0)) 100% 0;
+	background:
 		linear-gradient(90deg, white 20%, rgba(255,255,255,0)),
 		linear-gradient(270deg, white 20%, rgba(255,255,255,0)) 100% 0,
 		linear-gradient(90deg, #e3e3e3 10%, rgba(255,255,255,0)),
 		linear-gradient(270deg, #e3e3e3 10%, rgba(255,255,255,0)) 100% 0;
 	background-repeat: no-repeat;
+	-webkit-background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
 	background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
 	background-attachment: local, local, scroll, scroll;
 }
@@ -181,13 +194,15 @@ body {
 #smalltoolboxwrapper {
 	position: relative;
 	display: block;
+	border-top: 1px solid #eaeaea;
 	border-bottom: 1px solid #eaeaea;
-	margin-left: .5em;
+	margin: .5em .9em .75em .9em; /* left/right: 1em (#content padding-left) * .9em (#content font-size) */
 }
 
 #smalltoolbox {
 	position: relative;
-	width: 96px;
+	width: 6em;
+	height: 3em;
 	white-space: nowrap;
 	overflow: hidden;
 	display: inline-block;
@@ -196,6 +211,7 @@ body {
 .small-icon {
 	width: 3em;
 	height: 3em;
+	-webkit-background-size: 3em 3em;
 	background-size: 3em 3em;
 	display: none; /* hiding the button unless it's whitelisted; shouldn't be necessary since the PHP doesn't render any outside the whitelist, but just in case */
 }

@@ -37,6 +37,12 @@ class SkinRefreshed extends SkinTemplate {
 				'type' => 'text/javascript'
 			) ) . '<![endif]-->'
 		);
+    $out->addHeadItem( 'viewportforios',
+      Html::element( 'meta', array(
+        'name' => "viewport",
+        'content' => "width=device-width, initial-scale=1.0"
+      ) )
+    ); // preventing iOS from zooming out when the sidebar is opened
 
 		// Add JavaScript via ResourceLoader
 		$out->addModules( 'skins.refreshed.js' );
@@ -183,7 +189,7 @@ class RefreshedTemplate extends BaseTemplate {
 								echo $sub;
 							}
 						}
-						
+
 						if ( $this->data['language_urls'] ) {
 							echo '<span class="main">' . $this->getMsg( 'otherlanguages' )->text() . '</span>';
 							echo "<li><ul id='languages' style='display:none;'>";
@@ -203,15 +209,15 @@ class RefreshedTemplate extends BaseTemplate {
 			<div id="newtalk"><?php $this->html( 'newtalk' ) ?></div>
 			<div id="maintitle">
 				<h1 class="scrollshadow"><?php $this->html( 'title' ) ?></h1>
-                
+
                 <div id="standardtoolbox">
 					<?php
 					$lastLinkOutsideOfStandardToolboxDropdownHasBeenGenerated = false;
 					$moreToolsLinkHasBeenGenerated = false;
 					$amountOfToolsGenerated = 0;
-					
+
 					$toolbox = $this->getToolbox();
-					
+
         			if ( sizeof( $this->data['content_actions'] ) > 1 ) { //if there are tools like "edit," etc. in addition to non-page-specific ones like "special pages"
 						foreach ( $this->data['content_actions'] as $key => $action ) {
 							if ( !$lastLinkOutsideOfStandardToolboxDropdownHasBeenGenerated ) {
@@ -254,11 +260,12 @@ class RefreshedTemplate extends BaseTemplate {
 					echo '</ul>
 					</div>
 					</div>'; ?>
-                
+
                 <div id="maintitlemessages">
                     <div id="siteSub"><?php $this->msg('tagline') ?></div>
                     <div id="contentSub"<?php $this->html( 'userlangattributes' ) ?>><?php $this->html( 'subtitle' ) ?></div>
-                </div>
+                    <div id="contentSub2"><?php $this->html( 'undelete' ) ?></div>
+              </div>
 				<?php
 				if ( $titleNamespace % 2 == 1 && $titleNamespace > 0 ) { // if talk namespace: talk namespaces are odd positive integers
 					echo Linker::link(
@@ -288,7 +295,7 @@ class RefreshedTemplate extends BaseTemplate {
 			if ( $titleNamespace % 2 == 1 && $titleNamespace > 0 ) { // if talk namespace: talk namespaces are odd positive integers
 				$totalSmallToolsToBeRendered--; // remove a tool (the talk page tool) if the user is on a talk page
 			}
-			
+
 
 			if ( $totalSmallToolsToBeRendered > 0 && !$isEditing ) { // if there's more than zero tools to be rendered and the user isn't editing a page
 				echo '<div id="smalltoolboxwrapper">';
@@ -300,7 +307,7 @@ class RefreshedTemplate extends BaseTemplate {
 				if ( $titleNamespace % 2 == 1 && $titleNamespace > 0 ) { // if talk namespace: talk namespaces are odd positive integers
 					$amountOfSmallToolsToSkipInFront = 2;
 				}
-			
+
 					foreach ( $this->data['content_actions'] as $action ) {
 						if ( $smallToolboxToolCount > $amountOfSmallToolsToSkipInFront ) {
 							// @todo Maybe write a custom makeLink()-like function for generating this code?
@@ -311,7 +318,7 @@ class RefreshedTemplate extends BaseTemplate {
 							} else {
 								$amountOfSmallToolsToSkipInMiddle++;
 							}
-							
+
 						} else {
 							$smallToolboxToolCount++;
 						}
