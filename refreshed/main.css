@@ -43,6 +43,29 @@ body {
 	position: fixed;
 }
 
+#header-categories {
+	list-style: none;
+}
+
+#header-categories li {
+	display: inline-block;
+	width: 10em;
+	font-size: 1.1em;
+	padding-top: .35em;
+}
+
+#header-categories li a {
+	color: #ffffff;
+}
+
+#header-categories li img {
+	margin: 0 0 3px 4px;
+}
+
+.children {
+	display: none;
+}
+
 #maintitle {
 	background: #fff;
 	padding: 0 .9em; /* 1em (#content padding-left) * .9em (#content font-size) */

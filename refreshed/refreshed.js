@@ -237,3 +237,13 @@ $( '#contentwrapper' ).on( 'click', function() {
 if ( document.getElementById( 'echo' ) ) {
 	$('#pt-notifications').prependTo('#echo');
 }
+
+/* Header categories */
+$('.page_item_has_children').hover(
+    function() {
+       $(this).children('.children').show();
+    },
+    function(){
+       $(this).children('.children').hide();
+    }
+);
