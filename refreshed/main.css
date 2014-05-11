@@ -154,6 +154,7 @@ body {
 	width: -webkit-calc(100% - 13.4em);
 	width: calc(100% - 13.4em);
 	margin-left: -.9em; /* 1em (#content padding-left) * .9em (#content font-size) */
+	z-index: 1;
 }
 .dropdown-open {
 	-webkit-transform: translateY(3em);
