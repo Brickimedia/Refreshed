@@ -235,6 +235,5 @@ $( '#contentwrapper' ).on( 'click', function() {
 
 /* Fix for Echo in Refreshed */
 if ( document.getElementById( 'echo' ) ) {
-	console.log( 'Echo is present' );
 	$('#pt-notifications').prependTo('#echo');
 }
