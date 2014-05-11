@@ -792,3 +792,10 @@ div.noarticletext {
 	color: #000;
 	padding: .2em 1em;
 }
+
+/* Extension:Echo fixes */
+#pt-notifications {
+	display: inline;
+	float: right;
+	margin: 0.9em 0 0 0;
+}

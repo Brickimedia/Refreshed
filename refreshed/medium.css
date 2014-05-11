@@ -89,3 +89,8 @@
 .suggestions div {
 	font-size: 16pt !important;
 }
+
+/* Extension:Echo fixes */
+#pt-notifications {
+	display: none;
+}

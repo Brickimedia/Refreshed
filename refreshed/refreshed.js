@@ -232,3 +232,9 @@ $( document ).ready( function() {
 /* For whatever reason, if this line is not here, you can't hide shown elements (i.e. user info, site info, etc.) by clicking outside of them. */
 $( '#contentwrapper' ).on( 'click', function() {
 })
+
+/* Fix for Echo in Refreshed */
+if ( document.getElementById( 'echo' ) ) {
+	console.log( 'Echo is present' );
+	$('#pt-notifications').prependTo('#echo');
+}

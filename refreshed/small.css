@@ -309,3 +309,8 @@ body {
 .suggestions div {
 	font-size: 16pt;
 }
+
+/* Extension:Echo fixes */
+#pt-notifications {
+	display: none;
+}
