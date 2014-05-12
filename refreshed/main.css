@@ -66,7 +66,7 @@ body {
 	line-height: 2em;
 	/*padding: .5em .5em .5em 0;*/
 	font-family: "Lato Body", sans-serif;
-	color: #fff;
+	color: #ffffff !important;
 }
 #header-categories li {
 	display: inline-block;
