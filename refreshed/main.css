@@ -49,8 +49,10 @@ body {
 	margin: 0;
 }
 #header-categories > .page_item {
-	margin-left: .5em;
 	height: 3em;
+}
+#header-categories > .page_item:first-of-type {
+	margin-left: .5em;
 }
 .page_item {
 	margin: 0;
@@ -68,7 +70,7 @@ body {
 }
 #header-categories li {
 	display: inline-block;
-	width: 12%;
+	width: 8em;
 	text-decoration: none;
 }
 #header-categories li a:hover {
