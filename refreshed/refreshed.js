@@ -241,9 +241,9 @@ if ( document.getElementById( 'echo' ) ) {
 /* Header categories */
 $('.page_item_has_children').hover(
     function() {
-       $(this).children('.children').show();
+       $(this).children('.children').fadeIn(200);
     },
     function(){
-       $(this).children('.children').hide();
+       $(this).children('.children').fadeOut(200);
     }
 );

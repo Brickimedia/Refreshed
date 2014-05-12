@@ -20,6 +20,10 @@
 	display: none;
 }
 
+#header-categories {
+	display: none;
+}
+
 #maintitle h1 {
 	white-space: nowrap;
 	font-size: 2.25em;

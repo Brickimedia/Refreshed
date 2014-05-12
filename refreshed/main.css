@@ -45,29 +45,59 @@ body {
 
 #header-categories {
 	list-style: none;
+	height: 3em;
+	margin: 0;
 }
-
+#header-categories > .page_item {
+	margin-left: .5em;
+	height: 3em;
+}
+.page_item {
+	margin: 0;
+}
+.nav0_link,
+.nav1_link,
+.nav2_link {
+	display: inline-block;
+	height: 2em;
+	padding: .5em .5em .5em 0;
+	line-height: 2em;
+	/*padding: .5em .5em .5em 0;*/
+	font-family: "Lato Body", sans-serif;
+	color: #fff;
+}
 #header-categories li {
 	display: inline-block;
-	width: 10em;
-	font-size: 1.1em;
-	padding-top: .35em;
+	width: 12%;
+	text-decoration: none;
 }
-
-#header-categories li a {
-	color: #ffffff;
+#header-categories li a:hover {
+	text-decoration: none;
 }
-
 #header-categories li img {
 	margin: 0 0 3px 4px;
 }
-
+#header-categories .children {
+	background: rgba(0,0,0,0.8);
+	margin: 0;
+}
 .children {
 	display: none;
+	position: absolute;
+	width: 10em;
+	padding: 0 .2em .2em .2em;
+}
+.children a {
+	display: inline-block;
+	width: 9.2em; /* 10em (width of .children) - .75em */
+	color: #fff;
+	padding: .2em 0 .2em .7em;
+}
+.children a:hover {
+	background: midnightblue;
 }
 
 #maintitle {
-	background: #fff;
 	padding: 0 .9em; /* 1em (#content padding-left) * .9em (#content font-size) */
 }
 #maintitle h1 {
@@ -660,7 +690,7 @@ h1, h2, h3, h4, h5, h6 {
 h1, h2 {
 	border-color: #ddd;
 }
- 
+
 h2, h3 {
 	font-weight: bold !important;
 }

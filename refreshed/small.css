@@ -145,6 +145,10 @@ body {
 	top: 2.5em;
 }
 
+#header-categories {
+	display: none;
+}
+
 #maintitle {
 	position: relative;
 	font-size: 0.9em;

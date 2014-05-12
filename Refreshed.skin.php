@@ -173,7 +173,7 @@ class RefreshedTemplate extends BaseTemplate {
 				<li>Category 2 <img src=\"$refreshedImagePath/arrow-highres.png\" width=\"14px\" /></li>
 				<li>Category 3 <img src=\"$refreshedImagePath/arrow-highres.png\" width=\"14px\" /></li>
 			</ul>";
-		*/		
+		*/
 		?>
 		<ul id="header-categories">
 			<?php
@@ -274,8 +274,6 @@ class RefreshedTemplate extends BaseTemplate {
 									$lastLinkOutsideOfStandardToolboxDropdownHasBeenGenerated = true;
 									echo "<div id=\"toolboxcontainer\">
 								<a href=\"javascript:;\" id=\"toolbox-link\">" . $this->getMsg( 'moredotdotdot' )->text() . "</a>
-								<img class=\"arrow\" src=\"$refreshedImagePath/arrow-highres.png\" alt=\"\" width=\"11\" height=\"6\" />
-								<img class=\"arrow no-show\" src=\"$refreshedImagePath/arrow-highres-hover.png\" alt=\"\" width=\"11\" height=\"6\" />
 								<ul id=\"standardtoolboxdropdown\" style=\"display:none;\"><div class=\"dropdowntriangle\"></div>";
 								}
 							} else if ( !$moreToolsLinkHasBeenGenerated ) {
@@ -297,8 +295,6 @@ class RefreshedTemplate extends BaseTemplate {
 						}
 						echo "<div id=\"toolboxcontainer\">
 								<a href=\"javascript:;\" id=\"toolbox-link\">" . $this->getMsg( 'toolbox' )->text() . "</a>
-								<img class=\"arrow\" src=\"$refreshedImagePath/arrow-highres.png\" alt=\"\" width=\"11\" height=\"6\" />
-								<img class=\"arrow no-show\" src=\"$refreshedImagePath/arrow-highres-hover.png\" alt=\"\" width=\"11\" height=\"6\" />
 								<ul id=\"standardtoolboxdropdown\" style=\"display:none;\"><div class=\"dropdowntriangle\"></div>";
 						foreach( $toolbox as $tool => $toolData ) {
 							echo $this->makeListItem( $tool, $toolData, array( 'text-wrapper' => array( 'tag' => 'span' ) ) );
