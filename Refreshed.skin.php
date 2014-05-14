@@ -19,9 +19,6 @@ class SkinRefreshed extends SkinTemplate {
 	public function initPage( OutputPage $out ) {
 		parent::initPage( $out );
 
-		// Append CSS which includes IE only behavior fixes for hover support -
-		// this is better than including this in a CSS file since it doesn't
-		// wait for the CSS file to load before fetching the HTC file.
 		$min = $this->getRequest()->getFuzzyBool( 'debug' ) ? '.src' : '.min';
 		// Add CSS @media support for older browsers (such as Internet Explorer
 		// 8) that do not support it natively
@@ -104,18 +101,18 @@ class RefreshedTemplate extends BaseTemplate {
 	<div id="header">
 		<div id="siteinfo">
 			<div id="siteinfo-main">
-				<a class="main" href='<?php echo $wgRefreshedHeader['url']; ?>'><?php echo $wgRefreshedHeader['img']; ?></a>
+				<a class="main" href="<?php echo $wgRefreshedHeader['url']; ?>"><?php echo $wgRefreshedHeader['img']; ?></a>
 			<?php
 				if ( $wgRefreshedHeader['dropdown'] ) {
 					echo "<a href='javascript:;' class='arrow-link'><img class='arrow' src='{$refreshedImagePath}/arrow-highres.png' alt='' width='15' height='8' /></a>";
-					echo "</div>";
-					echo "<div class='headermenu' style='display:none;'>";
+					echo '</div>';
+					echo '<div class="headermenu" style="display:none;">';
 					foreach ( $wgRefreshedHeader['dropdown'] as $url => $img ) {
-						echo "<a href='$url'>{$img}</a>";
+						echo "<a href=\"$url\">{$img}</a>";
 					}
-					echo "</div>";
+					echo '</div>';
 				} else {
-					echo "</div>";
+					echo '</div>';
 				}
 			?>
 		</div>
@@ -123,7 +120,7 @@ class RefreshedTemplate extends BaseTemplate {
 	<div id="fullwrapper">
 		<div id="leftbar">
 			<div id="userinfo">
-				<a href='javascript:;'>
+				<a href="javascript:;">
 					<?php
 						$avatarImage = '';
 						// Show the user's avatar image in the top left drop-down
@@ -181,9 +178,10 @@ class RefreshedTemplate extends BaseTemplate {
 					<li><ul id="toolbox" style="display:none;">
 						<?php
 							$toolbox = $this->getToolbox();
-							foreach( $toolbox as $tool => $toolData ) {
+							foreach ( $toolbox as $tool => $toolData ) {
 								echo $this->makeListItem( $tool, $toolData );
 							}
+							wfRunHooks( 'SkinTemplateToolboxEnd', array( &$this, true ) );
 						?>
 					</ul></li>
 					<?php
@@ -192,11 +190,11 @@ class RefreshedTemplate extends BaseTemplate {
 								<img class=\"arrow\" src=\"$refreshedImagePath/arrow-highres.png\" alt=\"\" width=\"11\" height=\"6\" />
 								<img class=\"arrow no-show\" src=\"$refreshedImagePath/arrow-highres-hover.png\" alt=\"\" width=\"11\" height=\"6\" />
 								{$this->getMsg( 'otherlanguages' )->text()}</a></li>";
-							echo "<li><ul id='languages' style='display:none;'>";
+							echo '<li><ul id="languages" style="display:none;">';
 							foreach ( $this->data['language_urls'] as $key => $link ) {
 								echo $this->makeListItem( $key, $link );
 							}
-							echo "</ul></li>";
+							echo '</ul></li>';
 						}
 					?>
 				</ul>
@@ -219,10 +217,10 @@ class RefreshedTemplate extends BaseTemplate {
 			<div id="newtalk"><?php $this->html( 'newtalk' ) ?></div>
 			<div id="maintitle">
 				<h1 class="scrollshadow"><?php $this->html( 'title' ) ?></h1>
-                <div id="maintitlemessages">
-                    <div id="siteSub"><?php $this->msg('tagline') ?></div>
-                    <div id="contentSub"<?php $this->html( 'userlangattributes' ) ?>><?php $this->html( 'subtitle' ) ?></div>
-                </div>
+				<div id="maintitlemessages">
+					<div id="siteSub"><?php $this->msg( 'tagline' ) ?></div>
+					<div id="contentSub"<?php $this->html( 'userlangattributes' ) ?>><?php $this->html( 'subtitle' ) ?></div>
+				</div>
 				<?php
 				$title = $titleBase->getSubjectPage(); // reassigning it because it's changed in #leftbar-top
 				if ( $titleNamespace % 2 == 1 && $titleNamespace > 0 ) { // if talk namespace: talk namespaces are odd positive integers
@@ -326,19 +324,19 @@ class RefreshedTemplate extends BaseTemplate {
 			echo $footerExtra;
 
 			foreach ( $this->getFooterLinks() as $category => $links ) {
-				$noskip = false;
+				$noSkip = false;
 				foreach ( $links as $link ) {
 					echo '&ensp;';
 					$this->html( $link );
 					echo '&ensp;';
-					$noskip = true;
+					$noSkip = true;
 				}
 				echo '<br />';
 			}
 
 			$footerIcons = $this->getFooterIcons( 'icononly' );
 			if ( count( $footerIcons ) > 0 ) {
-				$noskip = false;
+				$noSkip = false;
 				foreach ( $footerIcons as $blockName => $footerIcons ) {
 					foreach ( $footerIcons as $icon ) {
 						echo '&ensp;';
