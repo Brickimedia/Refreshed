@@ -90,7 +90,7 @@ $wgHooks['BeforePageDisplay'][] = function( &$out, &$skin ) {
 unset( $skinID, $dir );
 
 $wgRefreshedHeader = array(
-	'img' => '<img src="http://meta.brickimedia.org/skins/Refreshed/refreshed/images/brickimedia.svg" width="144" />',
+	'img' => '<img src="http://meta.brickimedia.org/skins/Refreshed/refreshed/images/brickimedia.svg" width="144" alt="" />',
 	'url' => 'http://meta.brickimedia.org/wiki/Main_Page',
 	'dropdown' => array() // format: array( 'http://exampleurl.com' => '<img src="http://exampleimage.png" width="100" />', );
 );
