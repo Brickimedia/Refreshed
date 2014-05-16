@@ -105,16 +105,16 @@ class RefreshedTemplate extends BaseTemplate {
 			<?php
 				if ( $wgRefreshedHeader['dropdown'] ) { // if there is a site dropdown (so there are multiple wikis)
 					echo '<div id="siteinfo-main" class="multiplewikis">';
-					<a class="main" href="<?php echo $wgRefreshedHeader['url']; ?>"><?php echo $wgRefreshedHeader['img']; ?></a>
-					echo '<a href="javascript:;" class="arrow-link"><img class="arrow" src="{$refreshedImagePath}/arrow-highres.png" alt="" width="15" height="8" /></a>';
+					echo '<a class="main" href="' . $wgRefreshedHeader['url'] . '">' . $wgRefreshedHeader['img'] . '</a>';
+					echo '<a href="javascript:;" class="arrow-link"><img class="arrow" src="' . $refreshedImagePath . '/arrow-highres.png" alt="" width="15" height="8" /></a>';
 					echo '</div>';
 					echo '<div class="headermenu" style="display:none;">';
 					foreach ( $wgRefreshedHeader['dropdown'] as $url => $img ) {
-						echo '<a href="$url">{$img}</a>';
+						echo '<a href="' . $url . '">' . $img . '</a>';
 					}
 					echo '</div>';
 				} else {
-					echo '<div id='siteinfo-main'>';
+					echo '<div id="siteinfo-main">';
 					echo '<a class="main" href="' . $wgRefreshedHeader['url'] . '">' .  $wgRefreshedHeader['img'] . '</a>';
 					echo '</div>';
 				}
@@ -129,7 +129,7 @@ class RefreshedTemplate extends BaseTemplate {
 	<?php
 		// test if Echo is installed
 		if ( class_exists( 'EchoHooks' ) ) {
-			echo "<div id='echo'></div>";
+			echo '<div id="echo"></div>';
 		}
 	?>
         <div id="searchshower"></div>
@@ -145,14 +145,14 @@ class RefreshedTemplate extends BaseTemplate {
 							'width' => 30,
 							'class' => 'avatar'
 						) );
-						echo '<img class="arrow" src="$refreshedImagePath/arrow-highres.png" alt="" width="15" height="8" />
-						{$avatarImage}
-						<span>{$user->getName()}</span>';
+						echo '<img class="arrow" src=' . $refreshedImagePath . '/arrow-highres.png" alt="" width="15" height="8" />' .
+						$avatarImage .
+						'<span>' . $user->getName() . '</span>';
 					} else {
-						echo '<img class="avatar avatar-none" src="$refreshedImagePath/avatar-none.png" alt="" width="30" height="30" height="8" />';
-						echo '<img class="arrow" src="$refreshedImagePath/arrow-highres.png" alt="" width="15" height="8" />
-						{$avatarImage}
-						<span id="username-avatar-none">{$user->getName()}</span>';
+						echo '<img class="avatar avatar-none" src="' . $refreshedImagePath . '/avatar-none.png" alt="" width="30" height="30" height="8" />';
+						echo '<img class="arrow" src="' . $refreshedImagePath . '/arrow-highres.png" alt="" width="15" height="8" />' .
+						$avatarImage .
+						'<span id="username-avatar-none">' . $user->getName() . '</span>';
 					}
 				?>
 			</a>
@@ -290,10 +290,10 @@ class RefreshedTemplate extends BaseTemplate {
 								$lastLinkOutsideOfStandardToolboxDropdownHasBeenGenerated = true;
 							}
 						}
-						echo "<div id=\"toolboxcontainer\">
-								<a href=\"javascript:;\" id=\"toolbox-link\">" . $this->getMsg( 'toolbox' )->text() . "</a>
-								<ul id=\"standardtoolboxdropdown\" style=\"display:none;\"><div class=\"dropdowntriangle\"></div>";
-						foreach( $toolbox as $tool => $toolData ) {
+						echo '<div id="toolboxcontainer">
+								<a href="javascript:;" id="toolbox-link">' . $this->getMsg( 'toolbox' )->text() . '</a>
+								<ul id="standardtoolboxdropdown" style="display:none;"><div class="dropdowntriangle"></div>';
+						foreach ( $toolbox as $tool => $toolData ) {
 							echo $this->makeListItem( $tool, $toolData, array( 'text-wrapper' => array( 'tag' => 'span' ) ) );
 						}
 					}
@@ -329,7 +329,7 @@ class RefreshedTemplate extends BaseTemplate {
 
 			//determining how many tools need to be rendered
 			foreach ( $this->data['content_actions'] as $action ) {
-				if ( in_array( $action['id'], array ('ca-talk', 'ca-viewsource', 'ca-edit', 'ca-history', 'ca-delete', 'ca-move', 'ca-protect', 'ca-unprotect', 'ca-watch', 'ca-unwatch' ) ) ) { //if the icon in question is one of the listed ones
+				if ( in_array( $action['id'], array ( 'ca-talk', 'ca-viewsource', 'ca-edit', 'ca-history', 'ca-delete', 'ca-move', 'ca-protect', 'ca-unprotect', 'ca-watch', 'ca-unwatch' ) ) ) { //if the icon in question is one of the listed ones
 					$totalSmallToolsToBeRendered++;
 				}
 			}
