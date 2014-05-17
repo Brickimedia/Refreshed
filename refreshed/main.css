@@ -67,6 +67,7 @@ body {
 	/*padding: .5em .5em .5em 0;*/
 	font-family: "Lato Body", sans-serif;
 	color: #ffffff !important;
+	white-space: nowrap;
 }
 #header-categories li {
 	display: inline-block;
@@ -811,6 +812,32 @@ h6 {
 	padding-right: 12px;
 }
 
+/* stopping wikitables from overflowing, adding .scrollshadow-type scrolling */
+#content .wikitable {
+	overflow-x: auto;
+	display: block;
+	border: 0;
+	/* same as .scrollshadow, but #f9f9f9 instead of white */
+	background:
+		-webkit-linear-gradient(90deg, #f9f9f9 20%, rgba(255,255,255,0)),
+		-webkit-linear-gradient(270deg, #f9f9f9 20%, rgba(255,255,255,0)) 100% 0,
+		-webkit-linear-gradient(90deg, #e3e3e3 10%, rgba(255,255,255,0)),
+		-webkit-linear-gradient(270deg, #e3e3e3 10%, rgba(255,255,255,0)) 100% 0;
+	background:
+		linear-gradient(90deg, #f9f9f9 20%, rgba(255,255,255,0)), linear-gradient(270deg, #f9f9f9 20%, rgba(255,255,255,0)) 100% 0, linear-gradient(90deg, #e3e3e3 10%, rgba(255,255,255,0)), linear-gradient(270deg, #e3e3e3 10%, rgba(255,255,255,0)) 100% 0;
+	background:
+		-webkit-linear-gradient(0deg, #f9f9f9 20%, rgba(255,255,255,0)), -webkit-linear-gradient(180deg, #f9f9f9 20%, rgba(255,255,255,0)) 100% 0, -webkit-linear-gradient(0deg, #e3e3e3 10%, rgba(255,255,255,0)), -webkit-linear-gradient(180deg, #e3e3e3 10%, rgba(255,255,255,0)) 100% 0;
+	background:
+		linear-gradient(90deg, #f9f9f9 20%, rgba(255,255,255,0)),
+		linear-gradient(270deg, #f9f9f9 20%, rgba(255,255,255,0)) 100% 0,
+		linear-gradient(90deg, #e3e3e3 10%, rgba(255,255,255,0)),
+		linear-gradient(270deg, #e3e3e3 10%, rgba(255,255,255,0)) 100% 0;
+	background-repeat: no-repeat;
+	-webkit-background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
+	background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
+	background-attachment: local, local, scroll, scroll;
+}
+
 /* Search suggestions */
 .suggestions {
 	position: fixed !important;
@@ -819,10 +846,15 @@ h6 {
 
 /* Category links */
 #catlinks {
-	margin-left: 1em;
-	margin-right: 1em;
+	background: none;
+	margin: 0 .9em -.5em .9em;
+	padding: 0;
+	border: 0;
+	font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
-
+.catlinks li {
+	border-color: #ddd;
+}
 /* refresh-ify postedit, reset all the shadows and stuff */
 .postedit {
 	font-family: "Lato", sans-serif !important;
@@ -872,4 +904,10 @@ div.noarticletext {
 
 .mw-echo-overlay-pokey {
 	left: -3px;
+}
+
+/* stopping images on file pages from overflowing */
+.fullImageLink img {
+	max-width: 100%;
+	height: auto;
 }
