@@ -122,15 +122,23 @@ $( document ).ready( function() {
 	});
 
 	/* user tools dropdown */
-	$( '#userinfo > a' ).on({
-		'click': function() {
+	// TODO: mobile support
+	$( '#userinfo > a' ).hover(
+		function() {
 			if ( !$( '#userinfo .headermenu' ).is( ':visible' ) ) {
-				$( '#userinfo .headermenu' ).fadeIn();
-				$( this ).toggleClass( 'dropdown-highlighted' );
-				$( '#userinfo .arrow' ).toggleClass( 'rotate' );
-			}
-		}
-	});
+                                $( '#userinfo .headermenu' ).fadeIn();
+                                $( this ).toggleClass( 'dropdown-highlighted' );
+                                $( '#userinfo .arrow' ).toggleClass( 'rotate' );
+                       	}
+                },
+		function() {
+			if ( $( '#userinfo .headermenu' ).is( ':visible' ) ) {
+                                $( '#userinfo .headermenu' ).fadeOut();
+                                $( this ).toggleClass( 'dropdown-highlighted' );
+                                $( '#userinfo .arrow' ).toggleClass( 'rotate' );
+                       	}
+                }
+	);
 
 	$( document ).mouseup( function ( e ) {
 		if ( $( '#userinfo .headermenu' ).is( ':visible' ) ) {
