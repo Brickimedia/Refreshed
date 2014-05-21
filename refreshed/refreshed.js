@@ -132,7 +132,7 @@ $( document ).ready( function() {
                        	}
                 },
 		function() {
-			if ( $( '#userinfo .headermenu' ).is( ':visible' ) ) {
+			if ( $( '#userinfo .headermenu' ).is( ':visible' ) && !$( '#userinfo .headermenu' ).is( ':hover' ) ) {
                                 $( '#userinfo .headermenu' ).fadeOut();
                                 $( this ).toggleClass( 'dropdown-highlighted' );
                                 $( '#userinfo .arrow' ).toggleClass( 'rotate' );
