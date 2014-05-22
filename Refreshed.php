@@ -35,9 +35,9 @@ function efMWNoTOC( $parser ) {
 $wgExtensionCredits['skin'][] = array(
 	'path' => __FILE__,
 	'name' => 'Refreshed',
-	'version' => '2.1.1',
+	'version' => '3.0.0',
 	'author' => 'Brickimedia',
-	'description' => 'A new clean, modern MediaWiki skin used on Brickimedia',
+	'description' => 'A clean, modern MediaWiki skin with extensive CSS customisability',
 	'url' => 'https://www.mediawiki.org/wiki/Skin:Refreshed',
 );
 
