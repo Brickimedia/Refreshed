@@ -36,7 +36,7 @@ $wgExtensionCredits['skin'][] = array(
 	'path' => __FILE__,
 	'name' => 'Refreshed',
 	'version' => '3.0.0',
-	'author' => 'Brickimedia',
+	'author' => 'Adam Carter, George Barnick, MtMNC, ShermanTheMythran, Jack Phoenix, Drew1200, SirComputer, Seaside98, Codyn329, Lewis Cawte',
 	'description' => 'A clean, modern MediaWiki skin with extensive CSS customisability',
 	'url' => 'https://www.mediawiki.org/wiki/Skin:Refreshed',
 );
