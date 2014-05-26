@@ -7,8 +7,11 @@ var Refreshed = {
 	thresholdForSmallCSS: 601,
 	windowStartedSmall: false,
 	thresholdForBigCSS: 1001,
+	searchDropdownOpen: false,
+	userToolsOpen: false,
+	siteNavOpen: false,
 	windowIsBig: false,
-	sidebarOut: false,
+	sidebarOpen: false,
 
 	flyOutScrollHeader: function() {
 		if ( $( '#contentwrapper' ).height() > $( window ).height() - $( '#header' ).height() && !Refreshed.standardToolboxIsDocked && ( $( '#standardtoolbox' ).offset().top - $( 'body' ).scrollTop() - $( '#header' ).height() < 0 ) ) { // first condition: only move the scroll header if the article content is bigger than the page (i.e. preventing it from being triggered when a user "rubber band scrolls" in OS X for example)
@@ -111,7 +114,7 @@ $( document ).ready( function() {
 	$.fn.extend({
 		clickOrTouch: function(handler) {
 				return this.each(function() {
-						var event = ('ontouchstart' in document) ? 'touchstart' : 'click';
+						var event = ('ontouchend' in document) ? 'touchend' : 'mouseup';
 						$(this).on(event, handler);
 				});
 		}
@@ -120,19 +123,22 @@ $( document ).ready( function() {
 	/* search dropdown */
 	$( '#searchshower' ).clickOrTouch( function( e ) {
 			if ( !$( '#search' ).is( ':visible' ) ) {
-				e.stopPropagation(); //stopping from both appearing and disappearing b/c of the code detecting if it's visible or not (only if not visible so it'll hide if it's visible)
 				$( '#search' ).fadeIn();
 				$( '#search input' ).focus();
 				$( this ).toggleClass( 'dropdown-highlighted' );
+				setTimeout(function () {
+					Refreshed.searchDropdownOpen = true;
+				}, 300); //delay the second clickOrTouch function (which performs fadeOut) to stop fadeIn and fadeOut on one click (also prevents user from spamming so it constantly fades in/out)
 			}
 	});
 
 	$( document ).clickOrTouch( function ( e ) {
 		if ( $( '#search' ).is( ':visible' ) && $( window ).width() < Refreshed.thresholdForBigCSS ) { // window size must be checked because we only want to hide the search bar if we're not in "big" mode
-			if ( !$( '#search' ).is( e.target ) && $( '#search' ).has( e.target ).length === 0 ) { // if the target of the click isn't the container and isn't a descendant of the container
+			if ( Refreshed.searchDropdownOpen && !$( '#search' ).is( e.target ) && $( '#search' ).has( e.target ).length === 0 ) { // if the target of the click isn't the container and isn't a descendant of the container
 				$( '#search' ).fadeOut();
 				$( '#search input' ).val( '' );
 				$( '#searchshower' ).removeClass( 'dropdown-highlighted' );
+				Refreshed.searchDropdownOpen = false;
 			}
 		}
 	});
@@ -141,25 +147,28 @@ $( document ).ready( function() {
 	/* touch (mobile) */
 	$( '#userinfo > a' ).clickOrTouch( function( e ) {
 		if ( !$( '#userinfo .headermenu' ).is( ':visible' ) ) {
-			e.stopPropagation(); //stopping from both appearing and disappearing b/c of the code detecting if it's visible or not (only if not visible so it'll hide if it's visible)
     	$( '#userinfo .headermenu' ).fadeIn();
       $( this ).addClass( 'dropdown-highlighted' );
       $( '#userinfo .arrow' ).addClass( 'rotate' );
-  	}
+  		setTimeout(function () {
+        Refreshed.userToolsOpen = true;
+    	}, 300); //delay the second clickOrTouch function (which performs fadeOut) to stop fadeIn and fadeOut on one click (also prevents user from spamming so it constantly fades in/out)
+		}
 	});
 
 	$( document ).clickOrTouch( function ( e ) {
 		if ( $( '#userinfo .headermenu' ).is( ':visible' ) ) {
-			if ( !$( '#userinfo .headermenu' ).is( e.target ) && $( '#userinfo .headermenu' ).has( e.target ).length === 0 ) { // if the target of the click isn't the container and isn't a descendant of the container
+			if ( Refreshed.userToolsOpen && !$( '#userinfo .headermenu' ).is( e.target ) && $( '#userinfo .headermenu' ).has( e.target ).length === 0 ) { // if the target of the click isn't the button, the container, or a descendant of the container
 				$( '#userinfo > a' ).removeClass( 'dropdown-highlighted' );
 				$( '#userinfo .headermenu' ).fadeOut();
 				$( '#userinfo .arrow' ).removeClass( 'rotate' );
+				Refreshed.userToolsOpen = false;
 			}
 		}
 	});
 
 	/* hover */
-		$( '#userinfo' ).hover(
+		/*$( '#userinfo' ).hover(
 				function() {
 					if (Refreshed.windowIsBig) {
 						$( this ).children('.headermenu').fadeIn(200);
@@ -174,53 +183,56 @@ $( document ).ready( function() {
 						$( '#userinfo .arrow' ).toggleClass( 'rotate' );
 					}
 				}
-		);
+		);*/
 
 	/* site navigation dropdown */
 	$( '#siteinfo-main a.arrow-link' ).clickOrTouch( function( e ) {
 			if ( !$( '#siteinfo .headermenu' ).is( ':visible' ) ) {
-				e.stopPropagation(); //stopping from both appearing and disappearing b/c of the code detecting if it's visible or not (only if not visible so it'll hide if it's visible)
 				$( '#siteinfo .headermenu' ).fadeIn();
 				$( '#siteinfo-main a.arrow-link' ).toggleClass( 'sitedropdown-highlighted' );
 				$( '#siteinfo-main' ).toggleClass( 'sitedropdown-bg-highlighted' );
 				$( '#siteinfo .arrow' ).toggleClass( 'rotate' );
+				setTimeout(function () {
+					Refreshed.siteNavDropdown = true;
+				}, 300); //delay the second clickOrTouch function (which performs fadeOut) to stop fadeIn and fadeOut on one click (also prevents user from spamming so it constantly fades in/out)
 			}
 	});
 
 	$( document ).clickOrTouch( function ( e ) {
 		if ( $( '#siteinfo .headermenu' ).is( ':visible' ) ) {
-			if ( !$( '#siteinfo .headermenu' ).is( e.target ) && $( '#siteinfo .headermenu' ).has( e.target ).length === 0 ) { // if the target of the click isn't the container and isn't a descendant of the container
+			if ( Refreshed.siteNavDropdown && !$( '#siteinfo .headermenu' ).is( e.target ) && $( '#siteinfo .headermenu' ).has( e.target ).length === 0 ) { // if the target of the click isn't the container and isn't a descendant of the container
 				$( '#siteinfo .headermenu' ).fadeOut();
 				$( '#siteinfo-main a.arrow-link' ).removeClass( 'sitedropdown-highlighted' );
 				$( '#siteinfo-main' ).removeClass( 'sitedropdown-bg-highlighted' );
 				$( '#siteinfo .arrow' ).removeClass( 'rotate' );
+				Refreshed.siteNavDropdown = false;
 			}
 		}
 	});
 
 	/* mobile sidebar */
 	$( '#sidebarshower' ).clickOrTouch( function( e ) {
-			if (!Refreshed.sidebarOut) {
+			if (!Refreshed.sidebarOpen) {
 				//$( 'body' ).animate({'margin-left': '12em'}, 200);
 				$( 'html' ).addClass( 'sidebar-open' );
 				//$( '#sidebarwrapper' ).animate({'left': '0'}, 200);
-				Refreshed.sidebarOut = true;
+				Refreshed.sidebarOpen = true;
 				$( this ).addClass( 'dropdown-highlighted' );
 			} else {
 				//$( 'body' ).animate({'margin-left': '0'}, 200);
 				//$( '#sidebarwrapper' ).animate({'left': '-12em'}, 200);
 				$( 'html' ).removeClass( 'sidebar-open' );
-				Refreshed.sidebarOut = false;
+				Refreshed.sidebarOpen = false;
 				$( this ).removeClass( 'dropdown-highlighted' );
 			}
 	});
 
 	$( document ).clickOrTouch( function ( e ) {
-		if ( Refreshed.sidebarOut && !$( '#sidebarshower' ).is( e.target ) && !$( '#sidebarwrapper' ).is( e.target ) && $( '#sidebarwrapper' ).has( e.target ).length === 0 ) { // if the sidebar is out and the target of the click isn't the shower, the container, or a descendant of the container
+		if ( Refreshed.sidebarOpen && !$( '#sidebarshower' ).is( e.target ) && !$( '#sidebarwrapper' ).is( e.target ) && $( '#sidebarwrapper' ).has( e.target ).length === 0 ) { // if the sidebar is out and the target of the click isn't the shower, the container, or a descendant of the container
 			//$( 'body' ).animate({'margin-left': '0'}, 200);
 			$( 'html' ).removeClass( 'sidebar-open' );
 			//$( '#sidebarwrapper' ).animate({'left': '-12em'}, 200);
-			Refreshed.sidebarOut = false;
+			Refreshed.sidebarOpen = false;
 			$( '#sidebarshower' ).removeClass( 'dropdown-highlighted' );
 		}
 	});
