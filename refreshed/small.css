@@ -125,7 +125,8 @@ body {
 	width: 11em;
 }
 #siteinfo-main a,
-#siteinfo-main a.main img {
+#siteinfo-main a.main img,
+#siteinfo .headermenu img {
 	height: 1.5em;
 }
 #siteinfo-main .main {
@@ -139,6 +140,9 @@ body {
 	top: 2.5em;
 	left: 2.5em;
 	width: 10.6em;
+}
+#siteinfo .headermenu img {
+	font-size: 16px; /* resetting font size for logos in menu so they are the same height as the one outside the menu */
 }
 
 #contentwrapper {

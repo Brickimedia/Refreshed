@@ -121,7 +121,7 @@ $( document ).ready( function() {
 	});
 
 	/* search dropdown */
-	$( '#searchshower' ).clickOrTouch( function( e ) {
+	$( '#searchshower' ).click( function() { //Unfortunately, touchend causes the search bar to lose focus in iOS (haven't tested on Android), but it keeps its focus if you use the standard click event. The other menus, etc. use "touchOrClick" b/c the touchend event seems to execute faster than the standard click on iOS (once again, haven't tested on Android).
 			if ( !$( '#search' ).is( ':visible' ) ) {
 				$( '#search' ).fadeIn();
 				$( '#search input' ).focus();
@@ -129,7 +129,7 @@ $( document ).ready( function() {
 				setTimeout(function () {
 					Refreshed.searchDropdownOpen = true;
 				}, 300); //delay the second clickOrTouch function (which performs fadeOut) to stop fadeIn and fadeOut on one click (also prevents user from spamming so it constantly fades in/out)
-			}
+	}
 	});
 
 	$( document ).clickOrTouch( function ( e ) {
@@ -145,7 +145,7 @@ $( document ).ready( function() {
 
 	/* user tools dropdown */
 	/* touch (mobile) */
-	$( '#userinfo > a' ).clickOrTouch( function( e ) {
+	$( '#userinfo > a' ).clickOrTouch( function() {
 		if ( !$( '#userinfo .headermenu' ).is( ':visible' ) ) {
     	$( '#userinfo .headermenu' ).fadeIn();
       $( this ).addClass( 'dropdown-highlighted' );
@@ -168,25 +168,25 @@ $( document ).ready( function() {
 	});
 
 	/* hover */
-		/*$( '#userinfo' ).hover(
+		$( '#userinfo' ).hover(
 				function() {
 					if (Refreshed.windowIsBig) {
 						$( this ).children('.headermenu').fadeIn(200);
-						$( this ).toggleClass( 'dropdown-highlighted' );
-						$( '#userinfo .arrow' ).toggleClass( 'rotate' );
+						$( this ).addClass( 'dropdown-highlighted' );
+						$( '#userinfo .arrow' ).addClass( 'rotate' );
 					}
 				},
 				function(){
 					if (Refreshed.windowIsBig) {
 						$(this).children('.headermenu').fadeOut(200);
-						$( this ).toggleClass( 'dropdown-highlighted' );
-						$( '#userinfo .arrow' ).toggleClass( 'rotate' );
+						$( this ).removeClass( 'dropdown-highlighted' );
+						$( '#userinfo .arrow' ).removeClass( 'rotate' );
 					}
 				}
-		);*/
+		);
 
 	/* site navigation dropdown */
-	$( '#siteinfo-main a.arrow-link' ).clickOrTouch( function( e ) {
+	$( '#siteinfo-main a.arrow-link' ).clickOrTouch( function() {
 			if ( !$( '#siteinfo .headermenu' ).is( ':visible' ) ) {
 				$( '#siteinfo .headermenu' ).fadeIn();
 				$( '#siteinfo-main a.arrow-link' ).toggleClass( 'sitedropdown-highlighted' );
@@ -211,7 +211,7 @@ $( document ).ready( function() {
 	});
 
 	/* mobile sidebar */
-	$( '#sidebarshower' ).clickOrTouch( function( e ) {
+	$( '#sidebarshower' ).clickOrTouch( function() {
 			if (!Refreshed.sidebarOpen) {
 				//$( 'body' ).animate({'margin-left': '12em'}, 200);
 				$( 'html' ).addClass( 'sidebar-open' );
