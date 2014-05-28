@@ -9,12 +9,14 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
    width="1799.5393"
    height="236.46536"
    id="svg4410"
    version="1.1"
    inkscape:version="0.48.4 r9939"
    sodipodi:docname="LEGO Ideas Wiki Wordmark.svg">
+  <image xlink:href="ideas.svg" src="ideas.png" width="150" />
   <defs
      id="defs4412" />
   <sodipodi:namedview
