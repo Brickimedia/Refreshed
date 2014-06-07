@@ -57,9 +57,7 @@ body {
 .page_item {
 	margin: 0;
 }
-.nav0_link,
-.nav1_link,
-.nav2_link {
+#header-categories > li > a {
 	display: inline-block;
 	height: 2em;
 	padding: .5em .5em .5em 0;
