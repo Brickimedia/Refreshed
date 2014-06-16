@@ -17,6 +17,8 @@ class SkinRefreshed extends SkinTemplate {
 	 * @param OutputPage $out
 	 */
 	public function initPage( OutputPage $out ) {
+		global $wgLocalStylePath;
+	
 		parent::initPage( $out );
 
 		$min = $this->getRequest()->getFuzzyBool( 'debug' ) ? '.src' : '.min';
@@ -30,7 +32,7 @@ class SkinRefreshed extends SkinTemplate {
 		$out->addHeadItem( 'css3mediaquerypolyfill',
 			'<!--[if lt IE 9]>' .
 			Html::element( 'script', array(
-				'src' => "https://raw.github.com/scottjehl/Respond/master/dest/respond{$min}.js",
+				'src' => htmlspecialchars( $wgLocalStylePath ) . "/Refreshed/refreshed/respond{$min}.js",
 				'type' => 'text/javascript'
 			) ) . '<![endif]-->'
 		);
