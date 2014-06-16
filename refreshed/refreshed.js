@@ -12,6 +12,7 @@ var Refreshed = {
 	siteNavOpen: false,
 	windowIsBig: false,
 	sidebarOpen: false,
+	pageItemDropdownOpen: false,
 
 	flyOutScrollHeader: function() {
 		if ( $( '#contentwrapper' ).height() > $( window ).height() - $( '#header' ).height() && !Refreshed.standardToolboxIsDocked && ( $( '#standardtoolbox' ).offset().top - $( 'body' ).scrollTop() - $( '#header' ).height() < 0 ) ) { // first condition: only move the scroll header if the article content is bigger than the page (i.e. preventing it from being triggered when a user "rubber band scrolls" in OS X for example)
@@ -144,13 +145,12 @@ $( document ).ready( function() {
 	});
 
 	/* user tools dropdown */
-	/* touch (mobile) */
 	$( '#userinfo > a' ).clickOrTouch( function() {
 		if ( !$( '#userinfo .headermenu' ).is( ':visible' ) ) {
     	$( '#userinfo .headermenu' ).fadeIn();
       $( this ).addClass( 'dropdown-highlighted' );
       $( '#userinfo .arrow' ).addClass( 'rotate' );
-  		setTimeout(function () {
+  		setTimeout( function () {
         Refreshed.userToolsOpen = true;
     	}, 300); //delay the second clickOrTouch function (which performs fadeOut) to stop fadeIn and fadeOut on one click (also prevents user from spamming so it constantly fades in/out)
 		}
@@ -167,32 +167,14 @@ $( document ).ready( function() {
 		}
 	});
 
-	/* hover */
-		$( '#userinfo' ).hover(
-				function() {
-					if (Refreshed.windowIsBig) {
-						$( this ).children('.headermenu').fadeIn(200);
-						$( this ).addClass( 'dropdown-highlighted' );
-						$( '#userinfo .arrow' ).addClass( 'rotate' );
-					}
-				},
-				function(){
-					if (Refreshed.windowIsBig) {
-						$(this).children('.headermenu').fadeOut(200);
-						$( this ).removeClass( 'dropdown-highlighted' );
-						$( '#userinfo .arrow' ).removeClass( 'rotate' );
-					}
-				}
-		);
-
 	/* site navigation dropdown */
 	$( '#siteinfo-main a.arrow-link' ).clickOrTouch( function() {
 			if ( !$( '#siteinfo .headermenu' ).is( ':visible' ) ) {
 				$( '#siteinfo .headermenu' ).fadeIn();
-				$( '#siteinfo-main a.arrow-link' ).toggleClass( 'sitedropdown-highlighted' );
-				$( '#siteinfo-main' ).toggleClass( 'sitedropdown-bg-highlighted' );
-				$( '#siteinfo .arrow' ).toggleClass( 'rotate' );
-				setTimeout(function () {
+				$( '#siteinfo-main a.arrow-link' ).addClass( 'sitedropdown-highlighted' );
+				$( '#siteinfo-main' ).addClass( 'sitedropdown-bg-highlighted' );
+				$( '#siteinfo .arrow' ).addClass( 'rotate' );
+				setTimeout( function () {
 					Refreshed.siteNavDropdown = true;
 				}, 300); //delay the second clickOrTouch function (which performs fadeOut) to stop fadeIn and fadeOut on one click (also prevents user from spamming so it constantly fades in/out)
 			}
@@ -213,14 +195,10 @@ $( document ).ready( function() {
 	/* mobile sidebar */
 	$( '#sidebarshower' ).clickOrTouch( function() {
 			if (!Refreshed.sidebarOpen) {
-				//$( 'body' ).animate({'margin-left': '12em'}, 200);
 				$( 'html' ).addClass( 'sidebar-open' );
-				//$( '#sidebarwrapper' ).animate({'left': '0'}, 200);
 				Refreshed.sidebarOpen = true;
 				$( this ).addClass( 'dropdown-highlighted' );
 			} else {
-				//$( 'body' ).animate({'margin-left': '0'}, 200);
-				//$( '#sidebarwrapper' ).animate({'left': '-12em'}, 200);
 				$( 'html' ).removeClass( 'sidebar-open' );
 				Refreshed.sidebarOpen = false;
 				$( this ).removeClass( 'dropdown-highlighted' );
@@ -229,9 +207,7 @@ $( document ).ready( function() {
 
 	$( document ).clickOrTouch( function ( e ) {
 		if ( Refreshed.sidebarOpen && !$( '#sidebarshower' ).is( e.target ) && !$( '#sidebarwrapper' ).is( e.target ) && $( '#sidebarwrapper' ).has( e.target ).length === 0 ) { // if the sidebar is out and the target of the click isn't the shower, the container, or a descendant of the container
-			//$( 'body' ).animate({'margin-left': '0'}, 200);
 			$( 'html' ).removeClass( 'sidebar-open' );
-			//$( '#sidebarwrapper' ).animate({'left': '-12em'}, 200);
 			Refreshed.sidebarOpen = false;
 			$( '#sidebarshower' ).removeClass( 'dropdown-highlighted' );
 		}
@@ -270,6 +246,33 @@ $( document ).ready( function() {
 			} );
 	});
 
+	/* user tools dropdown */
+	$( '.page_item_has_children .clickableregion' ).clickOrTouch( function( e ) {
+		//hide all the other page item dropdowns if they are visible
+		$( '.page_item_has_children .children' ).fadeOut(200);
+		$( '.page_item_has_children' ).removeClass( 'dropdown-highlighted' );
+		$( '.page_item_has_children .arrow' ).removeClass( 'rotate' );
+		if ( !$( this ).siblings( '.children' ).is( ':visible' ) ) {
+			$( this ).siblings( '.children' ).fadeIn(200);
+			$( this ).parent().addClass( 'dropdown-highlighted' );
+			$( this ).children( '.arrow' ).addClass( 'rotate' );
+			setTimeout( function () {
+				Refreshed.pageItemDropdownOpen = true;
+			}, 300); //delay the second clickOrTouch function (which performs fadeOut) to stop fadeIn and fadeOut on one click (also prevents user from spamming so it constantly fades in/out)
+		}
+	});
+
+	$( document ).clickOrTouch( function ( e ) {
+		if ( $( '.page_item_has_children .children' ).is( ':visible' ) ) {
+			if ( $( '.page_item_has_children' ).has( e.target ).length === 0 ) { // if the target of the click isn't the button, the container, or a descendant of the container
+				$( '.page_item_has_children .children' ).fadeOut(200);
+				$( '.page_item_has_children' ).removeClass( 'dropdown-highlighted' );
+				$( '.page_item_has_children .arrow' ).removeClass( 'rotate' );
+				Refreshed.pageItemDropdownOpen = false;
+			}
+		}
+	});
+
 } );
 
 /* For whatever reason, if this line is not here, you can't hide shown elements (i.e. user info, site info, etc.) by clicking outside of them. */
@@ -282,11 +285,11 @@ if ( document.getElementById( 'echo' ) ) {
 }
 
 /* Header categories */
-$('.page_item_has_children').hover(
+/*$('.page_item_has_children').hover(
     function() {
        $(this).children('.children').fadeIn(200);
     },
     function(){
        $(this).children('.children').fadeOut(200);
     }
-);
+);*/

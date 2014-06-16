@@ -188,7 +188,10 @@ class RefreshedTemplate extends BaseTemplate {
 						$hasChildren = isset( $menuNodes[$level0]['children'] );
 			?>
 			<li class="page_item<?php echo ( $hasChildren ? ' page_item_has_children' : '' ) ?>">
-						<a class="nav<?php echo $counter ?>_link" href="<?php echo $menuNodes[$level0]['href'] ?>"><?php echo $menuNodes[$level0]['text'] ?></a><img src="<?php echo $refreshedImagePath ?>/arrow-highres.png" width="14px" />
+				<div class="clickableregion">
+						<!--<a class="nav<?php echo $counter ?>_link" href="<?php echo $menuNodes[$level0]['href'] ?>">-->
+						<a class="nav<?php echo $counter ?>_link" href="javascript:;"><?php echo $menuNodes[$level0]['text'] ?></a><img class="arrow" src="<?php echo $refreshedImagePath ?>/arrow-highres.png" width="14px" />
+				</div>
 							<?php if ( $hasChildren ) { ?>
 							<ul class="children">
 							<?php

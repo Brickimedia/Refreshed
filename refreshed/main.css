@@ -51,13 +51,11 @@ body {
 #header-categories > .page_item {
 	height: 3em;
 }
-#header-categories > .page_item:first-of-type {
-	margin-left: .5em;
+.clickableregion {
+	cursor: pointer;
+	padding-left: .5em;
 }
-.page_item {
-	margin: 0;
-}
-#header-categories > li > a {
+#header-categories > li .clickableregion a {
 	display: inline-block;
 	height: 2em;
 	padding: .5em .5em .5em 0;
@@ -456,16 +454,12 @@ a.toclevel-6 {
 	vertical-align: 2px;
 }
 
-#userinfo .arrow, #toolbox-link .arrow, #languages-link .arrow {
+#userinfo .arrow, #toolbox-link .arrow, #languages-link .arrow, .page_item_has_children .arrow {
 	-webkit-transition: -webkit-transform 0.5s; /* Safari */ /* Firefox */ /* IE */
 	transition: transform 0.5s;
-
-	-webkit-transform: rotateZ(0deg); /* Safari */ /* Firefox */
-	-ms-transform: rotateZ(0deg); /* IE */
-	transform: rotateZ(0deg);
 }
 
-#userinfo .arrow.rotate, #toolbox-link .arrow.rotate, #languages-link .arrow.rotate {
+.arrow.rotate {
 	-webkit-transform: rotateZ(-180deg); /* Safari */ /* Firefox */
 	-ms-transform: rotateZ(-180deg); /* IE */
 	transform: rotateZ(-180deg);
