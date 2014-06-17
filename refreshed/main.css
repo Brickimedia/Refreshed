@@ -26,6 +26,15 @@ body {
 }
 
 #header {
+	-webkit-font-smoothing: antialiased;
+	width: 100%;
+	height: 3em;
+	z-index: 10000; /* very high value to guarantee no elements on wikis will appear above it */
+	position: fixed;
+}
+
+#headerinner {
+	height: 100%;
 	background-color: #103ca2;
 	background-image: -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(0, #040f28), color-stop(50%, #103ca2), color-stop(100%, #040f28));
 	/* IE5.5-IE7 */
@@ -36,11 +45,6 @@ body {
 	background-image: -webkit-gradient(linear, right top, left top, color-stop(0, #040f28), color-stop(50%, #103ca2), to(#040f28));
 	background-image: -webkit-linear-gradient(right, #040f28 0, #103ca2 50%, #040f28 100%);
 	background-image: linear-gradient(to left, #040f28 0, #103ca2 50%, #040f28 100%);
-	-webkit-font-smoothing: antialiased;
-	width: 100%;
-	height: 3em;
-	z-index: 10000; /* very high value to guarantee no elements on wikis will appear above it */
-	position: fixed;
 }
 
 #header-categories {

@@ -102,69 +102,71 @@ class RefreshedTemplate extends BaseTemplate {
 		$refreshedImagePath = "$wgStylePath/Refreshed/refreshed/images";
 ?>
 	<div id="header">
-    	<div id="sidebarshower"></div>
-		<div id="siteinfo">
-			<?php
-				if ( $wgRefreshedHeader['dropdown'] ) { // if there is a site dropdown (so there are multiple wikis)
-					echo '<div id="siteinfo-main" class="multiplewikis">';
-					echo '<a class="main" href="' . $wgRefreshedHeader['url'] . '">' . $wgRefreshedHeader['img'] . '</a>';
-					echo '<a href="javascript:;" class="arrow-link"><img class="arrow" src="' . $refreshedImagePath . '/arrow-highres.png" alt="" width="15" height="8" /></a>';
-					echo '</div>';
-					echo '<div class="headermenu" style="display:none;">';
-					foreach ( $wgRefreshedHeader['dropdown'] as $url => $img ) {
-						echo '<a href="' . $url . '">' . $img . '</a>';
-					}
-					echo '</div>';
-				} else {
-					echo '<div id="siteinfo-main">';
-					echo '<a class="main" href="' . $wgRefreshedHeader['url'] . '">' .  $wgRefreshedHeader['img'] . '</a>';
-					echo '</div>';
-				}
-			?>
-		</div>
-        <div id="search">
-			<form action="<?php $this->text( 'wgScript' ) ?>" method="get">
-				<input type="hidden" name="title" value="<?php $this->text( 'searchtitle' ) ?>"/>
-				<?php echo $this->makeSearchInput( array( 'id' => 'searchInput' ) ); ?>
-			</form>
-		</div>
-	<?php
-		// test if Echo is installed
-		if ( class_exists( 'EchoHooks' ) ) {
-			echo '<div id="echo"></div>';
-		}
-	?>
-        <div id="searchshower"></div>
-        <div id="userinfo">
-			<a href="javascript:;">
+		<div id="headerinner">
+			<div id="sidebarshower"></div>
+			<div id="siteinfo">
 				<?php
-					$avatarImage = '';
-					// Show the user's avatar image in the top left drop-down
-					// menu, but only if SocialProfile is installed
-					if ( class_exists( 'wAvatar' ) ) {
-						$avatar = new wAvatar( $user->getId(), 'l' );
-						$avatarImage = $avatar->getAvatarURL( array(
-							'width' => 30,
-							'class' => 'avatar'
-						) );
-						echo '<img class="arrow" src=' . $refreshedImagePath . '/arrow-highres.png" alt="" width="15" height="8" />' .
-						$avatarImage .
-						'<span>' . $user->getName() . '</span>';
+					if ( $wgRefreshedHeader['dropdown'] ) { // if there is a site dropdown (so there are multiple wikis)
+						echo '<div id="siteinfo-main" class="multiplewikis">';
+						echo '<a class="main" href="' . $wgRefreshedHeader['url'] . '">' . $wgRefreshedHeader['img'] . '</a>';
+						echo '<a href="javascript:;" class="arrow-link"><img class="arrow" src="' . $refreshedImagePath . '/arrow-highres.png" alt="" width="15" height="8" /></a>';
+						echo '</div>';
+						echo '<div class="headermenu" style="display:none;">';
+						foreach ( $wgRefreshedHeader['dropdown'] as $url => $img ) {
+							echo '<a href="' . $url . '">' . $img . '</a>';
+						}
+						echo '</div>';
 					} else {
-						echo '<img class="avatar avatar-none" src="' . $refreshedImagePath . '/avatar-none.png" alt="" width="30" height="30" height="8" />';
-						echo '<img class="arrow" src="' . $refreshedImagePath . '/arrow-highres.png" alt="" width="15" height="8" />' .
-						$avatarImage .
-						'<span id="username-avatar-none">' . $user->getName() . '</span>';
+						echo '<div id="siteinfo-main">';
+						echo '<a class="main" href="' . $wgRefreshedHeader['url'] . '">' .  $wgRefreshedHeader['img'] . '</a>';
+						echo '</div>';
 					}
 				?>
-			</a>
-			<ul class="headermenu" style="display:none;">
-				<?php
-					foreach ( $this->getPersonalTools() as $key => $tool ) {
-						echo $this->makeListItem( $key, $tool );
-					}
-				?>
-			</ul>
+			</div>
+			<div id="search">
+				<form action="<?php $this->text( 'wgScript' ) ?>" method="get">
+					<input type="hidden" name="title" value="<?php $this->text( 'searchtitle' ) ?>"/>
+					<?php echo $this->makeSearchInput( array( 'id' => 'searchInput' ) ); ?>
+				</form>
+			</div>
+		<?php
+			// test if Echo is installed
+			if ( class_exists( 'EchoHooks' ) ) {
+				echo '<div id="echo"></div>';
+			}
+		?>
+			<div id="searchshower"></div>
+			<div id="userinfo">
+				<a href="javascript:;">
+					<?php
+						$avatarImage = '';
+						// Show the user's avatar image in the top left drop-down
+						// menu, but only if SocialProfile is installed
+						if ( class_exists( 'wAvatar' ) ) {
+							$avatar = new wAvatar( $user->getId(), 'l' );
+							$avatarImage = $avatar->getAvatarURL( array(
+								'width' => 30,
+								'class' => 'avatar'
+							) );
+							echo '<img class="arrow" src=' . $refreshedImagePath . '/arrow-highres.png" alt="" width="15" height="8" />' .
+							$avatarImage .
+							'<span>' . $user->getName() . '</span>';
+						} else {
+							echo '<img class="avatar avatar-none" src="' . $refreshedImagePath . '/avatar-none.png" alt="" width="30" height="30" height="8" />';
+							echo '<img class="arrow" src="' . $refreshedImagePath . '/arrow-highres.png" alt="" width="15" height="8" />' .
+							$avatarImage .
+							'<span id="username-avatar-none">' . $user->getName() . '</span>';
+						}
+					?>
+				</a>
+				<ul class="headermenu" style="display:none;">
+					<?php
+						foreach ( $this->getPersonalTools() as $key => $tool ) {
+							echo $this->makeListItem( $key, $tool );
+						}
+					?>
+				</ul>
+			</div>
 		</div>
 		<?php
 		/*	echo "<ul id=\"header-categories\">
