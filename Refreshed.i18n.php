@@ -12,6 +12,7 @@ $messages['en'] = array(
 	'refreshed-advert' => 'Advertisement',
 	'refreshed-article' => 'article:$1',
 	'refreshed-back' => 'Back to "$1"',
+	'skinname-refreshed' => 'Refreshed',
 );
 
 /** Message documentation */
@@ -21,6 +22,7 @@ $messages['qqq'] = array(
 * $1 is the name of the page we\'re viewing, such as "Foo"',
 	'refreshed-back' => 'A message shown on mobile beneath the article name on talk pages. Parameters:
 * $1 is the name of the page the discussion page we\'re viewing is for, such as "Foo" for "Talk:Foo"',
+	'skinname-refreshed' => 'The name of the skin',
 );
 
 /** German (Deutsch) **/
