@@ -167,51 +167,51 @@ class RefreshedTemplate extends BaseTemplate {
 					?>
 				</ul>
 			</div>
-		</div>
-		<?php
-		/*	echo "<ul id=\"header-categories\">
-				<li>Category 1 <img src=\"$refreshedImagePath/arrow-highres.png\" width=\"14px\" /></li>
-				<li>Category 2 <img src=\"$refreshedImagePath/arrow-highres.png\" width=\"14px\" /></li>
-				<li>Category 3 <img src=\"$refreshedImagePath/arrow-highres.png\" width=\"14px\" /></li>
-			</ul>";
-		*/
-		?>
-		<ul id="header-categories">
 			<?php
-				$service = new RefreshedSkinNavigationService();
-				$menuNodes = $service->parseMessage(
-					'refreshed-navigation',
-					array( 10, 10, 10, 10, 10, 10 ),
-					60 * 60 * 3 // 3 hours
-				);
-				if ( is_array( $menuNodes ) && isset( $menuNodes[0] ) ) {
-					$counter = 0;
-					foreach ( $menuNodes[0]['children'] as $level0 ) {
-						$hasChildren = isset( $menuNodes[$level0]['children'] );
+			/*	echo "<ul id=\"header-categories\">
+					<li>Category 1 <img src=\"$refreshedImagePath/arrow-highres.png\" width=\"14px\" /></li>
+					<li>Category 2 <img src=\"$refreshedImagePath/arrow-highres.png\" width=\"14px\" /></li>
+					<li>Category 3 <img src=\"$refreshedImagePath/arrow-highres.png\" width=\"14px\" /></li>
+				</ul>";
+			*/
 			?>
-			<li class="page_item<?php echo ( $hasChildren ? ' page_item_has_children' : '' ) ?>">
-				<div class="clickableregion">
-						<!--<a class="nav<?php echo $counter ?>_link" href="<?php echo $menuNodes[$level0]['href'] ?>">-->
-						<a class="nav<?php echo $counter ?>_link" href="javascript:;"><?php echo $menuNodes[$level0]['text'] ?></a><img class="arrow" src="<?php echo $refreshedImagePath ?>/arrow-highres.png" width="14px" />
-				</div>
-							<?php if ( $hasChildren ) { ?>
-							<ul class="children">
-							<?php
-									foreach ( $menuNodes[$level0]['children'] as $level1 ) {
-							?>
-							<li class="page_item">
-								<a href="<?php echo $menuNodes[$level1]['href'] ?>"><?php echo $menuNodes[$level1]['text'] ?></a>
-							</li>
-			<?php
+			<ul id="header-categories">
+				<?php
+					$service = new RefreshedSkinNavigationService();
+					$menuNodes = $service->parseMessage(
+						'refreshed-navigation',
+						array( 10, 10, 10, 10, 10, 10 ),
+						60 * 60 * 3 // 3 hours
+					);
+					if ( is_array( $menuNodes ) && isset( $menuNodes[0] ) ) {
+						$counter = 0;
+						foreach ( $menuNodes[0]['children'] as $level0 ) {
+							$hasChildren = isset( $menuNodes[$level0]['children'] );
+				?>
+				<li class="page_item<?php echo ( $hasChildren ? ' page_item_has_children' : '' ) ?>">
+					<div class="clickableregion">
+							<!--<a class="nav<?php echo $counter ?>_link" href="<?php echo $menuNodes[$level0]['href'] ?>">-->
+							<a class="nav<?php echo $counter ?>_link" href="javascript:;"><?php echo $menuNodes[$level0]['text'] ?></a><img class="arrow" src="<?php echo $refreshedImagePath ?>/arrow-highres.png" width="14px" />
+					</div>
+								<?php if ( $hasChildren ) { ?>
+								<ul class="children">
+								<?php
+										foreach ( $menuNodes[$level0]['children'] as $level1 ) {
+								?>
+								<li class="page_item">
+									<a href="<?php echo $menuNodes[$level1]['href'] ?>"><?php echo $menuNodes[$level1]['text'] ?></a>
+								</li>
+				<?php
+								}
+								echo '</ul>';
+								$counter++;
 							}
-							echo '</ul>';
-							$counter++;
+							echo '</li>';
 						}
-						echo '</li>';
 					}
-				}
-			?>
-		</ul>
+				?>
+			</ul>
+		</div>
 	</div>
 	<div id="fullwrapper">
 		<div id="sidebarwrapper">
