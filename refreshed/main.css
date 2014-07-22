@@ -91,6 +91,7 @@ body {
 	background-color: white;
 	z-index: 2;
 	font-family: sans-serif;
+	overflow: auto;
 }
 
 #content {
