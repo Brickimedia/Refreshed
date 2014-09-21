@@ -18,7 +18,7 @@ class SkinRefreshed extends SkinTemplate {
 	 */
 	public function initPage( OutputPage $out ) {
 		global $wgLocalStylePath;
-	
+
 		parent::initPage( $out );
 
 		$min = $this->getRequest()->getFuzzyBool( 'debug' ) ? '.src' : '.min';
@@ -101,6 +101,7 @@ class RefreshedTemplate extends BaseTemplate {
 
 		$refreshedImagePath = "$wgStylePath/Refreshed/refreshed/images";
 ?>
+	<a id="fade-overlay"></a>
 	<div id="header">
 		<div id="headerinner">
 			<div id="sidebarshower"></div>
@@ -122,6 +123,9 @@ class RefreshedTemplate extends BaseTemplate {
 						echo '</div>';
 					}
 				?>
+				<div id="siteinfo-mobile">
+					<?php echo '<a class="main" href="' . $wgRefreshedHeader['url'] . '">' . $wgRefreshedHeader['mobileimg'] . '</a>'; ?>
+				</div>
 			</div>
 			<div id="search">
 				<form action="<?php $this->text( 'wgScript' ) ?>" method="get">

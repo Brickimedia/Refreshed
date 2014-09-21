@@ -1,5 +1,6 @@
 /* anything 600px and under - phones */
 
+
 html {
 	height: 100%;
 	-webkit-transition: 0.2s ease;
@@ -7,29 +8,27 @@ html {
 	position: relative;
 }
 .sidebar-open {
-	-webkit-transform: translateX(12em);
-	-ms-transform: translateX(12em);
-	transform: translateX(12em);
-	position: fixed;
-}
-
-body {
-	height: 100%;
-	overflow: auto; /* part of a workaround to get #sidebarwrapper position:fixed during a transform
-	(position:fixed descendants of a transformed parent become fixed relative to the parent, causing them
-	to behave like position:absolute) */
+	-webkit-transform: translateX(15em);
+	-ms-transform: translateX(15em);
+	transform: translateX(15em); /*12em*/
+	overflow: hidden;
 }
 
 #header {
-	height: 2.5em;
+	height: 2.75em;
 }
 #sidebarwrapper {
+  position: fixed;
 	background: midnightblue;
-	left: -12em;
+	left: -15em;
+	width: 15em;
+	top: 0;
+		-webkit-transform: translate3d(0,0,0);
+		transform: translate3d(0,0,0);
 }
 #sidebar ul {
-	top: 1.5em;
-	font-size: 14pt;
+	top: 2.75em;
+	font-size: 13pt;
 }
 #sidebar a:hover {
 	border: 0;
@@ -39,6 +38,27 @@ body {
 #sidebarshower {
 	display: block;
 }
+
+#siteinfo-main {
+	position: fixed;
+	left: -15em;
+	width: 15em;
+	text-align: center;
+}
+
+#siteinfo-main .arrow-link {
+	display: none!important;
+}
+#siteinfo-main:hover,
+#siteinfo-main a,
+#siteinfo-main a:hover {
+	background: none;
+}
+
+#siteinfo-mobile {
+	display: inline-block;
+}
+
 #search {
 	margin-right: 0;
 	background: midnightblue;
@@ -55,25 +75,26 @@ body {
 #searchshower {
 	display: block;
 	right: 0;
-	width: 2.5em;
-	height: 2.5em;
-	-webkit-background-size: 2.5em 2.5em;
-	background-size: 2.5em 2.5em;
+	top: 0;
+	width: 2.75em;
+	height: 2.75em;
+	-webkit-background-size: 2.75em 2.75em;
+	background-size: 2.75em 2.75em;
 }
 
 #userinfo {
 	position: absolute;
-	right: 2.5em;
+	right: 2.75em;
 	margin: 0;
-	width: 2.5em;
-	height: 2.5em;
+	width: 2.75em;
+	height: 2.75em;
+	top: 0;
 }
 #userinfo .arrow {
 	display: none;
 }
 
 #userinfo .avatar {
-	top: .3em;
 	left: .5em;
 }
 
@@ -82,12 +103,14 @@ body {
 }
 
 #userinfo > a {
-	padding: .5em 0 0 0;
+	padding: 0;
+	height: 2.75em;
 }
 
 #userinfo .avatar {
-	width: 25px; /* 30px * 5/6 */
-	height: 25px; /* 30px * 5/6 */
+	padding-top: .25em;
+	/*width: 25px; /* 30px * 5/6 */
+	/*height: 25px; /* 30px * 5/6 */
 }
 #userinfo .avatar-none {
 	display: block;
@@ -98,7 +121,7 @@ body {
 }
 
 #userinfo .headermenu {
-	top: 2.5em;
+	top: 2.75em;
 	background-color: rgb(25, 25, 112);
 	padding: 0.15em 0 0.15em 0;
 }
@@ -116,9 +139,9 @@ body {
 #userinfo .headermenu a.new:hover {
 	color: #f47d64;
 }
-#siteinfo-main {
-	height: 2.5em;
-	margin-left: 2.5em;
+/*#siteinfo-main {
+	height: 2.75em;
+	margin-left: 2.75em;
 	width: 9em;
 }
 #siteinfo-main.multiplewikis {
@@ -137,16 +160,16 @@ body {
 	padding-bottom: .4em;
 }
 #siteinfo .headermenu {
-	top: 2.5em;
-	left: 2.5em;
+	top: 2.75em;
+	left: 2.75em;
 	width: 10.6em;
-}
+}*/
 #siteinfo .headermenu img {
 	font-size: 16px; /* resetting font size for logos in menu so they are the same height as the one outside the menu */
 }
 
 #contentwrapper {
-	top: 2.5em;
+	top: 2.75em;
 }
 
 #header-categories {
@@ -309,7 +332,7 @@ body {
 }
 
 .suggestions {
-	top: 6em !important; /* 2.5em for the header, 3.5em for the search bar */
+	top: 6.25em !important; /* 2.75em for the header, 3.5em for the search bar */
 	left: 0 !important;
 	width: 100% !important;
 	font-size: 16px !important;

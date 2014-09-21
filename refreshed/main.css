@@ -25,6 +25,25 @@ body {
 	background-color: #194a8d;
 }
 
+#fade-overlay {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	right: 0;
+	display: block;
+	opacity: 0;
+	-webkit-transition: opacity 0.2s ease;
+	transition: opacity 0.2s ease;
+	background: #000;
+}
+
+.fade-overlay-active {
+	opacity: .5 !important;
+	z-index: 10001; /* very high value to guarantee no elements on wikis will appear above it */
+}
+
+
 #header {
 	-webkit-font-smoothing: antialiased;
 	width: 100%;
@@ -444,11 +463,11 @@ a.toclevel-6 {
 	vertical-align: text-bottom;
 }
 
-.dropdown-highlighted,
+/*.dropdown-highlighted,
 #searchshower:hover,
 #sidebarshower:hover {
 	background-color: midnightblue !important;
-}
+}*/
 
 #toolbox-link {
 	/*margin-top: 0.5em;*/
@@ -521,11 +540,11 @@ a.toclevel-6 {
 	position: absolute;
 	top: 0;
 	left: 0;
-	width: 2.5em;
-	height: 2.5em;
-	background: url("images/icon-rightbar.png") top left no-repeat;
-	-webkit-background-size: 2.5em 2.5em;
-	background-size: 2.5em 2.5em;
+	width: 2.75em;
+	height: 2.75em;
+	background: #194a8d url("images/icon-rightbar.png") top left no-repeat;
+	-webkit-background-size: 2.75em 2.75em;
+	background-size: 2.75em 2.75em;
 	display: none;
 	cursor: pointer;
 }
@@ -604,6 +623,17 @@ a.toclevel-6 {
 	transform: rotateZ(180deg);
 }
 
+#siteinfo-mobile {
+	display: none;
+	height: 2.75em;
+	width: 2.75em;
+	margin-left: 2.75em;
+	padding: 0 .25em;
+}
+/*#siteinfo-mobile:hover {
+	background-color: midnightblue;
+}*/
+
 #searchshower {
 	width: 3em;
 	height: 3em;
@@ -623,6 +653,7 @@ a.toclevel-6 {
 	margin-right: .5em; /* .5em right + .5em padding = 1em */
 	top: 0;
 	padding: 0.5em;
+	-webkit-appearance: none;
 }
 
 #search input {
@@ -632,7 +663,6 @@ a.toclevel-6 {
 	padding: 0.25em;
 	font-family: Lato, sans-serif;
 	width: 11em;
-	-webkit-appearance: none;
 }
 
 #refreshed-toc #toc-box:last-child {

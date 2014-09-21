@@ -196,10 +196,17 @@ $( document ).ready( function() {
 	$( '#sidebarshower' ).clickOrTouch( function() {
 			if (!Refreshed.sidebarOpen) {
 				$( 'html' ).addClass( 'sidebar-open' );
+				$( '#fade-overlay' ).addClass( 'fade-overlay-active' ); /* activate the fade overlay */
+				$( '#header' ).css({'position': 'absolute', 'top': $( window ).scrollTop()}); //since there's a bug where position:fixed doesn't work in a CSS-transformed element, use position:absolute to simulate position:fixed
+				$( '#sidebarwrapper' ).css({'position': 'absolute', 'top': $( window ).scrollTop()}); //since there's a bug where position:fixed doesn't work in a CSS-transformed element, use position:absolute to simulate position:fixed
 				Refreshed.sidebarOpen = true;
 				$( this ).addClass( 'dropdown-highlighted' );
 			} else {
 				$( 'html' ).removeClass( 'sidebar-open' );
+				$( '#fade-overlay' ).removeClass( 'fade-overlay-active' ); /* deactivate the fade overlay */
+				setTimeout( function(){
+					$( '#header' ).css({'position': 'fixed', 'top': '0'})
+				}, 200); //reset the header back to position:fixed after waiting 200 milliseconds (the length of the CSS transition for the sidebar to close) so the change back to position:absolute isn't noticeable
 				Refreshed.sidebarOpen = false;
 				$( this ).removeClass( 'dropdown-highlighted' );
 			}
@@ -208,6 +215,7 @@ $( document ).ready( function() {
 	$( document ).clickOrTouch( function ( e ) {
 		if ( Refreshed.sidebarOpen && !$( '#sidebarshower' ).is( e.target ) && !$( '#sidebarwrapper' ).is( e.target ) && $( '#sidebarwrapper' ).has( e.target ).length === 0 ) { // if the sidebar is out and the target of the click isn't the shower, the container, or a descendant of the container
 			$( 'html' ).removeClass( 'sidebar-open' );
+			$( '#fade-overlay' ).removeClass( 'fade-overlay-active' ); /* deactivate the fade overlay */
 			Refreshed.sidebarOpen = false;
 			$( '#sidebarshower' ).removeClass( 'dropdown-highlighted' );
 		}

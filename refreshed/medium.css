@@ -66,10 +66,12 @@
 	width: 15em;
 	display: none;
 }
+
 #search input {
 	width: 100%;
 	font-size: 16pt; /* enlarging and preventing zoom on input on focus */
 }
+
 #searchshower {
 	display: block;
 }
