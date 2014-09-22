@@ -36,10 +36,10 @@ $wgExtensionCredits['skin'][] = array(
 	'path' => __FILE__,
 	'name' => 'Refreshed',
 	'version' => '3.0.0',
-	'author' => array( 'Adam Carter', 'George Barnick', 
-'MtMNC', 
-'ShermanTheMythran', 'Jack Phoenix', 'Drew1200', 
-'SirComputer', 
+	'author' => array( 'Adam Carter', 'George Barnick',
+'MtMNC',
+'ShermanTheMythran', 'Jack Phoenix', 'Drew1200',
+'SirComputer',
 'Seaside98', 'Codyn329', 'Lewis Cawte' ),
 	'description' => 'A clean, modern MediaWiki skin with extensive CSS customisability',
 	'url' => 'https://www.mediawiki.org/wiki/Skin:Refreshed',
@@ -61,10 +61,6 @@ $wgAutoloadClasses['RefreshedTemplate'] = $dir . 'Refreshed.skin.php'; // needed
 $wgExtensionMessagesFiles['SkinRefreshed'] = $dir . 'Refreshed.i18n.php';
 $wgResourceModules['skins.refreshed'] = array(
 	'styles' => array(
-		// MonoBook also loads these
-		'skins/common/commonElements.css' => array( 'media' => 'screen' ),
-		'skins/common/commonContent.css' => array( 'media' => 'screen' ),
-		'skins/common/commonInterface.css' => array( 'media' => 'screen' ),
 		# Styles custom to the Refreshed skin
 		'skins/Refreshed/refreshed/main.css' => array( 'media' => 'screen' ),
 		'skins/Refreshed/refreshed/small.css' => array( 'media' => '(max-width: 600px)' ),

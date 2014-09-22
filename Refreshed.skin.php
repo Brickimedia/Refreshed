@@ -53,7 +53,12 @@ class SkinRefreshed extends SkinTemplate {
 		parent::setupSkinUserCss( $out );
 
 		// Add CSS via ResourceLoader
-		$out->addModuleStyles( 'skins.refreshed' );
+		$out->addModuleStyles( array(
+			'mediawiki.skinning.elements',
+			'mediawiki.skinning.content',
+			'mediawiki.skinning.interface',
+			'skins.refreshed'
+		) );
 
 		// Internet Explorer fixes
 		$out->addStyle( $wgStylePath . '/Refreshed/refreshed/ie8.css', 'screen', 'IE 8' );
