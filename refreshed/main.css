@@ -928,8 +928,13 @@ div.noarticletext {
 	margin: 0.9em 0 0 0;
 }
 
-.mw-echo-overlay-pokey {
-	left: -3px;
+.mw-echo-overlay {
+	z-index: 999999;
+}
+
+.mw-echo-overlay:before,
+.mw-echo-overlay::before {
+	left: 196px;
 }
 
 /* stopping images on file pages from overflowing */
