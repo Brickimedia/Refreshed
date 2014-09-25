@@ -137,7 +137,7 @@ $( document ).ready( function() {
 		if ( $( '#search' ).is( ':visible' ) && $( window ).width() < Refreshed.thresholdForBigCSS ) { // window size must be checked because we only want to hide the search bar if we're not in "big" mode
 			if ( Refreshed.searchDropdownOpen && !$( '#search' ).is( e.target ) && $( '#search' ).has( e.target ).length === 0 ) { // if the target of the click isn't the container and isn't a descendant of the container
 				$( '#search' ).fadeOut();
-				$( '#search input' ).val( '' );
+				$( '#search input' ).blur().val( '' ); //deselect the search input and reset its contents (remove anything the user entered)
 				$( '#searchshower' ).removeClass( 'dropdown-highlighted' );
 				Refreshed.searchDropdownOpen = false;
 			}
@@ -194,28 +194,20 @@ $( document ).ready( function() {
 
 	/* mobile sidebar */
 	$( '#sidebarshower' ).clickOrTouch( function() {
-			if (!Refreshed.sidebarOpen) {
-				$( 'html' ).addClass( 'sidebar-open' );
-				$( '#fade-overlay' ).addClass( 'fade-overlay-active' ); /* activate the fade overlay */
-				$( '#header' ).css({'position': 'absolute', 'top': $( window ).scrollTop()}); //since there's a bug where position:fixed doesn't work in a CSS-transformed element, use position:absolute to simulate position:fixed
-				$( '#sidebarwrapper' ).css({'position': 'absolute', 'top': $( window ).scrollTop()}); //since there's a bug where position:fixed doesn't work in a CSS-transformed element, use position:absolute to simulate position:fixed
-				Refreshed.sidebarOpen = true;
-				$( this ).addClass( 'dropdown-highlighted' );
-			} else {
-				$( 'html' ).removeClass( 'sidebar-open' );
-				$( '#fade-overlay' ).removeClass( 'fade-overlay-active' ); /* deactivate the fade overlay */
-				setTimeout( function(){
-					$( '#header' ).css({'position': 'fixed', 'top': '0'})
-				}, 200); //reset the header back to position:fixed after waiting 200 milliseconds (the length of the CSS transition for the sidebar to close) so the change back to position:absolute isn't noticeable
-				Refreshed.sidebarOpen = false;
-				$( this ).removeClass( 'dropdown-highlighted' );
-			}
+			//if (!Refreshed.sidebarOpen) {
+				$( '#sidebarwrapper' ).toggleClass( 'sidebar-open' );
+				$( '#sidebarshower' ).toggleClass( 'sidebar-open' );
+				$( '#fade-overlay' ).toggleClass( 'fade-overlay-active' ); //toggle the fade overlay
+				Refreshed.sidebarOpen = !Refreshed.sidebarOpen;
+				$( this ).toggleClass( 'dropdown-highlighted' );
+			//}
 	});
 
 	$( document ).clickOrTouch( function ( e ) {
-		if ( Refreshed.sidebarOpen && !$( '#sidebarshower' ).is( e.target ) && !$( '#sidebarwrapper' ).is( e.target ) && $( '#sidebarwrapper' ).has( e.target ).length === 0 ) { // if the sidebar is out and the target of the click isn't the shower, the container, or a descendant of the container
-			$( 'html' ).removeClass( 'sidebar-open' );
-			$( '#fade-overlay' ).removeClass( 'fade-overlay-active' ); /* deactivate the fade overlay */
+		if ( Refreshed.sidebarOpen && $( '#fade-overlay').is( e.target ) ) { // if the sidebar is out and the target of the click is the fade-overlay
+			$( '#sidebarwrapper' ).removeClass( 'sidebar-open' );
+			$( '#sidebarshower' ).removeClass( 'sidebar-open' );
+			$( '#fade-overlay' ).removeClass( 'fade-overlay-active' ); //deactivate the fade overlay
 			Refreshed.sidebarOpen = false;
 			$( '#sidebarshower' ).removeClass( 'dropdown-highlighted' );
 		}

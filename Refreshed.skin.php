@@ -54,8 +54,6 @@ class SkinRefreshed extends SkinTemplate {
 
 		// Add CSS via ResourceLoader
 		$out->addModuleStyles( array(
-			'mediawiki.skinning.elements',
-			'mediawiki.skinning.content',
 			'mediawiki.skinning.interface',
 			'skins.refreshed'
 		) );
@@ -109,7 +107,6 @@ class RefreshedTemplate extends BaseTemplate {
 	<a id="fade-overlay"></a>
 	<div id="header">
 		<div id="headerinner">
-			<div id="sidebarshower"></div>
 			<div id="siteinfo">
 				<?php
 					if ( $wgRefreshedHeader['dropdown'] ) { // if there is a site dropdown (so there are multiple wikis)
@@ -224,6 +221,8 @@ class RefreshedTemplate extends BaseTemplate {
 	</div>
 	<div id="fullwrapper">
 		<div id="sidebarwrapper">
+			<div id="sidebarshower"></div>
+			<?php echo '<a id="sidebar-logo" href="' . $wgRefreshedHeader['url'] . '">' .  $wgRefreshedHeader['img'] . '</a>'; ?>
 			<div id="sidebar">
 				<ul>
 					<?php
