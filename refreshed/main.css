@@ -23,6 +23,7 @@ body {
 	font-family: "Lato", sans-serif;
 	margin: 0;
 	background-color: #194a8d;
+	-webkit-tap-highlight-color: transparent; /* preventing gray overlay when pressed on mobile webkit browsers (e.g. mobile Safari) */
 }
 
 #fade-overlay {
@@ -38,12 +39,6 @@ body {
 	background: #fff;
 	cursor: pointer;
 }
-
-.fade-overlay-active {
-	opacity: .5 !important;
-	z-index: 10001; /* very high value to guarantee no elements on wikis will appear above it */
-}
-
 
 #header {
 	-webkit-font-smoothing: antialiased;
@@ -278,7 +273,6 @@ body {
 	background-color: white;
 	z-index: 2;
 	font-family: sans-serif;
-	-webkit-tap-highlight-color: transparent; /* preventing gray overlay when pressed on mobile webkit browsers (e.g. mobile Safari) */
 	border-bottom: .25em solid #eee;
 }
 
@@ -317,6 +311,10 @@ body {
 #sidebarwrapper ul {
 	margin: 0;
 	padding: 0;
+}
+
+#sidebar-logo {
+	display: none;
 }
 
 #sidebar ul {
@@ -548,6 +546,8 @@ a.toclevel-6 {
 	background-size: 2.75em 2.75em;
 	display: none;
 	cursor: pointer;
+	-webkit-transition: right 0.2s ease 0s;
+	transition: right 0.2s ease 0s;
 }
 
 #siteinfo .headermenu {
@@ -654,8 +654,28 @@ a.toclevel-6 {
 	margin-right: .5em; /* .5em right + .5em padding = 1em */
 	top: 0;
 	padding: 0.5em;
-	-webkit-appearance: none;
 }
+.search-open {
+	opacity: 1 !important;
+	/*-webkit-transition: opacity .2s ease 0s !important;
+	transition: opacity .2s ease 0s !important;*/
+	z-index: 1 !important;
+}
+#searchcloser {
+	width: 2.75em;
+	height: 2.75em;
+	/* @embed */
+	background: url("images/icon-close.png") top left no-repeat;
+	-webkit-background-size: 2.75em 2.75em;
+	background-size: 2.75em 2.75em;
+	position: absolute;
+	top: 0;
+	right: 0;
+	cursor: pointer;
+	display: none;
+	z-index: 1;
+}
+
 
 #search input {
 	float: right;
@@ -664,6 +684,9 @@ a.toclevel-6 {
 	padding: 0.25em;
 	font-family: Lato, sans-serif;
 	width: 11em;
+	box-sizing: border-box;
+	-webkit-appearance: none; /* prevent Safari from styling input box */
+	border-radius: 0; /* prevent iOS from adding rounded corners to input box */
 }
 
 #refreshed-toc #toc-box:last-child {

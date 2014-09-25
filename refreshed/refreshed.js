@@ -123,21 +123,32 @@ $( document ).ready( function() {
 
 	/* search dropdown */
 	$( '#searchshower' ).click( function() { //Unfortunately, touchend causes the search bar to lose focus in iOS (haven't tested on Android), but it keeps its focus if you use the standard click event. The other menus, etc. use "touchOrClick" b/c the touchend event seems to execute faster than the standard click on iOS (once again, haven't tested on Android).
-			if ( !$( '#search' ).is( ':visible' ) ) {
-				$( '#search' ).fadeIn();
+			if ( !Refreshed.searchDropdownOpen ) {
+				$( '#search' ).addClass( 'search-open' );
+				$( '#sidebarshower' ).addClass( 'sidebarshower-hidden' );
+				$( '#fade-overlay' ).addClass( 'fade-overlay-active fade-overlay-below-header' ); //toggle the fade overlay
 				$( '#search input' ).focus();
 				$( this ).toggleClass( 'dropdown-highlighted' );
 				setTimeout(function () {
 					Refreshed.searchDropdownOpen = true;
 				}, 300); //delay the second clickOrTouch function (which performs fadeOut) to stop fadeIn and fadeOut on one click (also prevents user from spamming so it constantly fades in/out)
-	}
+			} else {
+				$( '#search' ).removeClass( 'search-open' );
+				$( '#sidebarshower' ).removeClass( 'sidebarshower-hidden' );
+				$( '#search input' ).blur().val( '' ); //deselect the search input and reset its contents (remove anything the user entered)
+				$( '#fade-overlay' ).removeClass( 'fade-overlay-active fade-overlay-below-header' ); //toggle the fade overlay
+				$( '#searchshower' ).removeClass( 'dropdown-highlighted' );
+				Refreshed.searchDropdownOpen = false;
+			}
 	});
 
 	$( document ).clickOrTouch( function ( e ) {
-		if ( $( '#search' ).is( ':visible' ) && $( window ).width() < Refreshed.thresholdForBigCSS ) { // window size must be checked because we only want to hide the search bar if we're not in "big" mode
-			if ( Refreshed.searchDropdownOpen && !$( '#search' ).is( e.target ) && $( '#search' ).has( e.target ).length === 0 ) { // if the target of the click isn't the container and isn't a descendant of the container
-				$( '#search' ).fadeOut();
+		if ( Refreshed.searchDropdownOpen && $( window ).width() < Refreshed.thresholdForBigCSS ) { // window size must be checked because we only want to hide the search bar if we're not in "big" mode
+			if ( !$( '#search' ).is( e.target ) && !$( '#searchshower' ).is( e.target ) && !$( '#search input' ).is( e.target ) ) { // if the target of the click isn't the search container, search button, or the search box itself (we can't set it to all descendants of #search because #searchcloser needs to be able to close the search box)
+				$( '#search' ).removeClass( 'search-open' );
+				$( '#sidebarshower' ).removeClass( 'sidebarshower-hidden' );
 				$( '#search input' ).blur().val( '' ); //deselect the search input and reset its contents (remove anything the user entered)
+				$( '#fade-overlay' ).removeClass( 'fade-overlay-active fade-overlay-below-header' ); //toggle the fade overlay
 				$( '#searchshower' ).removeClass( 'dropdown-highlighted' );
 				Refreshed.searchDropdownOpen = false;
 			}

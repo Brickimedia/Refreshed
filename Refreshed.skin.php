@@ -130,6 +130,7 @@ class RefreshedTemplate extends BaseTemplate {
 				</div>
 			</div>
 			<div id="search">
+				<div id="searchcloser"></div>
 				<form action="<?php $this->text( 'wgScript' ) ?>" method="get">
 					<input type="hidden" name="title" value="<?php $this->text( 'searchtitle' ) ?>"/>
 					<?php echo $this->makeSearchInput( array( 'id' => 'searchInput' ) ); ?>
@@ -222,7 +223,9 @@ class RefreshedTemplate extends BaseTemplate {
 	<div id="fullwrapper">
 		<div id="sidebarwrapper">
 			<div id="sidebarshower"></div>
-			<?php echo '<a id="sidebar-logo" href="' . $wgRefreshedHeader['url'] . '">' .  $wgRefreshedHeader['img'] . '</a>'; ?>
+			<div id="sidebar-logo">
+				<?php echo '<a class="main" href="' . $wgRefreshedHeader['url'] . '">' .  $wgRefreshedHeader['img'] . '</a>'; ?>
+			</div>
 			<div id="sidebar">
 				<ul>
 					<?php
