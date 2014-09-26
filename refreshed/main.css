@@ -70,10 +70,16 @@ body {
 #header-categories > .page_item {
 	height: 3em;
 }
+
+#header-categories > .page_item:hover {
+	background: midnightblue;
+}
+
 .clickableregion {
 	cursor: pointer;
 	padding-left: .5em;
 }
+
 #header-categories > li .clickableregion a {
 	display: inline-block;
 	height: 2em;
