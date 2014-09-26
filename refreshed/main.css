@@ -891,6 +891,7 @@ h6 {
 
 /* Search suggestions */
 .suggestions {
+	z-index: 10000 !important;
 	position: fixed !important;
 	top: 2.5em !important; /* there is some JS doing odd stuff, this forces our value */
 }
