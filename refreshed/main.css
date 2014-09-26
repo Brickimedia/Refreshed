@@ -567,14 +567,9 @@ a.toclevel-6 {
 	width: 10em;
 }
 
-#siteinfo-main:hover,
-.sitedropdown-bg-highlighted {
-	background-color: #333;
-}
-
 #siteinfo-main a:hover,
 .sitedropdown-highlighted {
-	background-color: #222;
+	background-color: midnightblue;
 }
 
 #siteinfo-main a,
