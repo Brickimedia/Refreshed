@@ -12,6 +12,7 @@
 #header {
 	height: 2.75em;
 }
+
 #sidebarwrapper {
   position: fixed;
 	background: midnightblue;
@@ -22,6 +23,7 @@
 	-webkit-transition: 0.2s ease;
 	transition: 0.2s ease;
 }
+
 .sidebar-open {
 	left: 0;
 	-webkit-transform: translateX(15em);
@@ -32,6 +34,7 @@
 	top: 2.75em;
 	font-size: 13pt;
 }
+
 #sidebar a:hover {
 	border: 0;
 	margin-left: 5px;
@@ -40,6 +43,7 @@
 #sidebarshower {
 	display: block;
 }
+
 .sidebarshower-hidden {
 	right: 0 !important;
 }
@@ -60,8 +64,9 @@
 }
 
 #siteinfo-main .arrow-link {
-	display: none!important;
+	display: none !important;
 }
+
 #siteinfo-main:hover,
 #siteinfo-main a,
 #siteinfo-main a:hover {
@@ -85,18 +90,22 @@
 	transition: opacity .2s ease 0s;
 	z-index: 0;
 }
+
 #searchcloser {
 	display: block;
 }
+
 #search form {
 	margin-right: 3em;
 	margin-left: .25em;
 }
+
 #search input {
 	width: 100%;
 	font-size: 18px;
 	float: left;
 }
+
 #searchshower {
 	display: block;
 	right: 0;
@@ -165,31 +174,39 @@
 	color: #f47d64;
 }
 
-/*#siteinfo-main {
+/*
+#siteinfo-main {
 	height: 2.75em;
 	margin-left: 2.75em;
 	width: 9em;
 }
+
 #siteinfo-main.multiplewikis {
 	width: 11em;
 }
+
 #siteinfo-main a,
 #siteinfo-main a.main img,
 #siteinfo .headermenu img {
 	height: 1.5em;
 }
+
 #siteinfo-main .main {
 	width: 9em !important;
 }
+
 #siteinfo-main a.arrow-link {
 	padding-top: .6em;
 	padding-bottom: .4em;
 }
+
 #siteinfo .headermenu {
 	top: 2.75em;
 	left: 2.75em;
 	width: 10.6em;
-}*/
+}
+*/
+
 #siteinfo .headermenu img {
 	font-size: 16px; /* resetting font size for logos in menu so they are the same height as the one outside the menu */
 }
@@ -208,6 +225,7 @@
 	padding: 0 1em;
 	width: auto;
 }
+
 #maintitle h1 {
 	overflow-x: auto;
 	white-space: nowrap;
@@ -216,6 +234,7 @@
 	padding: 0;
 	font-size: 2.25em;
 }
+
 .scrollshadow {
 	background:
 		-webkit-linear-gradient(90deg, white 20%, rgba(255,255,255,0)),
@@ -236,13 +255,16 @@
 	background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
 	background-attachment: local, local, scroll, scroll;
 }
+
 #standardtoolbox,
 #standardtoolboxscrolloverlay {
 	display: none !important;
 }
+
 #maintitlemessages {
 	display: none;
 }
+
 #back-to-subject {
 	display: inline;
 	font-size: .95em;
@@ -365,6 +387,7 @@
 	font-size: 16px !important;
 	z-index: 10001 !important; /* place above #fade-overlay, which has z-index of 10000 because it has the .fade-overlay-below-header class */
 }
+
 .suggestions div {
 	font-size: 16pt;
 }

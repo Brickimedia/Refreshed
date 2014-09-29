@@ -67,6 +67,7 @@ body {
 	height: 3em;
 	margin: 0;
 }
+
 #header-categories > .page_item {
 	height: 3em;
 }
@@ -90,33 +91,40 @@ body {
 	color: #ffffff !important;
 	white-space: nowrap;
 }
+
 #header-categories li {
 	display: inline-block;
 	width: 8em;
 	text-decoration: none;
 }
+
 #header-categories li a:hover {
 	text-decoration: none;
 }
+
 #header-categories li img {
 	margin: 0 0 3px 4px;
 }
+
 #header-categories .children {
 	background: rgba(0,0,0,0.8);
 	margin: 0;
 }
+
 .children {
 	display: none;
 	position: absolute;
 	width: 10em;
 	padding: 0 .2em .2em .2em;
 }
+
 .children a {
 	display: inline-block;
 	width: 9.2em; /* 10em (width of .children) - .75em */
 	color: #fff;
 	padding: .2em 0 .2em .7em;
 }
+
 .children a:hover {
 	background: midnightblue;
 }
@@ -124,6 +132,7 @@ body {
 #maintitle {
 	padding: 0 .9em; /* 1em (#content padding-left) * .9em (#content font-size) */
 }
+
 #maintitle h1 {
 	font-size: 32pt;
 	font-family: "Lato Body", sans-serif;
@@ -131,9 +140,11 @@ body {
 	margin-bottom: 0.1em;
 	padding-bottom: .05em;
 }
+
 .scrollshadow {
 	background: none;
 }
+
 #standardtoolbox,
 #standardtoolboxscrolloverlay {
 	font-family: "Lato", sans-serif; /* assigning here so em values match em values of the links inside */
@@ -141,6 +152,7 @@ body {
 	transition: transform 0.4s ease;
 	top: 0;
 }
+
 #standardtoolbox a,
 #standardtoolboxscrolloverlay a {
 	margin-left: .5em;
@@ -150,10 +162,12 @@ body {
 	font-weight: normal;
 	text-decoration: none;
 }
+
 #standardtoolbox > a:first-of-type,
 #standardtoolboxscrolloverlay > a:first-of-type {
 	margin-left: 0;
 }
+
 #standardtoolbox a:hover,
 #standardtoolboxscrolloverlay a:hover {
 	border-bottom: .25em solid #0645ad;
@@ -205,6 +219,7 @@ body {
 	top: -.5em;
 	left: .1em;
 }
+
 #standardtoolboxdropdown a {
 	width: 100%;
 	height: 100%;
@@ -212,15 +227,19 @@ body {
 	padding-top: 0;
 	padding-bottom: 0;
 }
+
 #standardtoolboxdropdown a:hover {
 	border: 0;
 }
+
 #standardtoolboxdropdown a:hover span {
 	border-bottom: .25em solid #0645ad;
 }
+
 #standardtoolboxdropdown a:visited:hover span {
 	border-bottom: .25em solid #0b0080;
 }
+
 #standardtoolboxscrolloverlay {
 	padding-left: .9em; /* 1em (#content padding-left) * .9em (#content font-size) */
 	position: fixed;
@@ -233,6 +252,7 @@ body {
 	margin-left: -.9em; /* 1em (#content padding-left) * .9em (#content font-size) */
 	z-index: 9999; /* very high value to guarantee no elements on wikis will appear above it */
 }
+
 .dropdown-open {
 	-webkit-transform: translateY(3em);
 	-ms-transform: translateY(3em);
@@ -244,10 +264,12 @@ body {
 	padding-top: 1.25em;
 	padding-bottom: .5em;
 }
+
 #siteSub {
 	font-size: .9em;
 	padding-bottom: .25em;
 }
+
 #contentSub,
 #contentSub2 {
 	margin: 0;
@@ -478,11 +500,15 @@ a.toclevel-6 {
 	/*margin-top: 0.5em;*/
 }
 
-#toolbox-link .arrow, #languages-link .arrow {
+#toolbox-link .arrow,
+#languages-link .arrow {
 	vertical-align: 2px;
 }
 
-#userinfo .arrow, #toolbox-link .arrow, #languages-link .arrow, .page_item_has_children .arrow {
+#userinfo .arrow,
+#toolbox-link .arrow,
+#languages-link .arrow,
+.page_item_has_children .arrow {
 	-webkit-transition: -webkit-transform 0.5s; /* Safari */ /* Firefox */ /* IE */
 	transition: transform 0.5s;
 }
@@ -569,6 +595,7 @@ a.toclevel-6 {
 	width: 12em;
 	height: 3em;
 }
+
 #siteinfo-main.multiplewikis .main {
 	width: 10em;
 }
@@ -632,9 +659,12 @@ a.toclevel-6 {
 	margin-left: 2.75em;
 	padding: 0 .25em;
 }
-/*#siteinfo-mobile:hover {
+
+/*
+#siteinfo-mobile:hover {
 	background-color: midnightblue;
-}*/
+}
+*/
 
 #searchshower {
 	width: 3em;
@@ -648,6 +678,7 @@ a.toclevel-6 {
 	cursor: pointer;
 	display: none;
 }
+
 #search {
 	width: 11em;
 	position: static;
@@ -656,12 +687,14 @@ a.toclevel-6 {
 	top: 0;
 	padding: 0.5em;
 }
+
 .search-open {
 	opacity: 1 !important;
 	/*-webkit-transition: opacity .2s ease 0s !important;
 	transition: opacity .2s ease 0s !important;*/
 	z-index: 1 !important;
 }
+
 #searchcloser {
 	width: 2.75em;
 	height: 2.75em;
@@ -904,9 +937,11 @@ h6 {
 	border: 0;
 	font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
+
 .catlinks li {
 	border-color: #ddd;
 }
+
 /* refresh-ify postedit, reset all the shadows and stuff */
 .postedit {
 	font-family: "Lato", sans-serif !important;

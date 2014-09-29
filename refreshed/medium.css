@@ -4,12 +4,15 @@
 	width: 10em;
 	left: 0 !important; /* preventing sidebar from moving left of viewport if not on mobile */
 }
+
 #sidebar ul {
 	font-size: 11pt;
 }
+
 #sidebar ul li {
 	padding-top: .1em;
 }
+
 #contentwrapper,
 #footer {
 	margin-left: 10em;
@@ -29,6 +32,7 @@
 	font-size: 2.25em;
 	overflow-x: scroll;
 }
+
 .scrollshadow {
 	background:
 		-webkit-linear-gradient(90deg, white 20%, rgba(255,255,255,0)),
@@ -95,6 +99,7 @@
 	font-size: 16px !important;
 	border: 0 !important;
 }
+
 .suggestions div {
 	font-size: 16pt !important;
 }
