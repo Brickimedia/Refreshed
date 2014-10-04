@@ -3,10 +3,12 @@
 .fade-overlay-active {
 	opacity: .5 !important;
 	z-index: 10001; /* very high value to guarantee no elements on wikis will appear above it */
+	cursor: pointer;
 }
 
 .fade-overlay-below-header {
 	z-index: 10000 !important; /* below header but above page content (used for search) */
+	cursor: pointer;
 }
 
 #header {

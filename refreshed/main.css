@@ -37,7 +37,6 @@ body {
 	-webkit-transition: opacity 0.2s ease;
 	transition: opacity 0.2s ease, left;
 	background: #fff;
-	cursor: pointer;
 }
 
 #header {

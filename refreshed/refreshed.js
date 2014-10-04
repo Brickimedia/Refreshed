@@ -124,21 +124,22 @@ $( document ).ready( function() {
 	/* search dropdown */
 	$( '#searchshower' ).click( function() { //Unfortunately, touchend causes the search bar to lose focus in iOS (haven't tested on Android), but it keeps its focus if you use the standard click event. The other menus, etc. use "touchOrClick" b/c the touchend event seems to execute faster than the standard click on iOS (once again, haven't tested on Android).
 			if ( !Refreshed.searchDropdownOpen ) {
+				if ( Refreshed.usingIOS ) {
+					$( window ).scrollTop(0); //iOS tries to vertically center the search bar, scrolling to the top keeps the header at the top of the viewport
+				}
 				$( '#search' ).addClass( 'search-open' );
 				$( '#sidebarshower' ).addClass( 'sidebarshower-hidden' );
 				$( '#fade-overlay' ).addClass( 'fade-overlay-active fade-overlay-below-header' ); //toggle the fade overlay
 				$( '#search input' ).focus();
 				$( this ).toggleClass( 'dropdown-highlighted' );
-				setTimeout(function () {
-					Refreshed.searchDropdownOpen = true;
-				}, 300); //delay the second clickOrTouch function (which performs fadeOut) to stop fadeIn and fadeOut on one click (also prevents user from spamming so it constantly fades in/out)
-			} else {
+				Refreshed.searchDropdownOpen = true;
+			} else { //this only runs in "medium" mode ("small" is covered by the document.clickOrTouch function below)
 				$( '#search' ).removeClass( 'search-open' );
 				$( '#sidebarshower' ).removeClass( 'sidebarshower-hidden' );
 				$( '#search input' ).blur().val( '' ); //deselect the search input and reset its contents (remove anything the user entered)
 				$( '#fade-overlay' ).removeClass( 'fade-overlay-active fade-overlay-below-header' ); //toggle the fade overlay
 				$( '#searchshower' ).removeClass( 'dropdown-highlighted' );
-				Refreshed.searchDropdownOpen = false;
+				Refreshed.searchDropdownOpen = false; //no delay needed because the spamming issue is only present on "small"
 			}
 	});
 
@@ -150,7 +151,9 @@ $( document ).ready( function() {
 				$( '#search input' ).blur().val( '' ); //deselect the search input and reset its contents (remove anything the user entered)
 				$( '#fade-overlay' ).removeClass( 'fade-overlay-active fade-overlay-below-header' ); //toggle the fade overlay
 				$( '#searchshower' ).removeClass( 'dropdown-highlighted' );
-				Refreshed.searchDropdownOpen = false;
+				setTimeout(function () {
+					Refreshed.searchDropdownOpen = false;
+				}, 375); //delay variable change for 400ms until after the animation is complete so both animations don't run on one press
 			}
 		}
 	});
