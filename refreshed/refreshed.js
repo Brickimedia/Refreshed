@@ -15,12 +15,12 @@ var Refreshed = {
 	pageItemDropdownOpen: false,
 
 	flyOutScrollHeader: function() {
-		if ( $( '#contentwrapper' ).height() > $( window ).height() - $( '#header' ).height() && !Refreshed.standardToolboxIsDocked && ( $( '#standardtoolbox' ).offset().top - $( 'body' ).scrollTop() - $( '#header' ).height() < 0 ) ) { // first condition: only move the scroll header if the article content is bigger than the page (i.e. preventing it from being triggered when a user "rubber band scrolls" in OS X for example)
+		if ( $( '#contentwrapper' ).height() > $( window ).height() - $( '#header' ).height() && !Refreshed.standardToolboxIsDocked && ( $( '#standardtoolbox' ).offset().top - $( document ).scrollTop() - $( '#header' ).height() < 0 ) ) { // first condition: only move the scroll header if the article content is bigger than the page (i.e. preventing it from being triggered when a user "rubber band scrolls" in OS X for example)
 			//$( '#standardtoolboxscrolloverlay' ).animate({'top': $( '#header' ).height()});
 			$( '#standardtoolboxscrolloverlay' ).addClass( 'dropdown-open' );
 			Refreshed.standardToolboxIsDocked = true;
 			$( '#maintitle > #standardtoolbox #standardtoolboxdropdown' ).fadeOut();
-		} else if ( Refreshed.standardToolboxIsDocked && $( 'body' ).scrollTop() +  $( '#header' ).height() <= Refreshed.standardToolboxInitialOffset ) {
+		} else if ( Refreshed.standardToolboxIsDocked && $( document ).scrollTop() +  $( '#header' ).height() <= Refreshed.standardToolboxInitialOffset ) {
 			Refreshed.standardToolboxIsDocked = false;
 			//$( '#standardtoolboxscrolloverlay' ).animate({'top': -$( '#standardtoolboxscrolloverlay' ).height()});
 			$( '#standardtoolboxscrolloverlay' ).removeClass( 'dropdown-open' );
