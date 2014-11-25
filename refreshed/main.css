@@ -678,7 +678,7 @@ a.toclevel-6 {
 	display: none;
 }
 
-#search {
+#header #search {
 	width: 11em;
 	position: static;
 	float: right;
@@ -711,7 +711,6 @@ a.toclevel-6 {
 
 
 #search input {
-	float: right;
 	border: none;
 	font-size: 12pt;
 	padding: 0.25em;
