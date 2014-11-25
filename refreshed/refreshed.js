@@ -127,16 +127,16 @@ $( document ).ready( function() {
 				if ( Refreshed.usingIOS ) {
 					$( window ).scrollTop(0); //iOS tries to vertically center the search bar, scrolling to the top keeps the header at the top of the viewport
 				}
-				$( '#search' ).addClass( 'search-open' );
+				$( '#header #search' ).addClass( 'search-open' );
 				$( '#sidebarshower' ).addClass( 'sidebarshower-hidden' );
 				$( '#fade-overlay' ).addClass( 'fade-overlay-active fade-overlay-below-header' ); //toggle the fade overlay
-				$( '#search input' ).focus();
+				$( '#header #search input' ).focus();
 				$( this ).toggleClass( 'dropdown-highlighted' );
 				Refreshed.searchDropdownOpen = true;
 			} else { //this only runs in "medium" mode ("small" is covered by the document.clickOrTouch function below)
-				$( '#search' ).removeClass( 'search-open' );
+				$( '#header #search' ).removeClass( 'search-open' );
 				$( '#sidebarshower' ).removeClass( 'sidebarshower-hidden' );
-				$( '#search input' ).blur().val( '' ); //deselect the search input and reset its contents (remove anything the user entered)
+				$( '#header #search input' ).blur().val( '' ); //deselect the search input and reset its contents (remove anything the user entered)
 				$( '#fade-overlay' ).removeClass( 'fade-overlay-active fade-overlay-below-header' ); //toggle the fade overlay
 				$( '#searchshower' ).removeClass( 'dropdown-highlighted' );
 				Refreshed.searchDropdownOpen = false; //no delay needed because the spamming issue is only present on "small"
@@ -145,10 +145,10 @@ $( document ).ready( function() {
 
 	$( document ).clickOrTouch( function ( e ) {
 		if ( Refreshed.searchDropdownOpen && $( window ).width() < Refreshed.thresholdForBigCSS ) { // window size must be checked because we only want to hide the search bar if we're not in "big" mode
-			if ( !$( '#search' ).is( e.target ) && !$( '#searchshower' ).is( e.target ) && !$( '#search input' ).is( e.target ) ) { // if the target of the click isn't the search container, search button, or the search box itself (we can't set it to all descendants of #search because #searchcloser needs to be able to close the search box)
-				$( '#search' ).removeClass( 'search-open' );
+			if ( !$( '#header #search' ).is( e.target ) && !$( '#searchshower' ).is( e.target ) && !$( '#search input' ).is( e.target ) ) { // if the target of the click isn't the search container, search button, or the search box itself (we can't set it to all descendants of #search because #searchcloser needs to be able to close the search box)
+				$( '#header #search' ).removeClass( 'search-open' );
 				$( '#sidebarshower' ).removeClass( 'sidebarshower-hidden' );
-				$( '#search input' ).blur().val( '' ); //deselect the search input and reset its contents (remove anything the user entered)
+				$( '#header #search input' ).blur().val( '' ); //deselect the search input and reset its contents (remove anything the user entered)
 				$( '#fade-overlay' ).removeClass( 'fade-overlay-active fade-overlay-below-header' ); //toggle the fade overlay
 				$( '#searchshower' ).removeClass( 'dropdown-highlighted' );
 				setTimeout(function () {

@@ -4,7 +4,7 @@
 	left: 0 !important; /* preventing sidebar from moving left of viewport if not on mobile */
 }
 
-#search {
+#header #search {
 	display: block !important;
 }
 

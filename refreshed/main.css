@@ -715,10 +715,13 @@ a.toclevel-6 {
 	font-size: 12pt;
 	padding: 0.25em;
 	font-family: Lato, sans-serif;
-	width: 11em;
 	box-sizing: border-box;
 	-webkit-appearance: none; /* prevent Safari from styling input box */
 	border-radius: 0; /* prevent iOS from adding rounded corners to input box */
+}
+
+#header #search input {
+	width: 11em;
 }
 
 #refreshed-toc #toc-box:last-child {

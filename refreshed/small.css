@@ -79,7 +79,7 @@
 	display: inline-block;
 }
 
-#search {
+#header #search {
 	background: midnightblue;
 	width: 100%;
 	position: absolute;
@@ -97,12 +97,12 @@
 	display: block;
 }
 
-#search form {
+#header #search form {
 	margin-right: 3em;
 	margin-left: .25em;
 }
 
-#search input {
+#header #search input {
 	width: 100%;
 	font-size: 18px;
 	float: left;

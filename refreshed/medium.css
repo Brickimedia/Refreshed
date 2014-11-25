@@ -63,7 +63,7 @@
 	position: absolute;
 	right: 3em;
 }
-#search {
+#header #search {
 	margin-top: 3em;
 	margin-right: 1em;
 	background: midnightblue;
@@ -74,7 +74,7 @@
 	z-index: 0;
 }
 
-#search input {
+#header #search input {
 	width: 100%;
 	font-size: 16pt; /* enlarging and preventing zoom on input on focus */
 }
