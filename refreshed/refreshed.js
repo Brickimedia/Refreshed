@@ -122,7 +122,7 @@ $( document ).ready( function() {
 	});
 
 	/* search dropdown */
-	$( '#searchshower' ).click( function() { //Unfortunately, touchend causes the search bar to lose focus in iOS (haven't tested on Android), but it keeps its focus if you use the standard click event. The other menus, etc. use "touchOrClick" b/c the touchend event seems to execute faster than the standard click on iOS (once again, haven't tested on Android).
+	$( '#searchshower' ).click( function() { //Unfortunately, touchend causes the search bar to lose focus on iPhones on iOS 7 and iPads on iOS 8 (haven't tested on Android), but it keeps its focus if you used the standard click event. The other menus, etc. use "touchOrClick" b/c the touchend event executes faster than the standard click on iOS (once again, haven't tested on Android).
 			if ( !Refreshed.searchDropdownOpen ) {
 				if ( Refreshed.usingIOS ) {
 					$( window ).scrollTop(0); //iOS tries to vertically center the search bar, scrolling to the top keeps the header at the top of the viewport
@@ -143,7 +143,7 @@ $( document ).ready( function() {
 			}
 	});
 
-	$( document ).clickOrTouch( function ( e ) {
+	$( document ).click( function ( e ) { //if you use clickOrTouch, pressing the .suggestions element will cause the window to close on mobile (maybe the clickOrTouch section is executed before a plain click and thus this is run and #search is hidden before the broswer acknowledges the click event on .suggestions to load the searched-for page?)
 		if ( Refreshed.searchDropdownOpen && $( window ).width() < Refreshed.thresholdForBigCSS ) { // window size must be checked because we only want to hide the search bar if we're not in "big" mode
 			if ( !$( '#header #search' ).is( e.target ) && !$( '#searchshower' ).is( e.target ) && !$( '#search input' ).is( e.target ) ) { // if the target of the click isn't the search container, search button, or the search box itself (we can't set it to all descendants of #search because #searchcloser needs to be able to close the search box)
 				$( '#header #search' ).removeClass( 'search-open' );
