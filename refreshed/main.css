@@ -991,12 +991,17 @@ div.noarticletext {
 }
 
 .mw-echo-overlay {
+	position: fixed !important;
 	z-index: 999999;
+	width: 20em !important;
+	top: 3em !important;
+	left: auto !important;
+	right: 1em !important;
 }
 
 .mw-echo-overlay:before,
 .mw-echo-overlay::before {
-	left: 196px;
+	left: 114px;
 }
 
 /* stopping images on file pages from overflowing */
