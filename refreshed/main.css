@@ -992,7 +992,7 @@ div.noarticletext {
 
 .mw-echo-overlay {
 	position: fixed !important;
-	z-index: 999999;
+	z-index: 999999 !important;
 	width: 20em !important;
 	top: 3em !important;
 	left: auto !important;
@@ -1001,7 +1001,7 @@ div.noarticletext {
 
 .mw-echo-overlay:before,
 .mw-echo-overlay::before {
-	left: 114px;
+	left: 114px !important;
 }
 
 /* stopping images on file pages from overflowing */
