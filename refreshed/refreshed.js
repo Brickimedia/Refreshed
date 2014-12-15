@@ -29,7 +29,7 @@ var Refreshed = {
 	},
 
 	generateScrollHeader: function() {
-		$( '#standardtoolbox' ).clone().attr( 'id', 'standardtoolboxscrolloverlay' ).insertAfter( '#standardtoolbox' );
+		$( '#standardtoolbox' ).clone().attr( 'id', 'standardtoolboxscrolloverlay' ).insertBefore( '#sidebarwrapper' );
 		//$( '#standardtoolboxscrolloverlay' ).css({'top': -$( '#standardtoolboxscrolloverlay' ).height()});
 		if ( $( '#standardtoolboxscrolloverlay' ).outerWidth() != $( '#content' ).outerWidth() ) { //if standardtoolboxoverlay hasn't has its width set by CSS calc
 			$( '#standardtoolboxscrolloverlay' ).css({'width': $( '#content' ).outerWidth() - ( $( '#standardtoolboxscrolloverlay' ).outerWidth() - $( '#standardtoolboxscrolloverlay' ).width() )}); // set #standardtoolboxscrolloverlay's width to the width of #content minus #standardtoolboxscrolloverlay's padding (and border, which is 0)
@@ -286,6 +286,11 @@ $( document ).ready( function() {
 			}
 		}
 	});
+
+	/* add "header-suggestions" class to first .suggestions element for CSS targeting (there is usually one .suggestions element, but on Special:Search there is one for the #header search bar and one for the #content search bar) */
+	setTimeout( function () { //wait a bit so the .suggestions elements can be added in (if we don't wait we'll be targeting nothing and it won't work)...
+		$( '.suggestions' ).first().addClass( 'header-suggestions' ); //add class to first .suggestions element
+	}, 100);
 
 } );
 

@@ -248,7 +248,7 @@ body {
 	padding-bottom: .25em;
 	width: -webkit-calc(100% - 13.4em);
 	width: calc(100% - 13.4em);
-	margin-left: -.9em; /* 1em (#content padding-left) * .9em (#content font-size) */
+	margin-left: 12em; /* width of #sidebarwrapper */
 	z-index: 9999; /* very high value to guarantee no elements on wikis will appear above it */
 }
 
@@ -924,7 +924,7 @@ h6 {
 }
 
 /* Search suggestions */
-.suggestions {
+.header-suggestions { /* there are two .suggestions elements on Special:Search; we only want to apply the CSS to the .suggestions element that appears beneath the header, which is given the .header-suggestions class in refreshed.js */
 	z-index: 10000 !important;
 	position: fixed !important;
 	top: 2.5em !important; /* there is some JS doing odd stuff, this forces our value */

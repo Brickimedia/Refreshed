@@ -57,6 +57,7 @@
 #standardtoolboxscrolloverlay {
 	width: -webkit-calc(100% - 11.4em);
 	width: calc(100% - 11.4em);
+	margin-left: 10em;
 }
 
 #userinfo {
@@ -83,6 +84,11 @@
 	display: block;
 }
 
+#content #search #searchText { /* search box on Special:Search */
+	width: 75%;
+	font-size: 18px;
+}
+
 #siteSub {
 	display: none !important;
 }
@@ -92,7 +98,7 @@
 	display: none;
 }
 
-.suggestions {
+.header-suggestions {
 	top: 6.5em !important; /* 3em for the header, 3.5em for the search bar */
 	right: 1em !important;
 	width: 16em !important;
@@ -100,7 +106,7 @@
 	border: 0 !important;
 }
 
-.suggestions div {
+.header-suggestions div {
 	font-size: 16pt !important;
 }
 

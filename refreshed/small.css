@@ -106,6 +106,12 @@
 	width: 100%;
 	font-size: 18px;
 	float: left;
+	height: 2em; /* (2.75em [height of header] - .5em [top + bottom padding of #search]) * (16px [font size of #header and #search] / 18px [font size of #search input]) */
+}
+
+#content #search #searchText { /* search box on Special:Search */
+	width: 75%;
+	font-size: 18px;
 }
 
 #searchshower {
@@ -382,7 +388,8 @@
 	display: none;
 }
 
-.suggestions {
+/* Suggestions box under search */
+.header-suggestions {
 	top: 2.75em !important;
 	left: 0 !important;
 	width: 100% !important;
@@ -390,8 +397,28 @@
 	z-index: 10001 !important; /* place above #fade-overlay, which has z-index of 10000 because it has the .fade-overlay-below-header class */
 }
 
-.suggestions div {
+.header-suggestions div {
 	font-size: 16pt;
+}
+
+.header-suggestions .suggestions-result {
+	padding: .5em .25em !important;
+	border-bottom: 1px solid #ddd;
+}
+
+.header-suggestions .suggestions-special {
+	padding: .5em .25em !important;
+	margin-top: 0 !important;
+	border: 0 !important;
+	border-bottom: 1px solid #ddd !important;
+}
+
+.header-suggestions .suggestions-result-current {
+	background-color: #194a8d !important;
+}
+
+.header-suggestions .suggestions-results {
+	border: 0 !important;
 }
 
 /* Extension:Echo fixes */
