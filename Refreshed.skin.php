@@ -271,7 +271,7 @@ class RefreshedTemplate extends BaseTemplate {
 			<div id="newtalk"><?php $this->html( 'newtalk' ) ?></div>
 			<div id="maintitle">
 				<h1 class="scrollshadow"><?php $this->html( 'title' ) ?></h1>
-
+				<?php echo $this->getIndicators(); ?>
                 <div id="standardtoolbox">
 					<?php
 					$lastLinkOutsideOfStandardToolboxDropdownHasBeenGenerated = false;

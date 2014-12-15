@@ -140,6 +140,10 @@ body {
 	padding-bottom: .05em;
 }
 
+.mw-indicators {
+	float: right;
+}
+
 .scrollshadow {
 	background: none;
 }
