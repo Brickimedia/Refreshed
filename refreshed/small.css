@@ -267,8 +267,11 @@
 	font-size: 2.25em;
 }
 
-.mw-indicators {
+.mw-indicator {
 	display: none;
+	/* to unset an individual indicator add the following:
+	#mw-indicator-name { display: inline-block; }
+	replacing "name" with the assigned name of the indicator */
 }
 
 .scrollshadow {
