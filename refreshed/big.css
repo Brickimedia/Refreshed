@@ -17,3 +17,8 @@
 #smalltoolboxwrapper {
 	display: none;
 }
+
+
+#search input[type="search"] {
+	width: 11em !important;
+}

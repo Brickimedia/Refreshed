@@ -84,9 +84,20 @@
 	display: block;
 }
 
-#content #search #searchText { /* search box on Special:Search */
-	width: 75%;
+#content #search #searchText,
+#content #powersearch #powerSearchText { /* search and advanced search boxes on Special:Search */
+	/*width: calc(100% - 15em); /* pretty arbitrary, unfortunately anything more specific would require changing JS  */
+	/*min-width: 10em;
+	max-width: 100%;*/
 	font-size: 18px;
+}
+
+#mw-searchoptions td {
+	display: table-row; /* set each namespace under the advanced search preferences on its own line to prevent overflow (if there's enough room it'll expand so there's two per line) */
+}
+
+.searchresult {
+	max-width: 100%; /* prevent search results from overflowing */
 }
 
 #siteSub {

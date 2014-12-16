@@ -714,7 +714,7 @@ a.toclevel-6 {
 }
 
 
-#search input {
+#header #search input[type="search"] {
 	border: none;
 	font-size: 12pt;
 	padding: 0.25em;
@@ -724,7 +724,7 @@ a.toclevel-6 {
 	border-radius: 0; /* prevent iOS from adding rounded corners to input box */
 }
 
-#header #search input {
+#search input[type="search"] {
 	width: 11em;
 }
 

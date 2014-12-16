@@ -11,6 +11,9 @@ var Refreshed = {
 	userToolsOpen: false,
 	siteNavOpen: false,
 	windowIsBig: false,
+	windowIsSmall: false,
+	widthOfSpecialSearchBar: $( '#content' ).width() - $( '.results-info' ).outerWidth() - $( '#content #search input[type="submit"]' ).outerWidth() - 18, /* set width of search bar to 100% of #content - "__ of __ results" text - width of submit button - width - 18px (1em in the search bar) */
+	widthOfSpecialSearchPowerSearchBar: $( '#content' ).width() - $( '.results-info' ).outerWidth() - $( '#content #search input[type="submit"]' ).outerWidth() - 18,
 	sidebarOpen: false,
 	pageItemDropdownOpen: false,
 
@@ -46,11 +49,32 @@ $( document ).ready( function() {
 	if ( navigator.userAgent.toLowerCase().match(/(iPad|iPhone|iPod)/i) ) { //detect if on iOS device
 		Refreshed.usingIOS = true;
 	}
+
 	if ( $( window ).width() < Refreshed.thresholdForSmallCSS ) {
 		Refreshed.windowStartedSmall = true;
-	} else if ( $( window ).width() >= Refreshed.thresholdForBigCSS ) {
-		Refreshed.windowIsBig = true;
 	}
+
+	//test if window is running big.css
+	if ( $( window ).width() >= Refreshed.thresholdForBigCSS ) {
+		Refreshed.windowIsBig = true;
+	} else {
+		Refreshed.windowIsBig = false;
+	}
+
+	//test if window is running small.css
+	if ( $( window ).width() <= Refreshed.thresholdForSmallCSS ) {
+		Refreshed.windowIsSmall = true;
+	} else {
+		Refreshed.windowIsSmall = false;
+	}
+
+	if ( !Refreshed.windowIsBig && !Refreshed.windowIsSmall ) { //if running medium.css
+		Refreshed.widthOfSpecialSearchBar = $( '#content' ).width() - $( '.results-info' ).outerWidth() - $( '#content #search input[type="submit"]' ).outerWidth() - 18; /* set width of search bar to 100% of #content - "__ of __ results" text - width of submit button - width - 18px (1em in the search bar) */
+		Refreshed.widthOfSpecialSearchPowerSearchBar = $( '#content' ).width() - $( '.results-info' ).outerWidth() - $( '#content #search input[type="submit"]' ).outerWidth() - 18;
+		$( '#content #search #searchText' ).css({'width': Refreshed.widthOfSpecialSearchBar});
+		$( '#content #powersearch #powerSearchText' ).css({'width': Refreshed.widthOfSpecialSearchPowerSearchBar});
+	}
+
 	if (!Refreshed.usingIOS && !Refreshed.windowStartedSmall ) { //only perform if not on an iOS device (animations triggered by scroll cannot be played during scroll on iOS Safari) and if the window was running small.css when loaded
 		Refreshed.generateScrollHeader();
 		Refreshed.flyOutScrollHeader();
@@ -64,10 +88,24 @@ $( document ).ready( function() {
 		if ( Refreshed.scrollHeaderHasBeenGenerated && $( '#standardtoolboxscrolloverlay' ).outerWidth() != $( '#content' ).outerWidth() ) { //only perform if the scroll header has already been generated and it needs to be resized (not already done by CSS calc)
 			Refreshed.resizeScrollHeader();
 		}
+
 		if ( $( window ).width() >= Refreshed.thresholdForBigCSS ) {
 			Refreshed.windowIsBig = true;
 		} else {
 			Refreshed.windowIsBig = false;
+		}
+
+		if ( $( window ).width() <= Refreshed.thresholdForSmallCSS ) {
+			Refreshed.windowIsSmall = true;
+		} else {
+			Refreshed.windowIsSmall = false;
+		}
+
+		if ( !Refreshed.windowIsBig && !Refreshed.windowIsSmall ) { //if running medium.css
+			Refreshed.widthOfSpecialSearchBar = $( '#content' ).width() - $( '.results-info' ).outerWidth() - $( '#content #search input[type="submit"]' ).outerWidth() - 18; /* set width of search bar to 100% of #content - "__ of __ results" text - width of submit button - width - 18px (1em in the search bar) */
+			Refreshed.widthOfSpecialSearchPowerSearchBar = $( '#content' ).width() - $( '.results-info' ).outerWidth() - $( '#content #search input[type="submit"]' ).outerWidth() - 18;
+			$( '#content #search #searchText' ).css({'width': Refreshed.widthOfSpecialSearchBar});
+			$( '#content #powersearch #powerSearchText' ).css({'width': Refreshed.widthOfSpecialSearchPowerSearchBar});
 		}
 	});
 

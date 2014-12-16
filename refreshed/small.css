@@ -102,16 +102,23 @@
 	margin-left: .25em;
 }
 
-#header #search input {
+#header #search input[type="search"] {
 	width: 100%;
 	font-size: 18px;
 	float: left;
 	height: 2em; /* (2.75em [height of header] - .5em [top + bottom padding of #search]) * (16px [font size of #header and #search] / 18px [font size of #search input]) */
 }
 
-#content #search #searchText { /* search box on Special:Search */
-	width: 75%;
+#content #search #searchText,
+#content #powersearch #powerSearchText { /* search and advanced search boxes on Special:Search */
+	width: 100%;
 	font-size: 18px;
+}
+
+#content #search input[type="submit"],
+#content #powersearch input[type="submit"] { /* search and advanced search submit buttons on Special:Search */
+	margin-top: 1em;
+	width: 100%;
 }
 
 #searchshower {
@@ -122,6 +129,23 @@
 	height: 2.75em;
 	-webkit-background-size: 2.75em 2.75em;
 	background-size: 2.75em 2.75em;
+}
+
+/* break search types into 2 columns so the last item doesn't fall onto the next row on very small screens */
+.search-types {
+	width: 100%;
+}
+
+.search-types li {
+	width: 50%;
+}
+
+#mw-searchoptions td {
+	display: table-row; /* set each namespace under the advanced search preferences on its own line to prevent overflow (if there's enough room it'll expand so there's two per line) */
+}
+
+.searchresult {
+	max-width: 100%; /* prevent search results from overflowing */
 }
 
 #userinfo {
