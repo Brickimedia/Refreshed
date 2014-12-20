@@ -8,7 +8,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 
 // inherit main code from SkinTemplate, set the CSS and template filter
 class SkinRefreshed extends SkinTemplate {
-	public $skinname = 'refreshed', $stylename = 'refreshed',
+	var $skinname = 'refreshed', $stylename = 'refreshed',
 		$template = 'RefreshedTemplate', $useHeadElement = true;
 
 	/**
@@ -45,11 +45,7 @@ class SkinRefreshed extends SkinTemplate {
 		parent::setupSkinUserCss( $out );
 
 		// Add CSS via ResourceLoader
-		$out->addModuleStyles( array(
-			'mediawiki.skinning.interface',
-			'mediawiki.skinning.content.externallinks',
-			'skins.refreshed'
-		) );
+		$out->addModuleStyles( 'skins.refreshed' );
 
 		// Internet Explorer fixes
 		$out->addStyle( $wgStylePath . '/Refreshed/refreshed/ie8.css', 'screen', 'IE 8' );
@@ -276,7 +272,7 @@ class RefreshedTemplate extends BaseTemplate {
 
 				echo '</div>';
 			} ?>
-			<div id="content" class="mw-body">
+			<div id="content">
 				<?php $this->html( 'bodytext' ); ?>
 			</div>
 			<!-- some strange stuff going on here... -->
