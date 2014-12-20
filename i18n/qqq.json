@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": []
+	},
+	"refreshed-advert": "The header shown above the footer advert",
+	"refreshed-article": "Shown on the left-hand floating \"sidebar\" on content namespaces. Parameters:\n* $1 is the name of the page we're viewing, such as \"Foo\"",
+	"refreshed-back": "A message shown on mobile beneath the article name on talk pages. Parameters:\n* $1 is the name of the page the discussion page we're viewing is for, such as \"Foo\" for \"Talk:Foo\"",
+	"skinname-refreshed": "The name of the skin"
+}
