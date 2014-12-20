@@ -44,7 +44,7 @@ $wgExtensionCredits['skin'][] = array(
 // so that it does *not* force an initial capital (i.e. we do NOT want
 // useskin=Refreshed) and the second instance is used to determine the name of
 // *this* file.
-$wgValidSkinNames['refreshed')] = 'Refreshed';
+$wgValidSkinNames['refreshed'] = 'Refreshed';
 
 // Autoload the skin class, set up i18n, set up CSS & JS (via ResourceLoader)
 $wgAutoloadClasses['SkinRefreshed'] = __DIR__ . '/Refreshed.skin.php';
