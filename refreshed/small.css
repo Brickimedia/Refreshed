@@ -88,8 +88,8 @@
 	opacity: 0;
 	padding: .25em 0;
 	opacity: 0;
-	-webkit-transition: opacity .2s ease 0s;
-	transition: opacity .2s ease 0s;
+	/*-webkit-transition: opacity .2s ease 0s;
+	transition: opacity .2s ease 0s;*/
 	z-index: 0;
 }
 
@@ -102,23 +102,16 @@
 	margin-left: .25em;
 }
 
-#header #search input[type="search"] {
+#searchInput { /* header search box */
 	width: 100%;
 	font-size: 18px;
 	float: left;
 	height: 2em; /* (2.75em [height of header] - .5em [top + bottom padding of #search]) * (16px [font size of #header and #search] / 18px [font size of #search input]) */
+	display: none; /* default to hidden (will be shown by adding .search-open class to #search) */
 }
 
-#content #search #searchText,
-#content #powersearch #powerSearchText { /* search and advanced search boxes on Special:Search */
-	width: 100%;
-	font-size: 18px;
-}
-
-#content #search input[type="submit"],
-#content #powersearch input[type="submit"] { /* search and advanced search submit buttons on Special:Search */
-	margin-top: 1em;
-	width: 100%;
+#search.search-open #searchInput {
+	display: block;
 }
 
 #searchshower {
@@ -131,9 +124,17 @@
 	background-size: 2.75em 2.75em;
 }
 
-/* break search types into 2 columns so the last item doesn't fall onto the next row on very small screens */
+#searchText,
+#powerSearchText { /* search and advanced search boxes on Special:Search */
+	font-size: 18px;
+}
+
+#mw-search-top-table {
+	text-align: center; /* center the search/advanced search boxes and submit button on Special:Search */
+}
+
 .search-types {
-	width: 100%;
+	width: 100%; /* break search types into 2 columns so the last item doesn't fall onto the next row on very small screens */
 }
 
 .search-types li {
@@ -141,7 +142,7 @@
 }
 
 #mw-searchoptions td {
-	display: table-row; /* set each namespace under the advanced search preferences on its own line to prevent overflow (if there's enough room it'll expand so there's two per line) */
+	display: table-row; /* set each namespace under the advanced search preferences on its own line to prevent overflow (but if there's enough room it'll expand so there's two per line) */
 }
 
 .searchresult {

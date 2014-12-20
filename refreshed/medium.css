@@ -70,30 +70,36 @@
 	background: midnightblue;
 	width: 15em;
 	opacity: 0;
-	-webkit-transition: opacity .2s ease 0s;
-	transition: opacity .2s ease 0s;
+	/*-webkit-transition: opacity .2s ease 0s;
+	transition: opacity .2s ease 0s;*/
 	z-index: 0;
 }
 
-#header #search input {
+#searchInput { /* header search box */
 	width: 100%;
 	font-size: 16pt; /* enlarging and preventing zoom on input on focus */
+	display: none; /* default to hidden (will be shown by adding .search-open class to #search) */
+}
+
+#search.search-open #searchInput {
+	display: block;
 }
 
 #searchshower {
 	display: block;
 }
 
-#content #search #searchText,
-#content #powersearch #powerSearchText { /* search and advanced search boxes on Special:Search */
-	/*width: calc(100% - 15em); /* pretty arbitrary, unfortunately anything more specific would require changing JS  */
-	/*min-width: 10em;
-	max-width: 100%;*/
+#searchText,
+#powerSearchText { /* search and advanced search boxes on Special:Search */
 	font-size: 18px;
 }
 
+#mw-search-top-table {
+	text-align: center; /* center the search/advanced search boxes and submit button on Special:Search */
+}
+
 #mw-searchoptions td {
-	display: table-row; /* set each namespace under the advanced search preferences on its own line to prevent overflow (if there's enough room it'll expand so there's two per line) */
+	display: block; /* set each namespace under the advanced search preferences on its own line to prevent overflow (but if there's enough room it'll expand so there's two per line) */
 }
 
 .searchresult {

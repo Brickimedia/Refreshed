@@ -42,6 +42,18 @@ var Refreshed = {
 
 	resizeScrollHeader: function() {
 		$( '#standardtoolboxscrolloverlay' ).css({'width': $( '#content' ).outerWidth() - ( $( '#standardtoolboxscrolloverlay' ).outerWidth() - $( '#standardtoolboxscrolloverlay' ).width() )}); // set #standardtoolboxscrolloverlay's width to the width of #content minus #standardtoolboxscrolloverlay's padding (and border, which is 0)
+	},
+
+	resizeSpecialSearchBar: function() {
+		if ( !Refreshed.windowIsBig && !Refreshed.windowIsSmall ) { //if running medium.css
+			Refreshed.widthOfSpecialSearchBar = $( '#content' ).width() - $( '.results-info' ).outerWidth() - $( '#content #search input[type="submit"]' ).outerWidth() - parseFloat( $( '#searchText' ).css( 'font-size' ) ); //set width of search bar to 100% of #content - "__ of __ results" text - width of submit button - width - 1em in the search bar */
+			Refreshed.widthOfSpecialSearchPowerSearchBar = $( '#content' ).width() - $( '.results-info' ).outerWidth() - $( '#content #powersearch input[type="submit"]' ).outerWidth() - parseFloat( $( '#powerSearchText' ).css( 'font-size' ) );
+		} else if ( Refreshed.windowIsSmall ) { //if running small.css
+			Refreshed.widthOfSpecialSearchBar = $( '#content' ).width() - $( '#content #search input[type="submit"]' ).outerWidth() - parseFloat( $( '#searchText' ).css( 'font-size' ) ); //set width of search bar to 100% of #content - width of submit button - width - 1em in the search bar */
+			Refreshed.widthOfSpecialSearchPowerSearchBar = $( '#content' ).width() - $( '#content #powersearch input[type="submit"]' ).outerWidth() - parseFloat( $( '#powerSearchText' ).css( 'font-size' ) );
+		}
+		$( '#searchText' ).css({'width': Refreshed.widthOfSpecialSearchBar});
+		$( '#powerSearchText' ).css({'width': Refreshed.widthOfSpecialSearchPowerSearchBar});
 	}
 };
 
@@ -68,12 +80,7 @@ $( document ).ready( function() {
 		Refreshed.windowIsSmall = false;
 	}
 
-	if ( !Refreshed.windowIsBig && !Refreshed.windowIsSmall ) { //if running medium.css
-		Refreshed.widthOfSpecialSearchBar = $( '#content' ).width() - $( '.results-info' ).outerWidth() - $( '#content #search input[type="submit"]' ).outerWidth() - 18; /* set width of search bar to 100% of #content - "__ of __ results" text - width of submit button - width - 18px (1em in the search bar) */
-		Refreshed.widthOfSpecialSearchPowerSearchBar = $( '#content' ).width() - $( '.results-info' ).outerWidth() - $( '#content #search input[type="submit"]' ).outerWidth() - 18;
-		$( '#content #search #searchText' ).css({'width': Refreshed.widthOfSpecialSearchBar});
-		$( '#content #powersearch #powerSearchText' ).css({'width': Refreshed.widthOfSpecialSearchPowerSearchBar});
-	}
+	Refreshed.resizeSpecialSearchBar();
 
 	if (!Refreshed.usingIOS && !Refreshed.windowStartedSmall ) { //only perform if not on an iOS device (animations triggered by scroll cannot be played during scroll on iOS Safari) and if the window was running small.css when loaded
 		Refreshed.generateScrollHeader();
@@ -101,12 +108,7 @@ $( document ).ready( function() {
 			Refreshed.windowIsSmall = false;
 		}
 
-		if ( !Refreshed.windowIsBig && !Refreshed.windowIsSmall ) { //if running medium.css
-			Refreshed.widthOfSpecialSearchBar = $( '#content' ).width() - $( '.results-info' ).outerWidth() - $( '#content #search input[type="submit"]' ).outerWidth() - 18; /* set width of search bar to 100% of #content - "__ of __ results" text - width of submit button - width - 18px (1em in the search bar) */
-			Refreshed.widthOfSpecialSearchPowerSearchBar = $( '#content' ).width() - $( '.results-info' ).outerWidth() - $( '#content #search input[type="submit"]' ).outerWidth() - 18;
-			$( '#content #search #searchText' ).css({'width': Refreshed.widthOfSpecialSearchBar});
-			$( '#content #powersearch #powerSearchText' ).css({'width': Refreshed.widthOfSpecialSearchPowerSearchBar});
-		}
+		Refreshed.resizeSpecialSearchBar();
 	});
 
 	/* tools dropdown attached to maintitle */
@@ -168,17 +170,16 @@ $( document ).ready( function() {
 				$( '#header #search' ).addClass( 'search-open' );
 				$( '#sidebarshower' ).addClass( 'sidebarshower-hidden' );
 				$( '#fade-overlay' ).addClass( 'fade-overlay-active fade-overlay-below-header' ); //toggle the fade overlay
-				$( '#header #search input' ).focus();
+				$( '#searchInput' ).focus();
 				$( this ).toggleClass( 'dropdown-highlighted' );
 				Refreshed.searchDropdownOpen = true;
-			} else { //this only runs in "medium" mode ("small" is covered by the document.clickOrTouch function below)
+			} else { //this only runs in "medium" mode (the search dropdown only appears in "medium" and "small" mode, and "small" is covered by the document.click function below)
 				$( '#header #search' ).removeClass( 'search-open' );
 				$( '#sidebarshower' ).removeClass( 'sidebarshower-hidden' );
-				$( '#header #search input' ).blur().val( '' ); //deselect the search input and reset its contents (remove anything the user entered)
+				$( '#searchInput' ).blur().val( '' ); //deselect the search input and reset its contents (remove anything the user entered)
 				$( '#fade-overlay' ).removeClass( 'fade-overlay-active fade-overlay-below-header' ); //toggle the fade overlay
 				$( '#searchshower' ).removeClass( 'dropdown-highlighted' );
 				Refreshed.searchDropdownOpen = false; //no delay needed because the spamming issue is only present on "small"
-			}
 	});
 
 	$( document ).click( function ( e ) { //if you use clickOrTouch, pressing the .suggestions element will cause the window to close on mobile (maybe the clickOrTouch section is executed before a plain click and thus this is run and #search is hidden before the broswer acknowledges the click event on .suggestions to load the searched-for page?)
@@ -186,12 +187,12 @@ $( document ).ready( function() {
 			if ( !$( '#header #search' ).is( e.target ) && !$( '#searchshower' ).is( e.target ) && !$( '#search input' ).is( e.target ) ) { // if the target of the click isn't the search container, search button, or the search box itself (we can't set it to all descendants of #search because #searchcloser needs to be able to close the search box)
 				$( '#header #search' ).removeClass( 'search-open' );
 				$( '#sidebarshower' ).removeClass( 'sidebarshower-hidden' );
-				$( '#header #search input' ).blur().val( '' ); //deselect the search input and reset its contents (remove anything the user entered)
+				$( '#searchInput' ).blur().val( '' ); //deselect the search input and reset its contents (remove anything the user entered)
 				$( '#fade-overlay' ).removeClass( 'fade-overlay-active fade-overlay-below-header' ); //toggle the fade overlay
 				$( '#searchshower' ).removeClass( 'dropdown-highlighted' );
 				setTimeout(function () {
 					Refreshed.searchDropdownOpen = false;
-				}, 375); //delay variable change for 400ms until after the animation is complete so both animations don't run on one press
+				}, 375); //delay variable change for 375ms until after the animation is complete so both animations don't run on one press
 			}
 		}
 	});
