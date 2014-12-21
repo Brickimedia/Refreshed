@@ -142,7 +142,7 @@
 }
 
 #mw-searchoptions td {
-	display: table-row; /* set each namespace under the advanced search preferences on its own line to prevent overflow (but if there's enough room it'll expand so there's two per line) */
+	display: block; /* set each namespace under the advanced search preferences on its own line to prevent overflow (but if there's enough room it'll expand so there's two per line) */
 }
 
 .searchresult {

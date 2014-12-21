@@ -12,8 +12,8 @@ var Refreshed = {
 	siteNavOpen: false,
 	windowIsBig: false,
 	windowIsSmall: false,
-	widthOfSpecialSearchBar: $( '#content' ).width() - $( '.results-info' ).outerWidth() - $( '#content #search input[type="submit"]' ).outerWidth() - 18, /* set width of search bar to 100% of #content - "__ of __ results" text - width of submit button - width - 18px (1em in the search bar) */
-	widthOfSpecialSearchPowerSearchBar: $( '#content' ).width() - $( '.results-info' ).outerWidth() - $( '#content #search input[type="submit"]' ).outerWidth() - 18,
+	widthOfSpecialSearchBar: 0,
+	widthOfSpecialSearchPowerSearchBar: 0,
 	sidebarOpen: false,
 	pageItemDropdownOpen: false,
 
@@ -180,6 +180,7 @@ $( document ).ready( function() {
 				$( '#fade-overlay' ).removeClass( 'fade-overlay-active fade-overlay-below-header' ); //toggle the fade overlay
 				$( '#searchshower' ).removeClass( 'dropdown-highlighted' );
 				Refreshed.searchDropdownOpen = false; //no delay needed because the spamming issue is only present on "small"
+			}
 	});
 
 	$( document ).click( function ( e ) { //if you use clickOrTouch, pressing the .suggestions element will cause the window to close on mobile (maybe the clickOrTouch section is executed before a plain click and thus this is run and #search is hidden before the broswer acknowledges the click event on .suggestions to load the searched-for page?)
