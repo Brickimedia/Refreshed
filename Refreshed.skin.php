@@ -159,7 +159,7 @@ class RefreshedTemplate extends BaseTemplate {
 							$avatarImage .
 							'<span>' . $user->getName() . '</span>';
 						} else {
-							echo '<img class="avatar avatar-none" src="' . $refreshedImagePath . '/avatar-none.png" alt="" width="30" height="30" height="8" />';
+							echo '<img class="avatar avatar-none" src="' . $refreshedImagePath . '/avatar-none.png" alt="" width="30" height="30" />';
 							echo '<img class="arrow" src="' . $refreshedImagePath . '/arrow-highres.png" alt="" width="15" height="8" />' .
 							$avatarImage .
 							'<span id="username-avatar-none">' . $user->getName() . '</span>';
@@ -172,9 +172,13 @@ class RefreshedTemplate extends BaseTemplate {
 						$personalToolsCount = 0;
 						foreach ( $this->getPersonalTools() as $key => $tool ) {
 							echo $this->makeListItem( $key, $tool );
-							if ( class_exists( 'EchoHooks' ) && $this->data[ 'loggedin' ] && $personalToolsCount == 2 ) { //if Echo is installed, user is logged in, and the first two tools have been generated (user and user talk)...
-								$specialNotificationsName = Title::newFromText( MWNamespace::getCanonicalName( -1 ) . ':' . wfMessage( 'notifications' ) ); //title of Special:Notifications (name of Special namespace + ':' + 'notifications' system message)
-								echo '<li id="pt-notifications-personaltools"><a href="' . $specialNotificationsName->getLocalURL() . '" title="' . wfMessage( 'tooltip-pt-notifications' ) . '">' . wfMessage( 'notifications' ) . '</a></li>';
+							if ( class_exists( 'EchoHooks' ) && $this->data['loggedin'] && $personalToolsCount == 2 ) { //if Echo is installed, user is logged in, and the first two tools have been generated (user and user talk)...
+								echo '<li id="pt-notifications-personaltools">' .
+									Linker::link(
+										SpecialPage::getTitleFor( 'Notifications' ),
+										wfMessage( 'notifications' )->plain(),
+										Linker::tooltipAndAccesskeyAttribs( 'pt-notifications' )
+									) . '</li>';
 							}
 							$personalToolsCount++;
 						}
@@ -205,7 +209,7 @@ class RefreshedTemplate extends BaseTemplate {
 				<li class="page_item<?php echo ( $hasChildren ? ' page_item_has_children' : '' ) ?>">
 					<div class="clickableregion">
 							<!--<a class="nav<?php echo $counter ?>_link" href="<?php echo $menuNodes[$level0]['href'] ?>">-->
-							<a class="nav<?php echo $counter ?>_link" href="javascript:;"><?php echo $menuNodes[$level0]['text'] ?></a><img class="arrow" src="<?php echo $refreshedImagePath ?>/arrow-highres.png" width="14px" />
+							<a class="nav<?php echo $counter ?>_link" href="javascript:;"><?php echo $menuNodes[$level0]['text'] ?></a><img class="arrow" src="<?php echo $refreshedImagePath ?>/arrow-highres.png" width="14" />
 					</div>
 								<?php if ( $hasChildren ) { ?>
 								<ul class="children">
@@ -234,14 +238,14 @@ class RefreshedTemplate extends BaseTemplate {
 				<?php echo '<a class="main" href="' . $wgRefreshedHeader['url'] . '">' .  $wgRefreshedHeader['img'] . '</a>'; ?>
 			</div>
 			<div id="sidebar">
-				<ul>
 					<?php
 						unset( $this->data['sidebar']['SEARCH'] );
 						unset( $this->data['sidebar']['TOOLBOX'] );
 						unset( $this->data['sidebar']['LANGUAGES'] );
 
 						foreach ( $this->data['sidebar'] as $main => $sub ) {
-							echo '<span class="main">' . htmlspecialchars( $main ) . '</span>';
+							echo '<div class="main">' . htmlspecialchars( $main ) . '</div>';
+							echo '<ul>';
 							if ( is_array( $sub ) ) { // MW-generated stuff from the sidebar message
 								foreach ( $sub as $key => $action ) {
 									echo $this->makeListItem(
@@ -257,16 +261,18 @@ class RefreshedTemplate extends BaseTemplate {
 								// allow raw HTML block to be defined by extensions (like NewsBox)
 								echo $sub;
 							}
+							echo '</ul>';
 						}
 
 						if ( $this->data['language_urls'] ) {
-							echo '<span class="main">' . $this->getMsg( 'otherlanguages' )->text() . '</span>';
+							echo '<div class="main">' . $this->getMsg( 'otherlanguages' )->text() . '</div>';
+							echo '<ul>';
 							echo '<li><ul id="languages" style="display:none;">';
 							foreach ( $this->data['language_urls'] as $key => $link ) {
 								echo $this->makeListItem( $key, $link, array( 'link-class' => 'sub', 'link-fallback' => 'span' ) );
 							}
+							echo '</ul>';
 						} ?>
-				</ul>
 			</div>
 		</div>
 		<div id="contentwrapper">
@@ -296,10 +302,10 @@ class RefreshedTemplate extends BaseTemplate {
 									$lastLinkOutsideOfStandardToolboxDropdownHasBeenGenerated = true;
 									echo "<div id=\"toolboxcontainer\">
 								<a href=\"javascript:;\" id=\"toolbox-link\">" . $this->getMsg( 'moredotdotdot' )->text() . "</a>
-								<ul id=\"standardtoolboxdropdown\" style=\"display:none;\"><div class=\"dropdowntriangle\"></div>";
+								<div id=\"standardtoolboxdropdown\" style=\"display:none;\"><div class=\"dropdowntriangle\"></div><ul>";
 								}
 							} else if ( !$moreToolsLinkHasBeenGenerated ) {
-								echo $this->makeLink( $key, $action, array( 'text-wrapper' => array( 'tag' => 'span' ) ) );
+								echo $this->makeListItem( $key, $action, array( 'text-wrapper' => array( 'tag' => 'span' ) ) );
 								$moreToolsLinkHasBeenGenerated = true;
 							} else {
 								echo $this->makeListItem( $key, $action, array( 'text-wrapper' => array( 'tag' => 'span' ) ) );
@@ -317,13 +323,14 @@ class RefreshedTemplate extends BaseTemplate {
 						}
 						echo '<div id="toolboxcontainer">
 								<a href="javascript:;" id="toolbox-link">' . $this->getMsg( 'toolbox' )->text() . '</a>
-								<ul id="standardtoolboxdropdown" style="display:none;"><div class="dropdowntriangle"></div>';
+								<div id="standardtoolboxdropdown" style="display:none;"><div class="dropdowntriangle"></div><ul>';
 						foreach ( $toolbox as $tool => $toolData ) {
 							echo $this->makeListItem( $tool, $toolData, array( 'text-wrapper' => array( 'tag' => 'span' ) ) );
 						}
 					}
           wfRunHooks( 'SkinTemplateToolboxEnd', array( &$this, true ) );
 					echo '</ul>
+					</div>
 					</div>
 					</div>'; ?>
 
@@ -400,10 +407,8 @@ class RefreshedTemplate extends BaseTemplate {
 			<div id="content">
 				<?php $this->html( 'bodytext' ); ?>
 			</div>
-			<!-- some strange stuff going on here... -->
 			<?php $this->html( 'catlinks' ); ?>
 			<?php if ( $this->data['dataAfterContent'] ) { $this->html( 'dataAfterContent' ); } ?>
-			<br clear="all" />
 		</div>
 	</div>
 	<div id="footer">

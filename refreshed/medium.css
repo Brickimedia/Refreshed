@@ -5,11 +5,11 @@
 	left: 0 !important; /* preventing sidebar from moving left of viewport if not on mobile */
 }
 
-#sidebar ul {
+#sidebar {
 	font-size: 11pt;
 }
 
-#sidebar ul li {
+#sidebar li {
 	padding-top: .1em;
 }
 

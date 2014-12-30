@@ -205,11 +205,15 @@ body {
 	background: #fff;
 	position: absolute;
 	width: 12em;
-	list-style-type: none;
-	margin-left: 0;
 	-webkit-box-shadow: 0 3px 9px 0 rgba(75, 75, 75, 0.4);
 	box-shadow: 0 3px 9px 0 rgba(75, 75, 75, 0.4);
 	border: 1px solid #ddd;
+	margin-top: .25em;
+}
+
+#standardtoolboxdropdown ul {
+	list-style-type: none;
+	margin-left: 0;
 	margin-top: .25em;
 }
 .dropdowntriangle {
@@ -305,6 +309,7 @@ body {
 	z-index: 2;
 	font-family: sans-serif;
 	border-bottom: .25em solid #eee;
+	padding-bottom: 1em;
 }
 
 #contentwrapper * {
@@ -348,7 +353,7 @@ body {
 	display: none;
 }
 
-#sidebar ul {
+#sidebar {
 	overflow-y: auto;
 	width: 100%;
 	height: webkit-calc( 100% - 3.5em );
@@ -356,9 +361,7 @@ body {
 	height: -webkit-calc( 100% - 3.5em );
 	height: calc( 100% - 3.5em );
 	left: 0;
-}
-
-#sidebar ul {
+	line-height: 1.5em;
 	position: absolute;
 	top: 3em;
 	padding-top: 8px !important;
@@ -377,14 +380,13 @@ body {
 
 }
 
-#sidebar ul .main {
-	margin-left: .5em;
-	display: block;
+#sidebar .main {
+	margin-left: 0.5em;
 	margin-top: 0.5em;
 }
 
-#sidebar ul .main:first-of-type {
-	margin-top: 0em;
+#sidebar .main:first-of-type {
+	margin-top: 0;
 }
 
 #sidebar a:hover {
@@ -394,7 +396,7 @@ body {
 	margin-left: 0;
 }
 
-#sidebar ul li {
+#sidebar li {
 	text-transform: lowercase;
 }
 

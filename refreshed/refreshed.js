@@ -332,15 +332,6 @@ $( document ).ready( function() {
 		$( '.suggestions' ).first().addClass( 'header-suggestions' ); //add class to first .suggestions element
 	}, 100);
 
-	$( '#pt-notifications a' ).clickOrTouch( function( e ) { //on clicking the notifications badge
-		//if ( Refreshed.windowIsSmall ) { //if the window is small (and the notifications badge shouldn't be clickable)
-			e.preventDefault();
-			e.stopPropagation();
-			e.stopImmediatePropagation();
-			return false; //prevent anything from happening when clicked
-		//}
-	});
-
 } );
 
 /* For whatever reason, if this line is not here, you can't hide shown elements (i.e. user info, site info, etc.) by clicking outside of them. */

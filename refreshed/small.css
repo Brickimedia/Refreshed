@@ -32,7 +32,7 @@
 	transform: translateX(15em);
 }
 
-#sidebar ul {
+#sidebar {
 	top: 2.75em;
 	font-size: 13pt;
 }
@@ -176,7 +176,7 @@
 
 #userinfo .avatar {
 	padding-top: 7px; /* avatar is 30px, header is 44px */
-	padding-bottom: 7px;
+	padding-top: 7px;
 }
 #userinfo .avatar-none {
 	display: block;
