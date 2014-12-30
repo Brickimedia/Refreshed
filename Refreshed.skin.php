@@ -168,8 +168,15 @@ class RefreshedTemplate extends BaseTemplate {
 				</a>
 				<ul class="headermenu" style="display:none;">
 					<?php
+						//generate user tools (and notifications item in user tools if needed)
+						$personalToolsCount = 0;
 						foreach ( $this->getPersonalTools() as $key => $tool ) {
 							echo $this->makeListItem( $key, $tool );
+							if ( class_exists( 'EchoHooks' ) && $this->data[ 'loggedin' ] && $personalToolsCount == 2 ) { //if Echo is installed, user is logged in, and the first two tools have been generated (user and user talk)...
+								$specialNotificationsName = Title::newFromText( MWNamespace::getCanonicalName( -1 ) . ':' . wfMessage( 'notifications' ) ); //title of Special:Notifications (name of Special namespace + ':' + 'notifications' system message)
+								echo '<li id="pt-notifications-personaltools"><a href="' . $specialNotificationsName->getLocalURL() . '" title="' . wfMessage( 'tooltip-pt-notifications' ) . '">' . wfMessage( 'notifications' ) . '</a></li>';
+							}
+							$personalToolsCount++;
 						}
 					?>
 				</ul>
@@ -326,7 +333,7 @@ class RefreshedTemplate extends BaseTemplate {
                     <div id="contentSub2"><?php $this->html( 'undelete' ) ?></div>
               </div>
 				<?php
-				if ( $titleNamespace % 2 == 1 && $titleNamespace > 0 ) { // if talk namespace: talk namespaces are odd positive integers
+				if ( MWNamespace::isTalk( $titleNamespace ) ) { // if talk namespace
 					echo Linker::link(
 						$title,
 						wfMessage( 'refreshed-back', $title->getPrefixedText() )->escaped(),
@@ -351,7 +358,7 @@ class RefreshedTemplate extends BaseTemplate {
 					$totalSmallToolsToBeRendered++;
 				}
 			}
-			if ( $titleNamespace % 2 == 1 && $titleNamespace > 0 ) { // if talk namespace: talk namespaces are odd positive integers
+			if ( MWNamespace::isTalk( $titleNamespace ) ) { // if talk namespace
 				$totalSmallToolsToBeRendered--; // remove a tool (the talk page tool) if the user is on a talk page
 			}
 
@@ -363,7 +370,7 @@ class RefreshedTemplate extends BaseTemplate {
 				$amountOfSmallToolsToSkipInFront = 1;
 				$amountOfSmallToolsToSkipInMiddle = 0;
 
-				if ( $titleNamespace % 2 == 1 && $titleNamespace > 0 ) { // if talk namespace: talk namespaces are odd positive integers
+				if ( MWNamespace::isTalk( $titleNamespace ) ) { // if talk namespace
 					$amountOfSmallToolsToSkipInFront = 2;
 				}
 

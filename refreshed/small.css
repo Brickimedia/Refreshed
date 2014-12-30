@@ -175,9 +175,8 @@
 }
 
 #userinfo .avatar {
-	padding-top: .25em;
-	/*width: 25px; /* 30px * 5/6 */
-	/*height: 25px; /* 30px * 5/6 */
+	padding-top: 7px; /* avatar is 30px, header is 44px */
+	padding-bottom: 7px;
 }
 #userinfo .avatar-none {
 	display: block;
@@ -454,9 +453,39 @@
 }
 
 /* Extension:Echo fixes */
-#pt-notifications {
-	display: none;
+
+#pt-notifications-personaltools {
+	display: list-item;
 }
+
+#pt-notifications {
+	position: absolute;
+	margin: 0;
+	top: 0; /* the container height is greater than that of the notification button itself so this still leaves some space above the button */
+	right: 2.9em; /* 2.75em for the search button, .25em of padding within user button */
+	max-width: 2.25em; /* 2.75em (width of user button) - .25em of padding on each side */
+	z-index: 1; /* above user button */
+	padding: 0;
+	width: auto;
+	pointer-events: none; /* prevent click event (stop notifications dropdown from appearing on click) */
+}
+
+.mw-echo-notifications-badge {
+	font-size: .5em;
+	min-width: 3.5px; /* min-width of 7px * .5em (stops badge from looking too wide when it contains a single-digit number) */
+	max-width: 2.25em; /* (2.75em (width of user button) - .25em of padding on each side) * 2 because the font size is .5em */
+	overflow: hidden;
+	display: none; /* hide if there are no noticiations */
+}
+
+.mw-echo-unread-notifications {
+	display: inline;
+}
+
+#mw-echo-overlay {
+	display: none; /* if pointer-events isn't supported (so #mw-echo-overlay is generated when the notifications badge is clicked), hide #mw-echo-overlay so it's not visible */
+}
+
 
 /* Image thumbnails */
 .thumb {

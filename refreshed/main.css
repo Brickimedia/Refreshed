@@ -695,7 +695,7 @@ a.toclevel-6 {
 	opacity: 1 !important;
 	-webkit-transition: opacity .2s ease 0s !important;
 	transition: opacity .2s ease 0s !important;
-	z-index: 1 !important;
+	z-index: 2 !important; /* The notifications badge has a z-index of 1 in small.css, this puts the search above it */
 }
 
 #searchcloser {
@@ -984,6 +984,11 @@ div.noarticletext {
 }
 
 /* Extension:Echo fixes */
+
+#pt-notifications-personaltools { /* "Notifications" item in the personal tools dropdown */
+	display: none;
+}
+
 #pt-notifications {
 	display: inline;
 	float: right;
