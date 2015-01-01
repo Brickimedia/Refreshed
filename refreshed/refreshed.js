@@ -340,7 +340,11 @@ $( '#contentwrapper' ).clickOrTouch( function() {
 
 /* Fix for Echo in Refreshed */
 if ( document.getElementById( 'echo' ) ) {
-	$('#pt-notifications').prependTo('#echo');
+	$( '#pt-notifications' ).prependTo('#echo');
+}
+
+if ( $( '.mw-echo-notifications-badge' ).hasClass( 'mw-echo-unread-notifications' ) ) {
+	$( '#pt-notifications-personaltools a' ).addClass( 'pt-notifications-personaltools-unread' );
 }
 
 /* Header categories */

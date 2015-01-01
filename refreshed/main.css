@@ -678,8 +678,6 @@ a.toclevel-6 {
 	background: url("images/icon-search.png") top left no-repeat;
 	-webkit-background-size: 3em 3em;
 	background-size: 3em 3em;
-	position: absolute;
-	right: 1em;
 	cursor: pointer;
 	display: none;
 }
@@ -987,6 +985,14 @@ div.noarticletext {
 
 /* Extension:Echo fixes */
 
+#pt-mytalk a.mw-echo-alert { /* "you have new messages" alert in the personal tools dropdown */
+	white-space: normal;
+	color: #555555 !important; /* 6 digits instead of 3 because Echo's CSS uses 6 to define the color in the standard state (!important to override color on hover) */
+}
+#pt-mytalk a.mw-echo-alert:hover {
+	background-color: #FAB951;
+}
+
 #pt-notifications-personaltools { /* "Notifications" item in the personal tools dropdown */
 	display: none;
 }
@@ -1008,7 +1014,7 @@ div.noarticletext {
 
 .mw-echo-overlay:before,
 .mw-echo-overlay::before {
-	left: 114px !important;
+	left: 114px !important; /* centering dropdown arrow on notifications badge */
 }
 
 /* stopping images on file pages from overflowing */
