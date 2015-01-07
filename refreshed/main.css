@@ -144,6 +144,10 @@ body {
 	float: right;
 }
 
+.mw-indicator {
+	display: inline;
+}
+
 .scrollshadow {
 	background: none;
 }

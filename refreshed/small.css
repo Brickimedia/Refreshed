@@ -263,9 +263,9 @@
 }
 
 .mw-indicator {
-	display: none;
+	display: none !important;
 	/* to unset an individual indicator add the following:
-	#mw-indicator-name { display: inline-block; }
+	#mw-indicator-name { display: inline-block !important; }
 	replacing "name" with the assigned name of the indicator */
 }
 
