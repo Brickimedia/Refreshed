@@ -29,8 +29,8 @@ $wgExtensionCredits['skin'][] = array(
 $wgValidSkinNames['refreshed'] = 'Refreshed';
 
 // Autoload the skin classes, set up i18n, set up CSS & JS (via ResourceLoader)
-$wgAutoloadClasses['SkinRefreshed'] = __DIR__ . 'Refreshed.skin.php';
-$wgAutoloadClasses['RefreshedTemplate'] = __DIR__ . 'Refreshed.skin.php';
+$wgAutoloadClasses['SkinRefreshed'] = __DIR__ . '/Refreshed.skin.php';
+$wgAutoloadClasses['RefreshedTemplate'] = __DIR__ . '/Refreshed.skin.php';
 $wgMessagesDirs['SkinRefreshed'] = __DIR__ . '/i18n';
 
 $wgResourceModules['skins.refreshed'] = array(
