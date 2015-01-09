@@ -334,7 +334,11 @@ class RefreshedTemplate extends BaseTemplate {
 				</div>
 				<div id="firstHeading">
 					<h1 class="scroll-shadow"><?php $this->html( 'title' ) ?></h1>
-					<?php echo $this->getIndicators() ?>
+					<?php
+					if ( method_exists( $this, 'getIndicators' ) ) {
+						echo $this->getIndicators();
+					}
+					?>
 	        <div class="standard-toolbox static-toolbox">
 						<?php
 						$lastLinkOutsideOfStandardToolboxDropdownHasBeenGenerated = false;
