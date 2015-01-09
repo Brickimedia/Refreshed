@@ -1,6 +1,6 @@
 /* anything between 601px and 1000px - tablets, big phones in landscape, very small laptops */
 
-#sidebarwrapper {
+#sidebar-wrapper {
 	width: 10em;
 	left: 0 !important; /* preventing sidebar from moving left of viewport if not on mobile */
 }
@@ -10,16 +10,16 @@
 }
 
 #sidebar li {
-	padding-top: .1em;
+	padding-top: 0.1em;
 }
 
-#contentwrapper,
+#content,
 #footer {
 	margin-left: 10em;
 	margin-right: 1em;
 }
 
-#smalltoolboxwrapper {
+#small-toolbox-wrapper {
 	display: none;
 }
 
@@ -27,13 +27,13 @@
 	display: none;
 }
 
-#maintitle h1 {
+#firstHeading h1 {
 	white-space: nowrap;
 	font-size: 2.25em;
 	overflow-x: scroll;
 }
 
-.scrollshadow {
+.scroll-shadow {
 	background:
 		-webkit-linear-gradient(90deg, white 20%, rgba(255,255,255,0)),
 		-webkit-linear-gradient(270deg, white 20%, rgba(255,255,255,0)) 100% 0,
@@ -54,23 +54,25 @@
 	background-attachment: local, local, scroll, scroll;
 }
 
-#standardtoolboxscrolloverlay {
+.fixed-toolbox {
 	width: -webkit-calc(100% - 11.4em);
 	width: calc(100% - 11.4em);
 	margin-left: 10em;
 }
 
-#header #search {
+#header .search {
 	background: midnightblue;
 	width: 15em;
 	opacity: 0;
-	/*-webkit-transition: opacity .2s ease 0s;
-	transition: opacity .2s ease 0s;*/
 	z-index: 0;
 	position: absolute;
 	top: 3em;
 	right: 1em;
 	margin-right: 0;
+}
+
+.header .search-open {
+	opacity: 1;
 }
 
 #searchInput { /* header search box */
@@ -79,11 +81,11 @@
 	display: none; /* default to hidden (will be shown by adding .search-open class to #search) */
 }
 
-#search.search-open #searchInput {
+.search-open #searchInput {
 	display: block;
 }
 
-#searchshower {
+#search-shower {
 	position: relative;
 	display: block;
 	float: right;
@@ -131,7 +133,7 @@
 
 /* Extension:Echo fixes */
 #pt-notifications {
-	margin-right: .75em;
+	margin-right: 0.75em;
 }
 
 .mw-echo-overlay:before,
@@ -147,8 +149,8 @@
 
 div.thumbinner { /* need to specify div so it can overwrite the CSS in commonContent.css */
 	width: auto !important;
-	padding: .75em 0 !important;
-	margin-bottom: .5em;
+	padding: 0.75em 0 !important;
+	margin-bottom: 0.5em;
 }
 
 .thumbinner img {

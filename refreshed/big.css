@@ -1,23 +1,22 @@
 /* anything 1001px and over - most laptops, desktops */
 
-#sidebarwrapper {
+#sidebar-wrapper {
 	left: 0 !important; /* preventing sidebar from moving left of viewport if not on mobile */
 }
 
-#header #search {
+#header .search {
 	display: block !important;
 }
 
-#contentwrapper,
+#content,
 #footer {
 	margin-left: 12em;
 	margin-right: 1em;
 }
 
-#smalltoolboxwrapper {
+#small-toolbox-wrapper {
 	display: none;
 }
-
 
 #searchText,
 #powerSearchText { /* reset width of search/powersearch bars in Special:Search when window is large */

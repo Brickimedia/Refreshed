@@ -1,7 +1,7 @@
 /* global $ */
 var Refreshed = {
 	standardToolboxIsDocked: false,
-	standardToolboxInitialOffset: $( '#standardtoolbox' ).offset().top,
+	standardToolboxInitialOffset: $( '.standard-toolbox' ).offset().top,
 	scrollHeaderHasBeenGenerated: false,
 	usingIOS: false,
 	thresholdForSmallCSS: 601,
@@ -18,39 +18,39 @@ var Refreshed = {
 	pageItemDropdownOpen: false,
 
 	flyOutScrollHeader: function() {
-		if ( $( '#contentwrapper' ).height() > $( window ).height() - $( '#header' ).height() && !Refreshed.standardToolboxIsDocked && ( $( '#standardtoolbox' ).offset().top - $( document ).scrollTop() - $( '#header' ).height() < 0 ) ) { // first condition: only move the scroll header if the article content is bigger than the page (i.e. preventing it from being triggered when a user "rubber band scrolls" in OS X for example)
-			//$( '#standardtoolboxscrolloverlay' ).animate({'top': $( '#header' ).height()});
-			$( '#standardtoolboxscrolloverlay' ).addClass( 'dropdown-open' );
+		if ( $( '#content' ).height() > $( window ).height() - $( '#header' ).height() && !Refreshed.standardToolboxIsDocked && ( $( '.static-toolbox' ).offset().top - $( document ).scrollTop() - $( '#header' ).height() < 0 ) ) { // first condition: only move the scroll header if the article content is bigger than the page (i.e. preventing it from being triggered when a user "rubber band scrolls" in OS X for example)
+			//$( '.fixed-toolbox' ).animate({'top': $( '#header' ).height()});
+			$( '.fixed-toolbox' ).addClass( 'dropdown-open' );
 			Refreshed.standardToolboxIsDocked = true;
-			$( '#maintitle > #standardtoolbox #standardtoolboxdropdown' ).fadeOut();
+			$( '#firstHeading > .standard-toolbox .standard-toolbox-dropdown' ).fadeOut();
 		} else if ( Refreshed.standardToolboxIsDocked && $( document ).scrollTop() +  $( '#header' ).height() <= Refreshed.standardToolboxInitialOffset ) {
 			Refreshed.standardToolboxIsDocked = false;
-			//$( '#standardtoolboxscrolloverlay' ).animate({'top': -$( '#standardtoolboxscrolloverlay' ).height()});
-			$( '#standardtoolboxscrolloverlay' ).removeClass( 'dropdown-open' );
-			$( '#standardtoolboxscrolloverlay #standardtoolboxdropdown' ).fadeOut();
+			//$( '.fixed-toolbox' ).animate({'top': -$( '.fixed-toolbox' ).height()});
+			$( '.fixed-toolbox' ).removeClass( 'dropdown-open' );
+			$( '.fixed-toolbox .standard-toolbox-dropdown' ).fadeOut();
 		}
 	},
 
 	generateScrollHeader: function() {
-		$( '#standardtoolbox' ).clone().attr( 'id', 'standardtoolboxscrolloverlay' ).insertBefore( '#sidebarwrapper' );
-		//$( '#standardtoolboxscrolloverlay' ).css({'top': -$( '#standardtoolboxscrolloverlay' ).height()});
-		if ( $( '#standardtoolboxscrolloverlay' ).outerWidth() != $( '#content' ).outerWidth() ) { //if standardtoolboxoverlay hasn't has its width set by CSS calc
-			$( '#standardtoolboxscrolloverlay' ).css({'width': $( '#content' ).outerWidth() - ( $( '#standardtoolboxscrolloverlay' ).outerWidth() - $( '#standardtoolboxscrolloverlay' ).width() )}); // set #standardtoolboxscrolloverlay's width to the width of #content minus #standardtoolboxscrolloverlay's padding (and border, which is 0)
+		$( '.static-toolbox' ).clone().removeClass( 'static-toolbox' ).addClass( 'fixed-toolbox' ).insertBefore( '#sidebar-wrapper' );
+		//$( '.fixed-toolbox' ).css({'top': -$( '.fixed-toolbox' ).height()});
+		if ( $( '.fixed-toolbox' ).outerWidth() != $( '#bodyContent' ).outerWidth() ) { //if standard-toolboxoverlay hasn't has its width set by CSS calc
+			$( '.fixed-toolbox' ).css({'width': $( '#bodyContent' ).outerWidth() - ( $( '.fixed-toolbox' ).outerWidth() - $( '.fixed-toolbox' ).width() )}); // set .fixed-toolbox's width to the width of #bodyContentminus .fixed-toolbox's padding (and border, which is 0)
 		}
 		Refreshed.scrollHeaderHasBeenGenerated = true;
 	},
 
 	resizeScrollHeader: function() {
-		$( '#standardtoolboxscrolloverlay' ).css({'width': $( '#content' ).outerWidth() - ( $( '#standardtoolboxscrolloverlay' ).outerWidth() - $( '#standardtoolboxscrolloverlay' ).width() )}); // set #standardtoolboxscrolloverlay's width to the width of #content minus #standardtoolboxscrolloverlay's padding (and border, which is 0)
+		$( '.fixed-toolbox' ).css({'width': $( '#bodyContent' ).outerWidth() - ( $( '.fixed-toolbox' ).outerWidth() - $( '.fixed-toolbox' ).width() )}); // set .fixed-toolbox's width to the width of #bodyContentminus .fixed-toolbox's padding (and border, which is 0)
 	},
 
 	resizeSpecialSearchBar: function() {
 		if ( !Refreshed.windowIsBig && !Refreshed.windowIsSmall ) { //if running medium.css
-			Refreshed.widthOfSpecialSearchBar = $( '#content' ).width() - $( '.results-info' ).outerWidth() - $( '#content #search input[type="submit"]' ).outerWidth() - parseFloat( $( '#searchText' ).css( 'font-size' ) ); //set width of search bar to 100% of #content - "__ of __ results" text - width of submit button - width - 1em in the search bar */
-			Refreshed.widthOfSpecialSearchPowerSearchBar = $( '#content' ).width() - $( '.results-info' ).outerWidth() - $( '#content #powersearch input[type="submit"]' ).outerWidth() - parseFloat( $( '#powerSearchText' ).css( 'font-size' ) );
+			Refreshed.widthOfSpecialSearchBar = $( '#bodyContent' ).width() - $( '.results-info' ).outerWidth() - $( '#bodyContent #search input[type="submit"]' ).outerWidth() - parseFloat( $( '#searchText' ).css( 'font-size' ) ); //set width of search bar to 100% of #bodyContent- "__ of __ results" text - width of submit button - width - 1em in the search bar */
+			Refreshed.widthOfSpecialSearchPowerSearchBar = $( '#bodyContent' ).width() - $( '.results-info' ).outerWidth() - $( '#bodyContent #powersearch input[type="submit"]' ).outerWidth() - parseFloat( $( '#powerSearchText' ).css( 'font-size' ) );
 		} else if ( Refreshed.windowIsSmall ) { //if running small.css
-			Refreshed.widthOfSpecialSearchBar = $( '#content' ).width() - $( '#content #search input[type="submit"]' ).outerWidth() - parseFloat( $( '#searchText' ).css( 'font-size' ) ); //set width of search bar to 100% of #content - width of submit button - width - 1em in the search bar */
-			Refreshed.widthOfSpecialSearchPowerSearchBar = $( '#content' ).width() - $( '#content #powersearch input[type="submit"]' ).outerWidth() - parseFloat( $( '#powerSearchText' ).css( 'font-size' ) );
+			Refreshed.widthOfSpecialSearchBar = $( '#bodyContent' ).width() - $( '#bodyContent #search input[type="submit"]' ).outerWidth() - parseFloat( $( '#searchText' ).css( 'font-size' ) ); //set width of search bar to 100% of #bodyContent - width of submit button - width - 1em in the search bar */
+			Refreshed.widthOfSpecialSearchPowerSearchBar = $( '#bodyContent' ).width() - $( '#bodyContent #powersearch input[type="submit"]' ).outerWidth() - parseFloat( $( '#powerSearchText' ).css( 'font-size' ) );
 		}
 		$( '#searchText' ).css({'width': Refreshed.widthOfSpecialSearchBar});
 		$( '#powerSearchText' ).css({'width': Refreshed.widthOfSpecialSearchPowerSearchBar});
@@ -92,7 +92,7 @@ $( document ).ready( function() {
 	});
 
 	$( window ).resize( function() {
-		if ( Refreshed.scrollHeaderHasBeenGenerated && $( '#standardtoolboxscrolloverlay' ).outerWidth() != $( '#content' ).outerWidth() ) { //only perform if the scroll header has already been generated and it needs to be resized (not already done by CSS calc)
+		if ( Refreshed.scrollHeaderHasBeenGenerated && $( '.fixed-toolbox' ).outerWidth() != $( '#bodyContent' ).outerWidth() ) { //only perform if the scroll header has already been generated and it needs to be resized (not already done by CSS calc)
 			Refreshed.resizeScrollHeader();
 		}
 
@@ -111,10 +111,10 @@ $( document ).ready( function() {
 		Refreshed.resizeSpecialSearchBar();
 	});
 
-	/* tools dropdown attached to maintitle */
-	$( '#maintitle > #standardtoolbox #toolbox-link' ).on({'click': function() {
-			if ( !$( '#maintitle > #standardtoolbox #standardtoolboxdropdown' ).is( ':visible' ) ) {
-				$( '#maintitle > #standardtoolbox #standardtoolboxdropdown' ).fadeIn();
+	/* tools dropdown attached to firstHeading */
+	$( '#firstHeading > .standard-toolbox #toolbox-link' ).on({'click': function() {
+			if ( !$( '#firstHeading > .standard-toolbox .standard-toolbox-dropdown' ).is( ':visible' ) ) {
+				$( '#firstHeading > .standard-toolbox .standard-toolbox-dropdown' ).fadeIn();
 			}
 			$( this ).children().toggleClass( 'rotate' );
 		},
@@ -124,18 +124,18 @@ $( document ).ready( function() {
 	});
 
 	$( document ).mouseup( function ( e ) {
-		if ( $( '#maintitle > #standardtoolbox #standardtoolboxdropdown' ).is( ':visible' ) ) {
-			if ( !$( '#maintitle > #standardtoolbox #standardtoolboxdropdown' ).is( e.target ) && $( '#maintitle > #standardtoolbox #standardtoolboxdropdown' ).has( e.target ).length === 0 ) { // if the target of the click isn't the container and isn't a descendant of the container
-				$( '#maintitle > #standardtoolbox #standardtoolboxdropdown' ).fadeOut();
+		if ( $( '#firstHeading > .standard-toolbox .standard-toolbox-dropdown' ).is( ':visible' ) ) {
+			if ( !$( '#firstHeading > .standard-toolbox .standard-toolbox-dropdown' ).is( e.target ) && $( '#firstHeading > .standard-toolbox .standard-toolbox-dropdown' ).has( e.target ).length === 0 ) { // if the target of the click isn't the container and isn't a descendant of the container
+				$( '#firstHeading > .standard-toolbox .standard-toolbox-dropdown' ).fadeOut();
 			}
 		}
 	});
 
 	/* tools dropdown on the "scroll header" */
-	$( '#standardtoolboxscrolloverlay #toolbox-link' ).on({
+	$( '.fixed-toolbox #toolbox-link' ).on({
 		'click': function() {
-			if ( !$( '#standardtoolboxscrolloverlay #standardtoolboxdropdown' ).is( ':visible' ) ) {
-				$( '#standardtoolboxscrolloverlay #standardtoolboxdropdown' ).fadeIn();
+			if ( !$( '.fixed-toolbox .standard-toolbox-dropdown' ).is( ':visible' ) ) {
+				$( '.fixed-toolbox .standard-toolbox-dropdown' ).fadeIn();
 			}
 			$( this ).children().toggleClass( 'rotate' );
 		},
@@ -145,9 +145,9 @@ $( document ).ready( function() {
 	});
 
 	$( document ).mouseup( function ( e ) {
-		if ( $( '#standardtoolboxscrolloverlay #standardtoolboxdropdown' ).is( ':visible' ) ) {
-			if ( !$( '#standardtoolboxscrolloverlay #standardtoolboxdropdown' ).is( e.target ) && $( '#standardtoolboxscrolloverlay #standardtoolboxdropdown' ).has( e.target ).length === 0 ) { // if the target of the click isn't the container and isn't a descendant of the container
-				$( '#standardtoolboxscrolloverlay #standardtoolboxdropdown' ).fadeOut();
+		if ( $( '.fixed-toolbox .standard-toolbox-dropdown' ).is( ':visible' ) ) {
+			if ( !$( '.fixed-toolbox .standard-toolbox-dropdown' ).is( e.target ) && $( '.fixed-toolbox .standard-toolbox-dropdown' ).has( e.target ).length === 0 ) { // if the target of the click isn't the container and isn't a descendant of the container
+				$( '.fixed-toolbox .standard-toolbox-dropdown' ).fadeOut();
 			}
 		}
 	});
@@ -162,35 +162,35 @@ $( document ).ready( function() {
 	});
 
 	/* search dropdown */
-	$( '#searchshower' ).click( function() { //Unfortunately, touchend causes the search bar to lose focus on iPhones on iOS 7 and iPads on iOS 8 (haven't tested on Android), but it keeps its focus if you used the standard click event. The other menus, etc. use "touchOrClick" b/c the touchend event executes faster than the standard click on iOS (once again, haven't tested on Android).
+	$( '#search-shower' ).click( function() { //Unfortunately, touchend causes the search bar to lose focus on iPhones on iOS 7 and iPads on iOS 8 (haven't tested on Android), but it keeps its focus if you used the standard click event. The other menus, etc. use "touchOrClick" b/c the touchend event executes faster than the standard click on iOS (once again, haven't tested on Android).
 			if ( !Refreshed.searchDropdownOpen ) {
 				if ( Refreshed.usingIOS ) {
 					$( window ).scrollTop(0); //iOS tries to vertically center the search bar, scrolling to the top keeps the header at the top of the viewport
 				}
-				$( '#header #search' ).addClass( 'search-open' );
-				$( '#sidebarshower' ).addClass( 'sidebarshower-hidden' );
+				$( '#header .search' ).addClass( 'search-open' );
+				$( '#sidebar-shower' ).addClass( 'sidebar-shower-hidden' );
 				$( '#fade-overlay' ).addClass( 'fade-overlay-active fade-overlay-below-header' ); //toggle the fade overlay
 				$( '#searchInput' ).focus();
-				$( this ).toggleClass( 'dropdown-highlighted' );
+				$( this ).toggleClass( 'header-button-active' );
 				Refreshed.searchDropdownOpen = true;
 			} else { //this only runs in "medium" mode (the search dropdown only appears in "medium" and "small" mode, and "small" is covered by the document.click function below)
-				$( '#header #search' ).removeClass( 'search-open' );
-				$( '#sidebarshower' ).removeClass( 'sidebarshower-hidden' );
+				$( '#header .search' ).removeClass( 'search-open' );
+				$( '#sidebar-shower' ).removeClass( 'sidebar-shower-hidden' );
 				$( '#searchInput' ).blur().val( '' ); //deselect the search input and reset its contents (remove anything the user entered)
 				$( '#fade-overlay' ).removeClass( 'fade-overlay-active fade-overlay-below-header' ); //toggle the fade overlay
-				$( '#searchshower' ).removeClass( 'dropdown-highlighted' );
+				$( '#search-shower' ).removeClass( 'header-button-active' );
 				Refreshed.searchDropdownOpen = false; //no delay needed because the spamming issue is only present on "small"
 			}
 	});
 
-	$( document ).click( function ( e ) { //if you use clickOrTouch, pressing the .suggestions element will cause the window to close on mobile (maybe the clickOrTouch section is executed before a plain click and thus this is run and #search is hidden before the broswer acknowledges the click event on .suggestions to load the searched-for page?)
+	$( document ).click( function ( e ) { //if you use clickOrTouch, pressing the .suggestions element will cause the window to close on mobile (maybe the clickOrTouch section is executed before a plain click and thus this is run and .search is hidden before the broswer acknowledges the click event on .suggestions to load the searched-for page?)
 		if ( Refreshed.searchDropdownOpen && $( window ).width() < Refreshed.thresholdForBigCSS ) { // window size must be checked because we only want to hide the search bar if we're not in "big" mode
-			if ( !$( '#header #search' ).is( e.target ) && !$( '#searchshower' ).is( e.target ) && !$( '#search input' ).is( e.target ) ) { // if the target of the click isn't the search container, search button, or the search box itself (we can't set it to all descendants of #search because #searchcloser needs to be able to close the search box)
-				$( '#header #search' ).removeClass( 'search-open' );
-				$( '#sidebarshower' ).removeClass( 'sidebarshower-hidden' );
+			if ( !$( '#header .search' ).is( e.target ) && !$( '#search-shower' ).is( e.target ) && !$( '.search input' ).is( e.target ) ) { // if the target of the click isn't the search container, search button, or the search box itself (we can't set it to all descendants of .search because #search-closer needs to be able to close the search box)
+				$( '#header .search' ).removeClass( 'search-open' );
+				$( '#sidebar-shower' ).removeClass( 'sidebar-shower-hidden' );
 				$( '#searchInput' ).blur().val( '' ); //deselect the search input and reset its contents (remove anything the user entered)
 				$( '#fade-overlay' ).removeClass( 'fade-overlay-active fade-overlay-below-header' ); //toggle the fade overlay
-				$( '#searchshower' ).removeClass( 'dropdown-highlighted' );
+				$( '#search-shower' ).removeClass( 'header-button-active' );
 				setTimeout(function () {
 					Refreshed.searchDropdownOpen = false;
 				}, 375); //delay variable change for 375ms until after the animation is complete so both animations don't run on one press
@@ -199,11 +199,11 @@ $( document ).ready( function() {
 	});
 
 	/* user tools dropdown */
-	$( '#userinfo > a' ).clickOrTouch( function() {
-		if ( !$( '#userinfo .headermenu' ).is( ':visible' ) ) {
-    	$( '#userinfo .headermenu' ).fadeIn();
-      $( this ).addClass( 'dropdown-highlighted' );
-      $( '#userinfo .arrow' ).addClass( 'rotate' );
+	$( '#user-info > a' ).clickOrTouch( function() {
+		if ( !$( '#user-info .header-menu' ).is( ':visible' ) ) {
+    	$( '#user-info .header-menu' ).fadeIn();
+      $( this ).addClass( 'header-button-active' );
+      $( '#user-info .arrow' ).addClass( 'rotate' );
   		setTimeout( function () {
         Refreshed.userToolsOpen = true;
     	}, 300); //delay the second clickOrTouch function (which performs fadeOut) to stop fadeIn and fadeOut on one click (also prevents user from spamming so it constantly fades in/out)
@@ -211,23 +211,22 @@ $( document ).ready( function() {
 	});
 
 	$( document ).clickOrTouch( function ( e ) {
-		if ( $( '#userinfo .headermenu' ).is( ':visible' ) ) {
-			if ( Refreshed.userToolsOpen && !$( '#userinfo .headermenu' ).is( e.target ) && $( '#userinfo .headermenu' ).has( e.target ).length === 0 ) { // if the target of the click isn't the button, the container, or a descendant of the container
-				$( '#userinfo > a' ).removeClass( 'dropdown-highlighted' );
-				$( '#userinfo .headermenu' ).fadeOut();
-				$( '#userinfo .arrow' ).removeClass( 'rotate' );
+		if ( $( '#user-info .header-menu' ).is( ':visible' ) ) {
+			if ( Refreshed.userToolsOpen && !$( '#user-info .header-menu' ).is( e.target ) && $( '#user-info .header-menu' ).has( e.target ).length === 0 ) { // if the target of the click isn't the button, the container, or a descendant of the container
+				$( '#user-info > a' ).removeClass( 'header-button-active' );
+				$( '#user-info .header-menu' ).fadeOut();
+				$( '#user-info .arrow' ).removeClass( 'rotate' );
 				Refreshed.userToolsOpen = false;
 			}
 		}
 	});
 
 	/* site navigation dropdown */
-	$( '#siteinfo-main a.arrow-link' ).clickOrTouch( function() {
-			if ( !$( '#siteinfo .headermenu' ).is( ':visible' ) ) {
-				$( '#siteinfo .headermenu' ).fadeIn();
-				$( '#siteinfo-main a.arrow-link' ).addClass( 'sitedropdown-highlighted' );
-				$( '#siteinfo-main' ).addClass( 'sitedropdown-bg-highlighted' );
-				$( '#siteinfo .arrow' ).addClass( 'rotate' );
+	$( '#site-info-main a.arrow-link' ).clickOrTouch( function() {
+			if ( !$( '#site-info .header-menu' ).is( ':visible' ) ) {
+				$( '#site-info .header-menu' ).fadeIn();
+				$( '#site-info-main a.arrow-link' ).addClass( 'header-button-active' );
+				$( '#site-info .arrow' ).addClass( 'rotate' );
 				setTimeout( function () {
 					Refreshed.siteNavDropdown = true;
 				}, 300); //delay the second clickOrTouch function (which performs fadeOut) to stop fadeIn and fadeOut on one click (also prevents user from spamming so it constantly fades in/out)
@@ -235,41 +234,40 @@ $( document ).ready( function() {
 	});
 
 	$( document ).clickOrTouch( function ( e ) {
-		if ( $( '#siteinfo .headermenu' ).is( ':visible' ) ) {
-			if ( Refreshed.siteNavDropdown && !$( '#siteinfo .headermenu' ).is( e.target ) && $( '#siteinfo .headermenu' ).has( e.target ).length === 0 ) { // if the target of the click isn't the container and isn't a descendant of the container
-				$( '#siteinfo .headermenu' ).fadeOut();
-				$( '#siteinfo-main a.arrow-link' ).removeClass( 'sitedropdown-highlighted' );
-				$( '#siteinfo-main' ).removeClass( 'sitedropdown-bg-highlighted' );
-				$( '#siteinfo .arrow' ).removeClass( 'rotate' );
+		if ( $( '#site-info .header-menu' ).is( ':visible' ) ) {
+			if ( Refreshed.siteNavDropdown && !$( '#site-info .header-menu' ).is( e.target ) && $( '#site-info .header-menu' ).has( e.target ).length === 0 ) { // if the target of the click isn't the container and isn't a descendant of the container
+				$( '#site-info .header-menu' ).fadeOut();
+				$( '#site-info-main a.arrow-link' ).removeClass( 'header-button-active' );
+				$( '#site-info .arrow' ).removeClass( 'rotate' );
 				Refreshed.siteNavDropdown = false;
 			}
 		}
 	});
 
 	/* mobile sidebar */
-	$( '#sidebarshower' ).clickOrTouch( function() {
+	$( '#sidebar-shower' ).clickOrTouch( function() {
 			//if (!Refreshed.sidebarOpen) {
-				$( '#sidebarwrapper' ).toggleClass( 'sidebar-open' );
-				$( '#sidebarshower' ).toggleClass( 'sidebar-open' );
+				$( '#sidebar-wrapper' ).toggleClass( 'sidebar-open' );
+				$( '#sidebar-shower' ).toggleClass( 'sidebar-open' );
 				$( '#fade-overlay' ).toggleClass( 'fade-overlay-active' ); //toggle the fade overlay
 				Refreshed.sidebarOpen = !Refreshed.sidebarOpen;
-				$( this ).toggleClass( 'dropdown-highlighted' );
+				$( this ).toggleClass( 'header-button-active' );
 			//}
 	});
 
 	$( document ).clickOrTouch( function ( e ) {
 		if ( Refreshed.sidebarOpen && $( '#fade-overlay').is( e.target ) ) { // if the sidebar is out and the target of the click is the fade-overlay
-			$( '#sidebarwrapper' ).removeClass( 'sidebar-open' );
-			$( '#sidebarshower' ).removeClass( 'sidebar-open' );
+			$( '#sidebar-wrapper' ).removeClass( 'sidebar-open' );
+			$( '#sidebar-shower' ).removeClass( 'sidebar-open' );
 			$( '#fade-overlay' ).removeClass( 'fade-overlay-active' ); //deactivate the fade overlay
 			Refreshed.sidebarOpen = false;
-			$( '#sidebarshower' ).removeClass( 'dropdown-highlighted' );
+			$( '#sidebar-shower' ).removeClass( 'header-button-active' );
 		}
 	});
 
 
-	$( '#smalltoolboxwrapper > a' ).clickOrTouch( function() {
-		$( '#smalltoolbox' ).css({'overflow': 'auto'}).animate({'width': '100%'}).addClass( 'scrollshadow' );
+	$( '#small-toolbox-wrapper > a' ).clickOrTouch( function() {
+		$( '#small-toolbox' ).css({'overflow': 'auto'}).animate({'width': '100%'}).addClass( 'scroll-shadow' );
 		$( this ).css({'display': 'none'});
 	});
 
@@ -301,14 +299,14 @@ $( document ).ready( function() {
 	});
 
 	/* user tools dropdown */
-	$( '.page_item_has_children .clickableregion' ).clickOrTouch( function( e ) {
+	$( '.page-item-has-children .clickable-region' ).clickOrTouch( function( e ) {
 		//hide all the other page item dropdowns if they are visible
-		$( '.page_item_has_children .children' ).fadeOut(200);
-		$( '.page_item_has_children' ).removeClass( 'dropdown-highlighted' );
-		$( '.page_item_has_children .arrow' ).removeClass( 'rotate' );
+		$( '.page-item-has-children .children' ).fadeOut(200);
+		$( '.page-item-has-children' ).removeClass( 'header-button-active' );
+		$( '.page-item-has-children .arrow' ).removeClass( 'rotate' );
 		if ( !$( this ).siblings( '.children' ).is( ':visible' ) ) {
 			$( this ).siblings( '.children' ).fadeIn(200);
-			$( this ).parent().addClass( 'dropdown-highlighted' );
+			$( this ).parent().addClass( 'header-button-active' );
 			$( this ).children( '.arrow' ).addClass( 'rotate' );
 			setTimeout( function () {
 				Refreshed.pageItemDropdownOpen = true;
@@ -317,17 +315,17 @@ $( document ).ready( function() {
 	});
 
 	$( document ).clickOrTouch( function ( e ) {
-		if ( $( '.page_item_has_children .children' ).is( ':visible' ) ) {
-			if ( $( '.page_item_has_children' ).has( e.target ).length === 0 ) { // if the target of the click isn't the button, the container, or a descendant of the container
-				$( '.page_item_has_children .children' ).fadeOut(200);
-				$( '.page_item_has_children' ).removeClass( 'dropdown-highlighted' );
-				$( '.page_item_has_children .arrow' ).removeClass( 'rotate' );
+		if ( $( '.page-item-has-children .children' ).is( ':visible' ) ) {
+			if ( $( '.page-item-has-children' ).has( e.target ).length === 0 ) { // if the target of the click isn't the button, the container, or a descendant of the container
+				$( '.page-item-has-children .children' ).fadeOut(200);
+				$( '.page-item-has-children' ).removeClass( 'header-button-active' );
+				$( '.page-item-has-children .arrow' ).removeClass( 'rotate' );
 				Refreshed.pageItemDropdownOpen = false;
 			}
 		}
 	});
 
-	/* add "header-suggestions" class to first .suggestions element for CSS targeting (there is usually one .suggestions element, but on Special:Search there is one for the #header search bar and one for the #content search bar) */
+	/* add "header-suggestions" class to first .suggestions element for CSS targeting (there is usually one .suggestions element, but on Special:Search there is one for the #header search bar and one for the #bodyContentsearch bar) */
 	setTimeout( function () { //wait a bit so the .suggestions elements can be added in (if we don't wait we'll be targeting nothing and it won't work)...
 		$( '.suggestions' ).first().addClass( 'header-suggestions' ); //add class to first .suggestions element
 	}, 100);
@@ -335,8 +333,8 @@ $( document ).ready( function() {
 } );
 
 /* For whatever reason, if this line is not here, you can't hide shown elements (i.e. user info, site info, etc.) by clicking outside of them. */
-$( '#contentwrapper' ).clickOrTouch( function() {
-});
+/*$( '#content' ).clickOrTouch( function() {
+});*/
 
 /* Fix for Echo in Refreshed */
 if ( document.getElementById( 'echo' ) ) {
@@ -348,7 +346,7 @@ if ( $( '.mw-echo-notifications-badge' ).hasClass( 'mw-echo-unread-notifications
 }
 
 /* Header categories */
-/*$('.page_item_has_children').hover(
+/*$('.page-item-has-children').hover(
     function() {
        $(this).children('.children').fadeIn(200);
     },

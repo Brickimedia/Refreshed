@@ -1,8 +1,8 @@
 /* anything 600px and under - phones */
 
 .fade-overlay-active {
-	opacity: .5 !important;
-	z-index: 10001; /* very high value to guarantee no elements on wikis will appear above it */
+	opacity: 0.5 !important;
+	z-index: 10001; /* very high value to guarantee no elements on wikis will appear above it (except the sidebar) */
 	cursor: pointer;
 }
 
@@ -15,20 +15,25 @@
 	height: 2.75em;
 }
 
-#sidebarwrapper {
+#sidebar-wrapper {
   position: fixed;
 	background: midnightblue;
 	left: -15em;
 	width: 15em;
 	top: 0;
-	z-index: 10002;
-	-webkit-transition: 0.2s ease;
+	z-index: 10002; /* appear above fade-overlay, which has z-index 10001 */
+	-o-transition: 0.2s ease;
+	-moz-transition: 0.2s ease;
+	-webkit-transition: 0.2s ease; /* -webkit- last so it's used in place of -o- if possible */
 	transition: 0.2s ease;
 }
 
 .sidebar-open {
 	left: 0;
-	-webkit-transform: translateX(15em);
+	-ms-transform: translateX(15em);
+	-o-transform: translateX(15em);
+	-moz-transform: translateX(15em);
+	-webkit-transform: translateX(15em); /* -webkit- last so it's used in place of -o- if possible */
 	transform: translateX(15em);
 }
 
@@ -42,11 +47,17 @@
 	margin-left: 5px;
 }
 
-#sidebarshower {
+.header-button {
+	width: 2.75em;
+	height: 2.75em;
+	background-size: 2.75em 2.75em;
+}
+
+#sidebar-shower {
 	display: block;
 }
 
-.sidebarshower-hidden {
+.sidebar-shower-hidden {
 	right: 0 !important;
 }
 
@@ -58,71 +69,69 @@
 	width: 100%;
 	height: 2.75em;
 	text-align: center;
-	padding: .5em 0;
+	padding: 0.5em 0;
 }
 
-#siteinfo-main {
+#site-info-main {
 	display: none;
 }
 
-#siteinfo-main .arrow-link {
+#site-info-main .arrow-link {
 	display: none !important;
 }
 
-#siteinfo-main:hover,
-#siteinfo-main a,
-#siteinfo-main a:hover {
+#site-info-main:hover,
+#site-info-main a,
+#site-info-main a:hover {
 	background: none;
 }
 
-#siteinfo-mobile {
+#site-info-mobile {
 	display: inline-block;
 }
 
-#header #search {
+#header .search {
 	background: midnightblue;
 	width: 100%;
 	position: absolute;
 	top: 0;
 	left: 0;
 	opacity: 0;
-	padding: .25em 0;
-	opacity: 0;
-	/*-webkit-transition: opacity .2s ease 0s;
-	transition: opacity .2s ease 0s;*/
+	padding: 0.25em 0;
 	z-index: 0;
 }
 
-#searchcloser {
+#header .search-open {
+	z-index: 2; /* The notifications badge has a z-index of 1, this puts the search above it */
+	opacity: 1;
+}
+
+#search-closer {
 	display: block;
 }
 
-#header #search form {
+#header .search form {
 	margin-right: 3em;
-	margin-left: .25em;
+	margin-left: 0.25em;
 }
 
 #searchInput { /* header search box */
 	width: 100%;
 	font-size: 18px;
 	float: left;
-	height: 2em; /* (2.75em [height of header] - .5em [top + bottom padding of #search]) * (16px [font size of #header and #search] / 18px [font size of #search input]) */
-	display: none; /* default to hidden (will be shown by adding .search-open class to #search) */
+	height: 2em; /* (2.75em [height of header] - 0.5em [top + bottom padding of .search]) * (16px [font size of #header and .search] / 18px [font size of .search input]) */
+	display: none; /* default to hidden (will be shown by adding .search-open class to .search) */
 }
 
-#search.search-open #searchInput {
+.search-open #searchInput {
 	display: block;
 }
 
-#searchshower {
+#search-shower {
+	display: block;
 	position: absolute;
-	display: block;
-	right: 0;
 	top: 0;
-	width: 2.75em;
-	height: 2.75em;
-	-webkit-background-size: 2.75em 2.75em;
-	background-size: 2.75em 2.75em;
+	right: 0;
 }
 
 #searchText,
@@ -150,95 +159,67 @@
 	max-width: 100%; /* prevent search results from overflowing */
 }
 
-#userinfo {
+#user-info {
 	position: absolute;
-	right: 2.75em;
+	top: 0;
+	right: 3em; /* search is 2.75em, 0.25em of padding */
 	margin: 0;
 	width: 2.75em;
 	height: 2.75em;
-	top: 0;
-}
-#userinfo .arrow {
-	display: none;
 }
 
-#userinfo .avatar {
-	left: .5em;
-	padding-top: 7px; /* avatar is 30px, header is 44px */
-	padding-bottom: 7px;
-}
-
-#userinfo .avatar-none {
-	display: block;
-}
-
-#userinfo > a {
+#user-info .header-button {
 	padding: 0;
 	height: 2.75em;
 }
 
-#userinfo > a span {
+#user-info .arrow {
 	display: none;
 }
 
-#userinfo .headermenu {
+.avatar {
+	top: 7px; /* avatar is 30px, header is 44px */
+	left: 0.5em;
+}
+
+.avatar-none {
+	display: block;
+}
+
+#user-info > a {
+	padding: 0;
+	height: 2.75em;
+}
+
+#user-info > a span {
+	display: none;
+}
+
+#user-info .header-menu {
 	top: 2.75em;
 	background-color: midnightblue;
 	padding: 0.15em 0 0.15em 0;
 }
 
-#userinfo .headermenu a {
+#user-info .header-menu a {
 	text-align: left;
 	padding-left: 15px;
 	font-weight: normal;
 }
 
-#userinfo .headermenu a:hover {
+#user-info .header-menu a:hover {
 	color: #CCC;
 }
 
-#userinfo .headermenu a.new:hover {
+#user-info .header-menu a.new:hover {
 	color: #f47d64;
 }
 
-/*
-#siteinfo-main {
-	height: 2.75em;
-	margin-left: 2.75em;
-	width: 9em;
-}
-
-#siteinfo-main.multiplewikis {
-	width: 11em;
-}
-
-#siteinfo-main a,
-#siteinfo-main a.main img,
-#siteinfo .headermenu img {
-	height: 1.5em;
-}
-
-#siteinfo-main .main {
-	width: 9em !important;
-}
-
-#siteinfo-main a.arrow-link {
-	padding-top: .6em;
-	padding-bottom: .4em;
-}
-
-#siteinfo .headermenu {
-	top: 2.75em;
-	left: 2.75em;
-	width: 10.6em;
-}
-*/
-
-#siteinfo .headermenu img {
+#site-info .header-menu img {
 	font-size: 16px; /* resetting font size for logos in menu so they are the same height as the one outside the menu */
 }
 
-#contentwrapper {
+#content {
 	top: 2.75em;
 }
 
@@ -246,14 +227,14 @@
 	display: none;
 }
 
-#maintitle {
+#firstHeading {
 	position: relative;
 	font-size: 0.9em;
 	padding: 0 1em;
 	width: auto;
 }
 
-#maintitle h1 {
+#firstHeading h1 {
 	overflow-x: auto;
 	white-space: nowrap;
 	border: 0;
@@ -269,7 +250,7 @@
 	replacing "name" with the assigned name of the indicator */
 }
 
-.scrollshadow {
+.scroll-shadow {
 	background:
 		-webkit-linear-gradient(90deg, white 20%, rgba(255,255,255,0)),
 		-webkit-linear-gradient(270deg, white 20%, rgba(255,255,255,0)) 100% 0,
@@ -285,35 +266,32 @@
 		linear-gradient(90deg, #e3e3e3 10%, rgba(255,255,255,0)),
 		linear-gradient(270deg, #e3e3e3 10%, rgba(255,255,255,0)) 100% 0;
 	background-repeat: no-repeat;
-	-webkit-background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
 	background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
 	background-attachment: local, local, scroll, scroll;
 }
 
-#standardtoolbox,
-#standardtoolboxscrolloverlay {
-	display: none !important;
+.standard-toolbox {
+	display: none;
 }
 
-#maintitlemessages {
+#main-title-messages {
 	display: none;
 }
 
 #back-to-subject {
-	display: inline;
-	font-size: .95em;
+	display: block;
 }
 
-#smalltoolboxwrapper {
+#small-toolbox-wrapper {
 	position: relative;
 	display: block;
 	border-top: 1px solid #eaeaea;
 	border-bottom: 1px solid #eaeaea;
-	margin: 0 .9em .75em .9em; /* left/right: 1em (#content padding-left) * .9em (#content font-size) */
+	margin: 0 0.9em 0.75em 0.9em; /* left/right: 1em (#bodyContent padding-left) * 0.9em (#bodyContent font-size) */
 	overflow-y: hidden;
 }
 
-#smalltoolbox {
+#small-toolbox {
 	position: relative;
 	width: 6em;
 	height: 3em;
@@ -325,83 +303,72 @@
 .small-icon {
 	width: 3em;
 	height: 3em;
-	-webkit-background-size: 3em 3em;
 	background-size: 3em 3em;
-	display: none; /* hiding the button unless it's whitelisted; shouldn't be necessary since the PHP doesn't render any outside the whitelist, but just in case */
+	display: inline-block;
 }
 
 .small-icon:hover {
-	opacity: .5;
+	opacity: 0.5;
 }
 
 #icon-ca-talk {
-	display: inline-block;
 	/* @embed */
-	background-image: url("images/icon-talk.png");
+	background-image: url(images/icon-talk.png);
 }
 
 #icon-ca-viewsource {
-	display: inline-block;
 	/* @embed */
-	background-image: url("images/icon-edit.png");
-	opacity: .3;
+	background-image: url(images/icon-edit.png);
+	opacity: 0.3;
 }
+
 #icon-ca-viewsource:hover {
-	opacity: .2;
+	opacity: 0.2;
 }
 
 #icon-ca-edit {
-	display: inline-block;
 	/* @embed */
-	background-image: url("images/icon-edit.png");
+	background-image: url(images/icon-edit.png);
 }
 
 #icon-ca-history {
-	display: inline-block;
 	/* @embed */
-	background-image: url("images/icon-history.png");
+	background-image: url(images/icon-history.png);
 }
 
 #icon-ca-delete {
-	display: inline-block;
 	/* @embed */
-	background-image: url("images/icon-delete.png");
+	background-image: url(images/icon-delete.png);
 }
 
 #icon-ca-move {
-	display: inline-block;
 	/* @embed */
-	background-image: url("images/icon-move.png");
+	background-image: url(images/icon-move.png);
 }
 
 #icon-ca-protect {
-	display: inline-block;
 	/* @embed */
-	background-image: url("images/icon-protect.png");
+	background-image: url(images/icon-protect.png);
 }
 
 #icon-ca-unprotect {
-	display: inline-block;
 	/* @embed */
-	background-image: url("images/icon-unprotect.png");
+	background-image: url(images/icon-unprotect.png);
 }
 
 #icon-ca-watch {
-	display: inline-block;
 	/* @embed */
-	background-image: url("images/icon-watch.png");
+	background-image: url(images/icon-watch.png);
 }
 
 #icon-ca-unwatch {
-	display: inline-block;
 	/* @embed */
-	background-image: url("images/icon-unwatch.png");
+	background-image: url(images/icon-unwatch.png);
 }
 
 #icon-more {
-	display: inline-block;
 	/* @embed */
-	background-image: url("images/icon-more.png");
+	background-image: url(images/icon-more.png);
 }
 
 /* CONTENT AREA ********************************************/
@@ -428,19 +395,15 @@
 }
 
 .header-suggestions .suggestions-result {
-	padding: .5em .25em !important;
+	padding: 0.5em 0.25em !important;
 	border-bottom: 1px solid #ddd;
 }
 
 .header-suggestions .suggestions-special {
-	padding: .5em .25em !important;
+	padding: 0.5em 0.25em !important;
 	margin-top: 0 !important;
 	border: 0 !important;
 	border-bottom: 1px solid #ddd !important;
-}
-
-.header-suggestions .suggestions-result-current {
-	background-color: #194a8d !important;
 }
 
 .header-suggestions .suggestions-results {
@@ -456,12 +419,14 @@
 #pt-notifications-personaltools { /* "Notifications" item in the personal tools dropdown */
 	display: list-item;
 }
+
 .pt-notifications-personaltools-unread {
 	background-color: #cc0000;
 	color: #fff;
 	border-radius: 2px; /* matching the notification badge itself and the "you have new messages" notice, which both have border-radius */
 	margin: 0.1em;
 }
+
 .pt-notifications-personaltools-unread:hover {
 	background-color: #bf0000 !important;
 }
@@ -470,8 +435,8 @@
 	position: absolute;
 	margin: 0;
 	top: 0; /* the container height is greater than that of the notification button itself so this still leaves some space above the button */
-	right: 2.9em; /* 2.75em for the search button, .25em of padding within user button */
-	max-width: 2.25em; /* 2.75em (width of user button) - .25em of padding on each side */
+	right: 2.9em; /* 2.75em for the search button, 0.25em of padding within user button */
+	max-width: 2.25em; /* 2.75em (width of user button) - 0.25em of padding on each side */
 	z-index: 1; /* above user button */
 	padding: 0;
 	width: auto;
@@ -479,9 +444,9 @@
 }
 
 .mw-echo-notifications-badge {
-	font-size: .5em;
-	min-width: 3.5px; /* min-width of 7px * .5em (stops badge from looking too wide when it contains a single-digit number) */
-	max-width: 2.25em; /* (2.75em (width of user button) - .25em of padding on each side) * 2 because the font size is .5em */
+	font-size: 0.5em;
+	min-width: 3.5px; /* min-width of 7px * 0.5em (stops badge from looking too wide when it contains a single-digit number) */
+	max-width: 2.25em; /* (2.75em (width of user button) - 0.25em of padding on each side) * 2 because the font size is 0.5em */
 	overflow: hidden;
 	display: none; /* hide if there are no noticiations */
 }
@@ -502,8 +467,8 @@
 
 div.thumbinner { /* need to specify div so it can overwrite the CSS in commonContent.css */
 	width: auto !important;
-	padding: .75em 0 !important;
-	margin-bottom: .5em;
+	padding: 0.75em 0 !important;
+	margin-bottom: 0.5em;
 }
 
 .thumbinner img {

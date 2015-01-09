@@ -3,6 +3,10 @@
 	font-style: normal;
 	font-weight: 300;
 	src: local('Lato Light'), local('Lato-Light'), url(http://themes.googleusercontent.com/static/fonts/lato/v6/KT3KS9Aol4WfR6Vas8kNcg.woff) format('woff');
+	src: url(https://fonts.gstatic.com/s/lato/v11/zLhfkPOm_5ykmdm-wXaiuw.eot?#iefix) format('embedded-opentype'),
+		url(https://fonts.gstatic.com/s/lato/v11/kcf5uOXucLcbFOydGU24WALUuEpTyoUstqEm5AMlJo4.woff) format('woff'),
+		url(https://fonts.gstatic.com/s/lato/v11/nj47mAZe0mYUIySgfn0wpQ.ttf)  format('truetype'),
+		url(https://fonts.gstatic.com/l/font?kit=7yKIrlBXX_AXuUv3Ts9_8g#Lato) format('svg');
 }
 
 @font-face {
@@ -10,6 +14,10 @@
 	font-style: normal;
 	font-weight: 700;
 	src: local('Lato Bold'), local('Lato-Bold'), url(http://themes.googleusercontent.com/static/fonts/lato/v6/wkfQbvfT_02e2IWO3yYueQ.woff) format('woff');
+	src: url(https://fonts.gstatic.com/s/lato/v11/sBtfDPlEIwvKKU53nAG7AQ.eot?#iefix) format('embedded-opentype'),
+		url(https://fonts.gstatic.com/s/lato/v11/qdgUG4U09HnJwhYI-uK18wLUuEpTyoUstqEm5AMlJo4.woff) format('woff'),
+		url(https://fonts.gstatic.com/s/lato/v11/DvlFBScY1r-FMtZSYIYoYw.ttf)  format('truetype'),
+		url(https://fonts.gstatic.com/l/font?kit=hLECvlEj3pKlnS4NFs8NQw#Lato) format('svg');
 }
 
 @font-face {
@@ -17,6 +25,10 @@
 	font-style: normal;
 	font-weight: 400;
 	src: local('Lato Regular'), local('Lato-Regular'), url(http://themes.googleusercontent.com/static/fonts/lato/v6/9k-RPmcnxYEPm8CNFsH2gg.woff) format('woff');
+	src: url(https://fonts.gstatic.com/s/lato/v11/nQhiC-wSiJx0pvEuJl8d8A.eot?#iefix) format('embedded-opentype'),
+		url(https://fonts.gstatic.com/s/lato/v11/qIIYRU-oROkIk8vfvxw6QvesZW2xOQ-xsNqO47m55DA.woff) format('woff'),
+		url(https://fonts.gstatic.com/s/lato/v11/v0SdcGFAl2aezM9Vq_aFTQ.ttf)  format('truetype'),
+		url(https://fonts.gstatic.com/l/font?kit=H4oiIt_Ug9TU5ast0nUT-w#Lato) format('svg');
 }
 
 body {
@@ -34,8 +46,10 @@ body {
 	left: 0;
 	display: block;
 	opacity: 0;
-	-webkit-transition: opacity 0.2s ease;
-	transition: opacity 0.2s ease, left;
+	-o-transition: opacity 0.2s ease;
+	-moz-transition: opacity 0.2s ease;
+	-webkit-transition: opacity 0.2s ease; /* -webkit- last so it's used in place of -o- if possible */
+	transition: opacity 0.2s ease;
 	background: #fff;
 }
 
@@ -47,7 +61,25 @@ body {
 	position: fixed;
 }
 
-#headerinner {
+.header-button { /* defined at top so individual elements can override these properties */
+	cursor: pointer;
+	width: 3em;
+	height: 3em;
+	background-repeat: no-repeat;
+	background-position: top left;
+	background-size: 3em 3em;
+	font-family: "Lato Body", sans-serif;
+}
+
+.header-dropdown-item a {
+	color: #fff;
+}
+
+.header-dropdown-item a.new {
+	color: #fdad9d;
+}
+
+#header-inner {
 	height: 100%;
 	background-color: #103ca2;
 	background-image: -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(0, #040f28), color-stop(50%, #103ca2), color-stop(100%, #040f28));
@@ -67,37 +99,29 @@ body {
 	margin: 0;
 }
 
-#header-categories > .page_item {
-	height: 3em;
-}
-
-#header-categories > .page_item:hover {
-	background: midnightblue;
-}
-
-.clickableregion {
-	cursor: pointer;
-	padding-left: .5em;
-}
-
-#header-categories > li .clickableregion a {
-	display: inline-block;
-	height: 2em;
-	padding: .5em .5em .5em 0;
-	line-height: 2em;
-	/*padding: .5em .5em .5em 0;*/
-	font-family: "Lato Body", sans-serif;
-	color: #ffffff !important;
-	white-space: nowrap;
-}
-
-#header-categories li {
+.page-item {
+	height: auto;
 	display: inline-block;
 	width: 8em;
 	text-decoration: none;
 }
 
-#header-categories li a:hover {
+.clickable-region {
+	cursor: pointer;
+	padding-left: 0.5em;
+}
+
+.clickable-region a {
+	display: inline-block;
+	height: 2em;
+	padding: 0.5em 0.5em 0.5em 0;
+	line-height: 2em;
+	color: #fff;
+	white-space: nowrap;
+}
+
+#header-categories a:hover,
+#header-categories a:focus {
 	text-decoration: none;
 }
 
@@ -106,6 +130,7 @@ body {
 }
 
 #header-categories .children {
+	background: #000;
 	background: rgba(0,0,0,0.8);
 	margin: 0;
 }
@@ -114,30 +139,31 @@ body {
 	display: none;
 	position: absolute;
 	width: 10em;
-	padding: 0 .2em .2em .2em;
+	height: auto;
+	padding: 0 0.2em 0.2em 0.2em;
 }
 
-.children a {
+.children .header-dropdown-item {
 	display: inline-block;
-	width: 9.2em; /* 10em (width of .children) - .75em */
-	color: #fff;
-	padding: .2em 0 .2em .7em;
+	padding-top: 0.2em;
+	padding-bottom: 0.2em;
+	width: 100%;
 }
 
-.children a:hover {
-	background: midnightblue;
+.children .header-dropdown-item a {
+	margin-left: 0.4em; /* matching .headermenu a */
 }
 
-#maintitle {
-	padding: 0 .9em; /* 1em (#content padding-left) * .9em (#content font-size) */
+#firstHeading {
+	padding: 0 0.9em; /* 1em (#bodyContent padding-left) * 0.9em (#bodyContent font-size) */
 }
 
-#maintitle h1 {
+#firstHeading h1 {
 	font-size: 32pt;
 	font-family: "Lato Body", sans-serif;
 	padding-top: 0.2em;
 	margin-bottom: 0.1em;
-	padding-bottom: .05em;
+	padding-bottom: 0.05em;
 }
 
 .mw-indicators {
@@ -148,90 +174,85 @@ body {
 	display: inline;
 }
 
+<<<<<<< Updated upstream
 .scrollshadow {
+=======
+.scroll-shadow {
+>>>>>>> Stashed changes
 	background: none;
 }
 
-#standardtoolbox,
-#standardtoolboxscrolloverlay {
+.standard-toolbox {
 	font-family: "Lato", sans-serif; /* assigning here so em values match em values of the links inside */
-	-webkit-transition: -webkit-transform 0.4s ease;
+	-o-transition: -o-transform 0.4s ease;
+	-moz-transition: -moz-transform 0.4s ease;
+	-webkit-transition: -webkit-transform 0.4s ease; /* -webkit- last so it's used in place of -o- if possible */
 	transition: transform 0.4s ease;
 	top: 0;
 }
 
-#standardtoolbox a,
-#standardtoolboxscrolloverlay a {
-	margin-left: .5em;
-	padding-top: .25em;
-	padding-bottom: .25em;
+.standard-toolbox a {
+	margin-left: 0.5em;
+	padding-top: 0.25em;
+	padding-bottom: 0.25em;
 	text-transform: lowercase;
 	font-weight: normal;
 	text-decoration: none;
 }
 
-#standardtoolbox > a:first-of-type,
-#standardtoolboxscrolloverlay > a:first-of-type {
+.standard-toolbox > a:first-of-type {
 	margin-left: 0;
 }
 
-#standardtoolbox a:hover,
-#standardtoolboxscrolloverlay a:hover {
-	border-bottom: .25em solid #0645ad;
+.standard-toolbox a:hover {
+	border-bottom: 0.25em solid #0645ad;
 }
 
-#standardtoolbox a:visited:hover,
-#standardtoolboxscrolloverlay a:visited:hover,
-#standardtoolbox a.selected,
-#standardtoolboxscrolloverlay a.selected,
-#standardtoolbox a.selected:visited,
-#standardtoolboxscrolloverlay a.selected:visited {
-	border-bottom: .25em solid #0b0080;
+.standard-toolbox a:visited:hover,
+.standard-toolbox a.selected,
+.standard-toolbox a.selected:visited {
+	border-bottom: 0.25em solid #0b0080;
 }
 
-#standardtoolbox a.new:hover,
-#standardtoolboxscrolloverlay a.new:hover {
-	border-bottom: .25em solid #ba0000;
+.standard-toolbox a.new:hover {
+	border-bottom: 0.25em solid #ba0000;
 }
 
-#standardtoolbox a.new:visited:hover,
-#standardtoolboxscrolloverlay a.new:visited:hover,
-#standardtoolbox a.new.selected,
-#standardtoolboxscrolloverlay a.new.selected,
-#standardtoolbox a.new.selected:visited,
-#standardtoolboxscrolloverlay a.new.selected:visited {
-	border-bottom: .25em solid #a55858;
+.standard-toolbox a.new:visited:hover,
+.standard-toolbox a.new.selected,
+.standard-toolbox a.new.selected:visited {
+	border-bottom: 0.25em solid #a55858;
 }
 
-#standardtoolboxdropdown {
-	left: .5em;
+.standard-toolbox-dropdown {
+	left: 0.5em;
 	z-index: 3;
 	background: #fff;
 	position: absolute;
 	width: 12em;
-	-webkit-box-shadow: 0 3px 9px 0 rgba(75, 75, 75, 0.4);
 	box-shadow: 0 3px 9px 0 rgba(75, 75, 75, 0.4);
 	border: 1px solid #ddd;
-	margin-top: .25em;
+	margin-top: 0.25em;
 }
 
-#standardtoolboxdropdown ul {
+.standard-toolbox-dropdown ul {
 	list-style-type: none;
 	margin-left: 0;
-	margin-top: .25em;
-}
-.dropdowntriangle {
-	width: 0;
-	height: 0;
-	border-left: .5em solid transparent;
-	border-right: .5em solid transparent;
-	border-bottom: .5em solid #ccc;
-	position: absolute;
-	top: -.5em;
-	left: .1em;
+	margin-top: 0.25em;
 }
 
-#standardtoolboxdropdown a {
+.dropdown-triangle {
+	width: 0;
+	height: 0;
+	border-left: 0.5em solid transparent;
+	border-right: 0.5em solid transparent;
+	border-bottom: 0.5em solid #ccc;
+	position: absolute;
+	top: -.5em;
+	left: 0.1em;
+}
+
+.standard-toolbox-dropdown a {
 	width: 100%;
 	height: 100%;
 	display: inline-block;
@@ -239,60 +260,63 @@ body {
 	padding-bottom: 0;
 }
 
-#standardtoolboxdropdown a:hover {
+.standard-toolbox-dropdown a:hover {
 	border: 0;
 }
 
-#standardtoolboxdropdown a:hover span {
-	border-bottom: .25em solid #0645ad;
+.standard-toolbox-dropdown a:hover span {
+	border-bottom: 0.25em solid #0645ad;
 }
 
-#standardtoolboxdropdown a:visited:hover span {
-	border-bottom: .25em solid #0b0080;
+.standard-toolbox-dropdown a:visited:hover span {
+	border-bottom: 0.25em solid #0b0080;
 }
 
-#standardtoolboxscrolloverlay {
-	padding-left: .9em; /* 1em (#content padding-left) * .9em (#content font-size) */
+.fixed-toolbox {
+	padding-left: 0.9em; /* 1em (#bodyContent padding-left) * 0.9em (#bodyContent font-size) */
 	position: fixed;
-	border-bottom: .25em solid #eee;
+	border-bottom: 0.25em solid #eee;
 	background: #fff;
-	padding-top: .25em;
-	padding-bottom: .25em;
-	width: -webkit-calc(100% - 13.4em);
+	padding-top: 0.25em;
+	padding-bottom: 0.25em;
 	width: calc(100% - 13.4em);
 	margin-left: 12em; /* width of #sidebarwrapper */
 	z-index: 9999; /* very high value to guarantee no elements on wikis will appear above it */
 }
 
 .dropdown-open {
-	-webkit-transform: translateY(3em);
 	-ms-transform: translateY(3em);
+	-o-transform: translateY(3em);
+	-moz-transform: translateY(3em);
+	-webkit-transform: translateY(3em); /* -webkit- last so it's used in place of -o- if possible */
 	transform: translateY(3em);
 }
 
-#maintitlemessages {
-	font-size: .9em;
+#main-title-messages {
+	font-size: 0.9em;
 	padding-top: 1.25em;
-	padding-bottom: .5em;
+	padding-bottom: 0.5em;
 }
 
 #siteSub {
-	font-size: .9em;
-	padding-bottom: .25em;
+	font-size: 0.9em;
+	padding-bottom: 0.25em;
 }
 
 #contentSub,
 #contentSub2 {
 	margin: 0;
 	padding: 0;
-	font-size: .9em;
+	font-size: 0.9em;
 }
 
 #back-to-subject {
 	display: none;
+	font-size: 1.25em;
+	padding-bottom: 0.25em;
 }
 
-#smalltoolboxwrapper {
+#small-toolbox-wrapper {
 	display: none;
 }
 
@@ -301,27 +325,27 @@ body {
 	text-align: center;
 }
 
-#newtalk {
+#new-talk {
 	margin-left: 2em;
 }
 
-#contentwrapper {
+#content {
 	min-height: 100%;
 	position: relative;
 	top: 3em;
 	background-color: white;
 	z-index: 2;
 	font-family: sans-serif;
-	border-bottom: .25em solid #eee;
+	border-bottom: 0.25em solid #eee;
 	padding-bottom: 1em;
 }
 
-#contentwrapper * {
+#content * {
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0.4);
 }
 
-#content {
-	padding: 0em 1em;
+#bodyContent {
+	padding: 0 1em;
 	line-height: 1.5em;
 	font-size: 0.875em;
 	word-wrap: break-word;
@@ -329,7 +353,7 @@ body {
 	color: #252525;
 }
 
-#sidebarwrapper {
+#sidebar-wrapper {
 	width: 12em;
 	position: fixed;
 	top: 0;
@@ -343,12 +367,12 @@ body {
  * are extensions which can add entire portlets to the sidebarwrapper, and said portlets
  * might be using the <ul> HTML tag...
  */
-#sidebarwrapper li {
+#sidebar-wrapper li {
 	list-style-type: none;
 	margin: 0;
 }
 
-#sidebarwrapper ul {
+#sidebar-wrapper ul {
 	margin: 0;
 	padding: 0;
 }
@@ -360,28 +384,29 @@ body {
 #sidebar {
 	overflow-y: auto;
 	width: 100%;
-	height: webkit-calc( 100% - 3.5em );
-	height: moz-calc( 100% - 3.5em );
+	height: -moz-calc( 100% - 3.5em );
 	height: -webkit-calc( 100% - 3.5em );
 	height: calc( 100% - 3.5em );
 	left: 0;
 	line-height: 1.5em;
 	position: absolute;
 	top: 3em;
-	padding-top: 8px !important;
+	padding-top: 0.5em;
 }
 
 #sidebar a {
 	display: block;
 	color: white;
 	text-decoration: none;
+	padding-left: 1em;
+	margin-left: 5px; /* px instead of em because of 5px border on hover */
 }
 
-#sidebar a {
-	text-align: left;
-	padding-left: 1em;
-	margin-left: 5px;
-
+#sidebar a:hover {
+	color: #CCC;
+	cursor: pointer;
+	border-left: 5px solid #CCC;
+	margin-left: 0;
 }
 
 #sidebar .main {
@@ -393,120 +418,55 @@ body {
 	margin-top: 0;
 }
 
-#sidebar a:hover {
-	color: #CCC;
-	cursor: pointer;
-	border-left: 5px solid #CCC;
-	margin-left: 0;
-}
-
 #sidebar li {
 	text-transform: lowercase;
 }
 
-#toolboxcontainer {
+.toolbox-container {
 	display: inline-block;
 	position: relative;
 }
 
-.shower {
-	position: absolute;
-	height: 3em;
-	cursor: pointer;
-}
-
-#refreshed-toc {
-	position: relative;
-}
-
-#toc-box {
-	width: 5px;
-	background-color: white;
-	height: 28px;
-	position: absolute;
-	right: 0;
-}
-
-#refreshed-toc a:only-of-type {
-	height: 28px;
-}
-
-a.toclevel-2 {
-	padding-right: 20px !important;
-}
-
-a.toclevel-3 {
-	padding-right: 30px !important;
-}
-
-a.toclevel-4 {
-	padding-right: 40px !important;
-}
-
-a.toclevel-5 {
-	padding-right: 50px !important;
-}
-
-a.toclevel-6 {
-	padding-right: 60px !important;
-}
-
-#userinfo {
+#user-info {
 	position: relative;
 	float: right;
 	margin-right: 1em;
 }
 
-#userinfo > a {
+#user-info .header-button {
 	display: block;
 	padding: 0.5em;
+	width: auto;
 	height: 2em;
+	max-width: 320px;
 	text-decoration: none;
-	/*min-width: 11em; /* 11em - 12em minus 1/2em padding on each side */
 	position: relative;
 	white-space: nowrap;
 	overflow-x: hidden;
-	text-overflow: ellipsis;
-	font-family: "Lato Body", sans-serif;
 }
 
-#userinfo > a:hover {
-	background-color: midnightblue;
-	color: #CCC;
-}
-
-#userinfo .avatar-none {
+.avatar-none {
 	display: none;
 }
 
-#userinfo > a span {
+.username {
 	display: block;
 	margin-top: 0.1em;
 	font-size: 15pt;
-	color: white !important;
+	color: white;
 	padding-right: 10px;
 	margin-left: 3.5em;
 }
 
-#username-avatar-none {
-	margin-left: 1.75em !important;
+.username-avatar-none {
+	margin-left: 1.75em;
 }
 
-#userinfo .arrow {
+#user-info .arrow {
 	position: absolute;
 	left: 1em;
 	top: 1.2em;
 	vertical-align: text-bottom;
-}
-
-.dropdown-highlighted,
-#searchshower:hover,
-#sidebarshower:hover {
-	background-color: midnightblue !important;
-}
-
-#toolbox-link {
-	/*margin-top: 0.5em;*/
 }
 
 #toolbox-link .arrow,
@@ -514,21 +474,25 @@ a.toclevel-6 {
 	vertical-align: 2px;
 }
 
-#userinfo .arrow,
+#user-info .arrow,
 #toolbox-link .arrow,
 #languages-link .arrow,
-.page_item_has_children .arrow {
-	-webkit-transition: -webkit-transform 0.5s; /* Safari */ /* Firefox */ /* IE */
+.page-item-has-children .arrow {
+	-o-transition: -o-transform 0.5s;
+	-moz-transition: -moz-transform 0.5s;
+	-webkit-transition: -webkit-transform 0.5s; /* -webkit- last so it's used in place of -o- if possible */
 	transition: transform 0.5s;
 }
 
 .arrow.rotate {
-	-webkit-transform: rotateZ(-180deg); /* Safari */ /* Firefox */
-	-ms-transform: rotateZ(-180deg); /* IE */
+	-ms-transform: rotateZ(-180deg);
+	-o-transform: rotateZ(-180deg);
+	-moz-transform: rotateZ(-180deg);
+	-webkit-transform: rotateZ(-180deg); /* -webkit- last so it's used in place of -o- if possible */
 	transform: rotateZ(-180deg);
 }
 
-#userinfo .avatar {
+.avatar {
 	position: absolute;
 	left: 2.5em;
 	width: 30px;
@@ -538,7 +502,7 @@ a.toclevel-6 {
 	display: none;
 }
 
-.headermenu {
+.header-menu {
 	padding: 0 0.2em 0.2em 0.2em;
 	margin: 0;
 	z-index: 4;
@@ -547,167 +511,152 @@ a.toclevel-6 {
 	background-color: rgba(0, 0, 0, 0.8);
 }
 
-.headermenu a {
+.header-menu a {
 	font-size: 14pt;
 	text-decoration: none;
 	display: block;
-	color: white;
 	padding: 0.2em 0.4em 0.2em 0.4em;
 }
 
-.headermenu a:hover {
-	opacity: 1;
-	background-color: midnightblue;
-	text-decoration: none;
-}
-
-.headermenu a.new {
-	color: #fdad9d;
-}
-
-#userinfo .headermenu {
+#user-info .header-menu {
 	right: 0;
 	width: 11em;
 	position: absolute;
 }
 
-#userinfo .headermenu a {
-	padding-right: 0.7em !important;
+#user-info .header-menu a {
+	padding-right: 0.7em;
 	text-align: right;
 }
 
-#sidebarshower {
+#sidebar-shower {
 	position: absolute;
 	top: 0;
 	right: -2.75em;
-	width: 2.75em;
-	height: 2.75em;
-	background: #194a8d url("images/icon-rightbar.png") top left no-repeat;
-	-webkit-background-size: 2.75em 2.75em;
-	background-size: 2.75em 2.75em;
+	background-color: #194a8d;
+	background-image: url(images/icon-rightbar.png);
 	display: none;
-	cursor: pointer;
-	-webkit-transition: right 0.2s ease 0s;
+	-o-transition: right 0.2s ease 0s;
+	-moz-transition: right 0.2s ease 0s;
+	-webkit-transition: right 0.2s ease 0s; /* -webkit- last so it's used in place of -o- if possible */
 	transition: right 0.2s ease 0s;
 }
 
-#siteinfo .headermenu {
+#site-info .header-menu {
 	width: 11.6em;
 	position: absolute;
 	top: 3em;
 	left: 0;
 }
 
-#siteinfo-main {
+#site-info-main {
 	float: left;
 	margin: auto;
 	width: 12em;
 	height: 3em;
 }
 
-#siteinfo-main.multiplewikis .main {
+#site-info-main.multiple-wikis .main {
 	width: 10em;
 }
 
-#siteinfo-main a:hover,
-.sitedropdown-highlighted {
+#site-info-main a:hover,
+.site-dropdown-highlighted {
 	background-color: midnightblue;
 }
 
-#siteinfo-main a,
-#siteinfo-main a.main img {
+#site-info-main a,
+#site-info-main a.main img {
 	height: 2em;
 }
 
-#siteinfo-main a.main {
+#site-info-main a.main {
 	padding: 0.5em 0;
 	display: inline-block;
 	width: 12em;
 }
 
-#siteinfo-main a.arrow-link {
+#site-info-main a.arrow-link {
 	position: absolute;
-	padding-top: .9em;
-	padding-right: .5em;
-	padding-bottom: .1em;
-	padding-left: .5em;
+	padding-top: 0.9em;
+	padding-right: 0.5em;
+	padding-bottom: 0.1em;
+	padding-left: 0.5em;
 	display: inline-block;
 	width: 1em;
 }
 
-#siteinfo a span { /* for when there is no image, just text */
+#site-info a span { /* for when there is no image, just text */
 	font-size: 15pt;
 	color: white;
 }
 
-#siteinfo a {
+#site-info a {
 	text-align: center;
 }
 
-#siteinfo img.arrow {
-	-webkit-transition: -webkit-transform .5s; /* Safari */ /* Firefox */ /* IE */
-	transition: transform .5s;
+#site-info img.arrow {
+	-o-transition: -o-transform 0.5s;
+	-moz-transition: -moz-transform 0.5s;
+	-webkit-transition: -webkit-transform 0.5s; /* -webkit- last so it's used in place of -o- if possible */
+	transition: transform 0.5s;
 
-	-webkit-transform: rotateZ(0deg); /* Safari */ /* Firefox */
-	-ms-transform: rotateZ(0deg); /* IE */
+	-ms-transform: rotateZ(0deg);
+	-o-transform: rotateZ(0deg);
+	-moz-transform: rotateZ(0deg);
+	-webkit-transform: rotateZ(0deg); /* -webkit- last so it's used in place of -o- if possible */
 	transform: rotateZ(0deg);
 
 	vertical-align: middle;
 }
 
-#siteinfo img.arrow.rotate {
-	-webkit-transform: rotateZ(180deg); /* Safari */  /* Firefox */
-	-ms-transform: rotateZ(180deg); /* IE */
+#site-info img.arrow.rotate {
+	-ms-transform: rotateZ(180deg);
+	-o-transform: rotateZ(180deg);
+	-moz-transform: rotateZ(180deg);
+	-webkit-transform: rotateZ(180deg); /* -webkit- last so it's used in place of -o- if possible */
 	transform: rotateZ(180deg);
 }
 
-#siteinfo-mobile {
+#site-info-mobile {
 	display: none;
 	height: 2.75em;
 	width: 2.75em;
-	margin-left: 2.75em;
-	padding: 0 .25em;
+	margin-left: 3em; /* 2.75em for sidebar opener, 0.25em of padding */
+	padding: 0 0.25em;
 }
 
-/*
-#siteinfo-mobile:hover {
-	background-color: midnightblue;
+#site-info-mobile .header-button {
+	display: block;
 }
-*/
 
-#searchshower {
-	width: 3em;
-	height: 3em;
+#search-shower {
 	/* @embed */
-	background: url("images/icon-search.png") top left no-repeat;
-	-webkit-background-size: 3em 3em;
-	background-size: 3em 3em;
-	cursor: pointer;
+	background-image: url(images/icon-search.png);
 	display: none;
 }
 
-#header #search {
+#header .search {
 	width: 11em;
 	position: static;
 	float: right;
-	margin-right: .5em; /* .5em right + .5em padding = 1em */
+	margin-right: 0.5em; /* 0.5em right + 0.5em padding = 1em */
 	top: 0;
 	padding: 0.5em;
 }
 
-.search-open {
-	opacity: 1 !important;
-	-webkit-transition: opacity .2s ease 0s !important;
-	transition: opacity .2s ease 0s !important;
-	z-index: 2 !important; /* The notifications badge has a z-index of 1 in small.css, this puts the search above it */
+#header .search-open {
+	-o-transition: opacity 0.2s ease 0s;
+	-moz-transition: opacity 0.2s ease 0s;
+	-webkit-transition: opacity 0.2s ease 0s;
+	transition: opacity 0.2s ease 0s;
 }
 
-#searchcloser {
+#search-closer {
 	width: 2.75em;
 	height: 2.75em;
 	/* @embed */
-	background: url("images/icon-close.png") top left no-repeat;
-	-webkit-background-size: 2.75em 2.75em;
+	background: url(images/icon-close.png) top left no-repeat;
 	background-size: 2.75em 2.75em;
 	position: absolute;
 	top: 0;
@@ -741,7 +690,7 @@ a.toclevel-6 {
 }
 
 #preftoc li:first-child:before {
-	content: none !important;
+	content: none;
 }
 
 #footer {
@@ -772,25 +721,28 @@ a.toclevel-6 {
 	margin: 0;
 }
 
+.header-button:hover,
+.header-button-active,
+.header-dropdown-item:hover { /* defined at bottom so this overrides individual elements' background-color properties */
+	background-color: midnightblue;
+}
+
 /******************************** CONTENT/OTHER THINGS BEYOND CONTROL ******************************/
 
 h1, h2, h3, h4, h5, h6 {
 	font-family: "Lato", "Helvetica", "Arial", sans-serif;
 	line-height: 1.3;
-}
-
-h1, h2 {
 	border-color: #ddd;
 }
 
 h2, h3 {
-	font-weight: bold !important;
+	font-weight: bold;
 }
 
 h4,
 h5,
 h6 {
-	font-weight: normal !important;
+	font-weight: normal;
 }
 
 /* Fix for login/signup form pages not displaying in content section */
@@ -803,14 +755,6 @@ h6 {
 	margin-bottom: 0em !important;
 }
 
-.mw-search-formheader {
-	border: none !important;
-}
-
-#search input#searchText {
-	border: 1px solid #CCC !important
-}
-
 .printfooter {
 	display: none;
 }
@@ -819,90 +763,90 @@ h6 {
 	padding: 1em;
 }
 
-#contentwrapper p:first-of-type {
+#content p:first-of-type {
 	margin-top: 0;
 }
 
 /*
 ** keep the whitespace in front of the ^=, hides rule from konqueror
 ** this is css3, the validator doesn't like it when validating as css2
-** copypasted from Monobook's main.css with s/#bodyContent/#content/ and img paths
+** copypasted from Monobook's main.css with img paths
 ** adjusted accordingly
 */
-#content a.external,
-#content a.external[href ^="gopher://"] {
+#bodyContent a.external,
+#bodyContent a.external[href ^="gopher://"] {
 	/* @embed */
 	background: url(../../monobook/external-ltr.png) center right no-repeat;
 	padding-right: 13px;
 }
 
-#content a.external[href ^="https://"],
+#bodyContent a.external[href ^="https://"],
 .link-https {
 	/* @embed */
 	background: url(../../monobook/lock_icon.gif) center right no-repeat;
 	padding-right: 16px;
 }
 
-#content a.external[href ^="mailto:"],
+#bodyContent a.external[href ^="mailto:"],
 .link-mailto {
 	/* @embed */
 	background: url(../../monobook/mail_icon.gif) center right no-repeat;
 	padding-right: 18px;
 }
 
-#content a.external[href ^="news://"] {
+#bodyContent a.external[href ^="news://"] {
 	/* @embed */
 	background: url(../../monobook/news_icon.png) center right no-repeat;
 	padding-right: 18px;
 }
 
-#content a.external[href ^="ftp://"],
+#bodyContent a.external[href ^="ftp://"],
 .link-ftp {
 	/* @embed */
 	background: url(../../monobook/file_icon.gif) center right no-repeat;
 	padding-right: 18px;
 }
 
-#content a.external[href ^="irc://"],
+#bodyContent a.external[href ^="irc://"],
 .link-irc {
 	/* @embed */
 	background: url(../../monobook/discussionitem_icon.gif) center right no-repeat;
 	padding-right: 18px;
 }
 
-#content a.external[href $=".ogg"], #content a.external[href $=".OGG"],
-#content a.external[href $=".mid"], #content a.external[href $=".MID"],
-#content a.external[href $=".midi"], #content a.external[href $=".MIDI"],
-#content a.external[href $=".mp3"], #content a.external[href $=".MP3"],
-#content a.external[href $=".wav"], #content a.external[href $=".WAV"],
-#content a.external[href $=".wma"], #content a.external[href $=".WMA"],
+#bodyContent a.external[href $=".ogg"], #bodyContent a.external[href $=".OGG"],
+#bodyContent a.external[href $=".mid"], #bodyContent a.external[href $=".MID"],
+#bodyContent a.external[href $=".midi"], #bodyContent a.external[href $=".MIDI"],
+#bodyContent a.external[href $=".mp3"], #bodyContent a.external[href $=".MP3"],
+#bodyContent a.external[href $=".wav"], #bodyContent a.external[href $=".WAV"],
+#bodyContent a.external[href $=".wma"], #bodyContent a.external[href $=".WMA"],
 .link-audio {
 	/* @embed */
-	background: url("../../monobook/audio.png") center right no-repeat;
+	background: url(../../monobook/audio.png) center right no-repeat;
 	padding-right: 13px;
 }
 
-#content a.external[href $=".ogm"], #content a.external[href $=".OGM"],
-#content a.external[href $=".avi"], #content a.external[href $=".AVI"],
-#content a.external[href $=".mpeg"], #content a.external[href $=".MPEG"],
-#content a.external[href $=".mpg"], #content a.external[href $=".MPG"],
+#bodyContent a.external[href $=".ogm"], #bodyContent a.external[href $=".OGM"],
+#bodyContent a.external[href $=".avi"], #bodyContent a.external[href $=".AVI"],
+#bodyContent a.external[href $=".mpeg"], #bodyContent a.external[href $=".MPEG"],
+#bodyContent a.external[href $=".mpg"], #bodyContent a.external[href $=".MPG"],
 .link-video {
 	/* @embed */
-	background: url("../../monobook/video.png") center right no-repeat;
+	background: url(../../monobook/video.png) center right no-repeat;
 	padding-right: 13px;
 }
 
-#content a.external[href $=".pdf"], #content a.external[href $=".PDF"],
-#content a.external[href *=".pdf#"], #content a.external[href *=".PDF#"],
-#content a.external[href *=".pdf?"], #content a.external[href *=".PDF?"],
+#bodyContent a.external[href $=".pdf"], #bodyContent a.external[href $=".PDF"],
+#bodyContent a.external[href *=".pdf#"], #bodyContent a.external[href *=".PDF#"],
+#bodyContent a.external[href *=".pdf?"], #bodyContent a.external[href *=".PDF?"],
 .link-document {
 	/* @embed */
-	background: url("../../monobook/document.png") center right no-repeat;
+	background: url(../../monobook/document.png) center right no-repeat;
 	padding-right: 12px;
 }
 
 /* stopping wikitables from overflowing, adding .scrollshadow-type scrolling */
-#content .wikitable {
+#bodyContent .wikitable {
 	overflow-x: auto;
 	display: block;
 	border: 0;
@@ -922,7 +866,6 @@ h6 {
 		linear-gradient(90deg, #e3e3e3 10%, rgba(255,255,255,0)),
 		linear-gradient(270deg, #e3e3e3 10%, rgba(255,255,255,0)) 100% 0;
 	background-repeat: no-repeat;
-	-webkit-background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
 	background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
 	background-attachment: local, local, scroll, scroll;
 }
@@ -937,7 +880,7 @@ h6 {
 /* Category links */
 #catlinks {
 	background: none;
-	margin: 0 .9em -.5em .9em;
+	margin: 0 0.9em -.5em 0.9em;
 	padding: 0;
 	border: 0;
 	font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
@@ -958,8 +901,6 @@ h6 {
 	-moz-text-shadow: none !important;
 	text-shadow: none !important;
 	border-radius: 0px !important;
-
-	-webkit-box-shadow: none !important;
 	box-shadow: none !important;
 }
 
@@ -984,7 +925,7 @@ div.noarticletext {
 	border: 1px solid #ccc;
 	background: #fff;
 	color: #000;
-	padding: .2em 1em;
+	padding: 0.2em 1em;
 }
 
 /* Extension:Echo fixes */
@@ -993,7 +934,8 @@ div.noarticletext {
 	white-space: normal;
 	color: #555555 !important; /* 6 digits instead of 3 because Echo's CSS uses 6 to define the color in the standard state (!important to override color on hover) */
 }
-#pt-mytalk a.mw-echo-alert:hover {
+
+.pt-mytalk a.mw-echo-alert:hover {
 	background-color: #FAB951;
 }
 
