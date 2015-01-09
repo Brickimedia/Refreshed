@@ -45,20 +45,17 @@ $wgExtensionCredits['skin'][] = array(
 	'url' => 'https://www.mediawiki.org/wiki/Skin:Refreshed',
 );
 
-// Autoload the skin class, make it a valid skin, set up i18n, set up CSS & JS
-// (via ResourceLoader)
-$skinID = basename( dirname( __FILE__ ) );
-$dir = dirname( __FILE__ ) . '/';
-
 // The first instance must be strtolower()ed so that useskin=refreshed works and
 // so that it does *not* force an initial capital (i.e. we do NOT want
 // useskin=Refreshed) and the second instance is used to determine the name of
 // *this* file.
-$wgValidSkinNames[strtolower( $skinID )] = 'Refreshed';
+$wgValidSkinNames['refreshed'] = 'Refreshed';
 
-$wgAutoloadClasses['SkinRefreshed'] = $dir . 'Refreshed.skin.php';
-$wgAutoloadClasses['RefreshedTemplate'] = $dir . 'Refreshed.skin.php'; // needed for the hooked func below
-$wgExtensionMessagesFiles['SkinRefreshed'] = $dir . 'Refreshed.i18n.php';
+// Autoload the skin classes, set up i18n, set up CSS & JS (via ResourceLoader)
+$wgAutoloadClasses['SkinRefreshed'] = __DIR__ . 'Refreshed.skin.php';
+$wgAutoloadClasses['RefreshedTemplate'] = __DIR__ . 'Refreshed.skin.php'; // needed for the hooked func below
+$wgMessagesDirs['SkinRefreshed'] = __DIR__ . '/i18n';
+
 $wgResourceModules['skins.refreshed'] = array(
 	'styles' => array(
 		# Styles custom to the Refreshed skin
@@ -85,9 +82,6 @@ $wgHooks['BeforePageDisplay'][] = function( &$out, &$skin ) {
 
 	return true;
 };
-
-// Don't leak variables to global scope.
-unset( $skinID, $dir );
 
 $wgRefreshedHeader = array(
 	'img' => '<img src="http://meta.brickimedia.org/skins/Refreshed/refreshed/images/brickimedia.svg" width="144" alt="" />',

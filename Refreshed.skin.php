@@ -8,7 +8,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 
 // inherit main code from SkinTemplate, set the CSS and template filter
 class SkinRefreshed extends SkinTemplate {
-	var $skinname = 'refreshed', $stylename = 'refreshed',
+	public $skinname = 'refreshed', $stylename = 'refreshed',
 		$template = 'RefreshedTemplate', $useHeadElement = true;
 
 	/**
@@ -55,6 +55,7 @@ class SkinRefreshed extends SkinTemplate {
 		// Add CSS via ResourceLoader
 		$out->addModuleStyles( array(
 			'mediawiki.skinning.interface',
+			'mediawiki.skinning.content.externallinks',
 			'skins.refreshed'
 		) );
 
@@ -319,7 +320,7 @@ class RefreshedTemplate extends BaseTemplate {
 					?>
 				</div>
 			</div>
-			<div id="content">
+			<div id="content" class="mw-body">
 				<?php
 				if ( $this->data['sitenotice'] ) {
 					?>
