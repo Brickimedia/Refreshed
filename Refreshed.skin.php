@@ -1,10 +1,4 @@
 <?php
-/**
- * @file
- */
-if ( !defined( 'MEDIAWIKI' ) ) {
-	die();
-}
 
 // inherit main code from SkinTemplate, set the CSS and template filter
 class SkinRefreshed extends SkinTemplate {
@@ -64,34 +58,12 @@ class SkinRefreshed extends SkinTemplate {
 	}
 }
 
-// $refreshedTOC = '';
-
 class RefreshedTemplate extends BaseTemplate {
 
-	public static function onOutputPageParserOutput( OutputPage &$out, ParserOutput $parseroutput ) {
-		// global $refreshedTOC;
-		// $refreshedTOC = $parseroutput->mSections;
-		$refreshedTOC = $parseroutput->getTOCHTML();
-
-		return true;
-	}
-
 	public function execute() {
-		global $wgStylePath, $refreshedTOC, $wgRefreshedHeader;
+		global $wgStylePath, $wgRefreshedHeader;
 
 		$user = $this->getSkin()->getUser();
-
-		// new TOC processing
-		$tocHTML = $refreshedTOC;
-		/*if ( isset( $refreshedTOC ) ) {
-			$i = 0;
-			foreach ( $refreshedTOC as $tocpart ) {
-				$class = "toclevel-{$tocpart['toclevel']}";
-				$href = "#{$tocpart['anchor']}";
-				$tocHTML .= "<a href='$href' data-to='$href' data-numid='$i' class='$class'>{$tocpart['line']}</a>";
-				$i++;
-			}
-		}*/
 
 		// Title processing
 		$titleBase = $this->getSkin()->getTitle();

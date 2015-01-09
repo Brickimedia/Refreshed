@@ -4,43 +4,20 @@
  *
  * @file
  * @ingroup Skins
- * @version 2.0
+ * @version 3.0.0
  * @link https://www.mediawiki.org/wiki/Skin:Refreshed Documentation
  */
-
-if ( !defined( 'MEDIAWIKI' ) ) {
-	die();
-}
-
-
-/*// Hide tables of content, as Refreshed creates its own
-$wgExtensionCredits['parserhook'][] = array(
-	'path' => __FILE__,
-	'name' => 'NoTOC',
-	'version' => '0.1.0',
-	'author' => '[http://swiftlytilting.com Andrew Fitzgerald]',
-	'url' => 'http://www.mediawiki.org/wiki/Extension:NoTOC',
-	'description' => 'Turns off TOC by default on all pages',
-	//'descriptionmsg' => 'notoc-desc',
-);
-
-$wgHooks['ParserClearState'][] = 'efMWNoTOC';
-
-function efMWNoTOC( $parser ) {
-	$parser->mShowToc = false;
-	return true;
-}*/
 
 // Skin credits that will show up on Special:Version
 $wgExtensionCredits['skin'][] = array(
 	'path' => __FILE__,
 	'name' => 'Refreshed',
 	'version' => '3.0.0',
-	'author' => array( 'Adam Carter', 'George Barnick',
-'MtMNC',
-'ShermanTheMythran', 'Jack Phoenix', 'Drew1200',
-'SirComputer',
-'Seaside98', 'Codyn329', 'Lewis Cawte' ),
+	'author' => array(
+		'Adam Carter', 'George Barnick', 'MtMNC', 'ShermanTheMythran',
+		'Jack Phoenix', 'Drew1200', 'SirComputer', 'Seaside98', 'Codyn329',
+		'Lewis Cawte'
+	),
 	'description' => 'A clean, modern MediaWiki skin with extensive CSS customisability',
 	'url' => 'https://www.mediawiki.org/wiki/Skin:Refreshed',
 );
@@ -53,7 +30,7 @@ $wgValidSkinNames['refreshed'] = 'Refreshed';
 
 // Autoload the skin classes, set up i18n, set up CSS & JS (via ResourceLoader)
 $wgAutoloadClasses['SkinRefreshed'] = __DIR__ . 'Refreshed.skin.php';
-$wgAutoloadClasses['RefreshedTemplate'] = __DIR__ . 'Refreshed.skin.php'; // needed for the hooked func below
+$wgAutoloadClasses['RefreshedTemplate'] = __DIR__ . 'Refreshed.skin.php';
 $wgMessagesDirs['SkinRefreshed'] = __DIR__ . '/i18n';
 
 $wgResourceModules['skins.refreshed'] = array(
@@ -70,8 +47,6 @@ $wgResourceModules['skins.refreshed'] = array(
 $wgResourceModules['skins.refreshed.js'] = array(
 	'scripts' => 'skins/Refreshed/refreshed/refreshed.js',
 );
-
-$wgHooks['OutputPageParserOutput'][] = 'RefreshedTemplate::onOutputPageParserOutput';
 
 $wgHooks['BeforePageDisplay'][] = function( &$out, &$skin ) {
 	// Add the viewport meta tag for users who are using this skin
