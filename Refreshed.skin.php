@@ -188,7 +188,7 @@ class RefreshedTemplate extends BaseTemplate {
 					$menuNodes = $service->parseMessage(
 						'refreshed-navigation',
 						array( 10, 10, 10, 10, 10, 10 ),
-						60 * 60 * 3 // 3 hours
+						0
 					);
 					if ( is_array( $menuNodes ) && isset( $menuNodes[0] ) ) {
 						$counter = 0;
