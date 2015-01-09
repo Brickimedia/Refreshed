@@ -143,7 +143,7 @@ class RefreshedTemplate extends BaseTemplate {
 								'class' => 'avatar'
 							) );
 							?>
-							<img class="arrow" src="<?php $refreshedImagePath ?>/arrow-highres.png" alt="" width="15" height="8" />
+							<img class="arrow" src="<?php echo $refreshedImagePath ?>/arrow-highres.png" alt="" width="15" height="8" />
 							<?php echo $avatarImage ?>
 							<span class="username"><?php $user->getName() ?></span>
 						<?php
