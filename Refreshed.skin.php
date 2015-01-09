@@ -72,10 +72,10 @@ class RefreshedTemplate extends BaseTemplate {
 		$titleText = $title->getPrefixedText();
 		$titleURL = $title->getLinkURL();
 
+		$refreshedImagePath = "$wgStylePath/Refreshed/refreshed/images";
+
 		// Output the <html> tag and whatnot
 		$this->html( 'headelement' );
-
-		$refreshedImagePath = "$wgStylePath/Refreshed/refreshed/images";
 		?>
 		<a id="fade-overlay"></a>
 		<div id="header">
