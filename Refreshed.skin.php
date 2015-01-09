@@ -36,12 +36,12 @@ class SkinRefreshed extends SkinTemplate {
 				'type' => 'text/javascript'
 			) ) . '<![endif]-->'
 		);
-    $out->addHeadItem( 'viewportforios',
-      Html::element( 'meta', array(
-        'name' => "viewport",
-        'content' => "width=device-width, initial-scale=1.0"
-      ) )
-    ); // preventing iOS from zooming out when the sidebar is opened
+		$out->addHeadItem( 'viewportforios',
+			Html::element( 'meta', array(
+				'name' => 'viewport',
+				'content' => 'width=device-width, initial-scale=1.0'
+			) )
+		); // preventing iOS from zooming out when the sidebar is opened
 
 		// Add JavaScript via ResourceLoader
 		$out->addModules( 'skins.refreshed.js' );
@@ -339,19 +339,30 @@ class RefreshedTemplate extends BaseTemplate {
 						echo $this->getIndicators();
 					}
 					?>
-	        <div class="standard-toolbox static-toolbox">
+					<div class="standard-toolbox static-toolbox">
 						<?php
 						$lastLinkOutsideOfStandardToolboxDropdownHasBeenGenerated = false;
 						$amountOfToolsGenerated = 0;
 
 						$toolbox = $this->getToolbox();
 
-	        	if ( sizeof( $this->data['content_actions'] ) > 1 ) { // if there are actions like "edit," etc. (not counting generic toolbox tools like "upload file") in addition to non-page-specific ones like "page" (so a "more..." link is needed)
+						// if there are actions like "edit," etc.
+						// (not counting generic toolbox tools like "upload file")
+						// in addition to non-page-specific ones like "page" (so a "more..." link is needed)
+						if ( sizeof( $this->data['content_actions'] ) > 1 ) {
 							foreach ( $this->data['content_actions'] as $key => $action ) {
 								if ( !$lastLinkOutsideOfStandardToolboxDropdownHasBeenGenerated ) { // this runs until all the actions outside the dropdown have been generated (generates actions outside dropdown)
 									echo $this->makeLink( $key, $action );
 									$amountOfToolsGenerated++;
-									if ( sizeof( $this->data['content_actions'] ) == $amountOfToolsGenerated || $key == "history" || $key == "addsection" || $key == "protect" || $key == "unprotect" ) { // if this is the last action or it is the history, new section, or protect/unprotect action (whichever comes first)
+									if (
+										sizeof( $this->data['content_actions'] ) == $amountOfToolsGenerated ||
+										$key == 'history' || $key == 'addsection' ||
+										$key == 'protect' || $key == 'unprotect'
+									)
+									{
+										// if this is the last action or it is the
+										// history, new section, or protect/unprotect action
+										// (whichever comes first)
 										$lastLinkOutsideOfStandardToolboxDropdownHasBeenGenerated = true;
 										?>
 										<div class="toolbox-container">
@@ -368,7 +379,7 @@ class RefreshedTemplate extends BaseTemplate {
 							foreach ( $toolbox as $tool => $toolData ) { // generates toolbox tools inside dropdown (e.g. "upload file")
 								echo $this->makeListItem( $tool, $toolData, array( 'text-wrapper' => array( 'tag' => 'span' ) ) );
 							}
-	        	} else { // if there aren't actions like edit, etc. (so a "tools" link is needed instead of a "more..." link)
+						} else { // if there aren't actions like edit, etc. (so a "tools" link is needed instead of a "more..." link)
 							foreach ( $this->data['content_actions'] as $key => $action ) { // generates first link (i.e. "page" button on the mainspace, "special page" on Special namespace, etc.); the foreach loop should once run once since there should only be one link
 								echo $this->makeLink( $key, $action );
 							}
@@ -383,17 +394,17 @@ class RefreshedTemplate extends BaseTemplate {
 											echo $this->makeListItem( $tool, $toolData, array( 'text-wrapper' => array( 'tag' => 'span' ) ) );
 										}
 						}
-	          wfRunHooks( 'SkinTemplateToolboxEnd', array( &$this, true ) );
+						wfRunHooks( 'SkinTemplateToolboxEnd', array( &$this, true ) );
 						?>
-								</ul>
+									</ul>
 							</div>
 						</div>
 					</div>
-	        <div id="main-title-messages">
-	        	<div id="siteSub"><?php $this->msg( 'tagline' ) ?></div>
-	          <div id="contentSub"<?php $this->html( 'userlangattributes' ) ?>><?php $this->html( 'subtitle' ) ?></div>
-	          <div id="contentSub2"><?php $this->html( 'undelete' ) ?></div>
-	        </div>
+					<div id="main-title-messages">
+						<div id="siteSub"><?php $this->msg( 'tagline' ) ?></div>
+						<div id="contentSub"<?php $this->html( 'userlangattributes' ) ?>><?php $this->html( 'subtitle' ) ?></div>
+						<div id="contentSub2"><?php $this->html( 'undelete' ) ?></div>
+					</div>
 					<?php
 					if ( MWNamespace::isTalk( $titleNamespace ) ) { // if talk namespace
 						echo Linker::link(
