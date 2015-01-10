@@ -1,5 +1,5 @@
 /* global $ */
-var Refreshed = {
+window.Refreshed = {
 	standardToolboxIsDocked: false,
 	standardToolboxInitialOffset: $( '.standard-toolbox' ).offset().top,
 	scrollHeaderHasBeenGenerated: false,
@@ -77,7 +77,7 @@ $( document ).ready( function() {
 		Refreshed.windowStartedSmall = true;
 	}
 
-	//test if window is running big.css
+	// test if window is running big.css
 	if ( $( window ).width() >= Refreshed.thresholdForBigCSS ) {
 		Refreshed.windowIsBig = true;
 	} else {
