@@ -97,18 +97,21 @@ body {
 	list-style: none;
 	height: 3em;
 	margin: 0;
+	overflow: hidden; /* hide categories that get cut off when the window is too small */
 }
 
 .page-item {
+	width: auto;
 	height: auto;
+	min-width: 8em;
 	display: inline-block;
-	width: 8em;
 	text-decoration: none;
 }
 
 .clickable-region {
 	cursor: pointer;
 	padding-left: 0.5em;
+	padding-right: 0.5em;
 }
 
 .clickable-region a {
@@ -126,7 +129,7 @@ body {
 }
 
 #header-categories li img {
-	margin: 0 0 3px 4px;
+	margin: 0 .5em 3px 4px;
 }
 
 #header-categories .children {

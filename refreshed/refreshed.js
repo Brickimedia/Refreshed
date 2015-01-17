@@ -15,7 +15,6 @@ window.Refreshed = {
 	widthOfSpecialSearchBar: 0,
 	widthOfSpecialSearchPowerSearchBar: 0,
 	sidebarOpen: false,
-	pageItemDropdownOpen: false,
 
 	flyOutScrollHeader: function() {
 		if (
@@ -50,7 +49,7 @@ window.Refreshed = {
 
 	resizeScrollHeader: function() {
 		// set .fixed-toolbox's width to the width of #bodyContentminus .fixed-toolbox's padding (and border, which is 0)
-		$( '.fixed-toolbox' ).css( { 'width': $( '#bodyContent' ).outerWidth() - ( $( '.fixed-toolbox' ).outerWidth() - $( '.fixed-toolbox' ).width() ) } );
+		$( '.fixed-toolbox' ).css({'width': $( '#bodyContent' ).outerWidth() - ( $( '.fixed-toolbox' ).outerWidth() - $( '.fixed-toolbox' ).width() )});
 	},
 
 	resizeSpecialSearchBar: function() {
@@ -65,6 +64,16 @@ window.Refreshed = {
 		}
 		$( '#searchText' ).css({'width': Refreshed.widthOfSpecialSearchBar});
 		$( '#powerSearchText' ).css({'width': Refreshed.widthOfSpecialSearchPowerSearchBar});
+	},
+
+	showHideOverflowingDropdowns: function() {
+		$( '.page-item-has-children' ).each(function( ) {
+			if ( $( this ).offset().top > $( '#header' ).height() + $( '#header' ).offset().top ) { //if the .page-item is beneath the bottom of the header (and so it's cut off by overflow:hidden)
+				$( this ).children( '.children' ).css({'display': 'none'});
+				$( this ).removeClass( 'header-button-active' );
+				$( this ).children( '.clickable-region' ).children( '.arrow' ).removeClass( 'rotate' );
+			}
+		} );
 	}
 };
 
@@ -129,7 +138,8 @@ $( document ).ready( function() {
 		}
 
 		Refreshed.resizeSpecialSearchBar();
-	});
+		Refreshed.showHideOverflowingDropdowns();
+	} );
 
 	/* tools dropdown attached to firstHeading */
 	$( '#firstHeading > .standard-toolbox #toolbox-link' ).on( {
@@ -241,7 +251,7 @@ $( document ).ready( function() {
 				}, 375 );
 			}
 		}
-	});
+	} );
 
 	/* user tools dropdown */
 	$( '#user-info > a' ).clickOrTouch( function() {
@@ -305,7 +315,7 @@ $( document ).ready( function() {
 				Refreshed.siteNavDropdown = false;
 			}
 		}
-	});
+	} );
 
 	/* mobile sidebar */
 	$( '#sidebar-shower' ).clickOrTouch( function() {
@@ -369,11 +379,8 @@ $( document ).ready( function() {
 			$( this ).siblings( '.children' ).fadeIn( 200 );
 			$( this ).parent().addClass( 'header-button-active' );
 			$( this ).children( '.arrow' ).addClass( 'rotate' );
-			setTimeout( function () {
-				Refreshed.pageItemDropdownOpen = true;
-			}, 300 ); //delay the second clickOrTouch function (which performs fadeOut) to stop fadeIn and fadeOut on one click (also prevents user from spamming so it constantly fades in/out)
 		}
-	});
+	} );
 
 	$( document ).clickOrTouch( function ( e ) {
 		if ( $( '.page-item-has-children .children' ).is( ':visible' ) ) {
@@ -381,7 +388,6 @@ $( document ).ready( function() {
 				$( '.page-item-has-children .children' ).fadeOut( 200 );
 				$( '.page-item-has-children' ).removeClass( 'header-button-active' );
 				$( '.page-item-has-children .arrow' ).removeClass( 'rotate' );
-				Refreshed.pageItemDropdownOpen = false;
 			}
 		}
 	} );
@@ -397,10 +403,6 @@ $( document ).ready( function() {
 
 } );
 
-/* For whatever reason, if this line is not here, you can't hide shown elements (i.e. user info, site info, etc.) by clicking outside of them. */
-/*$( '#content' ).clickOrTouch( function() {
-});*/
-
 /* Fix for Echo in Refreshed */
 if ( document.getElementById( 'echo' ) ) {
 	$( '#pt-notifications' ).prependTo( '#echo' );
@@ -409,13 +411,3 @@ if ( document.getElementById( 'echo' ) ) {
 if ( $( '.mw-echo-notifications-badge' ).hasClass( 'mw-echo-unread-notifications' ) ) {
 	$( '#pt-notifications-personaltools a' ).addClass( 'pt-notifications-personaltools-unread' );
 }
-
-/* Header categories */
-/*$('.page-item-has-children').hover(
-    function() {
-       $(this).children('.children').fadeIn(200);
-    },
-    function(){
-       $(this).children('.children').fadeOut(200);
-    }
-);*/
