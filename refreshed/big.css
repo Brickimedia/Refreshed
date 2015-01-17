@@ -20,5 +20,5 @@
 
 #searchText,
 #powerSearchText { /* reset width of search/powersearch bars in Special:Search when window is large */
-	width: 11em !important;
+	width: auto !important;
 }
