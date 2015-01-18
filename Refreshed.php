@@ -64,6 +64,7 @@ $wgResourceModules['skins.refreshed'] = array(
 
 $wgResourceModules['skins.refreshed.js'] = array(
 	'scripts' => 'skins/Refreshed/refreshed/refreshed.js',
+	'dependencies' => array( 'mediawiki.api', 'mediawiki.util' )
 );
 
 $wgHooks['OutputPageParserOutput'][] = 'RefreshedTemplate::onOutputPageParserOutput';

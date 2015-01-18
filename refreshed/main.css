@@ -509,7 +509,7 @@ a.toclevel-6 {
 
 #siteinfo img.arrow.rotate {
 	-webkit-transform: rotateZ(180deg); /* Safari */
-	-moz-transform: rotateZ(180deg);  /* Firefox */
+	-moz-transform: rotateZ(180deg); /* Firefox */
 	-ms-transform: rotateZ(180deg); /* IE */
 	transform: rotateZ(180deg);
 }

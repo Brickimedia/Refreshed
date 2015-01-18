@@ -148,13 +148,13 @@ $( document ).ready( function() {
 		var heightTo = Refreshed.getHeight( $( this ) );
 		$( 'html, body' ).animate( {scrollTop: heightTo}, 800 );
 		return false;
-	});
+	} );
 
 	$( window ).scroll( function() {
 		if ( $( '#refreshed-toc a' ).length !== 0 ) {
 			Refreshed.moveBoxTo( $( this ).scrollTop() );
 		}
-	});
+	} );
 
 	$( window ).resize( function() {
 		$( '#refreshed-toc a' ).each( function() {
@@ -162,29 +162,29 @@ $( document ).ready( function() {
 		});
 		Refreshed.overlap();
 		$( window ).scroll();
-	});
+	} );
 
 	$( '#userinfo > a' ).on( 'click', function() {
 		Refreshed.toggleUser();
-	});
+	} );
 
 	$( '#siteinfo a.arrow-link' ).on( 'click', function() {
 		Refreshed.toggleSite();
-	});
+	} );
 
 	$( '#leftbar .shower' ).on( 'click', function() {
 		Refreshed.toggleLeft();
 		if ( Refreshed.right ) {
 			Refreshed.toggleRight();
 		}
-	});
+	} );
 
 	$( '#rightbar .shower' ).on( 'click', function() {
 		Refreshed.toggleRight();
 		if ( Refreshed.left ) {
 			Refreshed.toggleLeft();
 		}
-	});
+	} );
 
 	$( '#contentwrapper' ).on( 'click', function() {
 		if ( Refreshed.left ) {
@@ -199,9 +199,9 @@ $( document ).ready( function() {
 		if ( Refreshed.header ) {
 			Refreshed.toggleSite();
 		}
-	});
+	} );
 
-	$( '#toolbox-link' ).on({
+	$( '#toolbox-link' ).on( {
 		'click': function() {
 			$( '#toolbox' ).fadeToggle();
 			$( this ).children().toggleClass( 'rotate' );
@@ -209,9 +209,9 @@ $( document ).ready( function() {
 		'hover': function() {
 			$( this ).children().toggleClass( 'no-show' );
 		}
-	});
+	} );
 
-	$( '#languages-link' ).on({
+	$( '#languages-link' ).on( {
 		'click': function() {
 			$( '#languages' ).fadeToggle();
 			$( this ).children().toggleClass( 'rotate' );
@@ -219,15 +219,15 @@ $( document ).ready( function() {
 		'hover': function() {
 			$( this ).children().toggleClass( 'no-show' );
 		}
-	});
+	} );
 
 	$( '#smalltoolboxwrapper > a' ).on( 'click', function() {
 		$( '#smalltoolbox' ).css({'overflow': 'auto'}).animate({'width': '100%'}).addClass( 'scrollshadow' );
 		$( this ).css({'display': 'none'});
-	});
-	
+	} );
+
 	$( '#icon-ca-watch, #icon-ca-unwatch' ).parent().click( function( e ) {
-		//ajax for watch icons
+		// AJAX for watch icons
 		var action, api, $link, title, otherAction;
 
 		e.preventDefault();
@@ -250,11 +250,10 @@ $( document ).ready( function() {
 
 				$( '#wpWatchthis' ).prop( 'checked', watchResponse.watched !== undefined );
 			} );
-	});
-
+	} );
 } );
 
 $( window ).load( function() {
 	Refreshed.tocHeight = $( '#refreshed-toc' ).height() - 28;
 	$( window ).resize();
-});
+} );

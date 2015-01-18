@@ -70,7 +70,10 @@ class RefreshedTemplate extends BaseTemplate {
 	public function execute() {
 		global $wgStylePath, $refreshedTOC, $wgRefreshedHeader;
 
-		$user = $this->getSkin()->getUser();
+		$skin = $this->getSkin();
+		$user = $skin->getUser();
+
+		$refreshedImagePath = "$wgStylePath/Refreshed/refreshed/images";
 
 		// new TOC processing
 		$tocHTML = '';
@@ -85,22 +88,20 @@ class RefreshedTemplate extends BaseTemplate {
 		}
 
 		// Title processing
-		$titleBase = $this->getSkin()->getTitle();
+		$titleBase = $skin->getTitle();
 		$title = $titleBase->getSubjectPage();
 		$titleNamespace = $titleBase->getNamespace();
 		$titleText = $title->getPrefixedText();
 		$titleURL = $title->getLinkURL();
 
-		if ( $title->inNamespace( 0 ) ) {
-			$titleText = wfMessage( 'refreshed-article', $titleText )->text();
+		if ( $title->inNamespace( NS_MAIN ) ) {
+			$titleText = $skin->msg( 'refreshed-article', $titleText )->text();
 		}
 		$titleText = str_replace( '/', '&#8203;/&#8203;', $titleText );
 		$titleText = str_replace( ':', '&#8203;:&#8203;', $titleText );
 
 		// Output the <html> tag and whatnot
 		$this->html( 'headelement' );
-
-		$refreshedImagePath = "$wgStylePath/Refreshed/refreshed/images";
 ?>
 	<div id="header">
 		<div id="siteinfo">
@@ -205,9 +206,7 @@ class RefreshedTemplate extends BaseTemplate {
 				<div id="leftbar-bottom">
 					<div id="refreshed-toc">
 						<div id="toc-box"></div>
-						<!-- <div> -->
-							<?php echo $tocHTML; ?>
-						<!-- </div> -->
+						<?php echo $tocHTML; ?>
 					</div>
 				</div>
 			</div>
@@ -230,7 +229,7 @@ class RefreshedTemplate extends BaseTemplate {
 				if ( $titleNamespace % 2 == 1 && $titleNamespace > 0 ) { // if talk namespace: talk namespaces are odd positive integers
 					echo Linker::link(
 						$title,
-						wfMessage( 'refreshed-back', $title->getPrefixedText() )->escaped(),
+						$skin->msg( 'refreshed-back', $title->getPrefixedText() )->escaped(),
 						array( 'id' => 'back-to-subject' )
 					);
 				}
@@ -241,7 +240,7 @@ class RefreshedTemplate extends BaseTemplate {
 			$pageTab = key( $this->data['content_actions'] );
 			$totalActions = count( $pageTab );
 			$isEditing = in_array(
-				$this->getSkin()->getRequest()->getText( 'action' ),
+				$skin->getRequest()->getText( 'action' ),
 				array( 'edit', 'submit' )
 			);
 
@@ -316,7 +315,8 @@ class RefreshedTemplate extends BaseTemplate {
 								// allow raw HTML block to be defined by extensions (like NewsBox)
 								echo $sub;
 							}
-						} ?>
+						}
+					?>
 				</ul>
 			</div>
 		</div>
@@ -344,7 +344,7 @@ class RefreshedTemplate extends BaseTemplate {
 				foreach ( $footerIcons as $blockName => $footerIcons ) {
 					foreach ( $footerIcons as $icon ) {
 						echo '&ensp;';
-						echo $this->getSkin()->makeFooterIcon( $icon );
+						echo $skin->makeFooterIcon( $icon );
 						echo '&ensp;';
 					}
 				}
