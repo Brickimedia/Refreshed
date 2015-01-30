@@ -81,7 +81,7 @@ class RefreshedTemplate extends BaseTemplate {
 		if ( !$headerNav ) {
 			$headerNav = array();
 			$skin->addToSidebar( $headerNav, 'refreshed-navigation' );
-			$wgMemc->set( $key, '' , 60 * 60 * 24 ); // 24 hours
+			$wgMemc->set( $key, $headerNav , 60 * 60 * 24 ); // 24 hours
 		}
 
 		// Output the <html> tag and whatnot
