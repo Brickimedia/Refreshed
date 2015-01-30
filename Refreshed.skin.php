@@ -2,8 +2,11 @@
 
 // inherit main code from SkinTemplate, set the CSS and template filter
 class SkinRefreshed extends SkinTemplate {
-	public $skinname = 'refreshed', $stylename = 'refreshed',
-		$template = 'RefreshedTemplate', $useHeadElement = true;
+	public $skinname = 'refreshed',
+		$stylename = 'refreshed',
+		$template = 'RefreshedTemplate',
+		$useHeadElement = true,
+		$headerNav = array();
 
 	/**
 	 * Initializes OutputPage and sets up skin-specific parameters
@@ -61,18 +64,25 @@ class SkinRefreshed extends SkinTemplate {
 class RefreshedTemplate extends BaseTemplate {
 
 	public function execute() {
-		global $wgStylePath, $wgRefreshedHeader;
+		global $wgStylePath, $wgRefreshedHeader, $wgMemc;
 
-		$user = $this->getSkin()->getUser();
+		$skin = $this->getSkin();
+		$user = $skin->getUser();
 
 		// Title processing
 		$titleBase = $this->getSkin()->getTitle();
 		$title = $titleBase->getSubjectPage();
 		$titleNamespace = $titleBase->getNamespace();
-		$titleText = $title->getPrefixedText();
-		$titleURL = $title->getLinkURL();
 
 		$refreshedImagePath = "$wgStylePath/Refreshed/refreshed/images";
+
+		$key = wfMemcKey( 'refreshed', 'header' );
+		$headerNav = $wgMemc->get( $key );
+		if ( !$headerNav ) {
+			$headerNav = array();
+			$skin->addToSidebar( $headerNav, 'refreshed-navigation' );
+			$wgMemc->set( $key, '' , 60 * 60 * 24 ); // 24 hours
+		}
 
 		// Output the <html> tag and whatnot
 		$this->html( 'headelement' );
@@ -184,55 +194,27 @@ class RefreshedTemplate extends BaseTemplate {
 				</div>
 				<ul id="header-categories">
 					<?php
-					$service = new RefreshedSkinNavigationService();
-					$menuNodes = $service->parseMessage(
-						'refreshed-navigation',
-						array( 10, 10, 10, 10, 10, 10 ),
-						0
-					);
-					if ( is_array( $menuNodes ) && isset( $menuNodes[0] ) ) {
-						$counter = 0;
-						foreach ( $menuNodes[0]['children'] as $level0 ) {
-							$hasChildren = isset( $menuNodes[$level0]['children'] );
+					if ( $headerNav ) {
+						foreach ( $headerNav as $main => $sub ) {
 							?>
-							<li class="page-item<?php echo ( $hasChildren ? ' page-item-has-children' : '' ) ?> header-button">
+							<li class="page-item<?php echo ( $sub ? ' page-item-has-children' : '' ) ?> header-button">
 								<div class="clickable-region">
-									<a class="nav<?php echo $counter ?>-link" href="javascript:;"><?php echo $menuNodes[$level0]['text'] ?></a>
+									<a href="javascript:;"><?php echo htmlspecialchars( $main ) ?></a>
 									<img class="arrow" src="<?php echo $refreshedImagePath ?>/arrow-highres.png" width="14" />
 								</div>
-								<?php
-								if ( $hasChildren ) {
-									?>
-									<ul class="children" style="display:none;">
-										<?php
-										foreach ( $menuNodes[$level0]['children'] as $level1 ) {
-											if ( gettype( $menuNodes[$level1]['href'] ) == "string" ) { // if the link href is a string (and so it's not a link to a wiki page--wiki links are Title objects)
-												?>
-												<li class="header-dropdown-item">
-													<a href="<?php echo $menuNodes[$level1]['href'] ?>"><?php echo $menuNodes[$level1]['text'] ?></a>
-												</li>
-												<?php
-											} else if ( get_class( $menuNodes[$level1]['href'] ) == "Title" ) { // if the link href is a title (and so it's a link to a wiki page)
-											?>
-												<li class="header-dropdown-item">
-													<?php
-													echo Linker::link(
-														$menuNodes[$level1]['href'],
-														$menuNodes[$level1]['text']
-													);
-													?>
-												</li>
-												<?php
-											} // hopefully it'll only be a string or Title, but don't print it if it's not
-										}
-										?>
-									</ul>
+								<ul class="children" style="display:none;">
 									<?php
-									$counter++;
-								}
-								?>
+										foreach ( $sub as $key => $item ) {
+											$item['class'] = 'header-dropdown-item';
+											echo $this->makeListItem(
+												$key,
+												$item
+											);
+										}
+									?>
+								</ul>
 							</li>
-							<?php
+						<?php
 						}
 					}
 					?>
@@ -391,7 +373,6 @@ class RefreshedTemplate extends BaseTemplate {
 				<?php
 				reset( $this->data['content_actions'] );
 				$pageTab = key( $this->data['content_actions'] );
-				$totalTools = count( $pageTab );
 				$isEditing = in_array(
 					$this->getSkin()->getRequest()->getText( 'action' ),
 					array( 'edit', 'submit' )
@@ -477,7 +458,6 @@ class RefreshedTemplate extends BaseTemplate {
 			echo $footerExtra;
 
 			foreach ( $this->getFooterLinks() as $category => $links ) {
-				$noSkip = false;
 				foreach ( $links as $link ) {
 					?>
 					&ensp;
@@ -495,7 +475,6 @@ class RefreshedTemplate extends BaseTemplate {
 
 			$footerIcons = $this->getFooterIcons( 'icononly' );
 			if ( count( $footerIcons ) > 0 ) {
-				$noSkip = false;
 				foreach ( $footerIcons as $blockName => $footerIcons ) {
 					foreach ( $footerIcons as $icon ) {
 						?>
@@ -515,181 +494,4 @@ class RefreshedTemplate extends BaseTemplate {
 		echo Html::closeElement( 'body' );
 		echo Html::closeElement( 'html' );
 	}
-}
-
-
-/**
- * A fork of Oasis' NavigationService with some changes.
- * Namely the name was changed and "magic word" handling was removed from
- * parseMessage() and some (related) unused functions were also removed.
- */
-class RefreshedSkinNavigationService {
-
-	const version = '0.01';
-
-	/**
-	 * Parses a system message by exploding along newlines.
-	 *
-	 * @param $messageName String: name of the MediaWiki message to parse
-	 * @param $maxChildrenAtLevel Array:
-	 * @param $duration Integer: cache duration for memcached calls
-	 * @param $forContent Boolean: is the message we're supposed to parse in
-	 *								the wiki's content language (true) or not?
-	 * @return Array
-	 */
-	public function parseMessage( $messageName, $maxChildrenAtLevel = array(), $duration, $forContent = false ) {
-		wfProfileIn( __METHOD__ );
-
-		global $wgLang, $wgContLang, $wgMemc;
-
-		$this->forContent = $forContent;
-
-		$useCache = $wgLang->getCode() == $wgContLang->getCode();
-
-		if ( $useCache || $this->forContent ) {
-			$cacheKey = wfMemcKey( $messageName, self::version );
-			$nodes = $wgMemc->get( $cacheKey );
-		}
-
-		if ( empty( $nodes ) ) {
-			if ( $this->forContent ) {
-				$lines = explode( "\n", wfMessage( $messageName )->inContentLanguage()->text() );
-			} else {
-				$lines = explode( "\n", wfMessage( $messageName )->text() );
-			}
-			$nodes = $this->parseLines( $lines, $maxChildrenAtLevel );
-
-			if ( $useCache || $this->forContent ) {
-				$wgMemc->set( $cacheKey, $nodes, $duration );
-			}
-		}
-
-		wfProfileOut( __METHOD__ );
-		return $nodes;
-	}
-
-	/**
-	 * Function used by parseMessage() above.
-	 *
-	 * @param $lines String: newline-separated lines from the supplied MW: msg
-	 * @param $maxChildrenAtLevel Array:
-	 * @return Array
-	 */
-	private function parseLines( $lines, $maxChildrenAtLevel = array() ) {
-		wfProfileIn( __METHOD__ );
-
-		$nodes = array();
-
-		if ( is_array( $lines ) && count( $lines ) > 0 ) {
-			$lastDepth = 0;
-			$i = 0;
-			$lastSkip = null;
-
-			foreach ( $lines as $line ) {
-				// we are interested only in lines that are not empty and start with asterisk
-				if ( trim( $line ) != '' && $line{0} == '*' ) {
-					$depth = strrpos( $line, '*' ) + 1;
-
-					if ( $lastSkip !== null && $depth >= $lastSkip ) {
-						continue;
-					} else {
-						$lastSkip = null;
-					}
-
-					if ( $depth == $lastDepth + 1 ) {
-						$parentIndex = $i;
-					} elseif ( $depth == $lastDepth ) {
-						$parentIndex = $nodes[$i]['parentIndex'];
-					} else {
-						for ( $x = $i; $x >= 0; $x-- ) {
-							if ( $x == 0 ) {
-								$parentIndex = 0;
-								break;
-							}
-							if ( $nodes[$x]['depth'] <= $depth - 1 ) {
-								$parentIndex = $x;
-								break;
-							}
-						}
-					}
-
-					if ( isset( $maxChildrenAtLevel[$depth - 1] ) ) {
-						if ( isset( $nodes[$parentIndex]['children'] ) ) {
-							if ( count( $nodes[$parentIndex]['children'] ) >= $maxChildrenAtLevel[$depth - 1] ) {
-								$lastSkip = $depth;
-								continue;
-							}
-						}
-					}
-
-					$node = $this->parseOneLine( $line );
-					$node['parentIndex'] = $parentIndex;
-					$node['depth'] = $depth;
-
-					$nodes[$node['parentIndex']]['children'][] = $i + 1;
-					$nodes[$i + 1] = $node;
-					$lastDepth = $node['depth'];
-					$i++;
-				}
-			}
-		}
-
-		wfProfileOut( __METHOD__ );
-		return $nodes;
-	}
-
-	/**
-	 * @param $line String: line to parse
-	 * @return Array
-	 */
-	private function parseOneLine( $line ) {
-		wfProfileIn( __METHOD__ );
-
-		// trim spaces and asterisks from line and then split it to maximum two chunks
-		$lineArr = explode( '|', trim( $line, '* ' ), 2 );
-
-		// trim [ and ] from line to have just http:// en.wikipedia.org instead of [http:// en.wikipedia.org] for external links
-		$lineArr[0] = trim( $lineArr[0], '[]' );
-
-		if ( count( $lineArr ) == 2 && $lineArr[1] != '' ) {
-			$link = trim( wfMessage( $lineArr[0] )->inContentLanguage()->text() );
-			$desc = trim( $lineArr[1] );
-		} else {
-			$link = $desc = trim( $lineArr[0] );
-		}
-
-		$text = $this->forContent ? wfMessage( $desc )->inContentLanguage() : wfMessage( $desc );
-		if ( $text->isDisabled() ) {
-			$text = $desc;
-		}
-
-		if ( wfMessage( $lineArr[0] )->isDisabled() ) {
-			$link = $lineArr[0];
-		}
-
-		if ( preg_match( '/^(?:' . wfUrlProtocols() . ')/', $link ) ) {
-			$href = $link;
-		} else {
-			if ( empty( $link ) ) {
-				$href = '#';
-			} elseif ( $link{0} == '#' ) {
-				$href = '#';
-			} else {
-				$title = Title::newFromText( $link );
-				if ( is_object( $title ) ) {
-					$href = $title->fixSpecialName();
-				} else {
-					$href = '#';
-				}
-			}
-		}
-
-		wfProfileOut( __METHOD__ );
-		return array(
-			'original' => $lineArr[0],
-			'text' => $text,
-			'href' => $href
-		);
-	}
-
 }

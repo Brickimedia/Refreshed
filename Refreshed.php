@@ -12,7 +12,7 @@
 $wgExtensionCredits['skin'][] = array(
 	'path' => __FILE__,
 	'name' => 'Refreshed',
-	'version' => '3.0.0',
+	'version' => '3.1.0',
 	'author' => array(
 		'Adam Carter', 'George Barnick', 'MtMNC', 'ShermanTheMythran',
 		'Jack Phoenix', 'Drew1200', 'SirComputer', 'Seaside98', 'Codyn329',
