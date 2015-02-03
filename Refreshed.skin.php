@@ -118,9 +118,9 @@ class RefreshedTemplate extends BaseTemplate {
 					<?php
 					}
 					?>
-					<div id="site-info-mobile">
-						<a class="main header-button" href="<?php echo $wgRefreshedHeader['url'] ?>"><?php echo $wgRefreshedHeader['mobileimg'] ?></a>
-					</div>
+					<!--<div id="site-info-mobile"> COMMENTED OUT, DON'T WRITE CODE IF IT DOESN'T WORK
+						<a class="main header-button" href="<?php //echo $wgRefreshedHeader['url'] ?>"><?php //echo $wgRefreshedHeader['mobileimg'] ?></a>
+					</div>-->
 				</div>
 				<div class="search">
 					<div id="search-closer" class="header-button"></div>
