@@ -350,6 +350,7 @@ body {
 	word-wrap: break-word;
 	font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 	color: #252525;
+	overflow: auto;
 }
 
 #sidebar-wrapper {
