@@ -313,12 +313,12 @@
 
 #icon-ca-talk {
 	/* @embed */
-	background-image: url(images/icon-talk.png);
+	background-image: url(wikifont/svgs/uniE810%20-%20speechBubble.svg);
 }
 
 #icon-ca-viewsource {
 	/* @embed */
-	background-image: url(images/icon-edit.png);
+	background-image: url(wikifont/svgs/uniE804%20-%20editLock.svg);
 	opacity: 0.3;
 }
 
@@ -328,47 +328,47 @@
 
 #icon-ca-edit {
 	/* @embed */
-	background-image: url(images/icon-edit.png);
+	background-image: url(wikifont/svgs/uniE800%20-%20edit.svg);
 }
 
 #icon-ca-history {
 	/* @embed */
-	background-image: url(images/icon-history.png);
+	background-image: url(wikifont/svgs/uniE015%20-%20clock.svg);
 }
 
 #icon-ca-delete {
 	/* @embed */
-	background-image: url(images/icon-delete.png);
+	background-image: url(wikifont/svgs/uniE500%20-%20trash.svg);
 }
 
 #icon-ca-move {
 	/* @embed */
-	background-image: url(images/icon-move.png);
+	background-image: url(wikifont/svgs/uniE851%20-%20mapPin.svg);
 }
 
 #icon-ca-protect {
 	/* @embed */
-	background-image: url(images/icon-protect.png);
+	background-image: url(wikifont/svgs/uniE508%20-%20lock.svg);
 }
 
 #icon-ca-unprotect {
 	/* @embed */
-	background-image: url(images/icon-unprotect.png);
+	background-image: url(wikifont/svgs/uniE509%20-%20unLock.svg);
 }
 
 #icon-ca-watch {
 	/* @embed */
-	background-image: url(images/icon-watch.png);
+	background-image: url(wikifont/svgs/uniE005%20-%20star.svg);
 }
 
 #icon-ca-unwatch {
 	/* @embed */
-	background-image: url(images/icon-unwatch.png);
+	background-image: url(wikifont/svgs/uniE006%20-%20unStar.svg);
 }
 
 #icon-more {
 	/* @embed */
-	background-image: url(images/icon-more.png);
+	background-image: url(wikifont/svgs/uniE01957%20-%20elipses.svg);
 }
 
 /* CONTENT AREA ********************************************/
