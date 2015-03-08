@@ -303,7 +303,9 @@
 .small-icon {
 	width: 3em;
 	height: 3em;
-	background-size: 3em 3em;
+	background-size: 2.5em 2.5em;
+	background-position: .5em .5em;
+	background-repeat: no-repeat;
 	display: inline-block;
 }
 
@@ -313,12 +315,12 @@
 
 #icon-ca-talk {
 	/* @embed */
-	background-image: url(wikifont/svgs/uniE810%20-%20speechBubble.svg);
+	background-image: url(images/wikifont/wf-icon-speechbubbles.svg);
 }
 
 #icon-ca-viewsource {
 	/* @embed */
-	background-image: url(wikifont/svgs/uniE804%20-%20editLock.svg);
+	background-image: url(images/wikifont/wf-icon-editlock.svg);
 	opacity: 0.3;
 }
 
@@ -328,47 +330,47 @@
 
 #icon-ca-edit {
 	/* @embed */
-	background-image: url(wikifont/svgs/uniE800%20-%20edit.svg);
+	background-image: url(images/wikifont/wf-icon-edit.svg);
 }
 
 #icon-ca-history {
 	/* @embed */
-	background-image: url(wikifont/svgs/uniE015%20-%20clock.svg);
+	background-image: url(images/wikifont/wf-icon-clock.svg);
 }
 
 #icon-ca-delete {
 	/* @embed */
-	background-image: url(wikifont/svgs/uniE500%20-%20trash.svg);
+	background-image: url(images/wikifont/wf-icon-trash.svg);
 }
 
 #icon-ca-move {
 	/* @embed */
-	background-image: url(wikifont/svgs/uniE851%20-%20mapPin.svg);
+	background-image: url(images/wikifont/fa-edited-icon-move.svg);
 }
 
 #icon-ca-protect {
 	/* @embed */
-	background-image: url(wikifont/svgs/uniE508%20-%20lock.svg);
+	background-image: url(images/wikifont/wf-icon-lock.svg);
 }
 
 #icon-ca-unprotect {
 	/* @embed */
-	background-image: url(wikifont/svgs/uniE509%20-%20unLock.svg);
+	background-image: url(images/wikifont/wf-icon-unlock.svg);
 }
 
 #icon-ca-watch {
 	/* @embed */
-	background-image: url(wikifont/svgs/uniE005%20-%20star.svg);
+	background-image: url(images/wikifont/wf-icon-star.svg);
 }
 
 #icon-ca-unwatch {
 	/* @embed */
-	background-image: url(wikifont/svgs/uniE006%20-%20unStar.svg);
+	background-image: url(images/wikifont/wf-icon-unstar.svg);
 }
 
 #icon-more {
 	/* @embed */
-	background-image: url(wikifont/svgs/uniE01957%20-%20elipses.svg);
+	background-image: url(images/wikifont/wf-icon-ellipsis.svg);
 }
 
 /* CONTENT AREA ********************************************/
