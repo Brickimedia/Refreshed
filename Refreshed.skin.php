@@ -200,7 +200,7 @@ class RefreshedTemplate extends BaseTemplate {
 							<li class="page-item<?php echo ( $sub ? ' page-item-has-children' : '' ) ?> header-button">
 								<div class="clickable-region">
 									<a href="javascript:;"><?php echo htmlspecialchars( $main ) ?></a>
-									<img class="arrow" src="<?php echo $refreshedImagePath ?>/arrow-highres.png" width="14" />
+									<img class="arrow" src="<?php echo $refreshedImagePath ?>/arrow-highres.png" width="14" alt="" />
 								</div>
 								<ul class="children" style="display:none;">
 									<?php
