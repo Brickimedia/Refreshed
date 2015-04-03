@@ -37,6 +37,7 @@ $wgResourceModules['skins.refreshed'] = array(
 	'styles' => array(
 		# Styles custom to the Refreshed skin
 		'skins/Refreshed/refreshed/main.css' => array( 'media' => 'screen' ),
+		'skins/Refreshed/refreshed/wikifont/wikiglyphs.css' => array( 'media' => 'screen' ),
 		'skins/Refreshed/refreshed/small.css' => array( 'media' => '(max-width: 600px)' ),
 		'skins/Refreshed/refreshed/medium.css' => array( 'media' => '(min-width: 601px) and (max-width: 1000px)' ),
 		'skins/Refreshed/refreshed/big.css' => array( 'media' => '(min-width: 1001px)' ),

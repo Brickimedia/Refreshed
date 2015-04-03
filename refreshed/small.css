@@ -291,86 +291,37 @@
 	overflow-y: hidden;
 }
 
-#small-toolbox {
+.small-toolbox {
 	position: relative;
-	width: 6em;
-	height: 3em;
+	font-size: 2.75em;
+	width: 3.75em; /* needs 1em for three icons plus .25em of padding to the right of each icon, so 3.75em */
+	height: 1em;
+	overflow-y: hidden; /* wikiglyphs have a bit too much bottom padding; with 1em height they're centered but you can scroll vertically, this stops the vertical scroll */
 	white-space: nowrap;
 	overflow: hidden;
 	display: inline-block;
+	-o-transition: width 0.2s ease;
+	-moz-transition: width 0.2s ease;
+	-webkit-transition: width 0.2s ease; /* -webkit- last so it's used in place of -o- if possible */
+	transition: width 0.2s ease;
 }
 
-.small-icon {
-	width: 3em;
-	height: 3em;
-	background-size: 2.5em 2.5em;
-	background-position: .5em .5em;
-	background-repeat: no-repeat;
+.small-toolbox-expanded {
+	width: 100%;
+	overflow-x: auto;
+}
+
+a.small-tool { /* inclusion of the "a" is necessary to override the standard a element font color without using !important */
+	font-size: 1em;
+	width: 1em;
+	height: 1em;
+	color: #000;
 	display: inline-block;
+	padding-right: .25em;
 }
 
-.small-icon:hover {
+.small-tool:hover {
 	opacity: 0.5;
-}
-
-#icon-ca-talk {
-	/* @embed */
-	background-image: url(images/wikifont/wf-icon-speechbubbles.svg);
-}
-
-#icon-ca-viewsource {
-	/* @embed */
-	background-image: url(images/wikifont/wf-icon-editlock.svg);
-	opacity: 0.3;
-}
-
-#icon-ca-viewsource:hover {
-	opacity: 0.2;
-}
-
-#icon-ca-edit {
-	/* @embed */
-	background-image: url(images/wikifont/wf-icon-edit.svg);
-}
-
-#icon-ca-history {
-	/* @embed */
-	background-image: url(images/wikifont/wf-icon-clock.svg);
-}
-
-#icon-ca-delete {
-	/* @embed */
-	background-image: url(images/wikifont/wf-icon-trash.svg);
-}
-
-#icon-ca-move {
-	/* @embed */
-	background-image: url(images/wikifont/fa-edited-icon-move.svg);
-}
-
-#icon-ca-protect {
-	/* @embed */
-	background-image: url(images/wikifont/wf-icon-lock.svg);
-}
-
-#icon-ca-unprotect {
-	/* @embed */
-	background-image: url(images/wikifont/wf-icon-unlock.svg);
-}
-
-#icon-ca-watch {
-	/* @embed */
-	background-image: url(images/wikifont/wf-icon-star.svg);
-}
-
-#icon-ca-unwatch {
-	/* @embed */
-	background-image: url(images/wikifont/wf-icon-unstar.svg);
-}
-
-#icon-more {
-	/* @embed */
-	background-image: url(images/wikifont/wf-icon-ellipsis.svg);
 }
 
 /* CONTENT AREA ********************************************/

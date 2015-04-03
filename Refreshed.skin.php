@@ -381,16 +381,16 @@ class RefreshedTemplate extends BaseTemplate {
 				// determining how many tools need to be generated
 				$totalSmallToolsToGenerate = 0;
 				$listOfToolsToGenerate = array(
-					'ca-talk',
-					'ca-viewsource',
-					'ca-edit',
-					'ca-history',
-					'ca-delete',
-					'ca-move',
-					'ca-protect',
-					'ca-unprotect',
-					'ca-watch',
-					'ca-unwatch'
+					'wikiglyph wikiglyph-speech-bubbles' => 'ca-talk',
+					'wikiglyph wikiglyph-pencil-lock-full' => 'ca-viewsource',
+					'wikiglyph wikiglyph-pencil' => 'ca-edit',
+					'wikiglyph wikiglyph-clock' => 'ca-history',
+					'wikiglyph wikiglyph-trash' => 'ca-delete',
+					'wikiglyph wikiglyph-move' => 'ca-move',
+					'wikiglyph wikiglyph-lock' => 'ca-protect',
+					'wikiglyph wikiglyph-unlock' => 'ca-unprotect',
+					'wikiglyph wikiglyph-star' => 'ca-watch',
+					'wikiglyph wikiglyph-unstar' => 'ca-unwatch'
 				);
 
 				foreach ( $this->data['content_actions'] as $action ) {
@@ -405,7 +405,7 @@ class RefreshedTemplate extends BaseTemplate {
 				if ( $totalSmallToolsToGenerate > 0 && !$isEditing ) { // if there's more than zero tools to be generated and the user isn't editing a page
 					?>
 					<div id="small-toolbox-wrapper">
-						<div id="small-toolbox">
+						<div class="small-toolbox">
 							<?php
 							$smallToolboxToolCount = 1;
 							$amountOfSmallToolsToSkipInFront = 1; // skip the "page" (or equivalent) link
@@ -417,10 +417,11 @@ class RefreshedTemplate extends BaseTemplate {
 							foreach ( $this->data['content_actions'] as $action ) {
 								if ( $smallToolboxToolCount > $amountOfSmallToolsToSkipInFront ) { // if we're not supposed to skip this tool (e.g. if we're supposed to skip the first 2 tools and we're at the 3rd tool, then the boolean is true)
 									// @todo Maybe write a custom makeLink()-like function for generating this code?
+									if ( $totalSmallToolsToGenerate > 3 && $smallToolboxToolCount - $amountOfSmallToolsToSkipInFront == 3 ) { // if there are more than three tools to generate (so a more button is needed) and the third tool is currently being generated
+										?><a href="javascript:;" title="<?php echo $this->getMsg( 'moredotdotdot' )->text() ?>" class="small-tool" id="small-tool-more"><span class="wikiglyph wikiglyph-ellipsis"></span></a><?php
+									}
 									if ( in_array( $action['id'], $listOfToolsToGenerate ) ) { // if the icon being rendered is one of the listed ones (if we're supposed to generate this tool)
-										?>
-										<a href="<?php echo htmlspecialchars( $action['href'] ) ?>" class="small-icon" id="icon-<?php echo $action['id'] ?>"></a>
-										<?php
+										?><a href="<?php echo htmlspecialchars( $action['href'] ) ?>" title="<?php echo $action['text'] ?>" class="small-tool"><span class="<?php echo array_search( $action['id'], $listOfToolsToGenerate ) // key (wikiglyph) from $listOfToolsToGenerate ?>"></span></a><?php
 									}
 									$smallToolboxToolCount++; // increment the count regardless of whether or not the tool was generated
 								} else { // if we're supposed to skip this tool
@@ -429,13 +430,6 @@ class RefreshedTemplate extends BaseTemplate {
 							}
 							?>
 						</div>
-						<?php
-						if ( $totalSmallToolsToGenerate > 2 ) {
-							?>
-							<a href="javascript:;" class="small-icon" id="icon-more"></a>
-							<?php
-						}
-						?>
 					</div>
 					<?php
 				}

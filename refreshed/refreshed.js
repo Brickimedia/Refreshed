@@ -338,8 +338,8 @@ $( document ).ready( function() {
 		}
 	} );
 
-	$( '#small-toolbox-wrapper > a' ).clickOrTouch( function() {
-		$( '#small-toolbox' ).css({'overflow': 'auto'}).animate({'width': '100%'}).addClass( 'scroll-shadow' );
+	$( '#small-tool-more' ).clickOrTouch( function() {
+		$( '.small-toolbox' ).addClass( 'small-toolbox-expanded scroll-shadow' );
 		$( this ).css({'display': 'none'});
 	} );
 
