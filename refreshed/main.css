@@ -1,3 +1,5 @@
+/********** Fonts (including WikiFont) **********/
+
 @font-face {
 	font-family: 'Lato';
 	font-style: normal;
@@ -31,6 +33,62 @@
 		url(https://fonts.gstatic.com/l/font?kit=H4oiIt_Ug9TU5ast0nUT-w#Lato) format('svg');
 }
 
+.header-button .wikiglyph {
+	/*position: absolute;
+	top: -.05em; /* The glyphs have a height of 1.1em (you can see this in wikiglyph.css). However, the height of .header-button is 1em, so .1em of the glyph is under the .header-button. To vertically center the glyph, move it ((1.1em - 1em) / 2) or .05em up. */
+	/*height: 1em; /* This limits the height of the .wikiglyph span so the clickable area isn't 1.1em tall. */
+	font-size: 1em; /* make the definition of the arrow's em the same as its parent's so it's easier to position using em units... */
+	line-height: 3em;
+	height: 3em; /* line-height and height equal to the parent's height (3em) plus vertical-align:text-bottom in wikiglyphs.css vertically centers the icons */
+	transform: translateY(-3%); /* the icons themselves (i.e. the shapes inside the SVG) are subtly off vertical center; this line counterbalances that */
+}
+
+.fadable {
+	-o-transition: opacity 0.2s ease;
+	-moz-transition: opacity 0.2s ease;
+	-webkit-transition: opacity 0.2s ease; /* -webkit- last so it's used in place of -o- if possible */
+	transition: opacity 0.2s ease;
+	opacity: 1;
+	visibility: visible;
+}
+
+.faded {
+	-o-transition: opacity 0.2s ease, visibility 0.2s;
+	-moz-transition: opacity 0.2s ease, visibility 0.2s;
+	-webkit-transition: opacity 0.2s ease, visibility 0.2s; /* -webkit- last so it's used in place of -o- if possible */
+	transition: opacity 0.2s ease, visibility 0.2s;
+	opacity: 0;
+	visibility: hidden;
+}
+
+.header-button .wikiglyph:before {
+	font-size: 2.5em; /* ...however, the actual glyph has a more appropriate font size of 2.5em (so the glyph itself is larger while it can be positioned with the smaller em units without a problem) */
+}
+
+#header .wikiglyph-caret-down {
+	font-size: 1em; /* make the definition of the arrow's em the same as its parent's so it's easier to position using em units... */
+}
+
+#header .wikiglyph-caret-down:before {
+	font-size: 1.25em; /* ...however, the actual glyph has a more appropriate font size of 1.25em (so the glyph itself is larger while it can be positioned with the smaller em units without a problem) */
+}
+
+#user-info .wikiglyph { /* arrow and user icons */
+	margin-right: -.25em;
+	margin-left: -.25em;
+}
+
+.header-button .arrow {
+	transform: translateY(0); /* we don't want the arrows to have translateY. Instead we change the transform-origin (see below) */
+
+	-ms-transform-origin: 50% 52%; /* the icon itself (i.e. the arrow inside the SVG) is subtly off vertical center, making it look slightly off when animated; this line counterbalances that for the animation */
+	-o-transform-origin: 50% 52%;
+	-moz-transform-origin: 50% 52%;
+	-webkit-transform-origin: 50% 52%; /* -webkit- last so it's used in place of -o- if possible */
+	transform-origin: 50% 52%;
+}
+
+/********** (End fonts) **********/
 body {
 	font-family: "Lato", sans-serif;
 	margin: 0;
@@ -64,11 +122,13 @@ body {
 .header-button { /* defined at top so individual elements can override these properties */
 	cursor: pointer;
 	width: 3em;
-	height: 3em;
-	background-repeat: no-repeat;
-	background-position: top left;
-	background-size: 3em 3em;
 	font-family: "Lato Body", sans-serif;
+	color: #fff;
+	display: inline-block;
+}
+
+a.header-button { /* double selectors to override default a element text-decoration without use of !important */
+	text-decoration: none;
 }
 
 .header-dropdown-item a {
@@ -98,6 +158,7 @@ body {
 	height: 3em;
 	margin: 0;
 	overflow: hidden; /* hide categories that get cut off when the window is too small */
+	line-height: 1em; /* overriding default style of line-height: 1.5em */
 }
 
 .page-item {
@@ -108,19 +169,19 @@ body {
 	text-decoration: none;
 }
 
-.clickable-region {
-	cursor: pointer;
+#header-categories .header-button {
 	padding-left: 0.5em;
 	padding-right: 0.5em;
+	width: auto;
 }
 
-.clickable-region a {
+.header-category-name {
 	display: inline-block;
-	height: 2em;
-	padding: 0.5em 0.5em 0.5em 0;
-	line-height: 2em;
-	color: #fff;
+	height: 3em;
+	padding-right: 0.5em;
+	line-height: 3em;
 	white-space: nowrap;
+	vertical-align: text-bottom;
 }
 
 #header-categories a:hover,
@@ -129,31 +190,30 @@ body {
 }
 
 #header-categories li img {
-	margin: 0 .5em 3px 4px;
+	margin: 00.5em 3px 4px;
 }
 
-#header-categories .children {
+#header-categories .header-category-menu {
 	background: #000;
 	background: rgba(0,0,0,0.8);
 	margin: 0;
 }
 
-.children {
-	display: none;
+.header-category-menu {
 	position: absolute;
 	width: 10em;
 	height: auto;
 	padding: 0 0.2em 0.2em 0.2em;
 }
 
-.children .header-dropdown-item {
+.header-category-menu .header-dropdown-item {
 	display: inline-block;
 	padding-top: 0.2em;
 	padding-bottom: 0.2em;
 	width: 100%;
 }
 
-.children .header-dropdown-item a {
+.header-category-menu .header-dropdown-item a {
 	margin-left: 0.4em; /* matching .headermenu a */
 }
 
@@ -278,6 +338,8 @@ body {
 	background: #fff;
 	padding-top: 0.25em;
 	padding-bottom: 0.25em;
+	width: -moz-calc(100% - 13.4em);
+	width: -webkit-calc(100% - 13.4em);
 	width: calc(100% - 13.4em);
 	margin-left: 12em; /* width of #sidebarwrapper */
 	z-index: 9999; /* very high value to guarantee no elements on wikis will appear above it */
@@ -430,54 +492,33 @@ body {
 #user-info {
 	position: relative;
 	float: right;
-	margin-right: 1em;
+	margin-right: 0.5em;
 }
 
 #user-info .header-button {
 	display: block;
-	padding: 0.5em;
 	width: auto;
-	height: 2em;
 	max-width: 320px;
-	text-decoration: none;
-	position: relative;
-	white-space: nowrap;
-	overflow-x: hidden;
-}
-
-.avatar-none {
-	display: none;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
 }
 
 .username {
-	display: block;
-	margin-top: 0.1em;
-	font-size: 15pt;
-	color: white;
-	padding-right: 10px;
-	margin-left: 3.5em;
+	display: inline-block;
+	/* font-size: 1.25em; /* same as 15pt it seems */
+	line-height: 3em;
+	vertical-align: text-bottom; /* line-height equal to the parent's height (3em) plus vertical-align:text-bottom vertically centers the text */
 }
 
 .username-avatar-none {
 	margin-left: 1.75em;
 }
 
-#user-info .arrow {
-	position: absolute;
-	left: 1em;
-	top: 1.2em;
-	vertical-align: text-bottom;
-}
-
-#toolbox-link .arrow,
 #languages-link .arrow {
 	vertical-align: 2px;
 }
 
-#user-info .arrow,
-#toolbox-link .arrow,
-#languages-link .arrow,
-.page-item-has-children .arrow {
+.arrow {
 	-o-transition: -o-transform 0.5s;
 	-moz-transition: -moz-transform 0.5s;
 	-webkit-transition: -webkit-transform 0.5s; /* -webkit- last so it's used in place of -o- if possible */
@@ -485,17 +526,18 @@ body {
 }
 
 .arrow.rotate {
-	-ms-transform: rotateZ(-180deg);
-	-o-transform: rotateZ(-180deg);
-	-moz-transform: rotateZ(-180deg);
-	-webkit-transform: rotateZ(-180deg); /* -webkit- last so it's used in place of -o- if possible */
-	transform: rotateZ(-180deg);
+	-ms-transform: rotate(-180deg);
+	-o-transform: rotate(-180deg);
+	-moz-transform: rotate(-180deg);
+	-webkit-transform: rotate(-180deg); /* -webkit- last so it's used in place of -o- if possible */
+	transform: rotate(-180deg);
 }
 
 .avatar {
-	position: absolute;
-	left: 2.5em;
 	width: 30px;
+	margin-bottom: 9px; /* height of #header is 48px, height of avatar is 30px; to vertically center, have margin-bottom of (48px - 30px) / 2 or 9px */
+	vertical-align: text-bottom;
+	padding-right: 0.25em; /* space it out from the username a bit more */
 }
 
 .no-show {
@@ -529,12 +571,13 @@ body {
 	text-align: right;
 }
 
-#sidebar-shower {
+.sidebar-shower {
 	position: absolute;
 	top: 0;
-	right: -2.75em;
+	right: -3em;
 	background-color: #194a8d;
 	background-image: url(images/icon-rightbar.png);
+	background-size: 3em;
 	display: none;
 	-o-transition: right 0.2s ease 0s;
 	-moz-transition: right 0.2s ease 0s;
@@ -551,23 +594,21 @@ body {
 
 #site-info-main {
 	float: left;
-	margin: auto;
 	width: 12em;
 	height: 3em;
 }
 
 #site-info-main.multiple-wikis .main {
 	width: 10em;
+	overflow: hidden;
+	height: 2em;
+	padding: 0.5em 0;
+	vertical-align: text-bottom;
 }
 
 #site-info-main a:hover,
 .site-dropdown-highlighted {
 	background-color: midnightblue;
-}
-
-#site-info-main a,
-#site-info-main a.main img {
-	height: 2em;
 }
 
 #site-info-main a.main {
@@ -576,46 +617,12 @@ body {
 	width: 12em;
 }
 
-#site-info-main a.arrow-link {
-	position: absolute;
-	padding-top: 0.9em;
-	padding-right: 0.5em;
-	padding-bottom: 0.1em;
-	padding-left: 0.5em;
-	display: inline-block;
-	width: 1em;
-}
-
-#site-info a span { /* for when there is no image, just text */
-	font-size: 15pt;
-	color: white;
+#site-info-main .header-button {
+	width: 2em;
 }
 
 #site-info a {
 	text-align: center;
-}
-
-#site-info img.arrow {
-	-o-transition: -o-transform 0.5s;
-	-moz-transition: -moz-transform 0.5s;
-	-webkit-transition: -webkit-transform 0.5s; /* -webkit- last so it's used in place of -o- if possible */
-	transition: transform 0.5s;
-
-	-ms-transform: rotateZ(0deg);
-	-o-transform: rotateZ(0deg);
-	-moz-transform: rotateZ(0deg);
-	-webkit-transform: rotateZ(0deg); /* -webkit- last so it's used in place of -o- if possible */
-	transform: rotateZ(0deg);
-
-	vertical-align: middle;
-}
-
-#site-info img.arrow.rotate {
-	-ms-transform: rotateZ(180deg);
-	-o-transform: rotateZ(180deg);
-	-moz-transform: rotateZ(180deg);
-	-webkit-transform: rotateZ(180deg); /* -webkit- last so it's used in place of -o- if possible */
-	transform: rotateZ(180deg);
 }
 
 #site-info-mobile {
@@ -631,13 +638,15 @@ body {
 }
 
 #search-shower {
-	/* @embed */
-	background-image: url(images/icon-search.png);
+	position: relative;
+	float: right;
+	text-align: center;
 	display: none;
 }
 
 #header .search {
 	width: 11em;
+	height: 2em;
 	position: static;
 	float: right;
 	margin-right: 0.5em; /* 0.5em right + 0.5em padding = 1em */
@@ -645,36 +654,29 @@ body {
 	padding: 0.5em;
 }
 
-#header .search-open {
-	-o-transition: opacity 0.2s ease 0s;
-	-moz-transition: opacity 0.2s ease 0s;
-	-webkit-transition: opacity 0.2s ease 0s;
-	transition: opacity 0.2s ease 0s;
+#header .search-form {
+	height: 100%;
 }
 
 #search-closer {
-	width: 2.75em;
-	height: 2.75em;
-	/* @embed */
-	background: url(images/icon-close.png) top left no-repeat;
-	background-size: 2.75em 2.75em;
 	position: absolute;
 	top: 0;
 	right: 0;
-	cursor: pointer;
 	display: none;
 	z-index: 1;
 }
 
 #searchInput { /* header search box */
 	border: none;
-	font-size: 12pt;
+	font-size: 1em;
 	padding: 0.25em;
 	font-family: Lato, sans-serif;
 	box-sizing: border-box;
 	-webkit-appearance: none; /* prevent Safari from styling input box */
 	border-radius: 0; /* prevent iOS from adding rounded corners to input box */
 	width: 11em;
+	height: 100%;
+	vertical-align: text-bottom;
 }
 
 #refreshed-toc #toc-box:last-child {

@@ -95,25 +95,24 @@ class RefreshedTemplate extends BaseTemplate {
 					if ( $wgRefreshedHeader['dropdown'] ) { // if there is a site dropdown (so there are multiple wikis)
 						?>
 						<div id="site-info-main" class="multiple-wikis">
-						<a class="main header-button" href="<?php echo $wgRefreshedHeader['url'] ?>"><?php echo $wgRefreshedHeader['img'] ?></a>
-						<a href="javascript:;" class="header-button arrow-link"><img class="arrow" src="<?php echo $refreshedImagePath ?>/arrow-highres.png" alt="" width="15" height="8" /></a>
-						</div>
-						<ul class="header-menu" style="display:none;">
-							<?php
-							foreach ( $wgRefreshedHeader['dropdown'] as $url => $img ) {
-								?>
-								<li class="header-dropdown-item">
-									<a href="<?php echo $url ?>"><?php echo $img ?></a>
-								</li>
+							<a class="main header-button" href="<?php echo $wgRefreshedHeader['url'] ?>"><?php echo $wgRefreshedHeader['img'] ?></a><a href="javascript:;" class="header-button fade-trigger site-info-arrow"><span class="arrow wikiglyph wikiglyph-caret-down"></span></a>
+							<ul class="header-menu fadable faded">
 								<?php
-							}
-							?>
-						</ul>
-					<?php
+								foreach ( $wgRefreshedHeader['dropdown'] as $url => $img ) {
+									?>
+									<li class="header-dropdown-item">
+										<a href="<?php echo $url ?>"><?php echo $img ?></a>
+									</li>
+									<?php
+								}
+								?>
+							</ul>
+						</div>
+						<?php
 					} else {
 						?>
 						<div id="site-info-main">
-						<a class="main header-button" href="<?php echo $wgRefreshedHeader['url'] ?>"><?php $wgRefreshedHeader['img'] ?></a>
+							<a class="main header-button" href="<?php echo $wgRefreshedHeader['url'] ?>"><?php $wgRefreshedHeader['img'] ?></a>
 						</div>
 					<?php
 					}
@@ -123,13 +122,17 @@ class RefreshedTemplate extends BaseTemplate {
 					</div>-->
 				</div>
 				<div class="search">
-					<div id="search-closer" class="header-button"></div>
-					<form action="<?php $this->text( 'wgScript' ) ?>" method="get">
+					<a id="search-shower" class="header-button fade-trigger fadable">
+						<span class="wikiglyph wikiglyph-magnifying-glass"></span>
+					</a>
+					<a id="search-closer" class="header-button fade-trigger fadable faded">
+						<span class="wikiglyph wikiglyph-x"></span>
+					</a>
+					<form class="search-form fadable faded" action="<?php $this->text( 'wgScript' ) ?>" method="get">
 						<input type="hidden" name="title" value="<?php $this->text( 'searchtitle' ) ?>"/>
 						<?php echo $this->makeSearchInput( array( 'id' => 'searchInput' ) ); ?>
 					</form>
 				</div>
-				<div id="search-shower" class="header-button"></div>
 
 				<?php
 				// test if Echo is installed
@@ -141,7 +144,7 @@ class RefreshedTemplate extends BaseTemplate {
 				?>
 
 				<div id="user-info">
-					<a class="header-button" href="javascript:;">
+					<a class="header-button fade-trigger" href="javascript:;">
 						<?php
 						$avatarImage = '';
 						// Show the user's avatar image in the top left drop-down
@@ -153,21 +156,26 @@ class RefreshedTemplate extends BaseTemplate {
 								'class' => 'avatar'
 							) );
 							?>
-							<img class="arrow" src="<?php echo $refreshedImagePath ?>/arrow-highres.png" alt="" width="15" height="8" />
+							<span class="arrow wikiglyph wikiglyph-caret-down"></span>
 							<?php echo $avatarImage ?>
 							<span class="username"><?php echo $user->getName() ?></span>
 						<?php
-						} else {
+						} else if ( $this->data['loggedin'] ) { // if no SocialProfile but user is logged in
 							?>
-							<img class="avatar avatar-none" src="<?php echo $refreshedImagePath ?>/avatar-none.png" alt="" width="30" height="30" />
-							<img class="arrow" src="<?php echo $refreshedImagePath ?>/arrow-highres.png" alt="" width="15" height="8" />
-							<?php echo $avatarImage ?>
-							<span class="username username-avatar-none"><?php echo $user->getName() ?></span>
+							<span class="arrow wikiglyph wikiglyph-caret-down"></span>
+							<span class="avatar-no-socialprofile wikiglyph wikiglyph-user-smile"></span>
+							<span class="username username-nosocialprofile-registered"><?php echo $user->getName() ?></span>
 						<?php
+						} else { // if no SocialProfile but user is not logged in
+							?>
+							<span class="arrow wikiglyph wikiglyph-caret-down"></span>
+							<span class="avatar-no-socialprofile wikiglyph wikiglyph-user-sleep"></span>
+							<span class="username username-nosocialprofile-anon"><?php echo $this->getMsg( 'login' )->text() ?></span>
+							<?php
 						}
 						?>
 					</a>
-					<ul class="header-menu" style="display:none;">
+					<ul class="header-menu fadable faded">
 						<?php
 						// generate user tools (and notifications item in user tools if needed)
 						$personalToolsCount = 0;
@@ -192,17 +200,17 @@ class RefreshedTemplate extends BaseTemplate {
 						?>
 					</ul>
 				</div>
-				<ul id="header-categories">
+				<div id="header-categories">
 					<?php
 					if ( $headerNav ) {
 						foreach ( $headerNav as $main => $sub ) {
 							?>
-							<li class="page-item<?php echo ( $sub ? ' page-item-has-children' : '' ) ?> header-button">
-								<div class="clickable-region">
-									<a href="javascript:;"><?php echo htmlspecialchars( $main ) ?></a>
-									<img class="arrow" src="<?php echo $refreshedImagePath ?>/arrow-highres.png" width="14" alt="" />
-								</div>
-								<ul class="children" style="display:none;">
+							<div class="page-item<?php echo ( $sub ? ' page-item-has-children' : '' ) ?>">
+								<a href="javascript:;" class="header-button fade-trigger">
+									<span class="header-category-name"><?php echo htmlspecialchars( $main ) ?></span>
+									<span class="arrow wikiglyph wikiglyph-caret-down"></span>
+								</a>
+								<ul class="header-category-menu fadable faded">
 									<?php
 										foreach ( $sub as $key => $item ) {
 											$item['class'] = 'header-dropdown-item';
@@ -213,17 +221,17 @@ class RefreshedTemplate extends BaseTemplate {
 										}
 									?>
 								</ul>
-							</li>
+							</div>
 						<?php
 						}
 					}
 					?>
-				</ul>
+				</div>
 			</div>
 		</div>
 		<div id="full-wrapper">
 			<div id="sidebar-wrapper">
-				<div id="sidebar-shower" class="header-button"></div>
+				<a class="sidebar-shower header-button"></a>
 				<div id="sidebar-logo">
 					<a class="main" href="<?php echo $wgRefreshedHeader['url'] ?>"><?php echo $wgRefreshedHeader['img'] ?></a>
 				</div>
@@ -321,8 +329,8 @@ class RefreshedTemplate extends BaseTemplate {
 										$lastLinkOutsideOfStandardToolboxDropdownHasBeenGenerated = true;
 										?>
 										<div class="toolbox-container">
-											<a href="javascript:;" id="toolbox-link"><?php echo $this->getMsg( 'moredotdotdot' )->text() ?></a>
-											<div class="standard-toolbox-dropdown" style="display:none;">
+											<a href="javascript:;" class="toolbox-link fade-trigger"><?php echo $this->getMsg( 'moredotdotdot' )->text() ?></a>
+											<div class="standard-toolbox-dropdown fadable faded">
 												<div class="dropdown-triangle"></div>
 												<ul>
 									<?php
@@ -340,8 +348,8 @@ class RefreshedTemplate extends BaseTemplate {
 							}
 						?>
 							<div class="toolbox-container">
-								<a href="javascript:;" id="toolbox-link"><?php echo $this->getMsg( 'toolbox' )->text() ?></a>
-								<div class="standard-toolbox-dropdown" style="display:none;">
+								<a href="javascript:;" class="toolbox-link fade-trigger"><?php echo $this->getMsg( 'toolbox' )->text() ?></a>
+								<div class="standard-toolbox-dropdown fadable faded">
 									<div class="dropdown-triangle"></div>
 									<ul>
 										<?php
@@ -407,26 +415,25 @@ class RefreshedTemplate extends BaseTemplate {
 					<div id="small-toolbox-wrapper">
 						<div class="small-toolbox">
 							<?php
-							$smallToolboxToolCount = 1;
+							$smallToolBeingTested = 1;
 							$amountOfSmallToolsToSkipInFront = 1; // skip the "page" (or equivalent) link
+							$amountOfSmallToolsGenerated = 0;
 
 							if ( MWNamespace::isTalk( $titleNamespace ) ) { // if talk namespace
 								$amountOfSmallToolsToSkipInFront = 2; // skip the "page" (or equivalent) and "talk" links
 							}
-
 							foreach ( $this->data['content_actions'] as $action ) {
-								if ( $smallToolboxToolCount > $amountOfSmallToolsToSkipInFront ) { // if we're not supposed to skip this tool (e.g. if we're supposed to skip the first 2 tools and we're at the 3rd tool, then the boolean is true)
+								if ( $smallToolBeingTested > $amountOfSmallToolsToSkipInFront ) { // if we're not supposed to skip this tool (e.g. if we're supposed to skip the first 2 tools and we're at the 3rd tool, then the boolean is true)
 									// @todo Maybe write a custom makeLink()-like function for generating this code?
-									if ( $totalSmallToolsToGenerate > 3 && $smallToolboxToolCount - $amountOfSmallToolsToSkipInFront == 3 ) { // if there are more than three tools to generate (so a more button is needed) and the third tool is currently being generated
+									if ( $totalSmallToolsToGenerate > 3 && $amountOfSmallToolsGenerated == 2 ) { // if there are more than three tools to generate (so a "more" button is needed) and the second tool was the previous one generated (so the third one is about to be generated)
 										?><a href="javascript:;" title="<?php echo $this->getMsg( 'moredotdotdot' )->text() ?>" class="small-tool" id="small-tool-more"><span class="wikiglyph wikiglyph-ellipsis"></span></a><?php
 									}
 									if ( in_array( $action['id'], $listOfToolsToGenerate ) ) { // if the icon being rendered is one of the listed ones (if we're supposed to generate this tool)
 										?><a href="<?php echo htmlspecialchars( $action['href'] ) ?>" title="<?php echo $action['text'] ?>" class="small-tool"><span class="<?php echo array_search( $action['id'], $listOfToolsToGenerate ) // key (wikiglyph) from $listOfToolsToGenerate ?>"></span></a><?php
+										$amountOfSmallToolsGenerated++; // if a tool is indeed generated, increment this variable
 									}
-									$smallToolboxToolCount++; // increment the count regardless of whether or not the tool was generated
-								} else { // if we're supposed to skip this tool
-									$smallToolboxToolCount++; // increment the count regardless of whether or not the tool was generated
 								}
+								$smallToolBeingTested++; // increment this variable (amount of tools that have been tested) regardless of whether or not the tool was generated
 							}
 							?>
 						</div>

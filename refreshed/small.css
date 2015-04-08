@@ -1,5 +1,14 @@
 /* anything 600px and under - phones */
 
+.header-button .wikiglyph {
+	line-height: 2.75em;
+	height: 2.75em; /* line-height and height equal to the parent's height (3em) plus vertical-align:text-bottom in wikiglyphs.css vertically centers the icons */
+}
+
+.header-button .wikiglyph:before {
+	font-size: 2.75em; /* ...however, the actual glyph has a more appropriate font size of 3em (so the glyph itself is larger while it can be positioned with the smaller em units without a problem) */
+}
+
 .fade-overlay-active {
 	opacity: 0.5 !important;
 	z-index: 10001; /* very high value to guarantee no elements on wikis will appear above it (except the sidebar) */
@@ -50,11 +59,14 @@
 .header-button {
 	width: 2.75em;
 	height: 2.75em;
-	background-size: 2.75em 2.75em;
+	padding: 0;
+	text-align: center;
 }
 
-#sidebar-shower {
+.sidebar-shower {
 	display: block;
+	background-size: 2.75em;
+	right: -2.75em;
 }
 
 .sidebar-shower-hidden {
@@ -91,36 +103,30 @@
 }
 
 #header .search {
-	background: midnightblue;
-	width: 100%;
-	position: absolute;
-	top: 0;
-	left: 0;
-	opacity: 0;
-	padding: 0.25em 0;
-	z-index: 0;
-}
-
-#header .search-open {
-	z-index: 2; /* The notifications badge has a z-index of 1, this puts the search above it */
-	opacity: 1;
+	width: 2.75em;
+	height: 2.75em;
+	padding: 0;
+	margin-right: 0;
 }
 
 #search-closer {
 	display: block;
 }
 
-#header .search form {
-	margin-right: 3em;
-	margin-left: 0.25em;
+#header .search-form {
+	width: calc(100% - 3.25em); /* 100% - 2.75em for the close search button -0.25em of padding-left -0.25em of padding-right */
+	height: calc(100% - 0.5em); /* 100% -0.25em of padding-top - .35em of padding-bottom */
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 0.25em;
+	z-index: 1; /* appear over the user icon, which doesn't have a specified z-index */
 }
 
 #searchInput { /* header search box */
 	width: 100%;
-	font-size: 18px;
-	float: left;
-	height: 2em; /* (2.75em [height of header] - 0.5em [top + bottom padding of .search]) * (16px [font size of #header and .search] / 18px [font size of .search input]) */
-	display: none; /* default to hidden (will be shown by adding .search-open class to .search) */
+	height: 100%;
+  font-size: 1.25em;
 }
 
 .search-open #searchInput {
@@ -129,9 +135,7 @@
 
 #search-shower {
 	display: block;
-	position: absolute;
-	top: 0;
-	right: 0;
+	margin-right: 0;
 }
 
 #searchText,
@@ -159,40 +163,19 @@
 	max-width: 100%; /* prevent search results from overflowing */
 }
 
-#user-info {
-	position: absolute;
-	top: 0;
-	right: 3em; /* search is 2.75em, 0.25em of padding */
-	margin: 0;
-	width: 2.75em;
-	height: 2.75em;
-}
-
 #user-info .header-button {
+	width: 2.75em;
 	padding: 0;
-	height: 2.75em;
 }
 
-#user-info .arrow {
+#user-info .arrow,
+.username {
 	display: none;
 }
 
 .avatar {
 	top: 7px; /* avatar is 30px, header is 44px */
 	left: 0.5em;
-}
-
-.avatar-none {
-	display: block;
-}
-
-#user-info > a {
-	padding: 0;
-	height: 2.75em;
-}
-
-#user-info > a span {
-	display: none;
 }
 
 #user-info .header-menu {
@@ -294,7 +277,7 @@
 .small-toolbox {
 	position: relative;
 	font-size: 2.75em;
-	width: 3.75em; /* needs 1em for three icons plus .25em of padding to the right of each icon, so 3.75em */
+	width: 3.75em; /* needs 1em for three icons plus0.25em of padding to the right of each icon, so 3.75em */
 	height: 1em;
 	overflow-y: hidden; /* wikiglyphs have a bit too much bottom padding; with 1em height they're centered but you can scroll vertically, this stops the vertical scroll */
 	white-space: nowrap;
@@ -317,7 +300,7 @@ a.small-tool { /* inclusion of the "a" is necessary to override the standard a e
 	height: 1em;
 	color: #000;
 	display: inline-block;
-	padding-right: .25em;
+	padding-right: 0.25em;
 }
 
 .small-tool:hover {
@@ -350,6 +333,16 @@ a.small-tool { /* inclusion of the "a" is necessary to override the standard a e
 .header-suggestions .suggestions-result {
 	padding: 0.5em 0.25em !important;
 	border-bottom: 1px solid #ddd;
+}
+
+.header-suggestions .suggestions-result:hover,
+.header-suggestions .suggestions-special:hover { /* making search suggestions change color when focused (e.g., tapped on mobile); this CSS is adapted from the .suggestions-result-current class */
+	background-color: #4C59A6;
+	color: white;
+}
+
+.header-suggestions .suggestions-special:hover div {
+	color: white; /* for whatever reason it doesn't want to have white text unless this is added too */
 }
 
 .header-suggestions .suggestions-special {

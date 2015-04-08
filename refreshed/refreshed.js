@@ -7,14 +7,12 @@ window.Refreshed = {
 	thresholdForSmallCSS: 601,
 	windowStartedSmall: false,
 	thresholdForBigCSS: 1001,
-	searchDropdownOpen: false,
-	userToolsOpen: false,
-	siteNavOpen: false,
 	windowIsBig: false,
 	windowIsSmall: false,
 	widthOfSpecialSearchBar: 0,
 	widthOfSpecialSearchPowerSearchBar: 0,
-	sidebarOpen: false,
+	headerSearchIsOpen: false,
+	sidebarIsOpen: false,
 
 	flyOutScrollHeader: function() {
 		if (
@@ -23,7 +21,7 @@ window.Refreshed = {
 			( $( '.static-toolbox' ).offset().top - $( document ).scrollTop() - $( '#header' ).height() < 0 )
 		)
 		{
-			// first condition: only move the scroll header if the article
+			// first boolean in condition: only move the scroll header if the article
 			// content is bigger than the page (i.e. preventing it from being
 			// triggered when a user "rubber band scrolls" in OS X for example)
 			//$( '.fixed-toolbox' ).animate({'top': $( '#header' ).height()});
@@ -71,9 +69,35 @@ window.Refreshed = {
 			if ( $( this ).offset().top > $( '#header' ).height() + $( '#header' ).offset().top ) { //if the .page-item is beneath the bottom of the header (and so it's cut off by overflow:hidden)
 				$( this ).children( '.children' ).css({'display': 'none'});
 				$( this ).removeClass( 'header-button-active' );
-				$( this ).children( '.clickable-region' ).children( '.arrow' ).removeClass( 'rotate' );
+				$( this ).children( '.header-button' ).children( '.arrow' ).removeClass( 'rotate' );
 			}
-		} );
+		});
+	},
+
+	toggleFade: function( trigger ) {
+		$( trigger ).siblings( '.fadable' ).addBack( '.fadable' ).toggleClass( 'faded' );
+		$( trigger ).children( '.arrow' ).toggleClass( 'rotate' );
+		if ( $( trigger ).hasClass( 'header-button' ) ) {
+			$( trigger ).toggleClass( 'header-button-active' );
+		}
+	},
+
+	toggleHeaderSearch: function() {
+		$( '.sidebar-shower' ).toggleClass( 'sidebar-shower-hidden' );
+		$( '#fade-overlay' ).toggleClass( 'fade-overlay-active fade-overlay-below-header' ); // toggle the fade overlay
+		if ( Refreshed.windowIsSmall ) { // On small, because #search-shower is replaced by #search-closer and vice-versa instead of the buttons appearing active, they take on the .header-button-active class when they shouldn't; this gets rid of it. On medium there's only #search-shower, so it functions properly and the class shouldn't be removed.
+			$( '#search-shower' ).removeClass( 'header-button-active' );
+			$( '#search-closer' ).removeClass( 'header-button-active' );
+		}
+		$( '#searchInput' ).val( '' ).focus();
+		Refreshed.headerSearchIsOpen = !Refreshed.headerSearchIsOpen;
+	},
+
+	toggleSidebar: function() {
+		$( '#sidebar-wrapper' ).toggleClass( 'sidebar-open' );
+		$( '#fade-overlay' ).toggleClass( 'fade-overlay-active' ); // toggle the fade overlay
+		$( '.sidebar-shower' ).toggleClass( 'header-button-active' );
+		Refreshed.sidebarIsOpen = !Refreshed.sidebarIsOpen;
 	}
 };
 
@@ -112,7 +136,7 @@ $( document ).ready( function() {
 
 	$( window ).scroll( function() {
 		Refreshed.flyOutScrollHeader();
-	} );
+	});
 
 	$( window ).resize( function() {
 		if (
@@ -139,211 +163,71 @@ $( document ).ready( function() {
 
 		Refreshed.resizeSpecialSearchBar();
 		Refreshed.showHideOverflowingDropdowns();
-	} );
+	});
 
-	/* tools dropdown attached to firstHeading */
-	$( '#firstHeading > .standard-toolbox #toolbox-link' ).on( {
-		'click': function() {
-			if ( !$( '#firstHeading > .standard-toolbox .standard-toolbox-dropdown' ).is( ':visible' ) ) {
-				$( '#firstHeading > .standard-toolbox .standard-toolbox-dropdown' ).fadeIn();
-			}
-			$( this ).children().toggleClass( 'rotate' );
-		},
-		'hover': function() {
-			$( this ).children().toggleClass( 'no-show' );
-		}
-	} );
-
-	$( document ).mouseup( function ( e ) {
-		if ( $( '#firstHeading > .standard-toolbox .standard-toolbox-dropdown' ).is( ':visible' ) ) {
-			if (
-				!$( '#firstHeading > .standard-toolbox .standard-toolbox-dropdown' ).is( e.target ) &&
-				$( '#firstHeading > .standard-toolbox .standard-toolbox-dropdown' ).has( e.target ).length === 0
-			)
-			{
-				// if the target of the click isn't the container and isn't a descendant of the container
-				$( '#firstHeading > .standard-toolbox .standard-toolbox-dropdown' ).fadeOut();
-			}
-		}
-	} );
-
-	/* tools dropdown on the "scroll header" */
-	$( '.fixed-toolbox #toolbox-link' ).on( {
-		'click': function() {
-			if ( !$( '.fixed-toolbox .standard-toolbox-dropdown' ).is( ':visible' ) ) {
-				$( '.fixed-toolbox .standard-toolbox-dropdown' ).fadeIn();
-			}
-			$( this ).children().toggleClass( 'rotate' );
-		},
-		'hover': function() {
-			$( this ).children().toggleClass( 'no-show' );
-		}
-	} );
-
-	$( document ).mouseup( function ( e ) {
-		if ( $( '.fixed-toolbox .standard-toolbox-dropdown' ).is( ':visible' ) ) {
-			if (
-				!$( '.fixed-toolbox .standard-toolbox-dropdown' ).is( e.target ) &&
-				$( '.fixed-toolbox .standard-toolbox-dropdown' ).has( e.target ).length === 0
-			)
-			{
-				// if the target of the click isn't the container and isn't a descendant of the container
-				$( '.fixed-toolbox .standard-toolbox-dropdown' ).fadeOut();
-			}
-		}
-	} );
-
+	/**
+	* The "clickOrTouchend" function does as it sounds. If it can (i.e. you're on a touch screen),
+	* it performs touchend. Otherwise, it performs mouseup. Based on experience, it seems touchend
+  * has less latency than mouseup does on mobile devices. This function aims to reduce that latency.
+	*/
 	$.fn.extend( {
-		clickOrTouch: function( handler ) {
+		clickOrTouchend: function( handler ) {
 			return this.each( function() {
-				var event = ( 'ontouchend' in document ) ? 'touchend' : 'mouseup';
+				var event = ( 'ontouchend' in document ) ? 'touchend' : 'click';
 				$( this ).on( event, handler );
-			} );
+			});
 		}
-	} );
+	});
 
-	/* search dropdown */
-	$( '#search-shower' ).click( function() { // Unfortunately, touchend causes the search bar to lose focus on iPhones on iOS 7 and iPads on iOS 8 (haven't tested on Android), but it keeps its focus if you used the standard click event. The other menus, etc. use "touchOrClick" b/c the touchend event executes faster than the standard click on iOS (once again, haven't tested on Android).
-			if ( !Refreshed.searchDropdownOpen ) {
-				if ( Refreshed.usingIOS ) {
-					$( window ).scrollTop( 0 ); // iOS tries to vertically center the search bar, scrolling to the top keeps the header at the top of the viewport
-				}
-				$( '#header .search' ).addClass( 'search-open' );
-				$( '#sidebar-shower' ).addClass( 'sidebar-shower-hidden' );
-				$( '#fade-overlay' ).addClass( 'fade-overlay-active fade-overlay-below-header' ); // toggle the fade overlay
-				$( '#searchInput' ).focus();
-				$( this ).toggleClass( 'header-button-active' );
-				Refreshed.searchDropdownOpen = true;
-			} else {
-				// this only runs in "medium" mode (the search dropdown only
-				// appears in "medium" and "small" mode, and "small" is covered
-				// by the document.click function below)
-				$( '#header .search' ).removeClass( 'search-open' );
-				$( '#sidebar-shower' ).removeClass( 'sidebar-shower-hidden' );
-				$( '#searchInput' ).blur().val( '' ); // deselect the search input and reset its contents (remove anything the user entered)
-				$( '#fade-overlay' ).removeClass( 'fade-overlay-active fade-overlay-below-header' ); // toggle the fade overlay
-				$( '#search-shower' ).removeClass( 'header-button-active' );
-				Refreshed.searchDropdownOpen = false; // no delay needed because the spamming issue is only present on "small"
+	/**
+	* Functions for showing/hiding dropdown menus. Preconditions:
+	* 1) the menu must have classes "fadable" and "faded" to start
+	* 2) the button triggering the menu must have class "fade-trigger"
+	* 3) the menu and the button must be siblings
+	*/
+	$( '.fade-trigger' ).clickOrTouchend( function() {
+			Refreshed.toggleFade( this );
+	});
+
+	$( document ).clickOrTouchend( function( e ) {
+		$( '.fadable:not( .fade-trigger ):not( .faded )' ).each( function () { // targeting all dropdowns (i.e., fadable elements that aren't fadable themselves [since ones that are fadable are the #search-shower and #search-closer])
+			if ( !$( e.target ).closest( $( this ).parent() ).length ) { // if starting from the event target (this, a child of this, or .fade-trigger) and doing up the DOM you do not run into this element's parent (so if this, a child of this, or .fade-trigger was not the target of the click)
+				Refreshed.toggleFade( $( this ).siblings( '.fade-trigger' ) );
 			}
-	} );
-
-	$( document ).click( function ( e ) { // if you use clickOrTouch, pressing the .suggestions element will cause the window to close on mobile (maybe the clickOrTouch section is executed before a plain click and thus this is run and .search is hidden before the broswer acknowledges the click event on .suggestions to load the searched-for page?)
-		if ( Refreshed.searchDropdownOpen && $( window ).width() < Refreshed.thresholdForBigCSS ) { // window size must be checked because we only want to hide the search bar if we're not in "big" mode
-			if (
-				!$( '#header .search' ).is( e.target ) &&
-				!$( '#search-shower' ).is( e.target ) &&
-				!$( '.search input' ).is( e.target )
-			)
-			{
-				// if the target of the click isn't the search container,
-				// search button, or the search box itself (we can't set it to
-				// all descendants of .search because #search-closer needs to
-				// be able to close the search box)
-				$( '#header .search' ).removeClass( 'search-open' );
-				$( '#sidebar-shower' ).removeClass( 'sidebar-shower-hidden' );
-				$( '#searchInput' ).blur().val( '' ); // deselect the search input and reset its contents (remove anything the user entered)
-				$( '#fade-overlay' ).removeClass( 'fade-overlay-active fade-overlay-below-header' ); //toggle the fade overlay
-				$( '#search-shower' ).removeClass( 'header-button-active' );
-				// delay variable change for 375ms until after the animation is
-				// complete so both animations don't run on one press
-				setTimeout( function () {
-					Refreshed.searchDropdownOpen = false;
-				}, 375 );
-			}
+		});
+		// the below if statements control hiding the search header and dropdown. These are included here so only 1 document clickOrTouchend function is required instead of 3.
+		if ( Refreshed.headerSearchIsOpen && !$( e.target ).closest( '#header .search' ).length && !$( e.target ).closest( '.header-suggestions' ).length ) { // we do this check instead of checking if the user pressed #fade-overlay because #fade-overlay can disappear if you resize, and then if you click off afterward you still want to hide the menu, etc. even if #fade-overlay is no longer visible
+			Refreshed.toggleHeaderSearch();
 		}
-	} );
-
-	/* user tools dropdown */
-	$( '#user-info > a' ).clickOrTouch( function() {
-		if ( !$( '#user-info .header-menu' ).is( ':visible' ) ) {
-			$( '#user-info .header-menu' ).fadeIn();
-			$( this ).addClass( 'header-button-active' );
-			$( '#user-info .arrow' ).addClass( 'rotate' );
-			// delay the second clickOrTouch function (which performs fadeOut)
-			// to stop fadeIn and fadeOut on one click (also prevents user from
-			// spamming so it constantly fades in/out)
-			setTimeout( function () {
-				Refreshed.userToolsOpen = true;
-			}, 300 );
+		if ( Refreshed.sidebarIsOpen && !$( e.target ).closest( '#sidebar-wrapper' ).length ) {
+			Refreshed.toggleSidebar();
 		}
-	} );
+	});
 
-	$( document ).clickOrTouch( function ( e ) {
-		if ( $( '#user-info .header-menu' ).is( ':visible' ) ) {
-			if (
-				Refreshed.userToolsOpen &&
-				!$( '#user-info .header-menu' ).is( e.target ) &&
-				$( '#user-info .header-menu' ).has( e.target ).length === 0
-			)
-			{
-				// if the target of the click isn't the button, the container, or a descendant of the container
-				$( '#user-info > a' ).removeClass( 'header-button-active' );
-				$( '#user-info .header-menu' ).fadeOut();
-				$( '#user-info .arrow' ).removeClass( 'rotate' );
-				Refreshed.userToolsOpen = false;
-			}
+	/* header search on medium and small */
+	$( '#search-shower' ).clickOrTouchend( function() {
+		if ( Refreshed.usingIOS ) {
+			$( window ).scrollTop( 0 ); // iOS tries to vertically center the search bar, scrolling to the top keeps the header at the top of the viewport
 		}
-	} );
+		Refreshed.toggleHeaderSearch();
+	});
 
-	/* site navigation dropdown */
-	$( '#site-info-main a.arrow-link' ).clickOrTouch( function() {
-		if ( !$( '#site-info .header-menu' ).is( ':visible' ) ) {
-			$( '#site-info .header-menu' ).fadeIn();
-			$( '#site-info-main a.arrow-link' ).addClass( 'header-button-active' );
-			$( '#site-info .arrow' ).addClass( 'rotate' );
-			// delay the second clickOrTouch function (which performs fadeOut)
-			// to stop fadeIn and fadeOut on one click (also prevents user from
-			// spamming so it constantly fades in/out)
-			setTimeout( function () {
-				Refreshed.siteNavDropdown = true;
-			}, 300 );
-		}
-	} );
+	$( '#search-closer' ).clickOrTouchend( function() {
+		Refreshed.toggleHeaderSearch();
+	});
 
-	$( document ).clickOrTouch( function ( e ) {
-		if ( $( '#site-info .header-menu' ).is( ':visible' ) ) {
-			if (
-				Refreshed.siteNavDropdown &&
-				!$( '#site-info .header-menu' ).is( e.target ) &&
-				$( '#site-info .header-menu' ).has( e.target ).length === 0
-			)
-			{
-				// if the target of the click isn't the container and isn't a descendant of the container
-				$( '#site-info .header-menu' ).fadeOut();
-				$( '#site-info-main a.arrow-link' ).removeClass( 'header-button-active' );
-				$( '#site-info .arrow' ).removeClass( 'rotate' );
-				Refreshed.siteNavDropdown = false;
-			}
-		}
-	} );
+	/* sidebar on medium and small */
+	$( '.sidebar-shower' ).clickOrTouchend( function() {
+		Refreshed.toggleSidebar();
+	});
 
-	/* mobile sidebar */
-	$( '#sidebar-shower' ).clickOrTouch( function() {
-		//if (!Refreshed.sidebarOpen) {
-			$( '#sidebar-wrapper' ).toggleClass( 'sidebar-open' );
-			$( '#sidebar-shower' ).toggleClass( 'sidebar-open' );
-			$( '#fade-overlay' ).toggleClass( 'fade-overlay-active' ); // toggle the fade overlay
-			Refreshed.sidebarOpen = !Refreshed.sidebarOpen;
-			$( this ).toggleClass( 'header-button-active' );
-		//}
-	} );
-
-	$( document ).clickOrTouch( function ( e ) {
-		if ( Refreshed.sidebarOpen && $( '#fade-overlay').is( e.target ) ) { // if the sidebar is out and the target of the click is the fade-overlay
-			$( '#sidebar-wrapper' ).removeClass( 'sidebar-open' );
-			$( '#sidebar-shower' ).removeClass( 'sidebar-open' );
-			$( '#fade-overlay' ).removeClass( 'fade-overlay-active' ); // deactivate the fade overlay
-			Refreshed.sidebarOpen = false;
-			$( '#sidebar-shower' ).removeClass( 'header-button-active' );
-		}
-	} );
-
-	$( '#small-tool-more' ).clickOrTouch( function() {
+	/* expanding the mobile  */
+	$( '#small-tool-more' ).clickOrTouchend( function() {
 		$( '.small-toolbox' ).addClass( 'small-toolbox-expanded scroll-shadow' );
 		$( this ).css({'display': 'none'});
-	} );
+	});
 
-	$( '#icon-ca-watch, #icon-ca-unwatch' ).parent().clickOrTouch( function( e ) {
+	$( '#icon-ca-watch, #icon-ca-unwatch' ).parent().clickOrTouchend( function( e ) {
 		// AJAX for watch icons
 		var action, api, $link, title, otherAction;
 
@@ -363,45 +247,24 @@ $( document ).ready( function() {
 			.done( function ( watchResponse ) {
 				mw.notify( $.parseHTML( watchResponse.message ), {
 					tag: 'watch-self'
-				} );
+				});
 
 				$( '#wpWatchthis' ).prop( 'checked', watchResponse.watched !== undefined );
-			} );
-	} );
+			});
+	});
 
-	/* user tools dropdown */
-	$( '.page-item-has-children .clickable-region' ).clickOrTouch( function( e ) {
-		// hide all the other page item dropdowns if they are visible
-		$( '.page-item-has-children .children' ).fadeOut( 200 );
-		$( '.page-item-has-children' ).removeClass( 'header-button-active' );
-		$( '.page-item-has-children .arrow' ).removeClass( 'rotate' );
-		if ( !$( this ).siblings( '.children' ).is( ':visible' ) ) {
-			$( this ).siblings( '.children' ).fadeIn( 200 );
-			$( this ).parent().addClass( 'header-button-active' );
-			$( this ).children( '.arrow' ).addClass( 'rotate' );
-		}
-	} );
-
-	$( document ).clickOrTouch( function ( e ) {
-		if ( $( '.page-item-has-children .children' ).is( ':visible' ) ) {
-			if ( $( '.page-item-has-children' ).has( e.target ).length === 0 ) { // if the target of the click isn't the button, the container, or a descendant of the container
-				$( '.page-item-has-children .children' ).fadeOut( 200 );
-				$( '.page-item-has-children' ).removeClass( 'header-button-active' );
-				$( '.page-item-has-children .arrow' ).removeClass( 'rotate' );
-			}
-		}
-	} );
 
 	/**
-	 * add "header-suggestions" class to first .suggestions element for CSS
-	 * targeting (there is usually one .suggestions element, but on Special:Search
-	 * there is one for the #header search bar and one for the #bodyContentsearch bar)
+	 * Add "header-suggestions" class to first .suggestions element for CSS
+	 * targeting. There is usually one .suggestions element, but on Special:Search
+	 * there is one for the #header search bar and one for the #bodyContentsearch bar.
+	 * We only want to target the one for the #header search bar.
 	 */
 	setTimeout( function () { // wait a bit so the .suggestions elements can be added in (if we don't wait we'll be targeting nothing and it won't work)...
 		$( '.suggestions' ).first().addClass( 'header-suggestions' ); // add class to first .suggestions element
 	}, 100 );
 
-} );
+});
 
 /* Fix for Echo in Refreshed */
 if ( document.getElementById( 'echo' ) ) {
