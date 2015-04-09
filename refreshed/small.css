@@ -174,8 +174,7 @@
 }
 
 .avatar {
-	top: 7px; /* avatar is 30px, header is 44px */
-	left: 0.5em;
+	margin-top: 7px; /* avatar has height of 30px, header has height of 2.75em or 44px; to center, margin-top = (44px - 30px) / 2 = 7px */
 }
 
 #user-info .header-menu {
@@ -270,23 +269,25 @@
 	display: block;
 	border-top: 1px solid #eaeaea;
 	border-bottom: 1px solid #eaeaea;
-	margin: 0 0.9em 0.75em 0.9em; /* left/right: 1em (#bodyContent padding-left) * 0.9em (#bodyContent font-size) */
+	font-size: 2.75em;
+	margin: 0 0.36em; /* 1em / 2.75em (font size) */
 	overflow-y: hidden;
+	height: 1.1em;
 }
 
 .small-toolbox {
 	position: relative;
-	font-size: 2.75em;
 	width: 3.75em; /* needs 1em for three icons plus0.25em of padding to the right of each icon, so 3.75em */
 	height: 1em;
-	overflow-y: hidden; /* wikiglyphs have a bit too much bottom padding; with 1em height they're centered but you can scroll vertically, this stops the vertical scroll */
+	overflow: hidden; /* hides tools that are past the more button, so you can't accidentally press a tool that's not visible */
 	white-space: nowrap;
 	overflow: hidden;
+	-o-transition: width 0.2s ease 0.5s;
+	-moz-transition: width 0.2s ease 0.5s;
+	-webkit-transition: width 0.2s ease 0.5s; /* -webkit- last so it's used in place of -o- if possible */
+	transition: width 0.2s ease 0.5s;
 	display: inline-block;
-	-o-transition: width 0.2s ease;
-	-moz-transition: width 0.2s ease;
-	-webkit-transition: width 0.2s ease; /* -webkit- last so it's used in place of -o- if possible */
-	transition: width 0.2s ease;
+	height: 100%;
 }
 
 .small-toolbox-expanded {
@@ -299,12 +300,17 @@ a.small-tool { /* inclusion of the "a" is necessary to override the standard a e
 	width: 1em;
 	height: 1em;
 	color: #000;
-	display: inline-block;
 	padding-right: 0.25em;
 }
 
 .small-tool:hover {
 	opacity: 0.5;
+}
+
+#small-tool-more {
+	display: inline-block;
+	overflow-y: hidden;
+	height: 1em;
 }
 
 /* CONTENT AREA ********************************************/

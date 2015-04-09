@@ -33,12 +33,20 @@ class SkinRefreshed extends SkinTemplate {
 				'type' => 'text/javascript'
 			) ) . '<![endif]-->'
 		);
+		// add jQuery Mobile touch events
+		$out->addHeadItem( 'jquerymobiletouchevents',
+			Html::element( 'script', array(
+				'src' => htmlspecialchars( $wgLocalStylePath ) . "/Refreshed/refreshed/jquery.mobile.custom{$min}.js",
+				'type' => 'text/javascript'
+			) )
+		);
+		// prevent iOS from zooming out when the sidebar is opened
 		$out->addHeadItem( 'viewportforios',
 			Html::element( 'meta', array(
 				'name' => 'viewport',
 				'content' => 'width=device-width, initial-scale=1.0'
 			) )
-		); // preventing iOS from zooming out when the sidebar is opened
+		);
 
 		// Add JavaScript via ResourceLoader
 		$out->addModules( 'skins.refreshed.js' );
@@ -425,9 +433,6 @@ class RefreshedTemplate extends BaseTemplate {
 							foreach ( $this->data['content_actions'] as $action ) {
 								if ( $smallToolBeingTested > $amountOfSmallToolsToSkipInFront ) { // if we're not supposed to skip this tool (e.g. if we're supposed to skip the first 2 tools and we're at the 3rd tool, then the boolean is true)
 									// @todo Maybe write a custom makeLink()-like function for generating this code?
-									if ( $totalSmallToolsToGenerate > 3 && $amountOfSmallToolsGenerated == 2 ) { // if there are more than three tools to generate (so a "more" button is needed) and the second tool was the previous one generated (so the third one is about to be generated)
-										?><a href="javascript:;" title="<?php echo $this->getMsg( 'moredotdotdot' )->text() ?>" class="small-tool" id="small-tool-more"><span class="wikiglyph wikiglyph-ellipsis"></span></a><?php
-									}
 									if ( in_array( $action['id'], $listOfToolsToGenerate ) ) { // if the icon being rendered is one of the listed ones (if we're supposed to generate this tool)
 										?><a href="<?php echo htmlspecialchars( $action['href'] ) ?>" title="<?php echo $action['text'] ?>" class="small-tool"><span class="<?php echo array_search( $action['id'], $listOfToolsToGenerate ) // key (wikiglyph) from $listOfToolsToGenerate ?>"></span></a><?php
 										$amountOfSmallToolsGenerated++; // if a tool is indeed generated, increment this variable
@@ -436,7 +441,7 @@ class RefreshedTemplate extends BaseTemplate {
 								$smallToolBeingTested++; // increment this variable (amount of tools that have been tested) regardless of whether or not the tool was generated
 							}
 							?>
-						</div>
+						</div><?php if ( $totalSmallToolsToGenerate > 3 ) { ?><div id="small-tool-more"><a href="javascript:;" title="<?php echo $this->getMsg( 'moredotdotdot' )->text() ?>" class="small-tool"><span class="wikiglyph wikiglyph-ellipsis"></span></a></div><?php } ?>
 					</div>
 					<?php
 				}

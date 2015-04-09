@@ -40,7 +40,12 @@
 	font-size: 1em; /* make the definition of the arrow's em the same as its parent's so it's easier to position using em units... */
 	line-height: 3em;
 	height: 3em; /* line-height and height equal to the parent's height (3em) plus vertical-align:text-bottom in wikiglyphs.css vertically centers the icons */
-	transform: translateY(-3%); /* the icons themselves (i.e. the shapes inside the SVG) are subtly off vertical center; this line counterbalances that */
+
+	-ms-transform: translateY(-3%); /* we don't want the arrows to have translateY (which is applied to .wikiglyph elements). Instead we change the transform-origin (see below) */
+	-o-transform: translateY(-3%);
+	-moz-transform: translateY(-3%);
+	-webkit-transform: translateY(-3%); /* -webkit- last so it's used in place of -o- if possible */
+	transform: translateY(-3%);
 }
 
 .fadable {
@@ -79,7 +84,11 @@
 }
 
 .header-button .arrow {
-	transform: translateY(0); /* we don't want the arrows to have translateY. Instead we change the transform-origin (see below) */
+	-ms-transform: translateY(0); /* we don't want the arrows to have translateY (which is applied to .wikiglyph elements). Instead we change the transform-origin (see below) */
+	-o-transform: translateY(0);
+	-moz-transform: translateY(0);
+	-webkit-transform: translateY(0); /* -webkit- last so it's used in place of -o- if possible */
+	transform: translateY(0);
 
 	-ms-transform-origin: 50% 52%; /* the icon itself (i.e. the arrow inside the SVG) is subtly off vertical center, making it look slightly off when animated; this line counterbalances that for the animation */
 	-o-transform-origin: 50% 52%;
@@ -538,6 +547,7 @@ a.header-button { /* double selectors to override default a element text-decorat
 	margin-bottom: 9px; /* height of #header is 48px, height of avatar is 30px; to vertically center, have margin-bottom of (48px - 30px) / 2 or 9px */
 	vertical-align: text-bottom;
 	padding-right: 0.25em; /* space it out from the username a bit more */
+	padding-left: 0.25em; /* space it out from the dropdown arrow */
 }
 
 .no-show {

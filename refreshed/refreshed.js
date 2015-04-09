@@ -89,7 +89,11 @@ window.Refreshed = {
 			$( '#search-shower' ).removeClass( 'header-button-active' );
 			$( '#search-closer' ).removeClass( 'header-button-active' );
 		}
-		$( '#searchInput' ).val( '' ).focus();
+		if ( Refreshed.headerSearchIsOpen ) {
+			$( '#searchInput' ).val( '' ).blur();
+		} else {
+			$( '#searchInput' ).focus();
+		}
 		Refreshed.headerSearchIsOpen = !Refreshed.headerSearchIsOpen;
 	},
 
@@ -165,69 +169,55 @@ $( document ).ready( function() {
 		Refreshed.showHideOverflowingDropdowns();
 	});
 
-	/**
-	* The "clickOrTouchend" function does as it sounds. If it can (i.e. you're on a touch screen),
-	* it performs touchend. Otherwise, it performs mouseup. Based on experience, it seems touchend
-  * has less latency than mouseup does on mobile devices. This function aims to reduce that latency.
-	*/
-	$.fn.extend( {
-		clickOrTouchend: function( handler ) {
-			return this.each( function() {
-				var event = ( 'ontouchend' in document ) ? 'touchend' : 'click';
-				$( this ).on( event, handler );
-			});
+	$( document ).on( 'tap', function( e ) {
+
+		/**
+		* Showing/hiding dropdown menus. Preconditions:
+		* 1) the menu must have classes "fadable" and "faded" to start
+		* 2) the button triggering the menu must have class "fade-trigger"
+		* 3) the menu and the button must be siblings
+		*/
+		if ( $( e.target ).closest( '.fade-trigger' ).length ) {
+			Refreshed.toggleFade( $( e.target ).closest( '.fade-trigger' ) );
 		}
-	});
 
-	/**
-	* Functions for showing/hiding dropdown menus. Preconditions:
-	* 1) the menu must have classes "fadable" and "faded" to start
-	* 2) the button triggering the menu must have class "fade-trigger"
-	* 3) the menu and the button must be siblings
-	*/
-	$( '.fade-trigger' ).clickOrTouchend( function() {
-			Refreshed.toggleFade( this );
-	});
-
-	$( document ).clickOrTouchend( function( e ) {
 		$( '.fadable:not( .fade-trigger ):not( .faded )' ).each( function () { // targeting all dropdowns (i.e., fadable elements that aren't fadable themselves [since ones that are fadable are the #search-shower and #search-closer])
 			if ( !$( e.target ).closest( $( this ).parent() ).length ) { // if starting from the event target (this, a child of this, or .fade-trigger) and doing up the DOM you do not run into this element's parent (so if this, a child of this, or .fade-trigger was not the target of the click)
 				Refreshed.toggleFade( $( this ).siblings( '.fade-trigger' ) );
 			}
 		});
-		// the below if statements control hiding the search header and dropdown. These are included here so only 1 document clickOrTouchend function is required instead of 3.
+
+		// the below if statements control hiding the search header and dropdown
 		if ( Refreshed.headerSearchIsOpen && !$( e.target ).closest( '#header .search' ).length && !$( e.target ).closest( '.header-suggestions' ).length ) { // we do this check instead of checking if the user pressed #fade-overlay because #fade-overlay can disappear if you resize, and then if you click off afterward you still want to hide the menu, etc. even if #fade-overlay is no longer visible
 			Refreshed.toggleHeaderSearch();
 		}
+
 		if ( Refreshed.sidebarIsOpen && !$( e.target ).closest( '#sidebar-wrapper' ).length ) {
 			Refreshed.toggleSidebar();
 		}
-	});
 
-	/* header search on medium and small */
-	$( '#search-shower' ).clickOrTouchend( function() {
-		if ( Refreshed.usingIOS ) {
-			$( window ).scrollTop( 0 ); // iOS tries to vertically center the search bar, scrolling to the top keeps the header at the top of the viewport
+		if ( $( e.target ).closest( '#search-shower' ).length ) {
+			if ( Refreshed.usingIOS ) {
+				$( window ).scrollTop( 0 ); // iOS tries to vertically center the search bar, scrolling to the top keeps the header at the top of the viewport
+			}
+			Refreshed.toggleHeaderSearch();
+		} else if ( $( e.target ).closest( '#search-closer' ).length ) { // using if/else prevents header search from opening and closing on same tap
+			Refreshed.toggleHeaderSearch();
 		}
-		Refreshed.toggleHeaderSearch();
+
+		// opening/closing sidebar on medium and small
+		if ( $( e.target ).closest( '.sidebar-shower' ).length ) {
+			Refreshed.toggleSidebar();
+		}
+
+		// expanding the small tools when the "more" (ellipsis) button is clicked
+		if ( $( e.target ).closest( '#small-tool-more' ).length ) {
+			$( '#small-tool-more' ).css({'display': 'none'});
+			$( '.small-toolbox' ).addClass( 'small-toolbox-expanded scroll-shadow' );
+		}
 	});
 
-	$( '#search-closer' ).clickOrTouchend( function() {
-		Refreshed.toggleHeaderSearch();
-	});
-
-	/* sidebar on medium and small */
-	$( '.sidebar-shower' ).clickOrTouchend( function() {
-		Refreshed.toggleSidebar();
-	});
-
-	/* expanding the mobile  */
-	$( '#small-tool-more' ).clickOrTouchend( function() {
-		$( '.small-toolbox' ).addClass( 'small-toolbox-expanded scroll-shadow' );
-		$( this ).css({'display': 'none'});
-	});
-
-	$( '#icon-ca-watch, #icon-ca-unwatch' ).parent().clickOrTouchend( function( e ) {
+	$( '#icon-ca-watch, #icon-ca-unwatch' ).parent().tap( function( e ) {
 		// AJAX for watch icons
 		var action, api, $link, title, otherAction;
 
