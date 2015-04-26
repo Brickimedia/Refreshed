@@ -170,7 +170,6 @@ $( document ).ready( function() {
 	});
 
 	$( document ).on( 'tap', function( e ) {
-
 		/**
 		* Showing/hiding dropdown menus. Preconditions:
 		* 1) the menu must have classes "fadable" and "faded" to start
@@ -186,8 +185,11 @@ $( document ).ready( function() {
 				Refreshed.toggleFade( $( this ).siblings( '.fade-trigger' ) );
 			}
 		});
+		if ( $( e.target ).closest( '.header-button' ).length ) {
+			e.preventDefault(); // prevent zooming when pressing header buttons, events on header buttons from firing twice, etc.
+		}
 
-		// the below if statements control hiding the search header and dropdown
+		// the following if statements control hiding the search header and dropdown
 		if ( Refreshed.headerSearchIsOpen && !$( e.target ).closest( '#header .search' ).length && !$( e.target ).closest( '.header-suggestions' ).length ) { // we do this check instead of checking if the user pressed #fade-overlay because #fade-overlay can disappear if you resize, and then if you click off afterward you still want to hide the menu, etc. even if #fade-overlay is no longer visible
 			Refreshed.toggleHeaderSearch();
 		}
