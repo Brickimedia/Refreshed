@@ -51,6 +51,10 @@
 	font-size: 13pt;
 }
 
+#sidebar a {
+	display: inline;
+}
+
 #sidebar a:hover {
 	border: 0;
 	margin-left: 5px;

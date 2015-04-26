@@ -245,6 +245,12 @@ $( document ).ready( function() {
 			});
 	});
 
+	$( '#sidebar-wrapper' ).on( 'swipeleft', function( e ) {
+		if ( Refreshed.sidebarIsOpen ) {
+			e.preventDefault(); // prevent user from accidentally clicking link on swipe
+			Refreshed.toggleSidebar();
+		}
+	});
 
 	/**
 	 * Add "header-suggestions" class to first .suggestions element for CSS
