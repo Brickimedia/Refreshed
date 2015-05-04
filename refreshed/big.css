@@ -1,32 +1,29 @@
 /* anything 1001px and over - most laptops, desktops */
 
-#leftbar {
-	left: 0 !important;
+#sidebar-wrapper {
+	left: 0 !important; /* preventing sidebar from moving left of viewport if not on mobile */
 }
 
-#rightbar {
-	right: 0 !important;
+#header .search {
+	display: block !important;
 }
 
-#contentwrapper {
-	margin-left: 12em;
-	margin-right: 12em;
-}
-
+#content,
 #footer {
-	margin-left: 14em;
-	margin-right: 14em;
+	margin-left: 12em;
+	margin-right: 1em;
 }
 
-#rightbar .shower {
-	display: none !important;
-}
-
-#smalltoolboxwrapper {
+#small-toolbox-wrapper {
 	display: none;
 }
 
-#contentSub {
-	margin-top: -10px;
-	padding-bottom: 10px;
+#searchText,
+#powerSearchText { /* reset width of search/powersearch bars in Special:Search when window is large */
+	width: auto !important;
+}
+
+#header .search-form.faded { /* show the header search, even if it has the "faded" class (the search should only be fadable on small/medium) */
+	visibility: visible;
+	opacity: 1;
 }

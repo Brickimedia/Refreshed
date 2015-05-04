@@ -3,7 +3,5 @@
 		"authors": []
 	},
 	"refreshed-advert": "Advertisement",
-	"refreshed-article": "article:$1",
-	"refreshed-back": "Back to \"$1\"",
-	"skinname-refreshed": "Refreshed"
+	"refreshed-navigation": "-"
 }

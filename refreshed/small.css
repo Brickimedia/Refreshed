@@ -1,87 +1,226 @@
 /* anything 600px and under - phones */
 
-#leftbar {
+.header-button .wikiglyph {
+	line-height: 2.75em;
+	height: 2.75em; /* line-height and height equal to the parent's height (3em) plus vertical-align:text-bottom in wikiglyphs.css vertically centers the icons */
+}
+
+.header-button .wikiglyph:before {
+	font-size: 2.75em; /* ...however, the actual glyph has a more appropriate font size of 3em (so the glyph itself is larger while it can be positioned with the smaller em units without a problem) */
+}
+
+.fade-overlay-active {
+	opacity: 0.5 !important;
+	z-index: 10001; /* very high value to guarantee no elements on wikis will appear above it (except the sidebar) */
+	cursor: pointer;
+}
+
+.fade-overlay-below-header {
+	z-index: 10000 !important; /* below header but above page content (used for search) */
+	cursor: pointer;
+}
+
+#header {
+	height: 2.75em;
+}
+
+#sidebar-wrapper {
+  position: fixed;
+	background: midnightblue;
+	left: -15em;
+	width: 15em;
+	top: 0;
+	z-index: 10002; /* appear above fade-overlay, which has z-index 10001 */
+	-o-transition: 0.2s ease;
+	-moz-transition: 0.2s ease;
+	-webkit-transition: 0.2s ease; /* -webkit- last so it's used in place of -o- if possible */
+	transition: 0.2s ease;
+}
+
+.sidebar-open {
 	left: 0;
-	width: 46px;
-	height: 48px;
+	-ms-transform: translateX(15em);
+	-o-transform: translateX(15em);
+	-moz-transform: translateX(15em);
+	-webkit-transform: translateX(15em); /* -webkit- last so it's used in place of -o- if possible */
+	transform: translateX(15em);
 }
 
-#leftbar-main {
+#sidebar {
+	top: 2.75em;
+	font-size: 13pt;
+}
+
+#sidebar a {
+	display: inline;
+}
+
+#sidebar a:hover {
+	border: 0;
+	margin-left: 5px;
+}
+
+.header-button {
+	width: 2.75em;
+	height: 2.75em;
+	padding: 0;
+	text-align: center;
+}
+
+.sidebar-shower {
+	display: block;
+	background-size: 2.75em;
+	right: -2.75em;
+}
+
+.sidebar-shower-hidden {
+	right: 0 !important;
+}
+
+#sidebar-logo {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: block;
+	width: 100%;
+	height: 2.75em;
+	text-align: center;
+	padding: 0.5em 0;
+}
+
+#site-info-main {
 	display: none;
 }
 
-#rightbar {
-	right: -12em;
-	background-color: rgb(25, 25, 112);
+#site-info-main .arrow-link {
+	display: none !important;
 }
 
-#rightbar .shower {
-	right: 12em;
+#site-info-main:hover,
+#site-info-main a,
+#site-info-main a:hover {
+	background: none;
 }
 
-#rightbar #rightbar-main {
-	font-size: 14pt;
-	font-weight: normal;
+#site-info-mobile {
+	display: inline-block;
 }
 
-#userinfo .arrow {
-	display: none;
+#header .search {
+	width: 2.75em;
+	height: 2.75em;
+	padding: 0;
+	margin-right: 0;
 }
 
-#userinfo .avatar {
-	left: .5em;
-}
-
-#userinfo .avatar-none {
+#search-closer {
 	display: block;
 }
 
-#userinfo > a {
-	width: 30px;
-	min-width: 30px;
+#header .search-form {
+	width: calc(100% - 3.25em); /* 100% - 2.75em for the close search button -0.25em of padding-left -0.25em of padding-right */
+	height: calc(100% - 0.5em); /* 100% -0.25em of padding-top - .35em of padding-bottom */
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 0.25em;
+	z-index: 1; /* appear over the user icon, which doesn't have a specified z-index */
 }
 
-#userinfo .avatar-none {
+#searchInput { /* header search box */
+	width: 100%;
+	height: 100%;
+  font-size: 1.25em;
+}
+
+.search-open #searchInput {
 	display: block;
 }
 
-#userinfo > a span {
+#search-shower {
+	display: block;
+	margin-right: 0;
+}
+
+#searchText,
+#powerSearchText { /* search and advanced search boxes on Special:Search */
+	font-size: 18px;
+}
+
+#mw-search-top-table {
+	text-align: center; /* center the search/advanced search boxes and submit button on Special:Search */
+}
+
+.search-types {
+	width: 100%; /* break search types into 2 columns so the last item doesn't fall onto the next row on very small screens */
+}
+
+.search-types li {
+	width: 50%;
+}
+
+#mw-searchoptions td {
+	display: block; /* set each namespace under the advanced search preferences on its own line to prevent overflow (but if there's enough room it'll expand so there's two per line) */
+}
+
+.searchresult {
+	max-width: 100%; /* prevent search results from overflowing */
+}
+
+#user-info .header-button {
+	width: 2.75em;
+	padding: 0;
+}
+
+#user-info .arrow,
+.username {
 	display: none;
 }
 
-#userinfo .headermenu {
-	left: 0;
-	background-color: rgb(25, 25, 112);
+.avatar {
+	margin-top: 7px; /* avatar has height of 30px, header has height of 2.75em or 44px; to center, margin-top = (44px - 30px) / 2 = 7px */
+}
+
+#user-info .header-menu {
+	top: 2.75em;
+	background-color: midnightblue;
 	padding: 0.15em 0 0.15em 0;
 }
 
-#userinfo .headermenu a {
+#user-info .header-menu a {
 	text-align: left;
 	padding-left: 15px;
 	font-weight: normal;
 }
 
-#userinfo .headermenu a:hover {
-	border-left: 5px solid #CCC;
+#user-info .header-menu a:hover {
 	color: #CCC;
-	padding-left: 10px;
 }
 
-#userinfo .headermenu a.new:hover {
-	color: #f47d64 !important;
-	border-color: #f47d64;
+#user-info .header-menu a.new:hover {
+	color: #f47d64;
 }
 
-#maintitle {
+#site-info .header-menu img {
+	font-size: 16px; /* resetting font size for logos in menu so they are the same height as the one outside the menu */
+}
+
+#content {
+	top: 2.75em;
+}
+
+#header-categories {
+	display: none;
+}
+
+#firstHeading {
 	position: relative;
-	margin-bottom: 5px;
-	margin-left: 15px;
-	padding-left: 0.1em;
-	border-bottom: 1px solid #eaeaea;
 	font-size: 0.9em;
-	padding-bottom: 5px;
+	padding: 0 1em;
+	width: auto;
 }
-#maintitle h1 {
+
+#firstHeading h1 {
 	overflow-x: auto;
 	white-space: nowrap;
 	border: 0;
@@ -89,12 +228,24 @@
 	padding: 0;
 	font-size: 2.25em;
 }
-.scrollshadow {
+
+.mw-indicator {
+	display: none !important;
+	/* to unset an individual indicator add the following:
+	#mw-indicator-name { display: inline-block !important; }
+	replacing "name" with the assigned name of the indicator */
+}
+
+.scroll-shadow {
 	background:
 		-webkit-linear-gradient(90deg, white 20%, rgba(255,255,255,0)),
 		-webkit-linear-gradient(270deg, white 20%, rgba(255,255,255,0)) 100% 0,
 		-webkit-linear-gradient(90deg, #e3e3e3 10%, rgba(255,255,255,0)),
 		-webkit-linear-gradient(270deg, #e3e3e3 10%, rgba(255,255,255,0)) 100% 0;
+	background:
+		linear-gradient(90deg, white 20%, rgba(255,255,255,0)), linear-gradient(270deg, white 20%, rgba(255,255,255,0)) 100% 0, linear-gradient(90deg, #e3e3e3 10%, rgba(255,255,255,0)), linear-gradient(270deg, #e3e3e3 10%, rgba(255,255,255,0)) 100% 0;
+	background:
+		-webkit-linear-gradient(0deg, white 20%, rgba(255,255,255,0)), -webkit-linear-gradient(180deg, white 20%, rgba(255,255,255,0)) 100% 0, -webkit-linear-gradient(0deg, #e3e3e3 10%, rgba(255,255,255,0)), -webkit-linear-gradient(180deg, #e3e3e3 10%, rgba(255,255,255,0)) 100% 0;
 	background:
 		linear-gradient(90deg, white 20%, rgba(255,255,255,0)),
 		linear-gradient(270deg, white 20%, rgba(255,255,255,0)) 100% 0,
@@ -104,95 +255,66 @@
 	background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
 	background-attachment: local, local, scroll, scroll;
 }
-#siteSub {
-	display: none !important;
-}
-#back-to-subject {
-	display: inline;
-	font-size: .95em;
+
+.standard-toolbox {
+	display: none;
 }
 
-#smalltoolboxwrapper {
+#main-title-messages {
+	display: none;
+}
+
+#back-to-subject {
+	display: block;
+}
+
+#small-toolbox-wrapper {
 	position: relative;
 	display: block;
+	border-top: 1px solid #eaeaea;
 	border-bottom: 1px solid #eaeaea;
-	margin-left: 15px;
+	font-size: 2.75em;
+	margin: 0 0.36em; /* 1em / 2.75em (font size) */
+	overflow-y: hidden;
+	height: 1.1em;
 }
 
-#smalltoolbox {
+.small-toolbox {
 	position: relative;
-	width: 96px;
+	width: 3.75em; /* needs 1em for three icons plus0.25em of padding to the right of each icon, so 3.75em */
+	height: 1em;
+	overflow: hidden; /* hides tools that are past the more button, so you can't accidentally press a tool that's not visible */
 	white-space: nowrap;
 	overflow: hidden;
+	-o-transition: width 0.2s ease 0.5s;
+	-moz-transition: width 0.2s ease 0.5s;
+	-webkit-transition: width 0.2s ease 0.5s; /* -webkit- last so it's used in place of -o- if possible */
+	transition: width 0.2s ease 0.5s;
 	display: inline-block;
+	height: 100%;
 }
 
-.small-icon {
-	width: 48px;
-	height: 48px;
-	background-size: 48px 48px;
+.small-toolbox-expanded {
+	width: 100%;
+	overflow-x: auto;
+}
+
+a.small-tool { /* inclusion of the "a" is necessary to override the standard a element font color without using !important */
+	font-size: 1em;
+	width: 1em;
+	height: 1em;
+	color: #000;
+	padding-right: 0.25em;
+}
+
+.small-tool:hover {
+	opacity: 0.5;
+}
+
+#small-tool-more {
 	display: inline-block;
-}
-#icon-ca-talk {
-	/* @embed */
-	background-image: url("images/icon-talk.png");
-}
-
-#icon-ca-viewsource {
-	/* @embed */
-	background-image: url("images/icon-edit.png");
-	opacity: .3;
-}
-
-#icon-ca-edit {
-	/* @embed */
-	background-image: url("images/icon-edit.png");
-}
-
-#icon-ca-history {
-	/* @embed */
-	background-image: url("images/icon-history.png");
-}
-
-#icon-ca-delete {
-	/* @embed */
-	background-image: url("images/icon-delete.png");
-}
-
-#icon-ca-move {
-	/* @embed */
-	background-image: url("images/icon-move.png");
-}
-
-#icon-ca-protect {
-	/* @embed */
-	background-image: url("images/icon-protect.png");
-}
-
-#icon-ca-unprotect {
-	/* @embed */
-	background-image: url("images/icon-unprotect.png");
-}
-
-#icon-ca-watch {
-	/* @embed */
-	background-image: url("images/icon-watch.png");
-}
-
-#icon-ca-unwatch {
-	/* @embed */
-	background-image: url("images/icon-unwatch.png");
-}
-
-#icon-more {
-	/* @embed */
-	background-image: url("images/icon-more.png");
-}
-
-#icon-ca-addsection,
-#icon-ca-purge,
-#icon-ca-talk.selected {
-	display: none;
+	overflow-y: hidden;
+	height: 1em;
 }
 
 /* CONTENT AREA ********************************************/
@@ -202,6 +324,121 @@
 
 /* Hide ads on mobile until mobile ads are implemented */
 #advert {
+	display: none;
+}
+
+/* Suggestions box under search */
+.header-suggestions {
+	top: 2.75em !important;
+	left: 0 !important;
+	width: 100% !important;
+	font-size: 16px !important;
+	z-index: 10001 !important; /* place above #fade-overlay, which has z-index of 10000 because it has the .fade-overlay-below-header class */
+}
+
+.header-suggestions div {
+	font-size: 16pt;
+}
+
+.header-suggestions .suggestions-result {
+	padding: 0.5em 0.25em !important;
+	border-bottom: 1px solid #ddd;
+}
+
+.header-suggestions .suggestions-result:hover,
+.header-suggestions .suggestions-special:hover { /* making search suggestions change color when focused (e.g., tapped on mobile); this CSS is adapted from the .suggestions-result-current class */
+	background-color: #4C59A6;
+	color: white;
+}
+
+.header-suggestions .suggestions-special:hover div {
+	color: white; /* for whatever reason it doesn't want to have white text unless this is added too */
+}
+
+.header-suggestions .suggestions-special {
+	padding: 0.5em 0.25em !important;
+	margin-top: 0 !important;
+	border: 0 !important;
+	border-bottom: 1px solid #ddd !important;
+}
+
+.header-suggestions .suggestions-results {
+	border: 0 !important;
+}
+
+/* Extension:Echo fixes */
+
+#pt-mytalk a.mw-echo-alert { /* "you have new messages" alert in the personal tools dropdown */
+	margin: 0.1em;
+}
+
+#pt-notifications-personaltools { /* "Notifications" item in the personal tools dropdown */
+	display: list-item;
+}
+
+.pt-notifications-personaltools-unread {
+	background-color: #cc0000;
+	color: #fff;
+	border-radius: 2px; /* matching the notification badge itself and the "you have new messages" notice, which both have border-radius */
+	margin: 0.1em;
+}
+
+.pt-notifications-personaltools-unread:hover {
+	background-color: #bf0000 !important;
+}
+
+#pt-notifications {
+	position: absolute;
+	margin: 0;
+	top: 0; /* the container height is greater than that of the notification button itself so this still leaves some space above the button */
+	right: 2.9em; /* 2.75em for the search button, 0.25em of padding within user button */
+	max-width: 2.25em; /* 2.75em (width of user button) - 0.25em of padding on each side */
+	z-index: 1; /* above user button */
+	padding: 0;
+	width: auto;
+	pointer-events: none; /* prevent click event (stop notifications dropdown from appearing on click) */
+}
+
+.mw-echo-notifications-badge {
+	font-size: 0.5em;
+	min-width: 3.5px; /* min-width of 7px * 0.5em (stops badge from looking too wide when it contains a single-digit number) */
+	max-width: 2.25em; /* (2.75em (width of user button) - 0.25em of padding on each side) * 2 because the font size is 0.5em */
+	overflow: hidden;
+	display: none; /* hide if there are no noticiations */
+}
+
+.mw-echo-unread-notifications {
+	display: inline;
+}
+
+.mw-echo-overlay {
+	display: none; /* if pointer-events isn't supported (so #mw-echo-overlay is generated when the notifications badge is clicked), hide #mw-echo-overlay so it's not visible */
+}
+
+/* Image thumbnails */
+.thumb {
+	width: 100% !important;
+	margin: 0 !important;
+}
+
+div.thumbinner { /* need to specify div so it can overwrite the CSS in commonContent.css */
+	width: auto !important;
+	padding: 0.75em 0 !important;
+	margin-bottom: 0.5em;
+}
+
+.thumbinner img {
+	width: 50%;
+	height: auto;
+	border: 0 !important;
+}
+
+.thumbcaption {
+	text-align: center !important;
+	margin-bottom: -.75em !important;
+}
+
+.magnify {
 	display: none;
 }
 

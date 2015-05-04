@@ -1,8 +1,36 @@
+/********** Fonts (including WikiFont) **********/
+
+
 @font-face {
+	font-family: 'Lato';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Lato Regular'), local('Lato-Regular'), url(//themes.googleusercontent.com/static/fonts/lato/v7/9k-RPmcnxYEPm8CNFsH2gg.woff) format('woff');
+}
+
+@font-face {
+	font-family: 'Lato body';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Lato Regular'), local('Lato-Regular'), url(//themes.googleusercontent.com/static/fonts/lato/v7/9k-RPmcnxYEPm8CNFsH2gg.woff) format('woff');
+}
+
+@font-face {
+	font-family: 'Lato';
+	font-style: normal;
+	font-weight: 700;
+	src: local('Lato Bold'), local('Lato-Bold'), url(//themes.googleusercontent.com/static/fonts/lato/v7/wkfQbvfT_02e2IWO3yYueQ.woff) format('woff');
+}
+
+/*@font-face {
 	font-family: 'Lato';
 	font-style: normal;
 	font-weight: 300;
 	src: local('Lato Light'), local('Lato-Light'), url(http://themes.googleusercontent.com/static/fonts/lato/v6/KT3KS9Aol4WfR6Vas8kNcg.woff) format('woff');
+	src: url(https://fonts.gstatic.com/s/lato/v11/zLhfkPOm_5ykmdm-wXaiuw.eot?#iefix) format('embedded-opentype'),
+		url(https://fonts.gstatic.com/s/lato/v11/kcf5uOXucLcbFOydGU24WALUuEpTyoUstqEm5AMlJo4.woff) format('woff'),
+		url(https://fonts.gstatic.com/s/lato/v11/nj47mAZe0mYUIySgfn0wpQ.ttf)  format('truetype'),
+		url(https://fonts.gstatic.com/l/font?kit=7yKIrlBXX_AXuUv3Ts9_8g#Lato) format('svg');
 }
 
 @font-face {
@@ -10,6 +38,10 @@
 	font-style: normal;
 	font-weight: 700;
 	src: local('Lato Bold'), local('Lato-Bold'), url(http://themes.googleusercontent.com/static/fonts/lato/v6/wkfQbvfT_02e2IWO3yYueQ.woff) format('woff');
+	src: url(https://fonts.gstatic.com/s/lato/v11/sBtfDPlEIwvKKU53nAG7AQ.eot?#iefix) format('embedded-opentype'),
+		url(https://fonts.gstatic.com/s/lato/v11/qdgUG4U09HnJwhYI-uK18wLUuEpTyoUstqEm5AMlJo4.woff) format('woff'),
+		url(https://fonts.gstatic.com/s/lato/v11/DvlFBScY1r-FMtZSYIYoYw.ttf)  format('truetype'),
+		url(https://fonts.gstatic.com/l/font?kit=hLECvlEj3pKlnS4NFs8NQw#Lato) format('svg');
 }
 
 @font-face {
@@ -17,61 +49,366 @@
 	font-style: normal;
 	font-weight: 400;
 	src: local('Lato Regular'), local('Lato-Regular'), url(http://themes.googleusercontent.com/static/fonts/lato/v6/9k-RPmcnxYEPm8CNFsH2gg.woff) format('woff');
+	src: url(https://fonts.gstatic.com/s/lato/v11/nQhiC-wSiJx0pvEuJl8d8A.eot?#iefix) format('embedded-opentype'),
+		url(https://fonts.gstatic.com/s/lato/v11/qIIYRU-oROkIk8vfvxw6QvesZW2xOQ-xsNqO47m55DA.woff) format('woff'),
+		url(https://fonts.gstatic.com/s/lato/v11/v0SdcGFAl2aezM9Vq_aFTQ.ttf)  format('truetype'),
+		url(https://fonts.gstatic.com/l/font?kit=H4oiIt_Ug9TU5ast0nUT-w#Lato) format('svg');
+}*/
+
+.header-button .wikiglyph {
+	/*position: absolute;
+	top: -.05em; /* The glyphs have a height of 1.1em (you can see this in wikiglyph.css). However, the height of .header-button is 1em, so .1em of the glyph is under the .header-button. To vertically center the glyph, move it ((1.1em - 1em) / 2) or .05em up. */
+	/*height: 1em; /* This limits the height of the .wikiglyph span so the clickable area isn't 1.1em tall. */
+	font-size: 1em; /* make the definition of the arrow's em the same as its parent's so it's easier to position using em units... */
+	line-height: 3em;
+	height: 3em; /* line-height and height equal to the parent's height (3em) plus vertical-align:text-bottom in wikiglyphs.css vertically centers the icons */
+
+	-ms-transform: translateY(-3%); /* we don't want the arrows to have translateY (which is applied to .wikiglyph elements). Instead we change the transform-origin (see below) */
+	-o-transform: translateY(-3%);
+	-moz-transform: translateY(-3%);
+	-webkit-transform: translateY(-3%); /* -webkit- last so it's used in place of -o- if possible */
+	transform: translateY(-3%);
 }
 
+.fadable {
+	-o-transition: opacity 0.2s ease;
+	-moz-transition: opacity 0.2s ease;
+	-webkit-transition: opacity 0.2s ease; /* -webkit- last so it's used in place of -o- if possible */
+	transition: opacity 0.2s ease;
+	opacity: 1;
+	visibility: visible;
+}
+
+.faded {
+	-o-transition: opacity 0.2s ease, visibility 0.2s;
+	-moz-transition: opacity 0.2s ease, visibility 0.2s;
+	-webkit-transition: opacity 0.2s ease, visibility 0.2s; /* -webkit- last so it's used in place of -o- if possible */
+	transition: opacity 0.2s ease, visibility 0.2s;
+	opacity: 0;
+	visibility: hidden;
+}
+
+.header-button .wikiglyph:before {
+	font-size: 2.5em; /* ...however, the actual glyph has a more appropriate font size of 2.5em (so the glyph itself is larger while it can be positioned with the smaller em units without a problem) */
+}
+
+#header .wikiglyph-caret-down {
+	font-size: 1em; /* make the definition of the arrow's em the same as its parent's so it's easier to position using em units... */
+}
+
+#header .wikiglyph-caret-down:before {
+	font-size: 1.25em; /* ...however, the actual glyph has a more appropriate font size of 1.25em (so the glyph itself is larger while it can be positioned with the smaller em units without a problem) */
+}
+
+#user-info .wikiglyph { /* arrow and user icons */
+	margin-right: -.25em;
+	margin-left: -.25em;
+}
+
+.header-button .arrow {
+	-ms-transform: translateY(0); /* we don't want the arrows to have translateY (which is applied to .wikiglyph elements). Instead we change the transform-origin (see below) */
+	-o-transform: translateY(0);
+	-moz-transform: translateY(0);
+	-webkit-transform: translateY(0); /* -webkit- last so it's used in place of -o- if possible */
+	transform: translateY(0);
+
+	-ms-transform-origin: 50% 52%; /* the icon itself (i.e. the arrow inside the SVG) is subtly off vertical center, making it look slightly off when animated; this line counterbalances that for the animation */
+	-o-transform-origin: 50% 52%;
+	-moz-transform-origin: 50% 52%;
+	-webkit-transform-origin: 50% 52%; /* -webkit- last so it's used in place of -o- if possible */
+	transform-origin: 50% 52%;
+}
+
+/********** (End fonts) **********/
 body {
 	font-family: "Lato", sans-serif;
 	margin: 0;
 	background-color: #194a8d;
+	-webkit-tap-highlight-color: transparent; /* preventing gray overlay when pressed on mobile webkit browsers (e.g. mobile Safari) */
+}
+
+#fade-overlay {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: block;
+	opacity: 0;
+	-o-transition: opacity 0.2s ease;
+	-moz-transition: opacity 0.2s ease;
+	-webkit-transition: opacity 0.2s ease; /* -webkit- last so it's used in place of -o- if possible */
+	transition: opacity 0.2s ease;
+	background: #fff;
 }
 
 #header {
+	-webkit-font-smoothing: antialiased;
+	width: 100%;
+	height: 3em;
+	z-index: 10000; /* very high value to guarantee no elements on wikis will appear above it */
+	position: fixed;
+}
+
+.header-button { /* defined at top so individual elements can override these properties */
+	cursor: pointer;
+	width: 3em;
+	font-family: "Lato Body", sans-serif;
+	color: #fff;
+	display: inline-block;
+}
+
+a.header-button { /* double selectors to override default a element text-decoration without use of !important */
+	text-decoration: none;
+}
+
+.header-dropdown-item a {
+	color: #fff;
+}
+
+.header-dropdown-item a.new {
+	color: #fdad9d;
+}
+
+#header-inner {
+	height: 100%;
 	background-color: #103ca2;
-	background-image: -moz-linear-gradient(left, #040f28 0, #103ca2 50%, #040f28 100%);
 	background-image: -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(0, #040f28), color-stop(50%, #103ca2), color-stop(100%, #040f28));
-	background-image: -o-linear-gradient(left, #040f28 0, #103ca2 50%, #040f28 100%);
 	/* IE5.5-IE7 */
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#040f28', endColorstr='#103ca2', GradientType=1);
 	/* IE8 */
 	-ms-filter: "progid:DXImageTransform.Microsoft.Gradient(GradientType=1,StartColorStr=#040f28,EndColorStr=#103ca2)";
 	/* IE9+ */
-	background-image: -ms-linear-gradient(left, #040f28 0, #103ca2 50%, #040f28 100%);
+	background-image: -webkit-gradient(linear, right top, left top, color-stop(0, #040f28), color-stop(50%, #103ca2), to(#040f28));
+	background-image: -webkit-linear-gradient(right, #040f28 0, #103ca2 50%, #040f28 100%);
 	background-image: linear-gradient(to left, #040f28 0, #103ca2 50%, #040f28 100%);
-	-webkit-font-smoothing: antialiased;
-	width: 100%;
-	height: 3em;
-	z-index: 3;
-	position: fixed;
 }
 
-#maintitle h1 {
+#header-categories {
+	list-style: none;
+	height: 3em;
+	margin: 0;
+	overflow: hidden; /* hide categories that get cut off when the window is too small */
+	line-height: 1em; /* overriding default style of line-height: 1.5em */
+}
+
+.page-item {
+	width: auto;
+	height: auto;
+	min-width: 8em;
+	display: inline-block;
+	text-decoration: none;
+}
+
+#header-categories .header-button {
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+	width: auto;
+}
+
+.header-category-name {
+	display: inline-block;
+	height: 3em;
+	padding-right: 0.5em;
+	line-height: 3em;
+	white-space: nowrap;
+	vertical-align: text-bottom;
+}
+
+#header-categories a:hover,
+#header-categories a:focus {
+	text-decoration: none;
+}
+
+#header-categories li img {
+	margin: 00.5em 3px 4px;
+}
+
+#header-categories .header-category-menu {
+	background: #000;
+	background: rgba(0,0,0,0.8);
+	margin: 0;
+}
+
+.header-category-menu {
+	position: absolute;
+	width: 10em;
+	height: auto;
+	padding: 0 0.2em 0.2em 0.2em;
+}
+
+.header-category-menu .header-dropdown-item {
+	display: inline-block;
+	padding-top: 0.2em;
+	padding-bottom: 0.2em;
+	width: 100%;
+}
+
+.header-category-menu .header-dropdown-item a {
+	margin-left: 0.4em; /* matching .headermenu a */
+}
+
+#firstHeading {
+	padding: 0 0.9em; /* 1em (#bodyContent padding-left) * 0.9em (#bodyContent font-size) */
+}
+
+#firstHeading h1 {
 	font-size: 32pt;
 	font-family: "Lato Body", sans-serif;
 	padding-top: 0.2em;
-	padding-left: 0.5em;
-	margin-bottom: 0.3em;
-	padding-bottom: .05em;
+	margin-bottom: 0.1em;
+	padding-bottom: 0.05em;
 }
-.scrollshadow {
+
+.mw-indicators {
+	float: right;
+}
+
+.mw-indicator {
+	display: inline;
+}
+
+.scroll-shadow {
 	background: none;
 }
-#maintitlemessages {
-	padding-left: 1.5em;
+
+.standard-toolbox {
+	font-family: "Lato", sans-serif; /* assigning here so em values match em values of the links inside */
+	-o-transition: -o-transform 0.4s ease;
+	-moz-transition: -moz-transform 0.4s ease;
+	-webkit-transition: -webkit-transform 0.4s ease; /* -webkit- last so it's used in place of -o- if possible */
+	transition: transform 0.4s ease;
+	top: 0;
 }
+
+.standard-toolbox a {
+	margin-left: 0.5em;
+	padding-top: 0.25em;
+	padding-bottom: 0.25em;
+	text-transform: lowercase;
+	font-weight: normal;
+	text-decoration: none;
+}
+
+.standard-toolbox > a:first-of-type {
+	margin-left: 0;
+}
+
+.standard-toolbox a:hover {
+	border-bottom: 0.25em solid #0645ad;
+}
+
+.standard-toolbox a:visited:hover,
+.standard-toolbox a.selected,
+.standard-toolbox a.selected:visited {
+	border-bottom: 0.25em solid #0b0080;
+}
+
+.standard-toolbox a.new:hover {
+	border-bottom: 0.25em solid #ba0000;
+}
+
+.standard-toolbox a.new:visited:hover,
+.standard-toolbox a.new.selected,
+.standard-toolbox a.new.selected:visited {
+	border-bottom: 0.25em solid #a55858;
+}
+
+.standard-toolbox-dropdown {
+	left: 0.5em;
+	z-index: 3;
+	background: #fff;
+	position: absolute;
+	width: 12em;
+	box-shadow: 0 3px 9px 0 rgba(75, 75, 75, 0.4);
+	border: 1px solid #ddd;
+	margin-top: 0.25em;
+}
+
+.standard-toolbox-dropdown ul {
+	list-style-type: none;
+	margin-left: 0;
+	margin-top: 0.25em;
+}
+
+.dropdown-triangle {
+	width: 0;
+	height: 0;
+	border-left: 0.5em solid transparent;
+	border-right: 0.5em solid transparent;
+	border-bottom: 0.5em solid #ccc;
+	position: absolute;
+	top: -.5em;
+	left: 0.1em;
+}
+
+.standard-toolbox-dropdown a {
+	width: 100%;
+	height: 100%;
+	display: inline-block;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+.standard-toolbox-dropdown a:hover {
+	border: 0;
+}
+
+.standard-toolbox-dropdown a:hover span {
+	border-bottom: 0.25em solid #0645ad;
+}
+
+.standard-toolbox-dropdown a:visited:hover span {
+	border-bottom: 0.25em solid #0b0080;
+}
+
+.fixed-toolbox {
+	padding-left: 0.9em; /* 1em (#bodyContent padding-left) * 0.9em (#bodyContent font-size) */
+	position: fixed;
+	border-bottom: 0.25em solid #eee;
+	background: #fff;
+	padding-top: 0.25em;
+	padding-bottom: 0.25em;
+	width: -moz-calc(100% - 13.4em);
+	width: -webkit-calc(100% - 13.4em);
+	width: calc(100% - 13.4em);
+	margin-left: 12em; /* width of #sidebarwrapper */
+	z-index: 9999; /* very high value to guarantee no elements on wikis will appear above it */
+}
+
+.dropdown-open {
+	-ms-transform: translateY(3em);
+	-o-transform: translateY(3em);
+	-moz-transform: translateY(3em);
+	-webkit-transform: translateY(3em); /* -webkit- last so it's used in place of -o- if possible */
+	transform: translateY(3em);
+}
+
+#main-title-messages {
+	font-size: 0.9em;
+	padding-top: 1.25em;
+	padding-bottom: 0.5em;
+}
+
 #siteSub {
-	font-size: 84%;
-	padding-bottom: .25em;
+	font-size: 0.9em;
+	padding-bottom: 0.25em;
 }
-#contentSub {
+
+#contentSub,
+#contentSub2 {
 	margin: 0;
-	margin-bottom: .25em;
+	padding: 0;
+	font-size: 0.9em;
 }
 
 #back-to-subject {
 	display: none;
+	font-size: 1.25em;
+	padding-bottom: 0.25em;
 }
 
-#smalltoolboxwrapper {
+#small-toolbox-wrapper {
 	display: none;
 }
 
@@ -80,456 +417,298 @@ body {
 	text-align: center;
 }
 
-#newtalk {
+#new-talk {
 	margin-left: 2em;
 }
 
-#contentwrapper {
+#content {
 	min-height: 100%;
 	position: relative;
 	top: 3em;
 	background-color: white;
 	z-index: 2;
 	font-family: sans-serif;
+	border-bottom: 0.25em solid #eee;
+	padding-bottom: 1em;
+}
+
+#content * {
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0.4);
+}
+
+#bodyContent {
+	padding: 0 1em;
+	line-height: 1.5em;
+	font-size: 0.875em;
+	word-wrap: break-word;
+	font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+	color: #252525;
 	overflow: auto;
 }
 
-#content {
-	padding: 0em 1em;
-	font-size: 0.9em;
-	word-wrap: break-word;
-}
-
-#leftbar, #rightbar {
+#sidebar-wrapper {
 	width: 12em;
-	height: 100%;
 	position: fixed;
 	top: 0;
 	color: white;
-	z-index: 3;
+	z-index: 2;
+	height: 100%;
 }
 
 /*
  * Hide the list bullet icons. This is not terribly useful by default, but there
- * are extensions which can add entire portlets to the sidebar, and said portlets
+ * are extensions which can add entire portlets to the sidebarwrapper, and said portlets
  * might be using the <ul> HTML tag...
  */
-#rightbar li, #leftbar li {
+#sidebar-wrapper li {
 	list-style-type: none;
 	margin: 0;
 }
 
-#rightbar ul, #leftbar ul {
+#sidebar-wrapper ul {
 	margin: 0;
 	padding: 0;
 }
 
-#rightbar-top {
+#sidebar-logo {
+	display: none;
+}
+
+#sidebar {
 	overflow-y: auto;
 	width: 100%;
-	height: webkit-calc( 100% - 3.5em );
-	height: moz-calc( 100% - 3.5em );
+	height: -moz-calc( 100% - 3.5em );
+	height: -webkit-calc( 100% - 3.5em );
 	height: calc( 100% - 3.5em );
-	left: 0px;
-}
-
-#leftbar-top, #rightbar-top {
+	left: 0;
+	line-height: 1.5em;
 	position: absolute;
 	top: 3em;
-	padding-top: 8px !important;
+	padding-top: 0.5em;
 }
 
-#leftbar-bottom {
-	position: absolute;
-	bottom: 1em;
-	border-right: 1px solid white;
-	width: 100%;
-	right: -1px;
-}
-
-#leftbar-top {
-	right: 0px;
-}
-
-#leftbar-main a, #rightbar-main a {
+#sidebar a {
 	display: block;
 	color: white;
 	text-decoration: none;
+	padding-left: 1em;
+	margin-left: 5px; /* px instead of em because of 5px border on hover */
 }
 
-#leftbar-main a {
-	padding-left: 10px;
-	text-align: right;
-	margin-right: 5px;
-	direction: ltr; /* ensure direction is correct, as ToC changes it */
-}
-
-#rightbar-main a {
-	text-align: left;
-	margin-left: 5px;
-}
-
-#rightbar .main {
-	padding-left: 10px;
-	display: block;
-	margin-top: 0.5em;
-}
-
-#rightbar .main:first-of-type {
-	margin-top: 0em;
-}
-
-#rightbar .sub {
-	padding-left: 20px;
-}
-
-#leftbar-main a:hover, #rightbar-main a:hover {
+#sidebar a:hover {
 	color: #CCC;
 	cursor: pointer;
-}
-
-#leftbar-main a:hover {
-	border-right: 5px solid #CCC;
-	margin-right: 0;
-}
-
-#rightbar-main a:hover {
 	border-left: 5px solid #CCC;
 	margin-left: 0;
 }
 
-#leftbar-top li, #rightbar-top li {
+#sidebar .main {
+	margin-left: 0.5em;
+	margin-top: 0.5em;
+}
+
+#sidebar .main:first-of-type {
+	margin-top: 0;
+}
+
+#sidebar li {
 	text-transform: lowercase;
 }
 
-#leftbar-top a {
-	padding-right: 10px;
-}
-
-/* Don't apply text-transform to the page name in the left-hand sidebar */
-#leftbar-top > li:first-of-type {
-	text-transform: none;
-}
-
-/* At least Internet Explorer 8 doesn't understand first-of-type... */
-ul#leftbar-top li a[id ^="ca-nstab"] {
-	text-transform: none;
-}
-
-#leftbar-top > li:nth-of-type(3) > a {
-	margin-top: 0.5em;
-}
-
-#leftbar-top a.selected,
-#leftbar-top .selected a {
-	border-right: 5px solid white;
-	margin-right: 0;
-}
-
-#leftbar-top a.new,
-#leftbar-top .new a {
-	color: #fdad9d;
-	border-color: #fdad9d;
-}
-
-#leftbar-top a.new:hover,
-#leftbar-top .new a:hover {
-	color: #f47d64;
-	border-color: #f47d64;
-}
-
-#leftbar-top a.new.selected,
-#leftbar-top .new.selected a {
-	color: #fdad9d;
-	border-color: #fdad9d;
-}
-
-#toolbox, #languages {
-	right: 0;
-	z-index: 3;
-	background-color: #000;
-	background-color: rgba(0, 0, 0, 0.7);
-	position: absolute;
-	width: 12em;
-}
-
-.shower {
-	position: absolute;
-	height: 3em;
-	cursor: pointer;
-}
-
-#rightbar .shower {
-	right: 12.5em;
-	width: 48px;
-	height: 48px;
-	background: url("images/icon-rightbar.png") top left no-repeat;
-	background-size: 48px 48px;
-}
-
-#refreshed-toc {
+.toolbox-container {
+	display: inline-block;
 	position: relative;
 }
 
-#toc-box {
-	width: 5px;
-	background-color: white;
-	height: 28px;
-	position: absolute;
-	right: 0;
-}
-
-#refreshed-toc a:only-of-type {
-	height: 28px;
-}
-
-#leftbar-bottom a {
-	padding-right: 10px;
-	padding-top: 0.15em;
-	padding-bottom: 0.15em;
-}
-
-a.toclevel-2 {
-	padding-right: 20px !important;
-}
-
-a.toclevel-3 {
-	padding-right: 30px !important;
-}
-
-a.toclevel-4 {
-	padding-right: 40px !important;
-}
-
-a.toclevel-5 {
-	padding-right: 50px !important;
-}
-
-a.toclevel-6 {
-	padding-right: 60px !important;
-}
-
-.toc, #toc { /* hide inline toc if it has somehow scraped in. */
-	display: none;
-}
-
-#userinfo {
+#user-info {
 	position: relative;
-	float: left;
+	float: right;
+	margin-right: 0.5em;
 }
 
-#userinfo > a {
+#user-info .header-button {
 	display: block;
-	padding: 0.5em;
-	height: 2em;
-	text-decoration: none;
-	min-width: 11em; /* 11em - 12em minus 1/2em padding on each side */
-	position: relative;
-	white-space: nowrap;
-	overflow-x: hidden;
-	text-overflow: ellipsis;
+	width: auto;
+	max-width: 320px;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
 }
 
-#userinfo > a:hover {
-	background-color: midnightblue;
-	color: #CCC;
+.username {
+	display: inline-block;
+	/* font-size: 1.25em; /* same as 15pt it seems */
+	line-height: 3em;
+	vertical-align: text-bottom; /* line-height equal to the parent's height (3em) plus vertical-align:text-bottom vertically centers the text */
 }
 
-#userinfo .avatar-none {
-	display: none;
+.username-avatar-none {
+	margin-left: 1.75em;
 }
 
-#userinfo > a span {
-	display: block;
-	margin-top: 0.1em;
-	font-size: 15pt;
-	color: white !important;
-	padding-right: 10px;
-	margin-left: 3.5em;
-}
-
-#username-avatar-none {
-	margin-left: 1.75em !important;
-}
-
-#userinfo .arrow {
-	position: absolute;
-	left: 1em;
-	top: 1.2em;
-	vertical-align: text-bottom;
-}
-
-#toolbox-link {
-	margin-top: 0.5em;
-}
-
-#toolbox-link .arrow, #languages-link .arrow {
+#languages-link .arrow {
 	vertical-align: 2px;
 }
 
-#userinfo .arrow, #toolbox-link .arrow, #languages-link .arrow {
-	-webkit-transition: -webkit-transform 0.5s; /* Safari */
-	-moz-transition: -moz-transform 0.5s; /* Firefox */
-	-ms-transition: -ms-trasform 0.5s; /* IE */
+.arrow {
+	-o-transition: -o-transform 0.5s;
+	-moz-transition: -moz-transform 0.5s;
+	-webkit-transition: -webkit-transform 0.5s; /* -webkit- last so it's used in place of -o- if possible */
 	transition: transform 0.5s;
-
-	-webkit-transform: rotateZ(0deg); /* Safari */
-	-moz-transform: rotateZ(0deg); /* Firefox */
-	-ms-transform: rotateZ(0deg); /* IE */
-	transform: rotateZ(0deg);
 }
 
-#userinfo .arrow.rotate, #toolbox-link .arrow.rotate, #languages-link .arrow.rotate {
-	-webkit-transform: rotateZ(-180deg); /* Safari */
-	-moz-transform: rotateZ(-180deg); /* Firefox */
-	-ms-transform: rotateZ(-180deg); /* IE */
-	transform: rotateZ(-180deg);
+.arrow.rotate {
+	-ms-transform: rotate(-180deg);
+	-o-transform: rotate(-180deg);
+	-moz-transform: rotate(-180deg);
+	-webkit-transform: rotate(-180deg); /* -webkit- last so it's used in place of -o- if possible */
+	transform: rotate(-180deg);
 }
 
-#userinfo .avatar {
-	position: absolute;
-	left: 2.5em;
+.avatar {
 	width: 30px;
+	margin-bottom: 9px; /* height of #header is 48px, height of avatar is 30px; to vertically center, have margin-bottom of (48px - 30px) / 2 or 9px */
+	vertical-align: text-bottom;
+	padding-right: 0.25em; /* space it out from the username a bit more */
+	padding-left: 0.25em; /* space it out from the dropdown arrow */
 }
 
 .no-show {
 	display: none;
 }
 
-.headermenu {
+.header-menu {
 	padding: 0 0.2em 0.2em 0.2em;
 	margin: 0;
 	z-index: 4;
-}
-
-#userinfo .headermenu {
-	background-color: #191970;
-	background-color: rgba(25, 25, 112, 0.8);
-}
-
-#siteinfo .headermenu {
+	list-style: none;
 	background-color: #000;
 	background-color: rgba(0, 0, 0, 0.8);
 }
 
-.headermenu a {
+.header-menu a {
 	font-size: 14pt;
 	text-decoration: none;
 	display: block;
-	color: white;
 	padding: 0.2em 0.4em 0.2em 0.4em;
 }
 
-.headermenu a:hover {
-	opacity: 1;
-	background-color: midnightblue;
-	text-decoration: none;
-}
-
-.headermenu .new {
-	color: #fdad9d !important;
-}
-
-#userinfo .headermenu {
-	left: 1em;
+#user-info .header-menu {
+	right: 0;
 	width: 11em;
 	position: absolute;
 }
 
-#userinfo .headermenu a {
-	padding-right: 0.7em !important;
+#user-info .header-menu a {
+	padding-right: 0.7em;
 	text-align: right;
 }
 
-#siteinfo .headermenu {
-	margin: auto;
-	width: 12.6em;
+.sidebar-shower {
+	position: absolute;
+	top: 0;
+	right: -3em;
+	background-color: #194a8d;
+	background-image: url(images/icon-rightbar.png);
+	background-size: 3em;
+	display: none;
+	-o-transition: right 0.2s ease 0s;
+	-moz-transition: right 0.2s ease 0s;
+	-webkit-transition: right 0.2s ease 0s; /* -webkit- last so it's used in place of -o- if possible */
+	transition: right 0.2s ease 0s;
 }
 
-#siteinfo-main {
-	margin: auto;
-	width: 13em;
+#site-info .header-menu {
+	width: 11.6em;
+	position: absolute;
+	top: 3em;
+	left: 0;
+}
+
+#site-info-main {
+	float: left;
+	width: 12em;
 	height: 3em;
 }
 
-#siteinfo-main:hover,
-.dropdown-bg-highlighted {
-	background-color: #333;
-}
-
-#siteinfo-main a:hover,
-.dropdown-highlighted {
-	background-color: #222;
-}
-
-#siteinfo-main a.main {
-	padding: 0.5em;
-	display: inline-block;
+#site-info-main.multiple-wikis .main {
 	width: 10em;
+	overflow: hidden;
 	height: 2em;
+	padding: 0.5em 0;
+	vertical-align: text-bottom;
 }
 
-#siteinfo-main a.main img {
-	height: 2em;
+#site-info-main a:hover,
+.site-dropdown-highlighted {
+	background-color: midnightblue;
 }
 
-#siteinfo-main a.arrow-link {
-	position: absolute;
-	padding-top: .9em;
-	padding-right: .5em;
-	padding-bottom: .1em;
-	padding-left: .5em;
+#site-info-main a.main {
+	padding: 0.5em 0;
 	display: inline-block;
-	height: 2em;
-	width: 1em;
+	width: 12em;
 }
 
-#siteinfo a span { /* for when there is no image, just text */
-	font-size: 15pt;
-	color: white;
+#site-info-main .header-button {
+	width: 2em;
 }
 
-#siteinfo a {
+#site-info a {
 	text-align: center;
 }
 
-#siteinfo img.arrow {
-	-webkit-transition: -webkit-transform .5s; /* Safari */
-	-moz-transition: -moz-tranform .5s; /* Firefox */
-	-ms-transition: -ms-transform .5s; /* IE */
-	transition: transform .5s;
-
-	-webkit-transform: rotateZ(0deg); /* Safari */
-	-moz-transform: rotateZ(0deg); /* Firefox */
-	-ms-transform: rotateZ(0deg); /* IE */
-	transform: rotateZ(0deg);
-
-	vertical-align: middle;
+#site-info-mobile {
+	display: none;
+	height: 2.75em;
+	width: 2.75em;
+	margin-left: 3em; /* 2.75em for sidebar opener, 0.25em of padding */
+	padding: 0 0.25em;
 }
 
-#siteinfo img.arrow.rotate {
-	-webkit-transform: rotateZ(180deg); /* Safari */
-	-moz-transform: rotateZ(180deg); /* Firefox */
-	-ms-transform: rotateZ(180deg); /* IE */
-	transform: rotateZ(180deg);
+#site-info-mobile .header-button {
+	display: block;
 }
 
-#search {
+#search-shower {
+	position: relative;
+	float: right;
+	text-align: center;
+	display: none;
+}
+
+#header .search {
 	width: 11em;
-	position: absolute;
+	height: 2em;
+	position: static;
+	float: right;
+	margin-right: 0.5em; /* 0.5em right + 0.5em padding = 1em */
 	top: 0;
-	right: 0;
 	padding: 0.5em;
 }
 
-#search input {
-	float: right;
+#header .search-form {
+	height: 100%;
+}
+
+#search-closer {
+	position: absolute;
+	top: 0;
+	right: 0;
+	display: none;
+	z-index: 1;
+}
+
+#searchInput { /* header search box */
 	border: none;
-	font-size: 12pt;
+	font-size: 1em;
 	padding: 0.25em;
 	font-family: Lato, sans-serif;
+	box-sizing: border-box;
+	-webkit-appearance: none; /* prevent Safari from styling input box */
+	border-radius: 0; /* prevent iOS from adding rounded corners to input box */
 	width: 11em;
-	-webkit-appearance: none;
+	height: 100%;
+	vertical-align: text-bottom;
 }
 
 #refreshed-toc #toc-box:last-child {
@@ -545,7 +724,7 @@ a.toclevel-6 {
 }
 
 #preftoc li:first-child:before {
-	content: none !important;
+	content: none;
 }
 
 #footer {
@@ -561,7 +740,7 @@ a.toclevel-6 {
 }
 
 #footer * {
-	line-height: 1.5
+	line-height: 1.5;
 }
 
 #footer img {
@@ -576,13 +755,28 @@ a.toclevel-6 {
 	margin: 0;
 }
 
+.header-button:hover,
+.header-button-active,
+.header-dropdown-item:hover { /* defined at bottom so this overrides individual elements' background-color properties */
+	background-color: midnightblue;
+}
+
 /******************************** CONTENT/OTHER THINGS BEYOND CONTROL ******************************/
 
-h3,
+h1, h2, h3, h4, h5, h6 {
+	font-family: "Lato", "Helvetica", "Arial", sans-serif;
+	line-height: 1.3;
+	border-color: #ddd;
+}
+
+h2, h3 {
+	font-weight: bold;
+}
+
 h4,
 h5,
 h6 {
-	font-weight: normal !important;
+	font-weight: normal;
 }
 
 /* Fix for login/signup form pages not displaying in content section */
@@ -595,19 +789,6 @@ h6 {
 	margin-bottom: 0em !important;
 }
 
-#search {
-	position: static !important;
-	float: right;
-}
-
-.mw-search-formheader {
-	border: none !important;
-}
-
-#search input#searchText {
-	border: 1px solid #CCC !important
-}
-
 .printfooter {
 	display: none;
 }
@@ -616,20 +797,53 @@ h6 {
 	padding: 1em;
 }
 
-#contentwrapper p:first-of-type {
+#content p:first-of-type {
 	margin-top: 0;
 }
 
+/* stopping wikitables from overflowing, adding .scrollshadow-type scrolling */
+#bodyContent .wikitable {
+	overflow-x: auto;
+	display: block;
+	border: 0;
+	/* same as .scrollshadow, but #f9f9f9 instead of white */
+	background:
+		-webkit-linear-gradient(90deg, #f9f9f9 20%, rgba(255,255,255,0)),
+		-webkit-linear-gradient(270deg, #f9f9f9 20%, rgba(255,255,255,0)) 100% 0,
+		-webkit-linear-gradient(90deg, #e3e3e3 10%, rgba(255,255,255,0)),
+		-webkit-linear-gradient(270deg, #e3e3e3 10%, rgba(255,255,255,0)) 100% 0;
+	background:
+		linear-gradient(90deg, #f9f9f9 20%, rgba(255,255,255,0)), linear-gradient(270deg, #f9f9f9 20%, rgba(255,255,255,0)) 100% 0, linear-gradient(90deg, #e3e3e3 10%, rgba(255,255,255,0)), linear-gradient(270deg, #e3e3e3 10%, rgba(255,255,255,0)) 100% 0;
+	background:
+		-webkit-linear-gradient(0deg, #f9f9f9 20%, rgba(255,255,255,0)), -webkit-linear-gradient(180deg, #f9f9f9 20%, rgba(255,255,255,0)) 100% 0, -webkit-linear-gradient(0deg, #e3e3e3 10%, rgba(255,255,255,0)), -webkit-linear-gradient(180deg, #e3e3e3 10%, rgba(255,255,255,0)) 100% 0;
+	background:
+		linear-gradient(90deg, #f9f9f9 20%, rgba(255,255,255,0)),
+		linear-gradient(270deg, #f9f9f9 20%, rgba(255,255,255,0)) 100% 0,
+		linear-gradient(90deg, #e3e3e3 10%, rgba(255,255,255,0)),
+		linear-gradient(270deg, #e3e3e3 10%, rgba(255,255,255,0)) 100% 0;
+	background-repeat: no-repeat;
+	background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
+	background-attachment: local, local, scroll, scroll;
+}
+
 /* Search suggestions */
-.suggestions {
+.header-suggestions { /* there are two .suggestions elements on Special:Search; we only want to apply the CSS to the .suggestions element that appears beneath the header, which is given the .header-suggestions class in refreshed.js */
+	z-index: 10000 !important;
 	position: fixed !important;
 	top: 2.5em !important; /* there is some JS doing odd stuff, this forces our value */
 }
 
 /* Category links */
 #catlinks {
-	margin-left: 1em;
-	margin-right: 1em;
+	background: none;
+	margin: 0 0.9em -.5em 0.9em;
+	padding: 0;
+	border: 0;
+	font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
+
+.catlinks li {
+	border-color: #ddd;
 }
 
 /* refresh-ify postedit, reset all the shadows and stuff */
@@ -642,13 +856,7 @@ h6 {
 	-webkit-text-shadow: none !important;
 	-moz-text-shadow: none !important;
 	text-shadow: none !important;
-
-	-webkit-border-radius: 0px !important;
-	-moz-border-radius: 0px !important;
 	border-radius: 0px !important;
-
-	-webkit-box-shadow: none !important;
-	-moz-box-shadow: none !important;
 	box-shadow: none !important;
 }
 
@@ -673,5 +881,46 @@ div.noarticletext {
 	border: 1px solid #ccc;
 	background: #fff;
 	color: #000;
-	padding: .2em 1em;
+	padding: 0.2em 1em;
+}
+
+/* Extension:Echo fixes */
+
+#pt-mytalk a.mw-echo-alert { /* "you have new messages" alert in the personal tools dropdown */
+	white-space: normal;
+	color: #555555 !important; /* 6 digits instead of 3 because Echo's CSS uses 6 to define the color in the standard state (!important to override color on hover) */
+}
+
+.pt-mytalk a.mw-echo-alert:hover {
+	background-color: #FAB951;
+}
+
+#pt-notifications-personaltools { /* "Notifications" item in the personal tools dropdown */
+	display: none;
+}
+
+#pt-notifications {
+	display: inline;
+	float: right;
+	margin: 0.9em 0 0 0;
+}
+
+.mw-echo-overlay {
+	position: fixed !important;
+	z-index: 999999 !important;
+	width: 20em !important;
+	top: 3em !important;
+	left: auto !important;
+	right: 1em !important;
+}
+
+.mw-echo-overlay:before,
+.mw-echo-overlay::before {
+	left: 114px !important; /* centering dropdown arrow on notifications badge */
+}
+
+/* stopping images on file pages from overflowing */
+.fullImageLink img {
+	max-width: 100%;
+	height: auto;
 }

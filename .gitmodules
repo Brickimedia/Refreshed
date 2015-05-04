@@ -1,0 +1,3 @@
+[submodule "refreshed/wikifont"]
+	path = refreshed/wikifont
+	url = https://github.com/munmay/WikiFont.git

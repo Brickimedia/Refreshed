@@ -1,15 +1,12 @@
 <?php
-/**
- * @file
- */
-if ( !defined( 'MEDIAWIKI' ) ) {
-	die();
-}
 
 // inherit main code from SkinTemplate, set the CSS and template filter
 class SkinRefreshed extends SkinTemplate {
-	public $skinname = 'refreshed', $stylename = 'refreshed',
-		$template = 'RefreshedTemplate', $useHeadElement = true;
+	public $skinname = 'refreshed',
+		$stylename = 'refreshed',
+		$template = 'RefreshedTemplate',
+		$useHeadElement = true,
+		$headerNav = array();
 
 	/**
 	 * Initializes OutputPage and sets up skin-specific parameters
@@ -17,12 +14,14 @@ class SkinRefreshed extends SkinTemplate {
 	 * @param OutputPage $out
 	 */
 	public function initPage( OutputPage $out ) {
+		global $wgLocalStylePath;
+
 		parent::initPage( $out );
 
 		$min = $this->getRequest()->getFuzzyBool( 'debug' ) ? '.src' : '.min';
 		// Add CSS @media support for older browsers (such as Internet Explorer
 		// 8) that do not support it natively
-		// @see https://github.com/Brickimedia/brickimedia/issues/224
+		// @see https:// github.com/Brickimedia/brickimedia/issues/224
 		// @todo FIXME: add Respond into the resources directory
 		// (skins/Refreshed/refreshed) and load it from there instead of from GitHub
 		// Remember to use the global variable $wgLocalStylePath, just like how
@@ -30,9 +29,23 @@ class SkinRefreshed extends SkinTemplate {
 		$out->addHeadItem( 'css3mediaquerypolyfill',
 			'<!--[if lt IE 9]>' .
 			Html::element( 'script', array(
-				'src' => "https://raw.github.com/scottjehl/Respond/master/dest/respond{$min}.js",
+				'src' => htmlspecialchars( $wgLocalStylePath ) . "/Refreshed/refreshed/respond{$min}.js",
 				'type' => 'text/javascript'
 			) ) . '<![endif]-->'
+		);
+		// add jQuery Mobile touch events
+		$out->addHeadItem( 'jquerymobiletouchevents',
+			Html::element( 'script', array(
+				'src' => htmlspecialchars( $wgLocalStylePath ) . "/Refreshed/refreshed/jquery.mobile.custom{$min}.js",
+				'type' => 'text/javascript'
+			) )
+		);
+		// prevent iOS from zooming out when the sidebar is opened
+		$out->addHeadItem( 'viewportforios',
+			Html::element( 'meta', array(
+				'name' => 'viewport',
+				'content' => 'width=device-width, initial-scale=1.0'
+			) )
 		);
 
 		// Add JavaScript via ResourceLoader
@@ -56,77 +69,91 @@ class SkinRefreshed extends SkinTemplate {
 	}
 }
 
-$refreshedTOC = '';
-
 class RefreshedTemplate extends BaseTemplate {
 
-	public static function onOutputPageParserOutput( OutputPage &$out, ParserOutput $parseroutput ) {
-		global $refreshedTOC;
-		$refreshedTOC = $parseroutput->mSections;
-
-		return true;
-	}
-
 	public function execute() {
-		global $wgStylePath, $refreshedTOC, $wgRefreshedHeader;
+		global $wgStylePath, $wgRefreshedHeader, $wgMemc;
 
 		$skin = $this->getSkin();
 		$user = $skin->getUser();
-
-		$refreshedImagePath = "$wgStylePath/Refreshed/refreshed/images";
-
-		// new TOC processing
-		$tocHTML = '';
-		if ( isset( $refreshedTOC ) ) {
-			$i = 0;
-			foreach ( $refreshedTOC as $tocpart ) {
-				$class = "toclevel-{$tocpart['toclevel']}";
-				$href = "#{$tocpart['anchor']}";
-				$tocHTML .= "<a href='$href' data-to='$href' data-numid='$i' class='$class'>{$tocpart['line']}</a>";
-				$i++;
-			}
-		}
 
 		// Title processing
 		$titleBase = $skin->getTitle();
 		$title = $titleBase->getSubjectPage();
 		$titleNamespace = $titleBase->getNamespace();
-		$titleText = $title->getPrefixedText();
-		$titleURL = $title->getLinkURL();
 
-		if ( $title->inNamespace( NS_MAIN ) ) {
-			$titleText = $skin->msg( 'refreshed-article', $titleText )->text();
+		$refreshedImagePath = "$wgStylePath/Refreshed/refreshed/images";
+
+		$key = wfMemcKey( 'refreshed', 'header' );
+		$headerNav = $wgMemc->get( $key );
+		if ( !$headerNav ) {
+			$headerNav = array();
+			$skin->addToSidebar( $headerNav, 'refreshed-navigation' );
+			$wgMemc->set( $key, $headerNav , 60 * 60 * 24 ); // 24 hours
 		}
-		$titleText = str_replace( '/', '&#8203;/&#8203;', $titleText );
-		$titleText = str_replace( ':', '&#8203;:&#8203;', $titleText );
 
 		// Output the <html> tag and whatnot
 		$this->html( 'headelement' );
-?>
-	<div id="header">
-		<div id="siteinfo">
-			<div id="siteinfo-main">
-				<a class="main" href="<?php echo $wgRefreshedHeader['url']; ?>"><?php echo $wgRefreshedHeader['img']; ?></a>
-			<?php
-				if ( $wgRefreshedHeader['dropdown'] ) {
-					echo "<a href='javascript:;' class='arrow-link'><img class='arrow' src='{$refreshedImagePath}/arrow-highres.png' alt='' width='15' height='8' /></a>";
-					echo '</div>';
-					echo '<div class="headermenu" style="display:none;">';
-					foreach ( $wgRefreshedHeader['dropdown'] as $url => $img ) {
-						echo "<a href=\"$url\">{$img}</a>";
-					}
-					echo '</div>';
-				} else {
-					echo '</div>';
-				}
-			?>
-		</div>
-	</div>
-	<div id="fullwrapper">
-		<div id="leftbar">
-			<div id="userinfo">
-				<a href="javascript:;">
+		?>
+		<a id="fade-overlay"></a>
+		<div id="header">
+			<div id="header-inner">
+				<div id="site-info">
 					<?php
+					if ( $wgRefreshedHeader['dropdown'] ) { // if there is a site dropdown (so there are multiple wikis)
+						?>
+						<div id="site-info-main" class="multiple-wikis">
+							<a class="main header-button" href="<?php echo $wgRefreshedHeader['url'] ?>"><?php echo $wgRefreshedHeader['img'] ?></a><a href="javascript:;" class="header-button fade-trigger site-info-arrow"><span class="arrow wikiglyph wikiglyph-caret-down"></span></a>
+							<ul class="header-menu fadable faded">
+								<?php
+								foreach ( $wgRefreshedHeader['dropdown'] as $url => $img ) {
+									?>
+									<li class="header-dropdown-item">
+										<a href="<?php echo $url ?>"><?php echo $img ?></a>
+									</li>
+									<?php
+								}
+								?>
+							</ul>
+						</div>
+						<?php
+					} else {
+						?>
+						<div id="site-info-main">
+							<a class="main header-button" href="<?php echo $wgRefreshedHeader['url'] ?>"><?php $wgRefreshedHeader['img'] ?></a>
+						</div>
+					<?php
+					}
+					?>
+					<!--<div id="site-info-mobile"> COMMENTED OUT, DON'T WRITE CODE IF IT DOESN'T WORK
+						<a class="main header-button" href="<?php //echo $wgRefreshedHeader['url'] ?>"><?php //echo $wgRefreshedHeader['mobileimg'] ?></a>
+					</div>-->
+				</div>
+				<div class="search">
+					<a id="search-shower" class="header-button fade-trigger fadable">
+						<span class="wikiglyph wikiglyph-magnifying-glass"></span>
+					</a>
+					<a id="search-closer" class="header-button fade-trigger fadable faded">
+						<span class="wikiglyph wikiglyph-x"></span>
+					</a>
+					<form class="search-form fadable faded" action="<?php $this->text( 'wgScript' ) ?>" method="get">
+						<input type="hidden" name="title" value="<?php $this->text( 'searchtitle' ) ?>"/>
+						<?php echo $this->makeSearchInput( array( 'id' => 'searchInput' ) ); ?>
+					</form>
+				</div>
+
+				<?php
+				// test if Echo is installed
+				if ( class_exists( 'EchoHooks' ) ) {
+					?>
+					<div id="echo"></div>
+					<?php
+				}
+				?>
+
+				<div id="user-info">
+					<a class="header-button fade-trigger" href="javascript:;">
+						<?php
 						$avatarImage = '';
 						// Show the user's avatar image in the top left drop-down
 						// menu, but only if SocialProfile is installed
@@ -136,170 +163,97 @@ class RefreshedTemplate extends BaseTemplate {
 								'width' => 30,
 								'class' => 'avatar'
 							) );
-							echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow-highres.png\" alt=\"\" width=\"15\" height=\"8\" />
-							{$avatarImage}
-							<span>{$user->getName()}</span>";
-						} else {
-							echo "<img class=\"avatar avatar-none\" src=\"$refreshedImagePath/avatar-none.png\" alt=\"\" width=\"30\" height=\"30\" height=\"8\" />";
-							echo "<img class=\"arrow\" src=\"$refreshedImagePath/arrow-highres.png\" alt=\"\" width=\"15\" height=\"8\" />
-							{$avatarImage}
-							<span id=\"username-avatar-none\">{$user->getName()}</span>";
-						}
-					?>
-				</a>
-				<ul class="headermenu" style="display:none;">
-					<?php
-						foreach ( $this->getPersonalTools() as $key => $tool ) {
-							echo $this->makeListItem( $key, $tool );
-						}
-					?>
-				</ul>
-			</div>
-			<div id="leftbar-main">
-				<ul id="leftbar-top">
-					<?php
-						reset( $this->data['content_actions'] );
-						$pageTab = key( $this->data['content_actions'] );
-
-						$this->data['content_actions'][$pageTab]['text'] = $titleText;
-
-						$title = $this->data['content_actions'][$pageTab];
-						echo '<li><a class="' . $title['class'] . '" ' .
-							'id="' . $title['id'] . '" ' .
-							'href="' . htmlspecialchars( $title['href'] ) . '">' .
-							$title['text'] . '</a></li>'; // no htmlspecialchars for <wbr>s
-						//echo $this->makeListItem( 'title', $titleLink );
-						unset( $this->data['content_actions'][$pageTab] );
-
-						foreach ( $this->data['content_actions'] as $key => $action ) {
-							echo $this->makeListItem( $key, $action );
-						}
-
-						echo "<li><a href=\"javascript:;\" id=\"toolbox-link\">
-							<img class=\"arrow\" src=\"$refreshedImagePath/arrow-highres.png\" alt=\"\" width=\"11\" height=\"6\" />
-							<img class=\"arrow no-show\" src=\"$refreshedImagePath/arrow-highres-hover.png\" alt=\"\" width=\"11\" height=\"6\" />
-							{$this->getMsg( 'toolbox' )->text()}</a></li>";
-					?>
-					<li><ul id="toolbox" style="display:none;">
+							?>
+							<span class="arrow wikiglyph wikiglyph-caret-down"></span>
+							<?php echo $avatarImage ?>
+							<span class="username"><?php echo $user->getName() ?></span>
 						<?php
-							$toolbox = $this->getToolbox();
-							foreach ( $toolbox as $tool => $toolData ) {
-								echo $this->makeListItem( $tool, $toolData );
-							}
-							wfRunHooks( 'SkinTemplateToolboxEnd', array( &$this, true ) );
+						} else if ( $this->data['loggedin'] ) { // if no SocialProfile but user is logged in
+							?>
+							<span class="arrow wikiglyph wikiglyph-caret-down"></span>
+							<span class="avatar-no-socialprofile wikiglyph wikiglyph-user-smile"></span>
+							<span class="username username-nosocialprofile-registered"><?php echo $user->getName() ?></span>
+						<?php
+						} else { // if no SocialProfile but user is not logged in
+							?>
+							<span class="arrow wikiglyph wikiglyph-caret-down"></span>
+							<span class="avatar-no-socialprofile wikiglyph wikiglyph-user-sleep"></span>
+							<span class="username username-nosocialprofile-anon"><?php echo $this->getMsg( 'login' )->text() ?></span>
+							<?php
+						}
 						?>
-					</ul></li>
-					<?php
-						if ( $this->data['language_urls'] ) {
-							echo "<li><a href=\"javascript:;\" id=\"languages-link\">
-								<img class=\"arrow\" src=\"$refreshedImagePath/arrow-highres.png\" alt=\"\" width=\"11\" height=\"6\" />
-								<img class=\"arrow no-show\" src=\"$refreshedImagePath/arrow-highres-hover.png\" alt=\"\" width=\"11\" height=\"6\" />
-								{$this->getMsg( 'otherlanguages' )->text()}</a></li>";
-							echo '<li><ul id="languages" style="display:none;">';
-							foreach ( $this->data['language_urls'] as $key => $link ) {
-								echo $this->makeListItem( $key, $link );
+					</a>
+					<ul class="header-menu fadable faded">
+						<?php
+						// generate user tools (and notifications item in user tools if needed)
+						$personalToolsCount = 0;
+						foreach ( $this->getPersonalTools() as $key => $tool ) {
+							$tool['class'] = 'header-dropdown-item'; // add the "header-dropdown-item" class to each li element
+							echo $this->makeListItem( $key, $tool );
+							if ( class_exists( 'EchoHooks' ) && $this->data['loggedin'] && $personalToolsCount == 2 ) { // if Echo is installed, user is logged in, and the first two tools have been generated (user and user talk)...
+								?>
+								<li id="pt-notifications-personaltools" class="header-dropdown-item">
+									<?php
+									echo Linker::link(
+										SpecialPage::getTitleFor( 'Notifications' ),
+										wfMessage( 'notifications' )->plain(),
+										Linker::tooltipAndAccesskeyAttribs( 'pt-notifications' )
+									)
+									?>
+								</li>
+							<?php
 							}
-							echo '</ul></li>';
+							$personalToolsCount++;
 						}
-					?>
-				</ul>
-				<div id="leftbar-bottom">
-					<div id="refreshed-toc">
-						<div id="toc-box"></div>
-						<?php echo $tocHTML; ?>
-					</div>
+						?>
+					</ul>
 				</div>
-			</div>
-		</div>
-		<div id="contentwrapper">
-			<?php if ( $this->data['sitenotice'] ) { ?>
-				<div id="site-notice">
-					<?php $this->html( 'sitenotice' ); ?>
-				</div>
-			<?php } ?>
-			<div id="newtalk"><?php $this->html( 'newtalk' ) ?></div>
-			<div id="maintitle">
-				<h1 class="scrollshadow"><?php $this->html( 'title' ) ?></h1>
-				<div id="maintitlemessages">
-					<div id="siteSub"><?php $this->msg( 'tagline' ) ?></div>
-					<div id="contentSub"<?php $this->html( 'userlangattributes' ) ?>><?php $this->html( 'subtitle' ) ?></div>
-				</div>
-				<?php
-				$title = $titleBase->getSubjectPage(); // reassigning it because it's changed in #leftbar-top
-				if ( $titleNamespace % 2 == 1 && $titleNamespace > 0 ) { // if talk namespace: talk namespaces are odd positive integers
-					echo Linker::link(
-						$title,
-						$skin->msg( 'refreshed-back', $title->getPrefixedText() )->escaped(),
-						array( 'id' => 'back-to-subject' )
-					);
-				}
-				?>
-			</div>
-			<?php
-			reset( $this->data['content_actions'] );
-			$pageTab = key( $this->data['content_actions'] );
-			$totalActions = count( $pageTab );
-			$isEditing = in_array(
-				$skin->getRequest()->getText( 'action' ),
-				array( 'edit', 'submit' )
-			);
-
-			if ( $totalActions > 0 && !$isEditing ) { // if there's more than zero buttons and the user isn't editing a page
-				echo '<div id="smalltoolboxwrapper">';
-				echo '<div id="smalltoolbox">';
-				$actionCount = 1;
-
-				if ( $titleNamespace % 2 == 1 && $titleNamespace > 0 ) { // if talk namespace: talk namespaces are odd positive integers
-					foreach ( $this->data['content_actions'] as $action ) {
-						if ( $actionCount > 1 ) {
-							// @todo Maybe write a custom makeLink()-like function for generating this code?
-							echo '<a href="' . htmlspecialchars( $action['href'] ) .
-								'"><div class="small-icon" id="icon-' . $action['id'] . '"></div></a>';
-							$actionCount++;
-						} else {
-							$actionCount++;
-						}
-					}
-				} else { // if not talk namespace
-					foreach ( $this->data['content_actions'] as $action ) {
-						echo '<a href="' . htmlspecialchars( $action['href'] ) .
-							'"><div class="small-icon" id="icon-' . $action['id'] . '"></div></a>';
-						$actionCount++;
-					}
-				}
-
-				echo '</div>';
-				if ( $actionCount > 2 ) {
-					echo '<a href="javascript:;"><div class="small-icon" id="icon-more"></div></a>';
-				}
-
-				echo '</div>';
-			} ?>
-			<div id="content" class="mw-body">
-				<?php $this->html( 'bodytext' ); ?>
-			</div>
-			<!-- some strange stuff going on here... -->
-			<?php $this->html( 'catlinks' ); ?>
-			<?php if ( $this->data['dataAfterContent'] ) { $this->html( 'dataAfterContent' ); } ?>
-			<br clear="all" />
-		</div>
-		<div id="rightbar">
-			<div class="shower"></div>
-			<div id="search">
-				<form action="<?php $this->text( 'wgScript' ) ?>" method="get">
-					<input type="hidden" name="title" value="<?php $this->text( 'searchtitle' ) ?>"/>
-					<?php echo $this->makeSearchInput( array( 'id' => 'searchInput' ) ); ?>
-				</form>
-			</div>
-			<div id="rightbar-main">
-				<ul id="rightbar-top">
+				<div id="header-categories">
 					<?php
-						unset( $this->data['sidebar']['SEARCH'] );
-						unset( $this->data['sidebar']['TOOLBOX'] );
-						unset( $this->data['sidebar']['LANGUAGES'] );
+					if ( $headerNav ) {
+						foreach ( $headerNav as $main => $sub ) {
+							?>
+							<div class="page-item<?php echo ( $sub ? ' page-item-has-children' : '' ) ?>">
+								<a href="javascript:;" class="header-button fade-trigger">
+									<span class="header-category-name"><?php echo htmlspecialchars( $main ) ?></span>
+									<span class="arrow wikiglyph wikiglyph-caret-down"></span>
+								</a>
+								<ul class="header-category-menu fadable faded">
+									<?php
+										foreach ( $sub as $key => $item ) {
+											$item['class'] = 'header-dropdown-item';
+											echo $this->makeListItem(
+												$key,
+												$item
+											);
+										}
+									?>
+								</ul>
+							</div>
+						<?php
+						}
+					}
+					?>
+				</div>
+			</div>
+		</div>
+		<div id="full-wrapper">
+			<div id="sidebar-wrapper">
+				<a class="sidebar-shower header-button"></a>
+				<div id="sidebar-logo">
+					<a class="main" href="<?php echo $wgRefreshedHeader['url'] ?>"><?php echo $wgRefreshedHeader['img'] ?></a>
+				</div>
+				<div id="sidebar">
+					<?php
+					unset( $this->data['sidebar']['SEARCH'] );
+					unset( $this->data['sidebar']['TOOLBOX'] );
+					unset( $this->data['sidebar']['LANGUAGES'] );
 
-						foreach ( $this->data['sidebar'] as $main => $sub ) {
-							echo '<span class="main">' . htmlspecialchars( $main ) . '</span>';
+					foreach ( $this->data['sidebar'] as $main => $sub ) {
+						?>
+						<div class="main"><?php echo htmlspecialchars( $main ) ?></div>
+						<ul>
+							<?php
 							if ( is_array( $sub ) ) { // MW-generated stuff from the sidebar message
 								foreach ( $sub as $key => $action ) {
 									echo $this->makeListItem(
@@ -315,43 +269,233 @@ class RefreshedTemplate extends BaseTemplate {
 								// allow raw HTML block to be defined by extensions (like NewsBox)
 								echo $sub;
 							}
-						}
+							?>
+						</ul>
+						<?php
+					}
+
+					if ( $this->data['language_urls'] ) {
+						?>
+						<div class="main"><?php $this->getMsg( 'otherlanguages' )->text() ?></div>
+							<ul id="languages">
+								<?php
+								foreach ( $this->data['language_urls'] as $key => $link ) {
+									echo $this->makeListItem( $key, $link, array( 'link-class' => 'sub', 'link-fallback' => 'span' ) );
+								}
+								?>
+							</ul>
+						</div>
+						<?php
+					}
 					?>
-				</ul>
+				</div>
+			</div>
+			<div id="content" class="mw-body">
+				<?php
+				if ( $this->data['sitenotice'] ) {
+					?>
+					<div id="site-notice">
+						<?php $this->html( 'sitenotice' ) ?>
+					</div>
+				<?php
+				}
+				?>
+				<div id="new-talk">
+					<?php $this->html( 'newtalk' ) ?>
+				</div>
+				<div id="firstHeading">
+					<h1 class="scroll-shadow"><?php $this->html( 'title' ) ?></h1>
+					<?php
+					if ( method_exists( $this, 'getIndicators' ) ) {
+						echo $this->getIndicators();
+					}
+					?>
+					<div class="standard-toolbox static-toolbox">
+						<?php
+						$lastLinkOutsideOfStandardToolboxDropdownHasBeenGenerated = false;
+						$amountOfToolsGenerated = 0;
+
+						$toolbox = $this->getToolbox();
+
+						// if there are actions like "edit," etc.
+						// (not counting generic toolbox tools like "upload file")
+						// in addition to non-page-specific ones like "page" (so a "more..." link is needed)
+						if ( sizeof( $this->data['content_actions'] ) > 1 ) {
+							foreach ( $this->data['content_actions'] as $key => $action ) {
+								if ( !$lastLinkOutsideOfStandardToolboxDropdownHasBeenGenerated ) { // this runs until all the actions outside the dropdown have been generated (generates actions outside dropdown)
+									echo $this->makeLink( $key, $action );
+									$amountOfToolsGenerated++;
+									if (
+										sizeof( $this->data['content_actions'] ) == $amountOfToolsGenerated ||
+										$key == 'history' || $key == 'addsection' ||
+										$key == 'protect' || $key == 'unprotect'
+									)
+									{
+										// if this is the last action or it is the
+										// history, new section, or protect/unprotect action
+										// (whichever comes first)
+										$lastLinkOutsideOfStandardToolboxDropdownHasBeenGenerated = true;
+										?>
+										<div class="toolbox-container">
+											<a href="javascript:;" class="toolbox-link fade-trigger"><?php echo $this->getMsg( 'moredotdotdot' )->text() ?></a>
+											<div class="standard-toolbox-dropdown fadable faded">
+												<div class="dropdown-triangle"></div>
+												<ul>
+									<?php
+									}
+								} else { // generates actions inside dropdown
+									echo $this->makeListItem( $key, $action, array( 'text-wrapper' => array( 'tag' => 'span' ) ) );
+								}
+							}
+							foreach ( $toolbox as $tool => $toolData ) { // generates toolbox tools inside dropdown (e.g. "upload file")
+								echo $this->makeListItem( $tool, $toolData, array( 'text-wrapper' => array( 'tag' => 'span' ) ) );
+							}
+						} else { // if there aren't actions like edit, etc. (so a "tools" link is needed instead of a "more..." link)
+							foreach ( $this->data['content_actions'] as $key => $action ) { // generates first link (i.e. "page" button on the mainspace, "special page" on Special namespace, etc.); the foreach loop should once run once since there should only be one link
+								echo $this->makeLink( $key, $action );
+							}
+						?>
+							<div class="toolbox-container">
+								<a href="javascript:;" class="toolbox-link fade-trigger"><?php echo $this->getMsg( 'toolbox' )->text() ?></a>
+								<div class="standard-toolbox-dropdown fadable faded">
+									<div class="dropdown-triangle"></div>
+									<ul>
+										<?php
+										foreach ( $toolbox as $tool => $toolData ) { // generates toolbox tools inside dropdown (e.g. "upload file")
+											echo $this->makeListItem( $tool, $toolData, array( 'text-wrapper' => array( 'tag' => 'span' ) ) );
+										}
+						}
+						wfRunHooks( 'SkinTemplateToolboxEnd', array( &$this, true ) );
+						?>
+									</ul>
+							</div>
+						</div>
+					</div>
+					<div id="main-title-messages">
+						<div id="siteSub"><?php $this->msg( 'tagline' ) ?></div>
+						<div id="contentSub"<?php $this->html( 'userlangattributes' ) ?>><?php $this->html( 'subtitle' ) ?></div>
+						<div id="contentSub2"><?php $this->html( 'undelete' ) ?></div>
+					</div>
+					<?php
+					if ( MWNamespace::isTalk( $titleNamespace ) ) { // if talk namespace
+						echo Linker::link(
+							$title,
+							wfMessage( 'backlinksubtitle', $title->getPrefixedText() )->escaped(),
+							array( 'id' => 'back-to-subject' )
+						);
+					}
+					?>
+				</div>
+				<?php
+				reset( $this->data['content_actions'] );
+				$pageTab = key( $this->data['content_actions'] );
+				$isEditing = in_array(
+					$this->getSkin()->getRequest()->getText( 'action' ),
+					array( 'edit', 'submit' )
+				);
+
+				// determining how many tools need to be generated
+				$totalSmallToolsToGenerate = 0;
+				$listOfToolsToGenerate = array(
+					'wikiglyph wikiglyph-speech-bubbles' => 'ca-talk',
+					'wikiglyph wikiglyph-pencil-lock-full' => 'ca-viewsource',
+					'wikiglyph wikiglyph-pencil' => 'ca-edit',
+					'wikiglyph wikiglyph-clock' => 'ca-history',
+					'wikiglyph wikiglyph-trash' => 'ca-delete',
+					'wikiglyph wikiglyph-move' => 'ca-move',
+					'wikiglyph wikiglyph-lock' => 'ca-protect',
+					'wikiglyph wikiglyph-unlock' => 'ca-unprotect',
+					'wikiglyph wikiglyph-star' => 'ca-watch',
+					'wikiglyph wikiglyph-unstar' => 'ca-unwatch'
+				);
+
+				foreach ( $this->data['content_actions'] as $action ) {
+					if ( in_array( $action['id'], $listOfToolsToGenerate ) ) { // if the icon in question is one of the listed ones
+						$totalSmallToolsToGenerate++;
+					}
+				}
+				if ( MWNamespace::isTalk( $titleNamespace ) ) { // if talk namespace
+					$totalSmallToolsToGenerate--; // remove a tool (the talk page tool) if the user is on a talk page
+				}
+
+				if ( $totalSmallToolsToGenerate > 0 && !$isEditing ) { // if there's more than zero tools to be generated and the user isn't editing a page
+					?>
+					<div id="small-toolbox-wrapper">
+						<div class="small-toolbox">
+							<?php
+							$smallToolBeingTested = 1;
+							$amountOfSmallToolsToSkipInFront = 1; // skip the "page" (or equivalent) link
+							$amountOfSmallToolsGenerated = 0;
+
+							if ( MWNamespace::isTalk( $titleNamespace ) ) { // if talk namespace
+								$amountOfSmallToolsToSkipInFront = 2; // skip the "page" (or equivalent) and "talk" links
+							}
+							foreach ( $this->data['content_actions'] as $action ) {
+								if ( $smallToolBeingTested > $amountOfSmallToolsToSkipInFront ) { // if we're not supposed to skip this tool (e.g. if we're supposed to skip the first 2 tools and we're at the 3rd tool, then the boolean is true)
+									// @todo Maybe write a custom makeLink()-like function for generating this code?
+									if ( in_array( $action['id'], $listOfToolsToGenerate ) ) { // if the icon being rendered is one of the listed ones (if we're supposed to generate this tool)
+										?><a href="<?php echo htmlspecialchars( $action['href'] ) ?>" title="<?php echo $action['text'] ?>" class="small-tool"><span class="<?php echo array_search( $action['id'], $listOfToolsToGenerate ) // key (wikiglyph) from $listOfToolsToGenerate ?>"></span></a><?php
+										$amountOfSmallToolsGenerated++; // if a tool is indeed generated, increment this variable
+									}
+								}
+								$smallToolBeingTested++; // increment this variable (amount of tools that have been tested) regardless of whether or not the tool was generated
+							}
+							?>
+						</div><?php if ( $totalSmallToolsToGenerate > 3 ) { ?><div id="small-tool-more"><a href="javascript:;" title="<?php echo $this->getMsg( 'moredotdotdot' )->text() ?>" class="small-tool"><span class="wikiglyph wikiglyph-ellipsis"></span></a></div><?php } ?>
+					</div>
+					<?php
+				}
+				?>
+				<div id="bodyContent">
+					<?php $this->html( 'bodytext' ) ?>
+				</div>
+				<?php
+				$this->html( 'catlinks' );
+				if ( $this->data['dataAfterContent'] ) {
+					$this->html( 'dataAfterContent' );
+				}
+				?>
 			</div>
 		</div>
-	</div>
-	<div id="footer">
-		<?php
+		<div id="footer">
+			<?php
 			$footerExtra = '';
 			wfRunHooks( 'RefreshedFooter', array( &$footerExtra ) );
 			echo $footerExtra;
 
 			foreach ( $this->getFooterLinks() as $category => $links ) {
-				$noSkip = false;
 				foreach ( $links as $link ) {
-					echo '&ensp;';
+					?>
+					&ensp;
+					<?php
 					$this->html( $link );
-					echo '&ensp;';
+					?>
+					&ensp;
+					<?php
 					$noSkip = true;
 				}
-				echo '<br />';
+				?>
+				<br />
+				<?php
 			}
 
 			$footerIcons = $this->getFooterIcons( 'icononly' );
 			if ( count( $footerIcons ) > 0 ) {
-				$noSkip = false;
 				foreach ( $footerIcons as $blockName => $footerIcons ) {
 					foreach ( $footerIcons as $icon ) {
-						echo '&ensp;';
-						echo $skin->makeFooterIcon( $icon );
-						echo '&ensp;';
+						?>
+						&ensp;
+						<?php
+						echo $this->getSkin()->makeFooterIcon( $icon );
+						?>
+						&ensp;
+						<?php
 					}
 				}
 			}
-		?>
-	</div>
-<?php
+			?>
+		</div>
+		<?php
 		$this->printTrail();
 		echo Html::closeElement( 'body' );
 		echo Html::closeElement( 'html' );

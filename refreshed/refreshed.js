@@ -1,232 +1,225 @@
 /* global $ */
-var Refreshed = {
-	heights: [],
-	offsets: [],
-	tocHeight: 0,
-	user: false,
-	header: false,
-	left: false,
-	right: false,
+window.Refreshed = {
+	standardToolboxIsDocked: false,
+	standardToolboxInitialOffset: $( '.standard-toolbox' ).offset().top,
+	scrollHeaderHasBeenGenerated: false,
+	usingIOS: false,
+	thresholdForSmallCSS: 601,
+	windowStartedSmall: false,
+	thresholdForBigCSS: 1001,
+	windowIsBig: false,
+	windowIsSmall: false,
+	widthOfSpecialSearchBar: 0,
+	widthOfSpecialSearchPowerSearchBar: 0,
+	headerSearchIsOpen: false,
+	sidebarIsOpen: false,
 
-	getHeight: function( self ) {
-		var id = self.attr( 'data-to' ).substring( 1 ),
-			numid = self.attr( 'data-numid' ),
-			to = $( document.getElementById( id ) ),
-			heightTo = to.offset().top - 50;
-		Refreshed.heights[numid] = heightTo;
-		Refreshed.offsets[numid] = self.position().top;
-		return heightTo;
+	flyOutScrollHeader: function() {
+		if (
+			$( '#content' ).height() > $( window ).height() - $( '#header' ).height() &&
+			!Refreshed.standardToolboxIsDocked &&
+			( $( '.static-toolbox' ).offset().top - $( document ).scrollTop() - $( '#header' ).height() < 0 )
+		)
+		{
+			// first boolean in condition: only move the scroll header if the article
+			// content is bigger than the page (i.e. preventing it from being
+			// triggered when a user "rubber band scrolls" in OS X for example)
+			//$( '.fixed-toolbox' ).animate({'top': $( '#header' ).height()});
+			$( '.fixed-toolbox' ).addClass( 'dropdown-open' );
+			Refreshed.standardToolboxIsDocked = true;
+			$( '#firstHeading > .standard-toolbox .standard-toolbox-dropdown' ).fadeOut();
+		} else if ( Refreshed.standardToolboxIsDocked && $( document ).scrollTop() +  $( '#header' ).height() <= Refreshed.standardToolboxInitialOffset ) {
+			Refreshed.standardToolboxIsDocked = false;
+			//$( '.fixed-toolbox' ).animate({'top': -$( '.fixed-toolbox' ).height()});
+			$( '.fixed-toolbox' ).removeClass( 'dropdown-open' );
+			$( '.fixed-toolbox .standard-toolbox-dropdown' ).fadeOut();
+		}
 	},
 
-	moveBoxTo: function( height ) {
-		var heightAbove = 0, idAbove = -1, goTo;
-
-		for ( var i = 0; Refreshed.heights[i] <= height; i++ ) {
-			heightAbove = Refreshed.heights[i];
-			idAbove = i;
+	generateScrollHeader: function() {
+		$( '.static-toolbox' ).clone().removeClass( 'static-toolbox' ).addClass( 'fixed-toolbox' ).insertBefore( '#sidebar-wrapper' );
+		//$( '.fixed-toolbox' ).css({'top': -$( '.fixed-toolbox' ).height()});
+		if ( $( '.fixed-toolbox' ).outerWidth() != $( '#bodyContent' ).outerWidth() ) { // if standard-toolboxoverlay hasn't has its width set by CSS calc
+			$( '.fixed-toolbox' ).css({'width': $( '#bodyContent' ).outerWidth() - ( $( '.fixed-toolbox' ).outerWidth() - $( '.fixed-toolbox' ).width() )}); // set .fixed-toolbox's width to the width of #bodyContentminus .fixed-toolbox's padding (and border, which is 0)
 		}
+		Refreshed.scrollHeaderHasBeenGenerated = true;
+	},
 
-		if ( idAbove == -1 ) {
-			goTo = 0;
-		} else if ( idAbove == Refreshed.heights.length - 1 ) {
-			goTo = Refreshed.tocHeight;
-		} else {
-			var idBelow = idAbove + 1,
-				heightBelow = Refreshed.heights[idBelow],
-				heightDiff = heightBelow - heightAbove,
-				heightMeRelative = height - heightAbove,
-				fractMe = heightMeRelative / heightDiff;
+	resizeScrollHeader: function() {
+		// set .fixed-toolbox's width to the width of #bodyContentminus .fixed-toolbox's padding (and border, which is 0)
+		$( '.fixed-toolbox' ).css({'width': $( '#bodyContent' ).outerWidth() - ( $( '.fixed-toolbox' ).outerWidth() - $( '.fixed-toolbox' ).width() )});
+	},
 
-			var elemAboveOffset = Refreshed.offsets[idAbove],
-				elemBelowOffset = Refreshed.offsets[idBelow],
-				elemOffsetDiff = elemBelowOffset - elemAboveOffset;
+	resizeSpecialSearchBar: function() {
+		if ( !Refreshed.windowIsBig && !Refreshed.windowIsSmall ) { // if running medium.css
+			// set width of search bar to 100% of #bodyContent- "__ of __ results" text - width of submit button - width - 1em in the search bar
+			Refreshed.widthOfSpecialSearchBar = $( '#bodyContent' ).width() - $( '.results-info' ).outerWidth() - $( '#bodyContent #search input[type="submit"]' ).outerWidth() - parseFloat( $( '#searchText' ).css( 'font-size' ) );
+			Refreshed.widthOfSpecialSearchPowerSearchBar = $( '#bodyContent' ).width() - $( '.results-info' ).outerWidth() - $( '#bodyContent #powersearch input[type="submit"]' ).outerWidth() - parseFloat( $( '#powerSearchText' ).css( 'font-size' ) );
+		} else if ( Refreshed.windowIsSmall ) { // if running small.css
+			//set width of search bar to 100% of #bodyContent - width of submit button - width - 1em in the search bar
+			Refreshed.widthOfSpecialSearchBar = $( '#bodyContent' ).width() - $( '#bodyContent #search input[type="submit"]' ).outerWidth() - parseFloat( $( '#searchText' ).css( 'font-size' ) );
+			Refreshed.widthOfSpecialSearchPowerSearchBar = $( '#bodyContent' ).width() - $( '#bodyContent #powersearch input[type="submit"]' ).outerWidth() - parseFloat( $( '#powerSearchText' ).css( 'font-size' ) );
+		}
+		$( '#searchText' ).css({'width': Refreshed.widthOfSpecialSearchBar});
+		$( '#powerSearchText' ).css({'width': Refreshed.widthOfSpecialSearchPowerSearchBar});
+	},
 
-			goTo = elemAboveOffset + ( elemOffsetDiff * fractMe );
-
-			if ( goTo > Refreshed.tocHeight ) {
-				goTo = Refreshed.tocHeight;
+	showHideOverflowingDropdowns: function() {
+		$( '.page-item-has-children' ).each(function( ) {
+			if ( $( this ).offset().top > $( '#header' ).height() + $( '#header' ).offset().top ) { //if the .page-item is beneath the bottom of the header (and so it's cut off by overflow:hidden)
+				$( this ).children( '.children' ).css({'display': 'none'});
+				$( this ).removeClass( 'header-button-active' );
+				$( this ).children( '.header-button' ).children( '.arrow' ).removeClass( 'rotate' );
 			}
-		}
-
-		$( '#toc-box' ).stop().animate( { 'top': goTo }, 200 );
+		});
 	},
 
-	overlap: function() {
-		var bottom = $( '#leftbar-top' ).position().top + $( '#leftbar-top' ).outerHeight(),
-			top3 = $( '#refreshed-toc' ).outerHeight(),
-			overlap = $( window ).height() - top3 - bottom - 10;
+	toggleFade: function( trigger ) {
+		$( trigger ).siblings( '.fadable' ).addBack( '.fadable' ).toggleClass( 'faded' );
+		$( trigger ).children( '.arrow' ).toggleClass( 'rotate' );
+		if ( $( trigger ).hasClass( 'header-button' ) ) {
+			$( trigger ).toggleClass( 'header-button-active' );
+		}
+	},
 
-		if ( overlap < 0 ) {
-			var newHeight = top3 + overlap;
-
-			if ( newHeight <= 50 ) {
-				$( '#leftbar-bottom' ).css( 'visibility', 'hidden' );
-			} else {
-				$( '#leftbar-bottom' ).css( 'visibility', 'visible' );
-			}
-
-			$( '#leftbar-bottom' ).height( newHeight );
-			$( '#leftbar-bottom' ).css( {
-				'overflow-y': 'scroll',
-				'bottom': '0',
-				// @todo FIXME: why hard-code this in? This is not internationally compatible... - it moves the scrollbar to the left hand side
-				'direction': 'rtl'
-			} );
-
-			$( window ).scroll( Refreshed.onScroll );
-
-		} else if ( overlap < 16 ) {
-			$( '#leftbar-bottom' ).css( {
-				'overflow-y': 'hidden',
-				'bottom': overlap + 'px',
-				'direction': 'ltr'
-			} );
+	toggleHeaderSearch: function() {
+		$( '.sidebar-shower' ).toggleClass( 'sidebar-shower-hidden' );
+		$( '#fade-overlay' ).toggleClass( 'fade-overlay-active fade-overlay-below-header' ); // toggle the fade overlay
+		if ( Refreshed.windowIsSmall ) { // On small, because #search-shower is replaced by #search-closer and vice-versa instead of the buttons appearing active, they take on the .header-button-active class when they shouldn't; this gets rid of it. On medium there's only #search-shower, so it functions properly and the class shouldn't be removed.
+			$( '#search-shower' ).removeClass( 'header-button-active' );
+			$( '#search-closer' ).removeClass( 'header-button-active' );
+		}
+		if ( Refreshed.headerSearchIsOpen ) {
+			$( '#searchInput' ).val( '' ).blur();
 		} else {
-			$( '#leftbar-bottom' ).height( 'auto' );
-			$( '#leftbar-bottom' ).css( {
-				'visibility': 'visible',
-				'overflow-y': 'auto',
-				'bottom': '1em',
-				'direction': 'ltr'
-			} );
-
-			$( window ).off( 'scroll', Refreshed.onScroll );
+			$( '#searchInput' ).focus();
 		}
+		Refreshed.headerSearchIsOpen = !Refreshed.headerSearchIsOpen;
 	},
 
-	toggleUser: function() {
-		$( '#userinfo .headermenu' ).fadeToggle( 150 );
-		$( '#userinfo .arrow' ).toggleClass( 'rotate' );
-		Refreshed.user = !Refreshed.user;
-	},
-
-	/**
-	 * Show/hide the list of sites in header when the small arrow is clicked.
-	 */
-	toggleSite: function() {
-		$( '#siteinfo .headermenu' ).fadeToggle( 150 );
-		$( '#siteinfo .arrow' ).toggleClass( 'rotate' );
-		$( '#siteinfo-main a.arrow-link' ).toggleClass( 'dropdown-highlighted' );
-		$( '#siteinfo-main' ).toggleClass( 'dropdown-bg-highlighted' );
-		Refreshed.header = !Refreshed.header;
-	},
-
-	toggleLeft: function() {
-		if ( Refreshed.left ) {
-			$( '#leftbar' ).animate({'left': '-12em'});
-		} else {
-			$( '#leftbar' ).animate({'left': '0em'});
-		}
-		$( '#leftbar .shower' ).fadeToggle();
-		Refreshed.left = !Refreshed.left;
-	},
-
-	toggleRight: function() {
-		if ( Refreshed.right ) {
-			$( '#rightbar' ).animate({'right': '-12em'});
-		} else {
-			$( '#rightbar' ).animate({'right': '0em'});
-		}
-		$( '#rightbar .shower' ).fadeToggle();
-		Refreshed.right = !Refreshed.right;
-	},
-
-	onScroll: function() {
-		var pos = $( '#toc-box' ).position().top,
-			height = $( '#leftbar-bottom' ).height(),
-			goTo = pos - ( height / 2 );
-
-		goTo = goTo + $( '#refreshed-toc a' ).height();
-
-		$( '#leftbar-bottom' ).stop().animate( {'scrollTop': goTo}, 200 );
+	toggleSidebar: function() {
+		$( '#sidebar-wrapper' ).toggleClass( 'sidebar-open' );
+		$( '#fade-overlay' ).toggleClass( 'fade-overlay-active' ); // toggle the fade overlay
+		$( '.sidebar-shower' ).toggleClass( 'header-button-active' );
+		Refreshed.sidebarIsOpen = !Refreshed.sidebarIsOpen;
 	}
 };
 
 $( document ).ready( function() {
-	$( '#refreshed-toc a' ).on( 'click', function() {
-		event.preventDefault();
-		var heightTo = Refreshed.getHeight( $( this ) );
-		$( 'html, body' ).animate( {scrollTop: heightTo}, 800 );
-		return false;
-	} );
+	if ( navigator.userAgent.toLowerCase().match( /(iPad|iPhone|iPod)/i ) ) { // detect if on an iOS device
+		Refreshed.usingIOS = true;
+	}
+
+	if ( $( window ).width() < Refreshed.thresholdForSmallCSS ) {
+		Refreshed.windowStartedSmall = true;
+	}
+
+	// test if window is running big.css
+	if ( $( window ).width() >= Refreshed.thresholdForBigCSS ) {
+		Refreshed.windowIsBig = true;
+	} else {
+		Refreshed.windowIsBig = false;
+	}
+
+	// test if window is running small.css
+	if ( $( window ).width() <= Refreshed.thresholdForSmallCSS ) {
+		Refreshed.windowIsSmall = true;
+	} else {
+		Refreshed.windowIsSmall = false;
+	}
+
+	Refreshed.resizeSpecialSearchBar();
+
+	if ( !Refreshed.usingIOS && !Refreshed.windowStartedSmall ) {
+		// only perform if not on an iOS device (animations triggered by scroll
+		// cannot be played during scroll on iOS Safari) and if the window was
+		// running small.css when loaded
+		Refreshed.generateScrollHeader();
+		Refreshed.flyOutScrollHeader();
+	}
 
 	$( window ).scroll( function() {
-		if ( $( '#refreshed-toc a' ).length !== 0 ) {
-			Refreshed.moveBoxTo( $( this ).scrollTop() );
-		}
-	} );
+		Refreshed.flyOutScrollHeader();
+	});
 
 	$( window ).resize( function() {
-		$( '#refreshed-toc a' ).each( function() {
-			Refreshed.getHeight( $( this ) );
+		if (
+			Refreshed.scrollHeaderHasBeenGenerated &&
+			$( '.fixed-toolbox' ).outerWidth() != $( '#bodyContent' ).outerWidth()
+		)
+		{
+			// only perform if the scroll header has already been generated and
+			// it needs to be resized (not already done by CSS calc)
+			Refreshed.resizeScrollHeader();
+		}
+
+		if ( $( window ).width() >= Refreshed.thresholdForBigCSS ) {
+			Refreshed.windowIsBig = true;
+		} else {
+			Refreshed.windowIsBig = false;
+		}
+
+		if ( $( window ).width() <= Refreshed.thresholdForSmallCSS ) {
+			Refreshed.windowIsSmall = true;
+		} else {
+			Refreshed.windowIsSmall = false;
+		}
+
+		Refreshed.resizeSpecialSearchBar();
+		Refreshed.showHideOverflowingDropdowns();
+	});
+
+	$( document ).on( 'tap', function( e ) {
+		/**
+		* Showing/hiding dropdown menus. Preconditions:
+		* 1) the menu must have classes "fadable" and "faded" to start
+		* 2) the button triggering the menu must have class "fade-trigger"
+		* 3) the menu and the button must be siblings
+		*/
+		if ( $( e.target ).closest( '.fade-trigger' ).length ) {
+			Refreshed.toggleFade( $( e.target ).closest( '.fade-trigger' ) );
+		}
+
+		$( '.fadable:not( .fade-trigger ):not( .faded )' ).each( function () { // targeting all dropdowns (i.e., fadable elements that aren't fadable themselves [since ones that are fadable are the #search-shower and #search-closer])
+			if ( !$( e.target ).closest( $( this ).parent() ).length ) { // if starting from the event target (this, a child of this, or .fade-trigger) and doing up the DOM you do not run into this element's parent (so if this, a child of this, or .fade-trigger was not the target of the click)
+				Refreshed.toggleFade( $( this ).siblings( '.fade-trigger' ) );
+			}
 		});
-		Refreshed.overlap();
-		$( window ).scroll();
-	} );
+		if ( $( e.target ).closest( '.header-button' ).length ) {
+			e.preventDefault(); // prevent zooming when pressing header buttons, events on header buttons from firing twice, etc.
+		}
 
-	$( '#userinfo > a' ).on( 'click', function() {
-		Refreshed.toggleUser();
-	} );
+		// the following if statements control hiding the search header and dropdown
+		if ( Refreshed.headerSearchIsOpen && !$( e.target ).closest( '#header .search' ).length && !$( e.target ).closest( '.header-suggestions' ).length ) { // we do this check instead of checking if the user pressed #fade-overlay because #fade-overlay can disappear if you resize, and then if you click off afterward you still want to hide the menu, etc. even if #fade-overlay is no longer visible
+			Refreshed.toggleHeaderSearch();
+		}
 
-	$( '#siteinfo a.arrow-link' ).on( 'click', function() {
-		Refreshed.toggleSite();
-	} );
+		if ( Refreshed.sidebarIsOpen && !$( e.target ).closest( '#sidebar-wrapper' ).length ) {
+			Refreshed.toggleSidebar();
+		}
 
-	$( '#leftbar .shower' ).on( 'click', function() {
-		Refreshed.toggleLeft();
-		if ( Refreshed.right ) {
-			Refreshed.toggleRight();
+		if ( $( e.target ).closest( '#search-shower' ).length ) {
+			if ( Refreshed.usingIOS ) {
+				$( window ).scrollTop( 0 ); // iOS tries to vertically center the search bar, scrolling to the top keeps the header at the top of the viewport
+			}
+			Refreshed.toggleHeaderSearch();
+		} else if ( $( e.target ).closest( '#search-closer' ).length ) { // using if/else prevents header search from opening and closing on same tap
+			Refreshed.toggleHeaderSearch();
+		}
+
+		// opening/closing sidebar on medium and small
+		if ( $( e.target ).closest( '.sidebar-shower' ).length ) {
+			Refreshed.toggleSidebar();
+		}
+
+		// expanding the small tools when the "more" (ellipsis) button is clicked
+		if ( $( e.target ).closest( '#small-tool-more' ).length ) {
+			$( '#small-tool-more' ).css({'display': 'none'});
+			$( '.small-toolbox' ).addClass( 'small-toolbox-expanded scroll-shadow' );
 		}
 	} );
 
-	$( '#rightbar .shower' ).on( 'click', function() {
-		Refreshed.toggleRight();
-		if ( Refreshed.left ) {
-			Refreshed.toggleLeft();
-		}
-	} );
-
-	$( '#contentwrapper' ).on( 'click', function() {
-		if ( Refreshed.left ) {
-			Refreshed.toggleLeft();
-		}
-		if ( Refreshed.right ) {
-			Refreshed.toggleRight();
-		}
-		if ( Refreshed.user ) {
-			Refreshed.toggleUser();
-		}
-		if ( Refreshed.header ) {
-			Refreshed.toggleSite();
-		}
-	} );
-
-	$( '#toolbox-link' ).on( {
-		'click': function() {
-			$( '#toolbox' ).fadeToggle();
-			$( this ).children().toggleClass( 'rotate' );
-		},
-		'hover': function() {
-			$( this ).children().toggleClass( 'no-show' );
-		}
-	} );
-
-	$( '#languages-link' ).on( {
-		'click': function() {
-			$( '#languages' ).fadeToggle();
-			$( this ).children().toggleClass( 'rotate' );
-		},
-		'hover': function() {
-			$( this ).children().toggleClass( 'no-show' );
-		}
-	} );
-
-	$( '#smalltoolboxwrapper > a' ).on( 'click', function() {
-		$( '#smalltoolbox' ).css({'overflow': 'auto'}).animate({'width': '100%'}).addClass( 'scrollshadow' );
-		$( this ).css({'display': 'none'});
-	} );
-
-	$( '#icon-ca-watch, #icon-ca-unwatch' ).parent().click( function( e ) {
+	$( '#icon-ca-watch, #icon-ca-unwatch' ).parent().tap( function( e ) {
 		// AJAX for watch icons
 		var action, api, $link, title, otherAction;
 
@@ -246,14 +239,36 @@ $( document ).ready( function() {
 			.done( function ( watchResponse ) {
 				mw.notify( $.parseHTML( watchResponse.message ), {
 					tag: 'watch-self'
-				} );
+				});
 
 				$( '#wpWatchthis' ).prop( 'checked', watchResponse.watched !== undefined );
-			} );
-	} );
-} );
+			});
+	});
 
-$( window ).load( function() {
-	Refreshed.tocHeight = $( '#refreshed-toc' ).height() - 28;
-	$( window ).resize();
-} );
+	$( '#sidebar-wrapper' ).on( 'swipeleft', function( e ) {
+		if ( Refreshed.sidebarIsOpen ) {
+			e.preventDefault(); // prevent user from accidentally clicking link on swipe
+			Refreshed.toggleSidebar();
+		}
+	});
+
+	/**
+	 * Add "header-suggestions" class to first .suggestions element for CSS
+	 * targeting. There is usually one .suggestions element, but on Special:Search
+	 * there is one for the #header search bar and one for the #bodyContentsearch bar.
+	 * We only want to target the one for the #header search bar.
+	 */
+	setTimeout( function () { // wait a bit so the .suggestions elements can be added in (if we don't wait we'll be targeting nothing and it won't work)...
+		$( '.suggestions' ).first().addClass( 'header-suggestions' ); // add class to first .suggestions element
+	}, 100 );
+
+});
+
+/* Fix for Echo in Refreshed */
+if ( document.getElementById( 'echo' ) ) {
+	$( '#pt-notifications' ).prependTo( '#echo' );
+}
+
+if ( $( '.mw-echo-notifications-badge' ).hasClass( 'mw-echo-unread-notifications' ) ) {
+	$( '#pt-notifications-personaltools a' ).addClass( 'pt-notifications-personaltools-unread' );
+}
