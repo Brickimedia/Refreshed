@@ -55,9 +55,7 @@
 }
 
 .fixed-toolbox {
-	width: -webkit-calc(100% - 11.4em);
-	width: calc(100% - 11.4em);
-	margin-left: 10em;
+	left: 10em;
 }
 
 #header .search {

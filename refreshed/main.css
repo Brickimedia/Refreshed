@@ -250,14 +250,17 @@ a.header-button { /* double selectors to override default a element text-decorat
 
 #firstHeading {
 	padding: 0 0.9em; /* 1em (#bodyContent padding-left) * 0.9em (#bodyContent font-size) */
+	padding-bottom: 2.5em; /* .25em (padding on top of .standard-toolbox) + 1.5em (height of .standard-toolbox) + .75em (padding on bottom of .standard-toolbox) */
+	position: relative;
 }
 
 #firstHeading h1 {
 	font-size: 32pt;
 	font-family: "Lato Body", sans-serif;
 	padding-top: 0.2em;
-	margin-bottom: 0.1em;
-	padding-bottom: 0.05em;
+	padding-bottom: 0;
+	margin-bottom: 0;
+	border: 0;
 }
 
 .mw-indicators {
@@ -274,11 +277,9 @@ a.header-button { /* double selectors to override default a element text-decorat
 
 .standard-toolbox {
 	font-family: "Lato", sans-serif; /* assigning here so em values match em values of the links inside */
-	-o-transition: -o-transform 0.4s ease;
-	-moz-transition: -moz-transform 0.4s ease;
-	-webkit-transition: -webkit-transform 0.4s ease; /* -webkit- last so it's used in place of -o- if possible */
-	transition: transform 0.4s ease;
-	top: 0;
+	height: 1.5em; /* 1em for the text, .25em for text padding-top, .25em for text padding-bottom; meanwhile the links take up 1.75em when you include their .25em border-bottom */
+	position: absolute;
+	bottom: .75em;
 }
 
 .standard-toolbox a {
@@ -367,12 +368,9 @@ a.header-button { /* double selectors to override default a element text-decorat
 	position: fixed;
 	border-bottom: 0.25em solid #eee;
 	background: #fff;
-	padding-top: 0.25em;
-	padding-bottom: 0.25em;
-	width: -moz-calc(100% - 13.4em);
-	width: -webkit-calc(100% - 13.4em);
-	width: calc(100% - 13.4em);
-	margin-left: 12em; /* width of #sidebarwrapper */
+	top: 3em; /* height of #header */
+	left: 12em; /* margin-left of #content */
+	right: 1em; /* margin-right of #content */
 	z-index: 9999; /* very high value to guarantee no elements on wikis will appear above it */
 }
 
@@ -385,21 +383,14 @@ a.header-button { /* double selectors to override default a element text-decorat
 }
 
 #main-title-messages {
-	font-size: 0.9em;
-	padding-top: 1.25em;
-	padding-bottom: 0.5em;
+	border-bottom: 1px solid #ddd;
 }
 
-#siteSub {
-	font-size: 0.9em;
-	padding-bottom: 0.25em;
-}
-
-#contentSub,
-#contentSub2 {
+#siteSub,
+#contentSub {
 	margin: 0;
-	padding: 0;
-	font-size: 0.9em;
+	padding: 0 0 0.25em 0;
+	font-size: 0.8em;
 }
 
 #back-to-subject {

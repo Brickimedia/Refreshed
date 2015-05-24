@@ -1,8 +1,7 @@
 /* global $ */
 window.Refreshed = {
-	standardToolboxIsDocked: false,
-	standardToolboxInitialOffset: $( '.standard-toolbox' ).offset().top,
-	scrollHeaderHasBeenGenerated: false,
+	toolboxDistanceFromTopWhenStatic: $( '.standard-toolbox' ).offset().top,
+	toolboxIsFixed: false,
 	usingIOS: false,
 	thresholdForSmallCSS: 601,
 	windowStartedSmall: false,
@@ -14,54 +13,18 @@ window.Refreshed = {
 	headerSearchIsOpen: false,
 	sidebarIsOpen: false,
 
-	flyOutScrollHeader: function() {
-		if (
-			$( '#content' ).height() > $( window ).height() - $( '#header' ).height() &&
-			!Refreshed.standardToolboxIsDocked &&
-			( $( '.static-toolbox' ).offset().top - $( document ).scrollTop() - $( '#header' ).height() < 0 )
-		)
-		{
-			// first boolean in condition: only move the scroll header if the article
-			// content is bigger than the page (i.e. preventing it from being
-			// triggered when a user "rubber band scrolls" in OS X for example)
-			//$( '.fixed-toolbox' ).animate({'top': $( '#header' ).height()});
-			$( '.fixed-toolbox' ).addClass( 'dropdown-open' );
-			Refreshed.standardToolboxIsDocked = true;
-			$( '#firstHeading > .standard-toolbox .standard-toolbox-dropdown' ).fadeOut();
-		} else if ( Refreshed.standardToolboxIsDocked && $( document ).scrollTop() +  $( '#header' ).height() <= Refreshed.standardToolboxInitialOffset ) {
-			Refreshed.standardToolboxIsDocked = false;
-			//$( '.fixed-toolbox' ).animate({'top': -$( '.fixed-toolbox' ).height()});
-			$( '.fixed-toolbox' ).removeClass( 'dropdown-open' );
-			$( '.fixed-toolbox .standard-toolbox-dropdown' ).fadeOut();
+	shouldToggleFixedToolbox: function() {
+		if ( !Refreshed.toolboxIsFixed ) {
+			Refreshed.toolboxDistanceFromTopWhenStatic = $( '.standard-toolbox' ).offset().top; // reassign this variable every time so it doesn't break if the distance to the top changes somehow (e.g. sitenotice has animated height)--better safe than sorry
 		}
+		distanceScrolled = $( window ).scrollTop();
+		toolboxShouldBeToggled = ( Refreshed.toolboxDistanceFromTopWhenStatic - distanceScrolled <= $( '#header' ).height() && !Refreshed.toolboxIsFixed ) || ( Refreshed.toolboxDistanceFromTopWhenStatic - distanceScrolled > $( '#header' ).height() && Refreshed.toolboxIsFixed ); // true if 1) the page is scrolled enough for .standard-toolbox to be fixed and it isn't or 2) page isn't scrolled enough for it to be fixed and it is
+		return toolboxShouldBeToggled;
 	},
 
-	generateScrollHeader: function() {
-		$( '.static-toolbox' ).clone().removeClass( 'static-toolbox' ).addClass( 'fixed-toolbox' ).insertBefore( '#sidebar-wrapper' );
-		//$( '.fixed-toolbox' ).css({'top': -$( '.fixed-toolbox' ).height()});
-		if ( $( '.fixed-toolbox' ).outerWidth() != $( '#bodyContent' ).outerWidth() ) { // if standard-toolboxoverlay hasn't has its width set by CSS calc
-			$( '.fixed-toolbox' ).css({'width': $( '#bodyContent' ).outerWidth() - ( $( '.fixed-toolbox' ).outerWidth() - $( '.fixed-toolbox' ).width() )}); // set .fixed-toolbox's width to the width of #bodyContentminus .fixed-toolbox's padding (and border, which is 0)
-		}
-		Refreshed.scrollHeaderHasBeenGenerated = true;
-	},
-
-	resizeScrollHeader: function() {
-		// set .fixed-toolbox's width to the width of #bodyContentminus .fixed-toolbox's padding (and border, which is 0)
-		$( '.fixed-toolbox' ).css({'width': $( '#bodyContent' ).outerWidth() - ( $( '.fixed-toolbox' ).outerWidth() - $( '.fixed-toolbox' ).width() )});
-	},
-
-	resizeSpecialSearchBar: function() {
-		if ( !Refreshed.windowIsBig && !Refreshed.windowIsSmall ) { // if running medium.css
-			// set width of search bar to 100% of #bodyContent- "__ of __ results" text - width of submit button - width - 1em in the search bar
-			Refreshed.widthOfSpecialSearchBar = $( '#bodyContent' ).width() - $( '.results-info' ).outerWidth() - $( '#bodyContent #search input[type="submit"]' ).outerWidth() - parseFloat( $( '#searchText' ).css( 'font-size' ) );
-			Refreshed.widthOfSpecialSearchPowerSearchBar = $( '#bodyContent' ).width() - $( '.results-info' ).outerWidth() - $( '#bodyContent #powersearch input[type="submit"]' ).outerWidth() - parseFloat( $( '#powerSearchText' ).css( 'font-size' ) );
-		} else if ( Refreshed.windowIsSmall ) { // if running small.css
-			//set width of search bar to 100% of #bodyContent - width of submit button - width - 1em in the search bar
-			Refreshed.widthOfSpecialSearchBar = $( '#bodyContent' ).width() - $( '#bodyContent #search input[type="submit"]' ).outerWidth() - parseFloat( $( '#searchText' ).css( 'font-size' ) );
-			Refreshed.widthOfSpecialSearchPowerSearchBar = $( '#bodyContent' ).width() - $( '#bodyContent #powersearch input[type="submit"]' ).outerWidth() - parseFloat( $( '#powerSearchText' ).css( 'font-size' ) );
-		}
-		$( '#searchText' ).css({'width': Refreshed.widthOfSpecialSearchBar});
-		$( '#powerSearchText' ).css({'width': Refreshed.widthOfSpecialSearchPowerSearchBar});
+	toggleFixedToolbox: function() {
+		$( '.standard-toolbox' ).toggleClass( 'fixed-toolbox' );
+		Refreshed.toolboxIsFixed = !Refreshed.toolboxIsFixed;
 	},
 
 	showHideOverflowingDropdowns: function() {
@@ -128,31 +91,17 @@ $( document ).ready( function() {
 		Refreshed.windowIsSmall = false;
 	}
 
-	Refreshed.resizeSpecialSearchBar();
-
-	if ( !Refreshed.usingIOS && !Refreshed.windowStartedSmall ) {
-		// only perform if not on an iOS device (animations triggered by scroll
-		// cannot be played during scroll on iOS Safari) and if the window was
-		// running small.css when loaded
-		Refreshed.generateScrollHeader();
-		Refreshed.flyOutScrollHeader();
+	if ( Refreshed.shouldToggleFixedToolbox() ) {
+		Refreshed.toggleFixedToolbox();
 	}
 
 	$( window ).scroll( function() {
-		Refreshed.flyOutScrollHeader();
+		if ( Refreshed.shouldToggleFixedToolbox() ) {
+			Refreshed.toggleFixedToolbox();
+		}
 	});
 
 	$( window ).resize( function() {
-		if (
-			Refreshed.scrollHeaderHasBeenGenerated &&
-			$( '.fixed-toolbox' ).outerWidth() != $( '#bodyContent' ).outerWidth()
-		)
-		{
-			// only perform if the scroll header has already been generated and
-			// it needs to be resized (not already done by CSS calc)
-			Refreshed.resizeScrollHeader();
-		}
-
 		if ( $( window ).width() >= Refreshed.thresholdForBigCSS ) {
 			Refreshed.windowIsBig = true;
 		} else {
@@ -165,7 +114,6 @@ $( document ).ready( function() {
 			Refreshed.windowIsSmall = false;
 		}
 
-		Refreshed.resizeSpecialSearchBar();
 		Refreshed.showHideOverflowingDropdowns();
 	});
 

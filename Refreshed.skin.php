@@ -305,6 +305,16 @@ class RefreshedTemplate extends BaseTemplate {
 				</div>
 				<div id="firstHeading">
 					<h1 class="scroll-shadow"><?php $this->html( 'title' ) ?></h1>
+					<div id="main-title-messages">
+						<div id="siteSub"><?php $this->msg( 'tagline' ) ?></div>
+						<?php
+						if ( $this->data['subtitle'] || $this->data['undelete'] ) {
+							?>
+							<div id="contentSub"<?php $this->html( 'userlangattributes' ) ?>><?php $this->html( 'subtitle' ) ?><?php $this->html( 'undelete' ) ?></div>
+						<?php
+						}
+						?>
+					</div>
 					<?php
 					if ( method_exists( $this, 'getIndicators' ) ) {
 						echo $this->getIndicators();
@@ -370,11 +380,6 @@ class RefreshedTemplate extends BaseTemplate {
 									</ul>
 							</div>
 						</div>
-					</div>
-					<div id="main-title-messages">
-						<div id="siteSub"><?php $this->msg( 'tagline' ) ?></div>
-						<div id="contentSub"<?php $this->html( 'userlangattributes' ) ?>><?php $this->html( 'subtitle' ) ?></div>
-						<div id="contentSub2"><?php $this->html( 'undelete' ) ?></div>
 					</div>
 					<?php
 					if ( MWNamespace::isTalk( $titleNamespace ) ) { // if talk namespace
