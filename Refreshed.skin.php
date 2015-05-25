@@ -103,7 +103,7 @@ class RefreshedTemplate extends BaseTemplate {
 					if ( $wgRefreshedHeader['dropdown'] ) { // if there is a site dropdown (so there are multiple wikis)
 						?>
 						<div id="site-info-main" class="multiple-wikis">
-							<a class="main header-button" href="<?php echo $wgRefreshedHeader['url'] ?>"><?php echo $wgRefreshedHeader['img'] ?></a><a href="javascript:;" class="header-button fade-trigger site-info-arrow"><span class="arrow wikiglyph wikiglyph-caret-down"></span></a>
+							<a class="main header-button" href="<?php echo $wgRefreshedHeader['url'] ?>"><?php echo $wgRefreshedHeader['img'] ?></a><a class="header-button fade-trigger site-info-arrow"><span class="arrow wikiglyph wikiglyph-caret-down"></span></a>
 							<ul class="header-menu fadable faded">
 								<?php
 								foreach ( $wgRefreshedHeader['dropdown'] as $url => $img ) {
@@ -152,7 +152,7 @@ class RefreshedTemplate extends BaseTemplate {
 				?>
 
 				<div id="user-info">
-					<a class="header-button fade-trigger" href="javascript:;">
+					<a class="header-button fade-trigger">
 						<?php
 						$avatarImage = '';
 						// Show the user's avatar image in the top left drop-down
@@ -214,7 +214,7 @@ class RefreshedTemplate extends BaseTemplate {
 						foreach ( $headerNav as $main => $sub ) {
 							?>
 							<div class="page-item<?php echo ( $sub ? ' page-item-has-children' : '' ) ?>">
-								<a href="javascript:;" class="header-button fade-trigger">
+								<a class="header-button fade-trigger">
 									<span class="header-category-name"><?php echo htmlspecialchars( $main ) ?></span>
 									<span class="arrow wikiglyph wikiglyph-caret-down"></span>
 								</a>
@@ -347,7 +347,7 @@ class RefreshedTemplate extends BaseTemplate {
 										$lastLinkOutsideOfStandardToolboxDropdownHasBeenGenerated = true;
 										?>
 										<div class="toolbox-container">
-											<a href="javascript:;" class="toolbox-link fade-trigger"><?php echo $this->getMsg( 'moredotdotdot' )->text() ?></a>
+											<a class="toolbox-link fade-trigger"><?php echo $this->getMsg( 'moredotdotdot' )->text() ?></a>
 											<div class="standard-toolbox-dropdown fadable faded">
 												<div class="dropdown-triangle"></div>
 												<ul>
@@ -366,7 +366,7 @@ class RefreshedTemplate extends BaseTemplate {
 							}
 						?>
 							<div class="toolbox-container">
-								<a href="javascript:;" class="toolbox-link fade-trigger"><?php echo $this->getMsg( 'toolbox' )->text() ?></a>
+								<a class="toolbox-link fade-trigger"><?php echo $this->getMsg( 'toolbox' )->text() ?></a>
 								<div class="standard-toolbox-dropdown fadable faded">
 									<div class="dropdown-triangle"></div>
 									<ul>
@@ -446,7 +446,7 @@ class RefreshedTemplate extends BaseTemplate {
 								$smallToolBeingTested++; // increment this variable (amount of tools that have been tested) regardless of whether or not the tool was generated
 							}
 							?>
-						</div><?php if ( $totalSmallToolsToGenerate > 3 ) { ?><div id="small-tool-more"><a href="javascript:;" title="<?php echo $this->getMsg( 'moredotdotdot' )->text() ?>" class="small-tool"><span class="wikiglyph wikiglyph-ellipsis"></span></a></div><?php } ?>
+						</div><?php if ( $totalSmallToolsToGenerate > 3 ) { ?><div id="small-tool-more"><a title="<?php echo $this->getMsg( 'moredotdotdot' )->text() ?>" class="small-tool"><span class="wikiglyph wikiglyph-ellipsis"></span></a></div><?php } ?>
 					</div>
 					<?php
 				}

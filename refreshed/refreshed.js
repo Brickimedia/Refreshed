@@ -133,8 +133,8 @@ $( document ).ready( function() {
 				Refreshed.toggleFade( $( this ).siblings( '.fade-trigger' ) );
 			}
 		});
-		if ( $( e.target ).closest( '.header-button' ).length ) {
-			e.preventDefault(); // prevent zooming when pressing header buttons, events on header buttons from firing twice, etc.
+		if ( $( e.target ).closest( '.header-button:not([href])' ).length ) {
+			e.preventDefault(); // prevent the standard click event on any .header-button without an href (so this doesn't apply to the wiki logo .header-button). Stops zooming when pressing header buttons, events on header buttons from firing twice, etc.
 		}
 
 		// the following if statements control hiding the search header and dropdown
