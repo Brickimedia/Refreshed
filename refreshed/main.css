@@ -1,26 +1,7 @@
 /********** Fonts (including WikiFont) **********/
 
 
-@font-face {
-	font-family: 'Lato';
-	font-style: normal;
-	font-weight: 400;
-	src: local('Lato Regular'), local('Lato-Regular'), url(//themes.googleusercontent.com/static/fonts/lato/v7/9k-RPmcnxYEPm8CNFsH2gg.woff) format('woff');
-}
-
-@font-face {
-	font-family: 'Lato body';
-	font-style: normal;
-	font-weight: 400;
-	src: local('Lato Regular'), local('Lato-Regular'), url(//themes.googleusercontent.com/static/fonts/lato/v7/9k-RPmcnxYEPm8CNFsH2gg.woff) format('woff');
-}
-
-@font-face {
-	font-family: 'Lato';
-	font-style: normal;
-	font-weight: 700;
-	src: local('Lato Bold'), local('Lato-Bold'), url(//themes.googleusercontent.com/static/fonts/lato/v7/wkfQbvfT_02e2IWO3yYueQ.woff) format('woff');
-}
+@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic);
 
 /*@font-face {
 	font-family: 'Lato';
@@ -42,9 +23,9 @@
 		url(https://fonts.gstatic.com/s/lato/v11/qdgUG4U09HnJwhYI-uK18wLUuEpTyoUstqEm5AMlJo4.woff) format('woff'),
 		url(https://fonts.gstatic.com/s/lato/v11/DvlFBScY1r-FMtZSYIYoYw.ttf)  format('truetype'),
 		url(https://fonts.gstatic.com/l/font?kit=hLECvlEj3pKlnS4NFs8NQw#Lato) format('svg');
-}
+}*/
 
-@font-face {
+@font-face { /* Google Fonts doesn't define "Lato body" so keeping this temporarily during the font test */
 	font-family: 'Lato body';
 	font-style: normal;
 	font-weight: 400;
