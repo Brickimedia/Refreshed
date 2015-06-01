@@ -1,9 +1,6 @@
 /********** Fonts (including WikiFont) **********/
 
-
-@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic);
-
-/*@font-face {
+@font-face {
 	font-family: 'Lato';
 	font-style: normal;
 	font-weight: 300;
@@ -23,9 +20,9 @@
 		url(https://fonts.gstatic.com/s/lato/v11/qdgUG4U09HnJwhYI-uK18wLUuEpTyoUstqEm5AMlJo4.woff) format('woff'),
 		url(https://fonts.gstatic.com/s/lato/v11/DvlFBScY1r-FMtZSYIYoYw.ttf)  format('truetype'),
 		url(https://fonts.gstatic.com/l/font?kit=hLECvlEj3pKlnS4NFs8NQw#Lato) format('svg');
-}*/
+}
 
-@font-face { /* Google Fonts doesn't define "Lato body" so keeping this temporarily during the font test */
+@font-face {
 	font-family: 'Lato body';
 	font-style: normal;
 	font-weight: 400;
@@ -34,7 +31,7 @@
 		url(https://fonts.gstatic.com/s/lato/v11/qIIYRU-oROkIk8vfvxw6QvesZW2xOQ-xsNqO47m55DA.woff) format('woff'),
 		url(https://fonts.gstatic.com/s/lato/v11/v0SdcGFAl2aezM9Vq_aFTQ.ttf)  format('truetype'),
 		url(https://fonts.gstatic.com/l/font?kit=H4oiIt_Ug9TU5ast0nUT-w#Lato) format('svg');
-}*/
+}
 
 .header-button .wikiglyph {
 	/*position: absolute;
