@@ -24,7 +24,11 @@ window.Refreshed = {
 
 	toggleFixedToolbox: function() {
 		$( '.standard-toolbox' ).toggleClass( 'fixed-toolbox' );
-		Refreshed.toolboxIsFixed = !Refreshed.toolboxIsFixed;
+		if ( $( '.standard-toolbox' ).hasClass( 'fixed-toolbox' ) ) {
+			Refreshed.toolboxIsFixed = true;
+		} else {
+			Refreshed.toolboxIsFixed = false;
+		}
 	},
 
 	showHideOverflowingDropdowns: function() {
