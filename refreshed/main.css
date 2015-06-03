@@ -140,11 +140,11 @@ a.header-button { /* double selectors to override default a element text-decorat
 	text-decoration: none;
 }
 
-.header-dropdown-item a {
+.header-dropdown-item:not(#pt-notifications) a {
 	color: #fff;
 }
 
-.header-dropdown-item a.new {
+.header-dropdown-item:not(#pt-notifications) a.new {
 	color: #fdad9d;
 }
 
