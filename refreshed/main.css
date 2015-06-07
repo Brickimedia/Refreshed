@@ -260,6 +260,10 @@ a.header-button { /* double selectors to override default a element text-decorat
 	bottom: .75em;
 }
 
+.toolbox-link {
+	cursor: pointer; /* doesn't have href so must be explicitly defined */
+}
+
 .standard-toolbox a {
 	margin-left: 0.5em;
 	padding-top: 0.25em;
