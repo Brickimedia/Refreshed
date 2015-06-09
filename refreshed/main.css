@@ -399,7 +399,7 @@ a.header-button { /* double selectors to override default a element text-decorat
 	position: relative;
 	top: 3em;
 	background-color: white;
-	z-index: 2;
+	z-index: 1;
 	font-family: sans-serif;
 	border-bottom: 0.25em solid #eee;
 	padding-bottom: 1em;
