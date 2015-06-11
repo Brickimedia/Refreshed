@@ -4,7 +4,7 @@
  *
  * @file
  * @ingroup Skins
- * @version 3.0.0
+ * @version 3.1.1
  * @link https://www.mediawiki.org/wiki/Skin:Refreshed Documentation
  */
 
@@ -12,7 +12,7 @@
 $wgExtensionCredits['skin'][] = array(
 	'path' => __FILE__,
 	'name' => 'Refreshed',
-	'version' => '3.1.0',
+	'version' => '3.1.1',
 	'author' => array(
 		'Adam Carter', 'George Barnick', 'MtMNC', 'ShermanTheMythran',
 		'Jack Phoenix', 'Drew1200', 'SirComputer', 'Seaside98', 'Codyn329',
@@ -49,16 +49,6 @@ $wgResourceModules['skins.refreshed.js'] = array(
 	'scripts' => 'skins/Refreshed/refreshed/refreshed.js',
 	'dependencies' => array( 'mediawiki.api', 'mediawiki.util' )
 );
-
-$wgHooks['BeforePageDisplay'][] = function( &$out, &$skin ) {
-	// Add the viewport meta tag for users who are using this skin
-	// The skin class check has to be present because hooks are global!
-	if ( get_class( $skin ) == 'SkinRefreshed' ) {
-		$out->addMeta( 'viewport', 'width=device-width' );
-	}
-
-	return true;
-};
 
 $wgRefreshedHeader = array(
 	'img' => '<img src="http://meta.brickimedia.org/skins/Refreshed/refreshed/images/brickimedia.svg" width="144" alt="" />',

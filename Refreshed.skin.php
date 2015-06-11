@@ -18,6 +18,8 @@ class SkinRefreshed extends SkinTemplate {
 
 		parent::initPage( $out );
 
+		$out->addMeta( 'viewport', 'width=device-width' );
+
 		$min = $this->getRequest()->getFuzzyBool( 'debug' ) ? '.src' : '.min';
 		// Add CSS @media support for older browsers (such as Internet Explorer
 		// 8) that do not support it natively
