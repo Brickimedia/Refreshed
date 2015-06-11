@@ -171,7 +171,7 @@ class RefreshedTemplate extends BaseTemplate {
 							<?php echo $avatarImage ?>
 							<span class="username"><?php echo $user->getName() ?></span>
 						<?php
-						} else if ( $this->data['loggedin'] ) { // if no SocialProfile but user is logged in
+						} elseif ( $this->data['loggedin'] ) { // if no SocialProfile but user is logged in
 							?>
 							<span class="arrow wikiglyph wikiglyph-caret-down"></span>
 							<span class="avatar-no-socialprofile wikiglyph wikiglyph-user-smile"></span>
@@ -199,7 +199,7 @@ class RefreshedTemplate extends BaseTemplate {
 									<?php
 									echo Linker::link(
 										SpecialPage::getTitleFor( 'Notifications' ),
-										wfMessage( 'notifications' )->plain(),
+										$this->getMsg( 'notifications' )->plain(),
 										Linker::tooltipAndAccesskeyAttribs( 'pt-notifications' )
 									)
 									?>
@@ -378,7 +378,7 @@ class RefreshedTemplate extends BaseTemplate {
 											echo $this->makeListItem( $tool, $toolData, array( 'text-wrapper' => array( 'tag' => 'span' ) ) );
 										}
 						}
-						wfRunHooks( 'SkinTemplateToolboxEnd', array( &$this, true ) );
+						Hooks::run( 'SkinTemplateToolboxEnd', array( &$this, true ) );
 						?>
 									</ul>
 							</div>
@@ -388,7 +388,7 @@ class RefreshedTemplate extends BaseTemplate {
 					if ( MWNamespace::isTalk( $titleNamespace ) ) { // if talk namespace
 						echo Linker::link(
 							$title,
-							wfMessage( 'backlinksubtitle', $title->getPrefixedText() )->escaped(),
+							$this->getMsg( 'backlinksubtitle', $title->getPrefixedText() )->escaped(),
 							array( 'id' => 'back-to-subject' )
 						);
 					}
@@ -398,7 +398,7 @@ class RefreshedTemplate extends BaseTemplate {
 				reset( $this->data['content_actions'] );
 				$pageTab = key( $this->data['content_actions'] );
 				$isEditing = in_array(
-					$this->getSkin()->getRequest()->getText( 'action' ),
+					$skin->getRequest()->getText( 'action' ),
 					array( 'edit', 'submit' )
 				);
 
@@ -468,16 +468,14 @@ class RefreshedTemplate extends BaseTemplate {
 		<div id="footer">
 			<?php
 			$footerExtra = '';
-			wfRunHooks( 'RefreshedFooter', array( &$footerExtra ) );
+			Hooks::run( 'RefreshedFooter', array( &$footerExtra ) );
 			echo $footerExtra;
 
 			foreach ( $this->getFooterLinks() as $category => $links ) {
 				foreach ( $links as $link ) {
 					?>
 					&ensp;
-					<?php
-					$this->html( $link );
-					?>
+					<?php $this->html( $link ); ?>
 					&ensp;
 					<?php
 					$noSkip = true;
@@ -493,9 +491,7 @@ class RefreshedTemplate extends BaseTemplate {
 					foreach ( $footerIcons as $icon ) {
 						?>
 						&ensp;
-						<?php
-						echo $this->getSkin()->makeFooterIcon( $icon );
-						?>
+						<?php echo $skin->makeFooterIcon( $icon ); ?>
 						&ensp;
 						<?php
 					}
