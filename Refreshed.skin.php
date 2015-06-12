@@ -69,6 +69,7 @@ class SkinRefreshed extends SkinTemplate {
 		// Internet Explorer fixes
 		$out->addStyle( $wgStylePath . '/Refreshed/refreshed/ie8.css', 'screen', 'IE 8' );
 		$out->addStyle( $wgStylePath . '/Refreshed/refreshed/iefontfix.css', 'screen', 'IE' );
+		$out->addStyle( $wgStylePath . '/Refreshed/refreshed/wikifont/WikiFontLoader.css', 'screen and (-ms-high-contrast: active), (-ms-high-contrast: none)' ); /* IE 10+ */
 	}
 }
 

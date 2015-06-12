@@ -39,3 +39,7 @@
          url('wikifont/WikiFont-Glyphs.ttf')  format('truetype'), /* Safari, Android, iOS */
          url('wikifont/WikiFont-Glyphs.svg#8088f7bbbdba5c9832b27edb3dfcdf09') format('svg'); /* Legacy iOS */
 }
+
+#header .wikiglyph-caret-down:before {
+	font-size: .5em; /* IE compounds pseudo-element font-size strangely (https://connect.microsoft.com/IE/feedback/details/786969/relative-font-sizing-incorrect-on-pseudo-elements). We want a font-size of 1.25em (#header .wikiglyph-caret-down:before in main.css) but IE thinks 1em = 2.5em (.header-button .wikiglyph:before in main.css), so if we set font-size to .5em we get 1.25em */
+}
