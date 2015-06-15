@@ -1,0 +1,76 @@
+{
+	"name": "Refreshed",
+	"version": "3.1.1",
+	"author": [
+		"Adam Carter",
+		"George Barnick",
+		"MtMNC",
+		"ShermanTheMythran",
+		"Jack Phoenix",
+		"Drew1200",
+		"SirComputer",
+		"Seaside98",
+		"Codyn329",
+		"Lewis Cawte"
+	],
+	"url": "https://www.mediawiki.org/wiki/Skin:Refreshed",
+	"description": "A clean, modern MediaWiki skin with extensive CSS customisability",
+	"license-name": "GPL-2.0+",
+	"type": "skin",
+	"ValidSkinNames": {
+		"refreshed": "Refreshed"
+	},
+	"MessagesDirs": {
+		"SkinRefreshed": [
+			"i18n"
+		]
+	},
+	"AutoloadClasses": {
+		"SkinRefreshed": "Refreshed.skin.php",
+		"RefreshedTemplate": "Refreshed.skin.php"
+	},
+	"config": {
+		"RefreshedHeader": {
+			"img": "<img src=\"http://meta.brickimedia.org/skins/Refreshed/refreshed/images/brickimedia.svg\" width=\"144\" alt=\"\" />",
+			"url": "http://meta.brickimedia.org/wiki/Main_Page",
+			"dropdown": {}
+		}
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "",
+		"remoteSkinPath": "Refreshed"
+	},
+	"ResourceModules": {
+		"skins.refreshed": {
+			"styles": {
+				"refreshed/wikifont/wikiglyphs.css": {
+					"media": "screen"
+				},
+				"refreshed/main.css": {
+					"media": "screen"
+				},
+				"refreshed/small.css": {
+					"media": "(max-width: 600px)"
+				},
+				"refreshed/medium.css": {
+					"media": "(min-width: 601px) and (max-width: 1000px)"
+				},
+				"refreshed/big.css": {
+					"media": "(min-width: 1001px)"
+				}
+			},
+			"position": "top"
+		},
+		"skins.refreshed.js": {
+			"scripts": [
+				"refreshed/refreshed.js"
+			],
+			"dependencies": [
+				"mediawiki.api",
+				"mediawiki.util"
+			],
+			"position": "bottom"
+		}
+	},
+	"manifest_version": 1
+}
