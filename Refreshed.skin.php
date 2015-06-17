@@ -124,7 +124,7 @@ class RefreshedTemplate extends BaseTemplate {
 					} else {
 						?>
 						<div id="site-info-main">
-							<a class="main header-button" href="<?php echo $wgRefreshedHeader['url'] ?>"><?php $wgRefreshedHeader['img'] ?></a>
+							<a class="main header-button" href="<?php echo $wgRefreshedHeader['url'] ?>"><?php echo $wgRefreshedHeader['img'] ?></a>
 						</div>
 					<?php
 					}
