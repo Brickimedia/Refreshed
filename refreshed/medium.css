@@ -27,7 +27,7 @@
 	display: none;
 }
 
-#firstHeading h1 {
+#firstHeading {
 	white-space: nowrap;
 	font-size: 2.25em;
 	overflow-x: scroll;

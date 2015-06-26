@@ -213,14 +213,14 @@
 	display: none;
 }
 
-#firstHeading {
+#content-heading {
 	position: relative;
 	font-size: 0.9em;
 	padding: 0 1em;
 	width: auto;
 }
 
-#firstHeading h1 {
+#firstHeading {
 	overflow-x: auto;
 	white-space: nowrap;
 	border: 0;

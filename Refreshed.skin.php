@@ -307,8 +307,8 @@ class RefreshedTemplate extends BaseTemplate {
 				<div id="new-talk">
 					<?php $this->html( 'newtalk' ) ?>
 				</div>
-				<div id="firstHeading">
-					<h1 class="scroll-shadow"><?php $this->html( 'title' ) ?></h1>
+				<div id="content-heading">
+					<h1 id="firstHeading" class="scroll-shadow"><?php $this->html( 'title' ) ?></h1>
 					<div id="main-title-messages">
 						<div id="siteSub"><?php $this->msg( 'tagline' ) ?></div>
 						<?php

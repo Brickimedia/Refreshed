@@ -226,13 +226,13 @@ a.header-button { /* double selectors to override default a element text-decorat
 	margin-left: 0.4em; /* matching .headermenu a */
 }
 
-#firstHeading {
+#content-heading {
 	padding: 0 0.9em; /* 1em (#bodyContent padding-left) * 0.9em (#bodyContent font-size) */
 	padding-bottom: 2.5em; /* .25em (padding on top of .standard-toolbox) + 1.5em (height of .standard-toolbox) + .75em (padding on bottom of .standard-toolbox) */
 	position: relative;
 }
 
-#firstHeading h1 {
+#firstHeading {
 	font-size: 32pt;
 	font-family: "Lato Body", sans-serif;
 	padding-top: 0.2em;
