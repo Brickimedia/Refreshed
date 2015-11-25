@@ -20,7 +20,7 @@
 	cursor: pointer;
 }
 
-#header {
+#header-inner {
 	height: 2.75em;
 }
 
@@ -106,7 +106,7 @@
 	display: inline-block;
 }
 
-#header .search {
+#header-inner .search {
 	width: 2.75em;
 	height: 2.75em;
 	padding: 0;
@@ -117,7 +117,7 @@
 	display: block;
 }
 
-#header .search-form {
+#header-inner .search-form {
 	width: calc(100% - 3.25em); /* 100% - 2.75em for the close search button -0.25em of padding-left -0.25em of padding-right */
 	height: calc(100% - 0.5em); /* 100% -0.25em of padding-top - .35em of padding-bottom */
 	position: absolute;
@@ -205,7 +205,7 @@
 	font-size: 16px; /* resetting font size for logos in menu so they are the same height as the one outside the menu */
 }
 
-#content {
+#content-wrapper {
 	top: 2.75em;
 }
 
