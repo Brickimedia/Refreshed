@@ -20,7 +20,7 @@
 	cursor: pointer;
 }
 
-#header-inner {
+#header-wrapper {
 	height: 2.75em;
 }
 
@@ -106,7 +106,7 @@
 	display: inline-block;
 }
 
-#header-inner .search {
+#header-wrapper .search {
 	width: 2.75em;
 	height: 2.75em;
 	padding: 0;
@@ -117,7 +117,7 @@
 	display: block;
 }
 
-#header-inner .search-form {
+#header-wrapper .search-form {
 	width: calc(100% - 3.25em); /* 100% - 2.75em for the close search button -0.25em of padding-left -0.25em of padding-right */
 	height: calc(100% - 0.5em); /* 100% -0.25em of padding-top - .35em of padding-bottom */
 	position: absolute;
@@ -325,6 +325,11 @@ a.small-tool { /* inclusion of the "a" is necessary to override the standard a e
 /* Hide ads on mobile until mobile ads are implemented */
 #advert {
 	display: none;
+}
+
+/* place each footer link on its own line */
+.footer-row-item {
+	display: block;
 }
 
 /* Suggestions box under search */

@@ -100,7 +100,7 @@ class RefreshedTemplate extends BaseTemplate {
 		$this->html( 'headelement' );
 		?>
 		<a id="fade-overlay"></a>
-		<header id="header-inner">
+		<header id="header-wrapper">
 			<section id="site-info">
 				<?php
 				if ( $wgRefreshedHeader['dropdown'] ) { // if there is a site dropdown (so there are multiple wikis)
@@ -127,10 +127,14 @@ class RefreshedTemplate extends BaseTemplate {
 					</div>
 				<?php
 				}
+				if ( isset( $wgRefreshedHeader['mobileimg'] ) ) { //if a mobile logo has been defined
+					?>
+					<div id="site-info-mobile">
+						<a class="main header-button" href="<?php echo $wgRefreshedHeader['url'] ?>"><?php echo $wgRefreshedHeader['mobileimg'] ?></a>
+					</div>
+					<?php
+				}
 				?>
-				<!--<div id="site-info-mobile"> COMMENTED OUT, DON'T WRITE CODE IF IT DOESN'T WORK
-					<a class="main header-button" href="<?php //echo $wgRefreshedHeader['url'] ?>"><?php //echo $wgRefreshedHeader['mobileimg'] ?></a>
-				</div>-->
 			</section>
 			<section class="search">
 				<a id="search-shower" class="header-button fade-trigger fadable">
@@ -243,7 +247,7 @@ class RefreshedTemplate extends BaseTemplate {
 			}
 			?>
 		</header>
-		<section id="sidebar-wrapper">
+		<aside id="sidebar-wrapper">
 			<a class="sidebar-shower header-button"></a>
 			<div id="sidebar-logo">
 				<a class="main" href="<?php echo $wgRefreshedHeader['url'] ?>"><?php echo $wgRefreshedHeader['img'] ?></a>
@@ -256,26 +260,28 @@ class RefreshedTemplate extends BaseTemplate {
 
 				foreach ( $this->data['sidebar'] as $main => $sub ) {
 					?>
-					<div class="main"><?php echo htmlspecialchars( $main ) ?></div>
-					<ul>
-						<?php
-						if ( is_array( $sub ) ) { // MW-generated stuff from the sidebar message
-							foreach ( $sub as $key => $action ) {
-								echo $this->makeListItem(
-									$key,
-									$action,
-									array(
-										'link-class' => 'sub',
-										'link-fallback' => 'span'
-									)
-								);
+					<section class="sidebar-section">
+						<h1 class="main"><?php echo htmlspecialchars( $main ) ?></h1>
+						<ul>
+							<?php
+							if ( is_array( $sub ) ) { // MW-generated stuff from the sidebar message
+								foreach ( $sub as $key => $action ) {
+									echo $this->makeListItem(
+										$key,
+										$action,
+										array(
+											'link-class' => 'sub',
+											'link-fallback' => 'span'
+										)
+									);
+								}
+							} else {
+								// allow raw HTML block to be defined by extensions (like NewsBox)
+								echo $sub;
 							}
-						} else {
-							// allow raw HTML block to be defined by extensions (like NewsBox)
-							echo $sub;
-						}
-						?>
-					</ul>
+							?>
+						</ul>
+					</section>
 					<?php
 				}
 
@@ -294,7 +300,7 @@ class RefreshedTemplate extends BaseTemplate {
 				}
 				?>
 			</div>
-		</section>
+		</aside>
 		<div id="content-wrapper" class="mw-body">
 			<?php
 			if ( $this->data['sitenotice'] ) {

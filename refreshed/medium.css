@@ -58,14 +58,14 @@
 	left: 10em;
 }
 
-#header-inner .search {
+#header-wrapper .search {
 	width: auto;
 	height: 3em;
 	padding: 0;
 	margin-right: 1em;
 }
 
-#header-inner .search-form {
+#header-wrapper .search-form {
 	display: block;
 	position: absolute;
 	top: 3em;
