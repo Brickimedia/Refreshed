@@ -878,6 +878,9 @@ div.noarticletext {
 
 /* Extension:Echo fixes */
 
+#echo {
+	float: right; /* so Echo doesn't push menu items out of the header when the mobile logo is enabled */
+}
 #pt-mytalk a.mw-echo-alert { /* "you have new messages" alert in the personal tools dropdown */
 	white-space: normal;
 	color: #555555 !important; /* 6 digits instead of 3 because Echo's CSS uses 6 to define the color in the standard state (!important to override color on hover) */

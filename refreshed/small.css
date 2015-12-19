@@ -88,6 +88,9 @@
 	padding: 0.5em 0;
 }
 
+#site-info {
+	display: inline-block; /* don't push menu items on the right side of the header off of the header */
+}
 #site-info-main {
 	display: none;
 }
