@@ -20,7 +20,7 @@
 	cursor: pointer;
 }
 
-#header {
+#header-wrapper {
 	height: 2.75em;
 }
 
@@ -88,6 +88,9 @@
 	padding: 0.5em 0;
 }
 
+#site-info {
+	display: inline-block; /* don't push menu items on the right side of the header off of the header */
+}
 #site-info-main {
 	display: none;
 }
@@ -106,7 +109,7 @@
 	display: inline-block;
 }
 
-#header .search {
+#header-wrapper .search {
 	width: 2.75em;
 	height: 2.75em;
 	padding: 0;
@@ -117,7 +120,7 @@
 	display: block;
 }
 
-#header .search-form {
+#header-wrapper .search-form {
 	width: calc(100% - 3.25em); /* 100% - 2.75em for the close search button -0.25em of padding-left -0.25em of padding-right */
 	height: calc(100% - 0.5em); /* 100% -0.25em of padding-top - .35em of padding-bottom */
 	position: absolute;
@@ -205,7 +208,7 @@
 	font-size: 16px; /* resetting font size for logos in menu so they are the same height as the one outside the menu */
 }
 
-#content {
+#content-wrapper {
 	top: 2.75em;
 }
 
@@ -325,6 +328,11 @@ a.small-tool { /* inclusion of the "a" is necessary to override the standard a e
 /* Hide ads on mobile until mobile ads are implemented */
 #advert {
 	display: none;
+}
+
+/* place each footer link on its own line */
+.footer-row-item {
+	display: block;
 }
 
 /* Suggestions box under search */

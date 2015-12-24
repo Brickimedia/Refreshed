@@ -76,11 +76,11 @@
 	font-size: 2.5em; /* ...however, the actual glyph has a more appropriate font size of 2.5em (so the glyph itself is larger while it can be positioned with the smaller em units without a problem) */
 }
 
-#header .wikiglyph-caret-down {
+#header-wrapper .wikiglyph-caret-down {
 	font-size: 1em; /* make the definition of the arrow's em the same as its parent's so it's easier to position using em units... */
 }
 
-#header .wikiglyph-caret-down:before {
+#header-wrapper .wikiglyph-caret-down:before {
 	font-size: 1.25em; /* ...however, the actual glyph has a more appropriate font size of 1.25em (so the glyph itself is larger while it can be positioned with the smaller em units without a problem) */
 }
 
@@ -126,7 +126,7 @@ body {
 	background: #fff;
 }
 
-#header {
+#header-wrapper {
 	-webkit-font-smoothing: antialiased;
 	width: 100%;
 	height: 3em;
@@ -154,8 +154,7 @@ a.header-button { /* double selectors to override default a element text-decorat
 	color: #fdad9d;
 }
 
-#header-inner {
-	height: 100%;
+#header-wrapper {
 	background-color: #103ca2;
 	background-image: -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(0, #040f28), color-stop(50%, #103ca2), color-stop(100%, #040f28));
 	/* IE5.5-IE7 */
@@ -357,8 +356,8 @@ a.header-button { /* double selectors to override default a element text-decorat
 	border-bottom: 0.25em solid #eee;
 	background: #fff;
 	top: 3em; /* height of #header */
-	left: 12em; /* margin-left of #content */
-	right: 1em; /* margin-right of #content */
+	left: 12em; /* margin-left of #content-wrapper */
+	right: 1em; /* margin-right of #content-wrapper */
 	z-index: 9999; /* very high value to guarantee no elements on wikis will appear above it */
 }
 
@@ -400,7 +399,7 @@ a.header-button { /* double selectors to override default a element text-decorat
 	margin-left: 2em;
 }
 
-#content {
+#content-wrapper {
 	min-height: 100%;
 	position: relative;
 	top: 3em;
@@ -411,7 +410,7 @@ a.header-button { /* double selectors to override default a element text-decorat
 	padding-bottom: 1em;
 }
 
-#content * {
+#content-wrapper * {
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0.4);
 }
 
@@ -481,12 +480,18 @@ a.header-button { /* double selectors to override default a element text-decorat
 	margin-left: 0;
 }
 
-#sidebar .main {
+.sidebar-section .main {
+	border: 0;
+	margin: 0;
 	margin-left: 0.5em;
 	margin-top: 0.5em;
+	padding: 0;
+	font-size: 1em;
+	color: inherit;
+	line-height: 1.5;
 }
 
-#sidebar .main:first-of-type {
+.sidebar-section:first-of-type h1 {
 	margin-top: 0;
 }
 
@@ -655,7 +660,7 @@ a.header-button { /* double selectors to override default a element text-decorat
 	display: none;
 }
 
-#header .search {
+#header-wrapper .search {
 	width: 11em;
 	height: 2em;
 	position: static;
@@ -665,7 +670,7 @@ a.header-button { /* double selectors to override default a element text-decorat
 	padding: 0.5em;
 }
 
-#header .search-form {
+#header-wrapper .search-form {
 	height: 100%;
 }
 
@@ -734,6 +739,14 @@ a.header-button { /* double selectors to override default a element text-decorat
 	margin: 0;
 }
 
+.footer-row {
+	margin: 0;
+}
+.footer-row-item {
+	margin: 0 0.5em;
+	display: inline;
+}
+
 .header-button:hover,
 .header-button-active,
 .header-dropdown-item:hover { /* defined at bottom so this overrides individual elements' background-color properties */
@@ -776,7 +789,7 @@ h6 {
 	padding: 1em;
 }
 
-#content p:first-of-type {
+#content-wrapper p:first-of-type {
 	margin-top: 0;
 }
 
@@ -865,6 +878,9 @@ div.noarticletext {
 
 /* Extension:Echo fixes */
 
+#echo {
+	float: right; /* so Echo doesn't push menu items out of the header when the mobile logo is enabled */
+}
 #pt-mytalk a.mw-echo-alert { /* "you have new messages" alert in the personal tools dropdown */
 	white-space: normal;
 	color: #555555 !important; /* 6 digits instead of 3 because Echo's CSS uses 6 to define the color in the standard state (!important to override color on hover) */

@@ -18,7 +18,7 @@ window.Refreshed = {
 			Refreshed.toolboxDistanceFromTopWhenStatic = $( '.standard-toolbox' ).offset().top; // reassign this variable every time so it doesn't break if the distance to the top changes somehow (e.g. sitenotice has animated height)--better safe than sorry
 		}
 		distanceScrolled = $( window ).scrollTop();
-		toolboxShouldBeToggled = ( Refreshed.toolboxDistanceFromTopWhenStatic - distanceScrolled <= $( '#header' ).height() && !Refreshed.toolboxIsFixed ) || ( Refreshed.toolboxDistanceFromTopWhenStatic - distanceScrolled > $( '#header' ).height() && Refreshed.toolboxIsFixed ); // true if 1) the page is scrolled enough for .standard-toolbox to be fixed and it isn't or 2) page isn't scrolled enough for it to be fixed and it is
+		toolboxShouldBeToggled = ( Refreshed.toolboxDistanceFromTopWhenStatic - distanceScrolled <= $( '#header-wrapper' ).height() && !Refreshed.toolboxIsFixed ) || ( Refreshed.toolboxDistanceFromTopWhenStatic - distanceScrolled > $( '#header-wrapper' ).height() && Refreshed.toolboxIsFixed ); // true if 1) the page is scrolled enough for .standard-toolbox to be fixed and it isn't or 2) page isn't scrolled enough for it to be fixed and it is
 		return toolboxShouldBeToggled;
 	},
 
@@ -33,7 +33,7 @@ window.Refreshed = {
 
 	showHideOverflowingDropdowns: function() {
 		$( '.page-item-has-children' ).each(function( ) {
-			if ( $( this ).offset().top > $( '#header' ).height() + $( '#header' ).offset().top ) { //if the .page-item is beneath the bottom of the header (and so it's cut off by overflow:hidden)
+			if ( $( this ).offset().top > $( '#header-wrapper' ).height() + $( '#header-wrapper' ).offset().top ) { //if the .page-item is beneath the bottom of the header (and so it's cut off by overflow:hidden)
 				$( this ).children( '.children' ).css({'display': 'none'});
 				$( this ).removeClass( 'header-button-active' );
 				$( this ).children( '.header-button' ).children( '.arrow' ).removeClass( 'rotate' );
@@ -142,7 +142,7 @@ $( document ).ready( function() {
 		}
 
 		// the following if statements control hiding the search header and dropdown
-		if ( Refreshed.headerSearchIsOpen && !$( e.target ).closest( '#header .search' ).length && !$( e.target ).closest( '.header-suggestions' ).length ) { // we do this check instead of checking if the user pressed #fade-overlay because #fade-overlay can disappear if you resize, and then if you click off afterward you still want to hide the menu, etc. even if #fade-overlay is no longer visible
+		if ( Refreshed.headerSearchIsOpen && !$( e.target ).closest( '#header-wrapper .search' ).length && !$( e.target ).closest( '.header-suggestions' ).length ) { // we do this check instead of checking if the user pressed #fade-overlay because #fade-overlay can disappear if you resize, and then if you click off afterward you still want to hide the menu, etc. even if #fade-overlay is no longer visible
 			Refreshed.toggleHeaderSearch();
 		}
 
@@ -207,8 +207,8 @@ $( document ).ready( function() {
 	/**
 	 * Add "header-suggestions" class to first .suggestions element for CSS
 	 * targeting. There is usually one .suggestions element, but on Special:Search
-	 * there is one for the #header search bar and one for the #bodyContentsearch bar.
-	 * We only want to target the one for the #header search bar.
+	 * there is one for the #header-wrapper search bar and one for the #bodyContentsearch bar.
+	 * We only want to target the one for the #header-wrapper search bar.
 	 */
 	setTimeout( function () { // wait a bit so the .suggestions elements can be added in (if we don't wait we'll be targeting nothing and it won't work)...
 		$( '.suggestions' ).first().addClass( 'header-suggestions' ); // add class to first .suggestions element
