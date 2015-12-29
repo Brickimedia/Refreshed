@@ -21,20 +21,6 @@ class SkinRefreshed extends SkinTemplate {
 		$out->addMeta( 'viewport', 'width=device-width' );
 
 		$min = $this->getRequest()->getFuzzyBool( 'debug' ) ? '.src' : '.min';
-		// Add CSS @media support for older browsers (such as Internet Explorer
-		// 8) that do not support it natively
-		// @see https:// github.com/Brickimedia/brickimedia/issues/224
-		// @todo FIXME: add Respond into the resources directory
-		// (skins/Refreshed/refreshed) and load it from there instead of from GitHub
-		// Remember to use the global variable $wgLocalStylePath, just like how
-		// Vector does!
-		$out->addHeadItem( 'css3mediaquerypolyfill',
-			'<!--[if lt IE 9]>' .
-			Html::element( 'script', array(
-				'src' => htmlspecialchars( $wgLocalStylePath ) . "/Refreshed/refreshed/respond{$min}.js",
-				'type' => 'text/javascript'
-			) ) . '<![endif]-->'
-		);
 		// add jQuery Mobile touch events
 		$out->addHeadItem( 'jquerymobiletouchevents',
 			Html::element( 'script', array(
@@ -67,7 +53,6 @@ class SkinRefreshed extends SkinTemplate {
 		) );
 
 		// Internet Explorer fixes
-		$out->addStyle( $wgStylePath . '/Refreshed/refreshed/ie8.css', 'screen', 'IE 8' );
 		$out->addStyle( $wgStylePath . '/Refreshed/refreshed/iefontfix.css', 'screen', 'IE' );
 		$out->addStyle( $wgStylePath . '/Refreshed/refreshed/wikifont/WikiFontLoader.css', 'screen' ); /* IE 10+ */
 	}
