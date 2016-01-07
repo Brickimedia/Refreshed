@@ -171,6 +171,8 @@ $( document ).ready( function() {
 		}
 	} );
 
+
+	/* Temporarily disabled to fix front-end bugs
 	$( '#icon-ca-watch, #icon-ca-unwatch' ).parent().tap( function( e ) {
 		// AJAX for watch icons
 		var action, api, $link, title, otherAction;
@@ -196,6 +198,7 @@ $( document ).ready( function() {
 				$( '#wpWatchthis' ).prop( 'checked', watchResponse.watched !== undefined );
 			});
 	});
+	*/
 
 	$( '#sidebar-wrapper' ).on( 'swipeleft', function( e ) {
 		if ( Refreshed.sidebarIsOpen ) {
