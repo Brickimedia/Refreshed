@@ -120,6 +120,12 @@ $( document ).ready( function() {
 
 		Refreshed.showHideOverflowingDropdowns();
 	});
+	
+	// working code for dropdowns. Note: sinple code like this is much better than complicated like below :)
+	$( "a.header-button.fade-trigger" ).click( function( e) {
+		console.log("hit");
+		Refreshed.toggleFade( $( e.target ).parent() );
+	} );
 
 	$( document ).on( 'tap', function( e ) {
 		/**
@@ -128,9 +134,10 @@ $( document ).ready( function() {
 		* 2) the button triggering the menu must have class "fade-trigger"
 		* 3) the menu and the button must be siblings
 		*/
-		if ( $( e.target ).closest( '.fade-trigger' ).length ) {
+		/*if ( $( e.target ).closest( '.fade-trigger' ).length ) {
+			console.log("fading1");
 			Refreshed.toggleFade( $( e.target ).closest( '.fade-trigger' ) );
-		}
+		}*/ // commented as work around is above
 
 		$( '.fadable:not( .fade-trigger ):not( .faded )' ).each( function () { // targeting all dropdowns (i.e., fadable elements that aren't fadable themselves [since ones that are fadable are the #search-shower and #search-closer])
 			if ( !$( e.target ).closest( $( this ).parent() ).length ) { // if starting from the event target (this, a child of this, or .fade-trigger) and doing up the DOM you do not run into this element's parent (so if this, a child of this, or .fade-trigger was not the target of the click)
