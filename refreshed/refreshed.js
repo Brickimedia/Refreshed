@@ -122,9 +122,13 @@ $( document ).ready( function() {
 	});
 	
 	// working code for dropdowns. Note: sinple code like this is much better than complicated like below :)
-	$( "a.header-button.fade-trigger" ).click( function( e) {
+	$( "a.header-button.fade-trigger" ).click( function( e ) {
 		console.log("hit");
 		Refreshed.toggleFade( $( e.target ).parent() );
+	} );
+	
+	$( "a.sidebar-shower").click( function( e ) {
+		Refreshed.toggleSidebar();
 	} );
 
 	$( document ).on( 'tap', function( e ) {
@@ -152,11 +156,11 @@ $( document ).ready( function() {
 		if ( Refreshed.headerSearchIsOpen && !$( e.target ).closest( '#header-wrapper .search' ).length && !$( e.target ).closest( '.header-suggestions' ).length ) { // we do this check instead of checking if the user pressed #fade-overlay because #fade-overlay can disappear if you resize, and then if you click off afterward you still want to hide the menu, etc. even if #fade-overlay is no longer visible
 			Refreshed.toggleHeaderSearch();
 		}
-
+/*
 		if ( Refreshed.sidebarIsOpen && !$( e.target ).closest( '#sidebar-wrapper' ).length ) {
 			Refreshed.toggleSidebar();
 		}
-
+*/
 		if ( $( e.target ).closest( '#search-shower' ).length ) {
 			if ( Refreshed.usingIOS ) {
 				$( window ).scrollTop( 0 ); // iOS tries to vertically center the search bar, scrolling to the top keeps the header at the top of the viewport
