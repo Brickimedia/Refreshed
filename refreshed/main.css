@@ -841,9 +841,13 @@ div.noarticletext {
 	padding-top: 1em;
 }
 
+#echo li:first-of-type {
+    margin-left: 0;
+}
+
 #echo li {
     display: inline;
-	margin-left: .5em;
+	margin-left: 1em;
 }
 
 #pt-mytalk a.mw-echo-alert { /* "you have new messages" alert in the personal tools dropdown */
