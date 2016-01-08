@@ -221,7 +221,8 @@ $( document ).ready( function() {
 
 /* Fix for Echo in Refreshed */
 if ( document.getElementById( 'echo' ) ) {
-	$( '#pt-notifications' ).prependTo( '#echo' );
+	$( '#pt-notifications-message' ).prependTo( '#echo' );
+	$( '#pt-notifications-alert' ).prependTo( '#echo' );
 }
 
 if ( $( '.mw-echo-notifications-badge' ).hasClass( 'mw-echo-unread-notifications' ) ) {

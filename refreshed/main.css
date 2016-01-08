@@ -838,7 +838,14 @@ div.noarticletext {
 
 #echo {
 	float: right; /* so Echo doesn't push menu items out of the header when the mobile logo is enabled */
+	padding-top: 1em;
 }
+
+#echo li {
+    display: inline;
+	margin-left: .5em;
+}
+
 #pt-mytalk a.mw-echo-alert { /* "you have new messages" alert in the personal tools dropdown */
 	white-space: normal;
 	color: #555555 !important; /* 6 digits instead of 3 because Echo's CSS uses 6 to define the color in the standard state (!important to override color on hover) */
@@ -870,6 +877,19 @@ div.noarticletext {
 .mw-echo-overlay:before,
 .mw-echo-overlay::before {
 	left: 114px !important; /* centering dropdown arrow on notifications badge */
+}
+
+#echo .oo-ui-labelElement-label {
+    font-size: 18px;
+}
+
+.mw-echo-ui-notificationBadgeButtonPopupWidget .oo-ui-popupWidget-footer .oo-ui-buttonElement > .oo-ui-buttonElement-button {
+	line-height: 1.5;
+}
+
+.mw-echo-state .mw-echo-content {
+    font-size: 14px;
+    line-height: 1.5;
 }
 
 /* stopping images on file pages from overflowing */
