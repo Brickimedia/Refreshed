@@ -178,6 +178,8 @@ $( document ).ready( function() {
 		}
 	} );
 
+
+	/* Temporarily disabled to fix front-end bugs
 	$( '#icon-ca-watch, #icon-ca-unwatch' ).parent().tap( function( e ) {
 		// AJAX for watch icons
 		var action, api, $link, title, otherAction;
@@ -203,6 +205,7 @@ $( document ).ready( function() {
 				$( '#wpWatchthis' ).prop( 'checked', watchResponse.watched !== undefined );
 			});
 	});
+	*/
 
 	$( '#sidebar-wrapper' ).on( 'swipeleft', function( e ) {
 		if ( Refreshed.sidebarIsOpen ) {
@@ -225,7 +228,8 @@ $( document ).ready( function() {
 
 /* Fix for Echo in Refreshed */
 if ( document.getElementById( 'echo' ) ) {
-	$( '#pt-notifications' ).prependTo( '#echo' );
+	$( '#pt-notifications-alert' ).prependTo( '#echo' );
+	$( '#pt-notifications-message' ).prependTo( '#echo' );
 }
 
 if ( $( '.mw-echo-notifications-badge' ).hasClass( 'mw-echo-unread-notifications' ) ) {
