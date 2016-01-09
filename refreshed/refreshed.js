@@ -122,8 +122,12 @@ $( document ).ready( function() {
 	});
 	
 	// working code for dropdowns. Note: sinple code like this is much better than complicated like below :)
-	$( "a.fade-trigger" ).click( function( e ) {
+	$( "a.header-button.fade-trigger" ).click( function( e ) {
 		Refreshed.toggleFade( $( e.target ).parent() );
+	} );
+
+	$( "a.toolbox-link.fade-trigger" ).click( function( e ) {
+		Refreshed.toggleFade( $( e.target ) );
 	} );
 
 	$( "a.sidebar-shower" ).click( function( e ) {
