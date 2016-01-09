@@ -228,6 +228,7 @@ a.header-button { /* double selectors to override default a element text-decorat
 
 .mw-indicators {
 	float: right;
+	margin-top: -1.5em;
 }
 
 .mw-indicator {
