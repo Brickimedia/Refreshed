@@ -23,12 +23,12 @@ class SkinRefreshed extends SkinTemplate {
 		$min = $this->getRequest()->getFuzzyBool( 'debug' ) ? '.src' : '.min';
 
 		// add jQuery Mobile touch events
-		$out->addHeadItem( 'jquerymobiletouchevents',
+		/*$out->addHeadItem( 'jquerymobiletouchevents',
 			Html::element( 'script', array(
 				'src' => htmlspecialchars( $wgLocalStylePath ) . "/Refreshed/refreshed/jquery.mobile.custom{$min}.js",
 				'type' => 'text/javascript'
 			) )
-		); // shouldn't this be loaded with ResourceLoader??? 
+		);*/ // shouldn't this be loaded with ResourceLoader???/what is it?
 
 		// prevent iOS from zooming out when the sidebar is opened
 		$out->addHeadItem( 'viewportforios',
