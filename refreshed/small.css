@@ -343,23 +343,23 @@ a.small-tool { /* inclusion of the "a" is necessary to override the standard a e
 }
 
 .header-suggestions .suggestions-result:hover,
-.header-suggestions .hsuggestions-special:hover { /* making search suggestions change color when focused (e.g., tapped on mobile); this CSS is adapted from the .header-suggestions-result-current class */
+.header-suggestions .suggestions-special:hover { /* making search suggestions change color when focused (e.g., tapped on mobile); this CSS is adapted from the .suggestions-result-current class */
 	background-color: #4C59A6;
 	color: white;
 }
 
-.header-suggestions .header-suggestions-special:hover div {
+.header-suggestions .suggestions-special:hover div {
 	color: white; /* for whatever reason it doesn't want to have white text unless this is added too */
 }
 
-.header-suggestions .header-suggestions-special {
+.header-suggestions .suggestions-special {
 	padding: 0.5em 0.25em !important;
 	margin-top: 0 !important;
 	border: 0 !important;
 	border-bottom: 1px solid #ddd !important;
 }
 
-.header-suggestions .header-suggestions-results {
+.header-suggestions .suggestions-results {
 	border: 0 !important;
 }
 
