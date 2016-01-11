@@ -124,10 +124,10 @@ class RefreshedTemplate extends BaseTemplate {
 				?>
 			</section>
 			<section class="search">
-				<a id="search-shower" class="header-button fade-trigger fadable">
+				<a class ="search-shower header-button fade-trigger fadable">
 					<span class="wikiglyph wikiglyph-magnifying-glass"></span>
 				</a>
-				<a id="search-closer" class="header-button fade-trigger fadable faded">
+				<a class="search-closer header-button fade-trigger fadable faded">
 					<span class="wikiglyph wikiglyph-x"></span>
 				</a>
 				<form class="search-form fadable faded" action="<?php $this->text( 'wgScript' ) ?>" method="get">

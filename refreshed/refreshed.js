@@ -47,14 +47,15 @@ window.Refreshed = {
 		if ( $( trigger ).hasClass( 'header-button' ) ) {
 			$( trigger ).toggleClass( 'header-button-active' );
 		}
+		$( trigger ).parent().toggleClass( 'open-fadable-parent' );
 	},
 
 	toggleHeaderSearch: function() {
 		$( '.sidebar-shower' ).toggleClass( 'sidebar-shower-hidden' );
-		$( '#fade-overlay' ).toggleClass( 'fade-overlay-active fade-overlay-below-header' ); // toggle the fade overlay
-		if ( Refreshed.windowIsSmall ) { // On small, because #search-shower is replaced by #search-closer and vice-versa instead of the buttons appearing active, they take on the .header-button-active class when they shouldn't; this gets rid of it. On medium there's only #search-shower, so it functions properly and the class shouldn't be removed.
-			$( '#search-shower' ).removeClass( 'header-button-active' );
-			$( '#search-closer' ).removeClass( 'header-button-active' );
+		$( '#fade-overlay' ).toggleClass( 'fade-overlay-active fade-overlay-triggered-by-search' ); // toggle the fade overlay
+		if ( Refreshed.windowIsSmall ) { // On small, because .search-shower is replaced by .search-closer and vice-versa instead of the buttons appearing active, they take on the .header-button-active class when they shouldn't; this gets rid of it. On medium there's only .search-shower, so it functions properly and the class shouldn't be removed.
+			$( '.search-shower' ).removeClass( 'header-button-active' );
+			$( '.search-closer' ).removeClass( 'header-button-active' );
 		}
 		if ( Refreshed.headerSearchIsOpen ) {
 			$( '#searchInput' ).val( '' ).blur();
@@ -66,7 +67,7 @@ window.Refreshed = {
 
 	toggleSidebar: function() {
 		$( '#sidebar-wrapper' ).toggleClass( 'sidebar-open' );
-		$( '#fade-overlay' ).toggleClass( 'fade-overlay-active' ); // toggle the fade overlay
+		$( '#fade-overlay' ).toggleClass( 'fade-overlay-active fade-overlay-triggered-by-sidebar' ); // toggle the fade overlay
 		$( '.sidebar-shower' ).toggleClass( 'header-button-active' );
 		Refreshed.sidebarIsOpen = !Refreshed.sidebarIsOpen;
 	}
@@ -120,8 +121,8 @@ $( document ).ready( function() {
 
 		Refreshed.showHideOverflowingDropdowns();
 	});
-	
-	// working code for dropdowns. Note: sinple code like this is much better than complicated like below :)
+
+	// working code for dropdowns. Note: simple code like this is much better than complicated like below :)
 	$( "a.header-button.fade-trigger" ).click( function( e ) {
 		Refreshed.toggleFade( $( e.target ).parent() );
 	} );
@@ -130,115 +131,83 @@ $( document ).ready( function() {
 		Refreshed.toggleFade( $( e.target ) );
 	} );
 
+	$( document ).click( function( e ) {
+  	if ( $( ".open-fadable-parent" ).length && !$( e.target ).closest( ".open-fadable-parent" ).length ) { //if .open-fadable-parent exists (i.e., a .fadable element is open) and, starting from the element clicked and moving up the DOM, we don't run into that element's parent...
+    	Refreshed.toggleFade( $( ".open-fadable-parent .fadable" ) );
+  	}
+	});
+
 	$( "a.sidebar-shower" ).click( function( e ) {
 		Refreshed.toggleSidebar();
 	} );
 
-	$( document ).on( 'tap', function( e ) {
-		/**
-		* Showing/hiding dropdown menus. Preconditions:
-		* 1) the menu must have classes "fadable" and "faded" to start
-		* 2) the button triggering the menu must have class "fade-trigger"
-		* 3) the menu and the button must be siblings
-		*/
-		/*if ( $( e.target ).closest( '.fade-trigger' ).length ) {
-			console.log("fading1");
-			Refreshed.toggleFade( $( e.target ).closest( '.fade-trigger' ) );
-		}*/ // commented as work around is above
+	$( "a.search-shower" ).click( function( e ) {
+		Refreshed.toggleHeaderSearch();
+	} );
 
-		$( '.fadable:not( .fade-trigger ):not( .faded )' ).each( function () { // targeting all dropdowns (i.e., fadable elements that aren't fadable themselves [since ones that are fadable are the #search-shower and #search-closer])
-			if ( !$( e.target ).closest( $( this ).parent() ).length ) { // if starting from the event target (this, a child of this, or .fade-trigger) and doing up the DOM you do not run into this element's parent (so if this, a child of this, or .fade-trigger was not the target of the click)
-				Refreshed.toggleFade( $( this ).siblings( '.fade-trigger' ) );
-			}
-		});
-		if ( $( e.target ).closest( '.header-button:not([href])' ).length ) {
-			e.preventDefault(); // prevent the standard click event on any .header-button without an href (so this doesn't apply to the wiki logo .header-button). Stops zooming when pressing header buttons, events on header buttons from firing twice, etc.
-		}
+	$( "a.search-closer" ).click( function( e ) {
+		Refreshed.toggleHeaderSearch();
+	} );
 
-		// the following if statements control hiding the search header and dropdown
-		if ( Refreshed.headerSearchIsOpen && !$( e.target ).closest( '#header-wrapper .search' ).length && !$( e.target ).closest( '.header-suggestions' ).length ) { // we do this check instead of checking if the user pressed #fade-overlay because #fade-overlay can disappear if you resize, and then if you click off afterward you still want to hide the menu, etc. even if #fade-overlay is no longer visible
-			Refreshed.toggleHeaderSearch();
-		}
-/*
-		if ( Refreshed.sidebarIsOpen && !$( e.target ).closest( '#sidebar-wrapper' ).length ) {
+	$( "a#fade-overlay" ).click( function( e ) { // Unfortunately breaking this into two doesn't work. It might be because the .fade-overlay-triggered-by-SOMETHING classes aren't applied yet on $( document ).ready() (and this function is inside the $( document ).ready() ), so as far as the code is concerned elements with that class don't exist.
+		if ( $( this ).hasClass( "fade-overlay-triggered-by-sidebar" ) ) {
 			Refreshed.toggleSidebar();
-		}
-*/
-		if ( $( e.target ).closest( '#search-shower' ).length ) {
-			if ( Refreshed.usingIOS ) {
-				$( window ).scrollTop( 0 ); // iOS tries to vertically center the search bar, scrolling to the top keeps the header at the top of the viewport
-			}
+		} else if ( $( this ).hasClass( "fade-overlay-triggered-by-search" ) ) {
 			Refreshed.toggleHeaderSearch();
-		} else if ( $( e.target ).closest( '#search-closer' ).length ) { // using if/else prevents header search from opening and closing on same tap
-			Refreshed.toggleHeaderSearch();
-		}
-
-		// opening/closing sidebar on medium and small
-		if ( $( e.target ).closest( '.sidebar-shower' ).length ) {
-			Refreshed.toggleSidebar();
-		}
-
-		// expanding the small tools when the "more" (ellipsis) button is clicked
-		if ( $( e.target ).closest( '#small-tool-more' ).length ) {
-			$( '#small-tool-more' ).css({'display': 'none'});
-			$( '.small-toolbox' ).addClass( 'small-toolbox-expanded scroll-shadow' );
 		}
 	} );
 
+	/* Useful to follow click propagation for debugging
+		$( "*" ).click( function ( e ) {
+			alert("<" + this.nodeName + " id=\"" + this.id + "\" class=\"" + this.className + "\">");
+		} );
+		*/
 
-	/* Temporarily disabled to fix front-end bugs
-	$( '#icon-ca-watch, #icon-ca-unwatch' ).parent().tap( function( e ) {
-		// AJAX for watch icons
-		var action, api, $link, title, otherAction;
+		/* Temporarily disabled to fix front-end bugs
+		$( '#icon-ca-watch, #icon-ca-unwatch' ).parent().tap( function( e ) {
+			// AJAX for watch icons
+			var action, api, $link, title, otherAction;
 
-		e.preventDefault();
-		e.stopPropagation();
+			e.preventDefault();
+			e.stopPropagation();
 
-		title = mw.config.get( 'wgRelevantPageName', mw.config.get( 'wgPageName' ) );
-		mw.loader.load( ['mediawiki.notification'], null, true );
-		action = mw.util.getParamValue( 'action', this.href );
-		otherAction = action === 'watch' ? 'unwatch' : 'watch';
-		$link = $( this );
-		$( 'div', this ).attr( 'id', 'icon-ca-' + otherAction );
-		$( this ).attr( 'href', this.href.replace( action, otherAction ) );
+			title = mw.config.get( 'wgRelevantPageName', mw.config.get( 'wgPageName' ) );
+			mw.loader.load( ['mediawiki.notification'], null, true );
+			action = mw.util.getParamValue( 'action', this.href );
+			otherAction = action === 'watch' ? 'unwatch' : 'watch';
+			$link = $( this );
+			$( 'div', this ).attr( 'id', 'icon-ca-' + otherAction );
+			$( this ).attr( 'href', this.href.replace( action, otherAction ) );
 
-		api = new mw.Api();
-		api[action]( title )
-			.done( function ( watchResponse ) {
-				mw.notify( $.parseHTML( watchResponse.message ), {
-					tag: 'watch-self'
+			api = new mw.Api();
+			api[action]( title )
+				.done( function ( watchResponse ) {
+					mw.notify( $.parseHTML( watchResponse.message ), {
+						tag: 'watch-self'
+					});
+
+					$( '#wpWatchthis' ).prop( 'checked', watchResponse.watched !== undefined );
 				});
+		});
+		*/
 
-				$( '#wpWatchthis' ).prop( 'checked', watchResponse.watched !== undefined );
-			});
+		/*$( '#sidebar-wrapper' ).on( 'swipeleft', function( e ) {
+			if ( Refreshed.sidebarIsOpen ) {
+				e.preventDefault(); // prevent user from accidentally clicking link on swipe
+				Refreshed.toggleSidebar();
+			}
+		});*/
+		setTimeout( function () { // wait a bit so the .suggestions elements can be added in (if we don't wait we'll be targeting nothing and it won't work)...
+			$( '.suggestions' ).first().addClass( 'header-suggestions' ); // add class to first .suggestions element
+		}, 100 );
 	});
-	*/
 
-	$( '#sidebar-wrapper' ).on( 'swipeleft', function( e ) {
-		if ( Refreshed.sidebarIsOpen ) {
-			e.preventDefault(); // prevent user from accidentally clicking link on swipe
-			Refreshed.toggleSidebar();
-		}
-	});
+	/* Fix for Echo in Refreshed */
+	if ( document.getElementById( 'echo' ) ) {
+		$( '#pt-notifications-alert' ).prependTo( '#echo' );
+		$( '#pt-notifications-message' ).prependTo( '#echo' );
+	}
 
-	/**
-	 * Add "header-suggestions" class to first .suggestions element for CSS
-	 * targeting. There is usually one .suggestions element, but on Special:Search
-	 * there is one for the #header-wrapper search bar and one for the #bodyContentsearch bar.
-	 * We only want to target the one for the #header-wrapper search bar.
-	 */
-	setTimeout( function () { // wait a bit so the .suggestions elements can be added in (if we don't wait we'll be targeting nothing and it won't work)...
-		$( '.suggestions' ).first().addClass( 'header-suggestions' ); // add class to first .suggestions element
-	}, 100 );
-
-});
-
-/* Fix for Echo in Refreshed */
-if ( document.getElementById( 'echo' ) ) {
-	$( '#pt-notifications-alert' ).prependTo( '#echo' );
-	$( '#pt-notifications-message' ).prependTo( '#echo' );
-}
-
-if ( $( '.mw-echo-notifications-badge' ).hasClass( 'mw-echo-unread-notifications' ) ) {
-	$( '#pt-notifications-personaltools a' ).addClass( 'pt-notifications-personaltools-unread' );
-}
+	if ( $( '.mw-echo-notifications-badge' ).hasClass( 'mw-echo-unread-notifications' ) ) {
+		$( '#pt-notifications-personaltools a' ).addClass( 'pt-notifications-personaltools-unread' );
+	}

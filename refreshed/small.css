@@ -9,17 +9,6 @@
 	font-size: 2.75em; /* ...however, the actual glyph has a more appropriate font size of 3em (so the glyph itself is larger while it can be positioned with the smaller em units without a problem) */
 }
 
-.fade-overlay-active {
-	opacity: 0.5 !important;
-	z-index: 10001; /* very high value to guarantee no elements on wikis will appear above it (except the sidebar) */
-	cursor: pointer;
-}
-
-.fade-overlay-below-header {
-	z-index: 10000 !important; /* below header but above page content (used for search) */
-	cursor: pointer;
-}
-
 #header-wrapper {
 	height: 2.75em;
 }
@@ -116,7 +105,7 @@
 	margin-right: 0;
 }
 
-#search-closer {
+.search-closer {
 	display: block;
 }
 
@@ -140,7 +129,7 @@
 	display: block;
 }
 
-#search-shower {
+.search-shower {
 	display: block;
 	margin-right: 0;
 }
@@ -341,7 +330,7 @@ a.small-tool { /* inclusion of the "a" is necessary to override the standard a e
 	left: 0 !important;
 	width: 100% !important;
 	font-size: 16px !important;
-	z-index: 10001 !important; /* place above #fade-overlay, which has z-index of 10000 because it has the .fade-overlay-below-header class */
+	z-index: 10001 !important; /* place above #fade-overlay, which has z-index of 10000 because it has the .fade-overlay-triggered-by-search class */
 }
 
 .header-suggestions div {
@@ -354,23 +343,23 @@ a.small-tool { /* inclusion of the "a" is necessary to override the standard a e
 }
 
 .header-suggestions .suggestions-result:hover,
-.header-suggestions .suggestions-special:hover { /* making search suggestions change color when focused (e.g., tapped on mobile); this CSS is adapted from the .suggestions-result-current class */
+.header-suggestions .hsuggestions-special:hover { /* making search suggestions change color when focused (e.g., tapped on mobile); this CSS is adapted from the .header-suggestions-result-current class */
 	background-color: #4C59A6;
 	color: white;
 }
 
-.header-suggestions .suggestions-special:hover div {
+.header-suggestions .header-suggestions-special:hover div {
 	color: white; /* for whatever reason it doesn't want to have white text unless this is added too */
 }
 
-.header-suggestions .suggestions-special {
+.header-suggestions .header-suggestions-special {
 	padding: 0.5em 0.25em !important;
 	margin-top: 0 !important;
 	border: 0 !important;
 	border-bottom: 1px solid #ddd !important;
 }
 
-.header-suggestions .suggestions-results {
+.header-suggestions .header-suggestions-results {
 	border: 0 !important;
 }
 

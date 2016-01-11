@@ -109,6 +109,17 @@ body {
 	background: #fff;
 }
 
+.fade-overlay-active {
+	opacity: 0.5 !important;
+	z-index: 10001; /* very high value to guarantee no elements on wikis will appear above it (except the sidebar) */
+	cursor: pointer;
+}
+
+.fade-overlay-triggered-by-search {
+	z-index: 10000 !important; /* below header but above page content (used for search) */
+	cursor: pointer;
+}
+
 #header-wrapper {
 	-webkit-font-smoothing: antialiased;
 	width: 100%;
@@ -623,7 +634,7 @@ a.header-button { /* double selectors to override default a element text-decorat
 	display: block;
 }
 
-#search-shower {
+.search-shower {
 	position: relative;
 	float: right;
 	text-align: center;
@@ -644,7 +655,7 @@ a.header-button { /* double selectors to override default a element text-decorat
 	height: 100%;
 }
 
-#search-closer {
+.search-closer {
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -780,7 +791,7 @@ h6 {
 }
 
 /* Search suggestions */
-.header-suggestions { /* there are two .suggestions elements on Special:Search; we only want to apply the CSS to the .suggestions element that appears beneath the header, which is given the .header-suggestions class in refreshed.js */
+.header-suggestions { /* there are two .suggestions elements on Special:Search; we only want to apply the CSS to the .header-suggestions element that appears beneath the header, which is first */
 	z-index: 10000 !important;
 	position: fixed !important;
 	top: 2.5em !important; /* there is some JS doing odd stuff, this forces our value */
