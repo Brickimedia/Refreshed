@@ -14,7 +14,7 @@
 }
 
 #sidebar-wrapper {
-  position: fixed;
+	position: fixed;
 	background: midnightblue;
 	left: -15em;
 	width: 15em;
@@ -122,7 +122,7 @@
 #searchInput { /* header search box */
 	width: 100%;
 	height: 100%;
-  font-size: 1.25em;
+	font-size: 1.25em;
 }
 
 .search-open #searchInput {
@@ -440,8 +440,8 @@ div.thumbinner { /* need to specify div so it can overwrite the CSS in commonCon
 }
 
 /* Increase font size for editing menu - Brickimedia/brickimedia#301 */
-action-edit input[type='text'],
-action-edit input[type='number'],
+action-edit input[type="text"],
+action-edit input[type="number"],
 action-edit textarea {
-	font-size:17px;
+	font-size: 17px;
 }

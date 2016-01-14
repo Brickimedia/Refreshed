@@ -3,7 +3,7 @@
 	font-style: normal;
 	font-weight: 300;
 	src: url(https://fonts.gstatic.com/s/lato/v11/zLhfkPOm_5ykmdm-wXaiuw.eot);
-  src: local('Lato Light'),
+	src: local('Lato Light'),
 		local('Lato-Light'),
 		url(https://fonts.gstatic.com/s/lato/v11/kcf5uOXucLcbFOydGU24WALUuEpTyoUstqEm5AMlJo4.woff) format('woff'),
 		url(https://fonts.gstatic.com/s/lato/v11/nj47mAZe0mYUIySgfn0wpQ.ttf) format('truetype'),
@@ -35,11 +35,11 @@
 }
 
 @font-face {
-    font-family: 'WikiFont-Glyphs';
-    src: url('wikifont/WikiFont-Glyphs.eot'); /* IE9 Compat Modes */
-    src: url('wikifont/WikiFont-Glyphs.woff') format('woff'), /* Modern Browsers */
-         url('wikifont/WikiFont-Glyphs.ttf')  format('truetype'), /* Safari, Android, iOS */
-         url('wikifont/WikiFont-Glyphs.svg#8088f7bbbdba5c9832b27edb3dfcdf09') format('svg'); /* Legacy iOS */
+	font-family: 'WikiFont-Glyphs';
+	src: url('wikifont/WikiFont-Glyphs.eot'); /* IE9 Compat Modes */
+	src: url('wikifont/WikiFont-Glyphs.woff') format('woff'), /* Modern Browsers */
+		url('wikifont/WikiFont-Glyphs.ttf') format('truetype'), /* Safari, Android, iOS */
+		url('wikifont/WikiFont-Glyphs.svg#8088f7bbbdba5c9832b27edb3dfcdf09') format('svg'); /* Legacy iOS */
 }
 
 #header .wikiglyph-caret-down:before {

@@ -5,7 +5,7 @@
 	font-style: normal;
 	font-weight: 300;
 	src: url(https://fonts.gstatic.com/s/lato/v11/zLhfkPOm_5ykmdm-wXaiuw.eot);
-  src: local('Lato Light'),
+	src: local('Lato Light'),
 		local('Lato-Light'),
 		url(https://fonts.gstatic.com/s/lato/v11/zLhfkPOm_5ykmdm-wXaiuw.eot?#iefix) format('embedded-opentype'),
 		url(https://fonts.gstatic.com/s/lato/v11/kcf5uOXucLcbFOydGU24WALUuEpTyoUstqEm5AMlJo4.woff) format('woff'),
@@ -854,7 +854,7 @@ div.noarticletext {
 }
 
 #echo li {
-    display: inline;
+	display: inline;
 	margin-left: .5em;
 }
 
@@ -892,7 +892,7 @@ div.noarticletext {
 }
 
 #echo .oo-ui-labelElement-label {
-    font-size: 18px;
+	font-size: 18px;
 }
 
 .mw-echo-ui-notificationBadgeButtonPopupWidget .oo-ui-popupWidget-footer .oo-ui-buttonElement > .oo-ui-buttonElement-button {
@@ -900,8 +900,8 @@ div.noarticletext {
 }
 
 .mw-echo-state .mw-echo-content {
-    font-size: 14px;
-    line-height: 1.5;
+	font-size: 14px;
+	line-height: 1.5;
 }
 
 /* stopping images on file pages from overflowing */
