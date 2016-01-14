@@ -440,8 +440,8 @@ div.thumbinner { /* need to specify div so it can overwrite the CSS in commonCon
 }
 
 /* Increase font size for editing menu - Brickimedia/brickimedia#301 */
-action-edit input[type="text"],
-action-edit input[type="number"],
-action-edit textarea {
+.action-edit input[type="text"],
+.action-edit input[type="number"],
+.action-edit textarea {
 	font-size: 17px;
 }
