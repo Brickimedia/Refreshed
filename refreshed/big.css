@@ -10,8 +10,7 @@
 
 #content-wrapper,
 #footer {
-	margin-left: 12em;
-	margin-right: 1em;
+	margin: 0 1em 0 12em;
 }
 
 #small-toolbox-wrapper {
