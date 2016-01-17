@@ -6,7 +6,7 @@
 }
 
 #sidebar {
-	font-size: 11pt;
+	font-size: 0.875em;
 }
 
 #sidebar li {
@@ -79,7 +79,7 @@
 #searchInput { /* header search box */
 	width: 100%;
 	height: auto; /* overriding 100% in main.css (used to center search bar on big) */
-	font-size: 16pt; /* enlarging and preventing zoom on input on focus */
+	font-size: 1em; /* enlarging and preventing zoom on input on focus */
 }
 
 .search-shower {
@@ -90,7 +90,7 @@
 
 #searchText,
 #powerSearchText { /* search and advanced search boxes on Special:Search */
-	font-size: 18px;
+	font-size: 1.125em;
 }
 
 #mw-search-top-table {
@@ -118,13 +118,13 @@
 	top: 6.5em !important; /* 3em for the header, 3.5em for the search bar */
 	right: 1em !important;
 	width: 16em !important;
-	font-size: 16px !important;
+	font-size: 1em !important;
 	border: 0 !important;
 	margin-top: -3px !important; /* getting rid of gap between suggestions and search box */
 }
 
 .header-suggestions div {
-	font-size: 16pt !important;
+	font-size: 1.313em !important;
 }
 
 /* Extension:Echo fixes */

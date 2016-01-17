@@ -150,11 +150,7 @@ a.header-button { /* double selectors to override default a element text-decorat
 
 #header-wrapper {
 	background-color: #103ca2;
-	/* IE5.5-IE7 */
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#040f28', endColorstr='#103ca2', GradientType=1);
-	/* IE8 */
-	-ms-filter: "progid:DXImageTransform.Microsoft.Gradient(GradientType=1,StartColorStr=#040f28,EndColorStr=#103ca2)";
-	/* IE9+ */
+	-ms-filter: "progid:DXImageTransform.Microsoft.Gradient(GradientType=1,StartColorStr=#040f28,EndColorStr=#103ca2)"; /* IE9+ */
 	background-image: linear-gradient(to left, #040f28 0, #103ca2 50%, #040f28 100%);
 }
 
@@ -229,7 +225,7 @@ a.header-button { /* double selectors to override default a element text-decorat
 }
 
 #firstHeading {
-	font-size: 32pt;
+	font-size: 2.68em;
 	font-family: "Lato Body", sans-serif;
 	padding-top: 0.2em;
 	padding-bottom: 0;
@@ -392,7 +388,7 @@ a.header-button { /* double selectors to override default a element text-decorat
 	min-height: 100%;
 	position: relative;
 	top: 3em;
-	background-color: white;
+	background-color: #fff;
 	z-index: 1;
 	font-family: sans-serif;
 	border-bottom: 0.25em solid #eee;
@@ -417,7 +413,7 @@ a.header-button { /* double selectors to override default a element text-decorat
 	width: 12em;
 	position: fixed;
 	top: 0;
-	color: white;
+	color: #fff;
 	z-index: 2;
 	height: 100%;
 }
@@ -444,8 +440,6 @@ a.header-button { /* double selectors to override default a element text-decorat
 #sidebar {
 	overflow-y: auto;
 	width: 100%;
-	height: -moz-calc( 100% - 3.5em );
-	height: -webkit-calc( 100% - 3.5em );
 	height: calc( 100% - 3.5em );
 	left: 0;
 	line-height: 1.5em;
@@ -463,9 +457,9 @@ a.header-button { /* double selectors to override default a element text-decorat
 }
 
 #sidebar a:hover {
-	color: #CCC;
+	color: #ccc;
 	cursor: pointer;
-	border-left: 5px solid #CCC;
+	border-left: 5px solid #ccc;
 	margin-left: 0;
 }
 
@@ -553,7 +547,7 @@ a.header-button { /* double selectors to override default a element text-decorat
 }
 
 .header-menu a {
-	font-size: 14pt;
+	font-size: 1.125em;
 	text-decoration: none;
 	display: block;
 	padding: 0.2em 0.4em 0.2em 0.4em;
@@ -667,13 +661,28 @@ a.header-button { /* double selectors to override default a element text-decorat
 	border: none;
 	font-size: 1em;
 	padding: 0.25em;
-	font-family: Lato, sans-serif;
+	font-family: "Lato", sans-serif;
 	box-sizing: border-box;
 	-webkit-appearance: none; /* prevent Safari from styling input box */
 	border-radius: 0; /* prevent iOS from adding rounded corners to input box */
 	width: 11em;
 	height: 100%;
 	vertical-align: text-bottom;
+}
+
+#searchInput::-webkit-input-placeholder {
+	color: #808080;
+    	font-weight: 700;
+}
+
+#searchInput::-moz-placeholder {
+    	color: #808080;
+    	font-weight: 700;
+}
+
+#searchInput::-ms-input-placeholder {
+    	color: #808080;
+    	font-weight: 700;
 }
 
 #refreshed-toc #toc-box:last-child {
@@ -701,7 +710,7 @@ a.header-button { /* double selectors to override default a element text-decorat
 }
 
 #footer a {
-	color: white;
+	color: #fff;
 }
 
 #footer * {
@@ -892,7 +901,7 @@ div.noarticletext {
 }
 
 #echo .oo-ui-labelElement-label {
-	font-size: 18px;
+	font-size: 1.125em;
 }
 
 .mw-echo-ui-notificationBadgeButtonPopupWidget .oo-ui-popupWidget-footer .oo-ui-buttonElement > .oo-ui-buttonElement-button {
@@ -900,7 +909,7 @@ div.noarticletext {
 }
 
 .mw-echo-state .mw-echo-content {
-	font-size: 14px;
+	font-size: 0.875em;
 	line-height: 1.5;
 }
 

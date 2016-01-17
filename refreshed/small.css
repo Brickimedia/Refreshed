@@ -20,18 +20,13 @@
 	width: 15em;
 	top: 0;
 	z-index: 10002; /* appear above fade-overlay, which has z-index 10001 */
-	-o-transition: 0.2s ease;
-	-moz-transition: 0.2s ease;
-	-webkit-transition: 0.2s ease; /* -webkit- last so it's used in place of -o- if possible */
+	-ms-transition: 0.2s ease;
 	transition: 0.2s ease;
 }
 
 .sidebar-open {
 	left: 0;
 	-ms-transform: translateX(15em);
-	-o-transform: translateX(15em);
-	-moz-transform: translateX(15em);
-	-webkit-transform: translateX(15em); /* -webkit- last so it's used in place of -o- if possible */
 	transform: translateX(15em);
 }
 
@@ -136,7 +131,7 @@
 
 #searchText,
 #powerSearchText { /* search and advanced search boxes on Special:Search */
-	font-size: 18px;
+	font-size: 1.125em;
 }
 
 #mw-search-top-table {
@@ -186,7 +181,7 @@
 }
 
 #user-info .header-menu a:hover {
-	color: #CCC;
+	color: #ccc;
 }
 
 #user-info .header-menu a.new:hover {
@@ -334,7 +329,7 @@ a.small-tool { /* inclusion of the "a" is necessary to override the standard a e
 }
 
 .header-suggestions div {
-	font-size: 16pt;
+	font-size: 1.313em;
 }
 
 .header-suggestions .suggestions-result {
@@ -344,12 +339,12 @@ a.small-tool { /* inclusion of the "a" is necessary to override the standard a e
 
 .header-suggestions .suggestions-result:hover,
 .header-suggestions .suggestions-special:hover { /* making search suggestions change color when focused (e.g., tapped on mobile); this CSS is adapted from the .suggestions-result-current class */
-	background-color: #4C59A6;
-	color: white;
+	background-color: #4C59a6;
+	color: #fff;
 }
 
 .header-suggestions .suggestions-special:hover div {
-	color: white; /* for whatever reason it doesn't want to have white text unless this is added too */
+	color: #fff; /* for whatever reason it doesn't want to have white text unless this is added too */
 }
 
 .header-suggestions .suggestions-special {
@@ -374,7 +369,7 @@ a.small-tool { /* inclusion of the "a" is necessary to override the standard a e
 }
 
 .pt-notifications-personaltools-unread {
-	background-color: #cc0000;
+	background-color: #c00;
 	color: #fff;
 	border-radius: 2px; /* matching the notification badge itself and the "you have new messages" notice, which both have border-radius */
 	margin: 0.1em;
@@ -443,5 +438,5 @@ div.thumbinner { /* need to specify div so it can overwrite the CSS in commonCon
 .action-edit input[type="text"],
 .action-edit input[type="number"],
 .action-edit textarea {
-	font-size: 17px;
+	font-size: 1.063em;
 }
