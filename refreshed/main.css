@@ -670,6 +670,21 @@ a.header-button { /* double selectors to override default a element text-decorat
 	vertical-align: text-bottom;
 }
 
+#searchInput::-webkit-input-placeholder {
+	color: #808080;
+    	font-weight: 700;
+}
+
+#searchInput::-moz-placeholder {
+    	color: #808080;
+    	font-weight: 700;
+}
+
+#searchInput::-ms-input-placeholder {
+    	color: #808080;
+    	font-weight: 700;
+}
+
 #refreshed-toc #toc-box:last-child {
 	display: none;
 }
