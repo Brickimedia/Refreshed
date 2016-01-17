@@ -140,12 +140,14 @@ $( document ).ready( function() {
 	} );
 
 	$( document ).click( function( e ) {
-		if ( $( '.open-fadable-parent' ).length && !$( e.target ).closest( '.open-fadable-parent' ).length ) {
-			// if .open-fadable-parent exists (i.e., a .fadable element is open) and,
-			// starting from the element clicked and moving up the DOM, we don't
-			// run into that element's parent...
-			Refreshed.toggleFade( $( '.open-fadable-parent .fadable' ) );
-		}
+		$( '.open-fadable-parent' ).each( function () {
+			// target each .open-fadable-parent (i.e., each parent of an open .fadable element)
+			if ( !$( e.target ).closest( $( this ) ).length ) {
+				// if starting from the element clicked and moving up the DOM, we don't
+				// run into that the current .open-fadable-parent...
+				Refreshed.toggleFade( $( this ).children( '.fade-trigger' ) );
+			}
+		});
 	} );
 
 	$( 'a.sidebar-shower' ).click( function( e ) {
