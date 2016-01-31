@@ -57,6 +57,9 @@
 				},
 				"refreshed/big.css": {
 					"media": "(min-width: 1001px)"
+				},
+				"refreshed/print.css": {
+					"media": "print"
 				}
 			},
 			"position": "top"

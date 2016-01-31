@@ -15,7 +15,7 @@ $wgExtensionCredits['skin'][] = array(
 	'version' => '3.1.1',
 	'author' => array(
 		'Adam Carter', 'George Barnick', 'MtMNC', 'ShermanTheMythran',
-		'Jack Phoenix', 'Drew1200', 'SirComputer', 'Seaside98', 'Codyn329',
+		'Jack Phoenix', 'Drew1200', 'SirComputer', 'Seaside98', 'Cody Nguyen',
 		'Lewis Cawte'
 	),
 	'description' => 'A clean, modern MediaWiki skin with extensive CSS customisability',
@@ -41,6 +41,7 @@ $wgResourceModules['skins.refreshed'] = array(
 		'skins/Refreshed/refreshed/small.css' => array( 'media' => '(max-width: 600px)' ),
 		'skins/Refreshed/refreshed/medium.css' => array( 'media' => '(min-width: 601px) and (max-width: 1000px)' ),
 		'skins/Refreshed/refreshed/big.css' => array( 'media' => '(min-width: 1001px)' ),
+		'skins/Refreshed/refreshed/print.css' => array( 'media' => 'print' )
 	),
 	'position' => 'top'
 );

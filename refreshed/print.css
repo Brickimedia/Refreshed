@@ -1,0 +1,37 @@
+/*
+        replace bg-image and bg-color
+        with white
+*/
+body {
+	background: #fff !important;
+}
+
+/*
+        underline links to differentiate
+        between regular text
+*/
+a {
+	text-decoration: underline;
+}
+
+/*
+        hide unnecessary elements:
+        sidebar, header, notice, ad,
+        toolbox
+*/
+#sidebar-wrapper,
+#header-wrapper,
+#site-notice,
+#advert,
+.standard-toolbox {
+display: none;
+}
+
+/* padding for readability */
+#content-wrapper {
+	padding: 2em !important;
+}
+
+#footer {
+	margin: 0;
+}
