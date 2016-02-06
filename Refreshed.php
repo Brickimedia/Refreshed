@@ -51,8 +51,9 @@ $wgResourceModules['skins.refreshed.js'] = array(
 	'dependencies' => array( 'mediawiki.api', 'mediawiki.util' )
 );
 
+$mainpage = Title::newFromText('Main_Page');
 $wgRefreshedHeader = array(
 	'img' => $wgSitename,
-	'url' => htmlspecialchars( $this->data['nav_urls']['mainpage']['href'] ),
+	'url' => $mainpage->getFullURL();;,
 	'dropdown' => array() // format: array( 'http://exampleurl.com' => '<img src="http://exampleimage.png" width="100" />', );
 );
