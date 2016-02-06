@@ -606,6 +606,8 @@ a.header-button { /* double selectors to override default a element text-decorat
 	padding: 0.5em 0;
 	display: inline-block;
 	width: 12em;
+	color: #fff;
+	font-weight: bold;
 }
 
 #site-info-main .header-button {
