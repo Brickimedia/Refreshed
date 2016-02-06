@@ -54,6 +54,6 @@ $wgResourceModules['skins.refreshed.js'] = array(
 $mainpage = Title::newFromText('Main_Page');
 $wgRefreshedHeader = array(
 	'img' => $wgSitename,
-	'url' => $mainpage->getFullURL();;,
+	'url' => $mainpage->getFullURL(),
 	'dropdown' => array() // format: array( 'http://exampleurl.com' => '<img src="http://exampleimage.png" width="100" />', );
 );
