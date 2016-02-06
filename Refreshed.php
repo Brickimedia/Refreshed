@@ -51,7 +51,8 @@ $wgResourceModules['skins.refreshed.js'] = array(
 	'dependencies' => array( 'mediawiki.api', 'mediawiki.util' )
 );
 
-$mainpage = Title::newFromText('Main_Page');
+require( "$IP/includes/Title.php" )
+$mainpage = Title::newFromText('Main Page');
 $wgRefreshedHeader = array(
 	'img' => $wgSitename,
 	'url' => $mainpage->getFullURL(),
