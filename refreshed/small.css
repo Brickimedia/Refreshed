@@ -5,12 +5,14 @@
 	height: 2.75em; /* line-height and height equal to the parent's height (3em) plus vertical-align:text-bottom in wikiglyphs.css vertically centers the icons */
 }
 
-.header-button .wikiglyph:before {
-	font-size: 2.75em; /* ...however, the actual glyph has a more appropriate font size of 3em (so the glyph itself is larger while it can be positioned with the smaller em units without a problem) */
+.header-button .wikiglyph {
+	font-size: 2.75em;
+	line-height: 1em;
 }
 
 #header-wrapper {
 	height: 2.75em;
+	line-height: 2.75em;
 }
 
 #sidebar-wrapper {
@@ -106,7 +108,7 @@
 
 #header-wrapper .search-form {
 	width: calc(100% - 3.25em); /* 100% - 2.75em for the close search button -0.25em of padding-left -0.25em of padding-right */
-	height: calc(100% - 0.5em); /* 100% -0.25em of padding-top - .35em of padding-bottom */
+	height: calc(100% - 0.5em); /* 100% -0.25em of padding-top - 0.35em of padding-bottom */
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -118,6 +120,7 @@
 	width: 100%;
 	height: 100%;
 	font-size: 1.25em;
+	vertical-align: text-bottom;
 }
 
 .search-open #searchInput {

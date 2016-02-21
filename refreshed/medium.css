@@ -78,14 +78,16 @@
 
 #searchInput { /* header search box */
 	width: 100%;
-	height: auto; /* overriding 100% in main.css (used to center search bar on big) */
 	font-size: 1em; /* enlarging and preventing zoom on input on focus */
+	height: 2.5em;
 }
 
 .search-shower {
 	display: block;
 	visibility: visible; /* for the small version of the header search to work, the .faded class is added to .search-shower when it's clicked; this overrides it since we always want the icon visible on medium */
 	opacity: 1;
+	padding-left: 0.25em;
+	padding-right: 0.25em;
 }
 
 #searchText,

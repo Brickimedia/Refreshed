@@ -1,5 +1,3 @@
-/********** Fonts (including WikiFont) **********/
-
 @font-face {
 	font-family: 'Lato';
 	font-style: normal;
@@ -39,17 +37,6 @@
 		url(https://fonts.gstatic.com/l/font?kit=H4oiIt_Ug9TU5ast0nUT-w#Lato) format('svg');
 }
 
-.header-button .wikiglyph {
-	/*position: absolute;
-	top: -.05em; /* The glyphs have a height of 1.1em (you can see this in wikiglyph.css). However, the height of .header-button is 1em, so .1em of the glyph is under the .header-button. To vertically center the glyph, move it ((1.1em - 1em) / 2) or .05em up. */
-	/*height: 1em; /* This limits the height of the .wikiglyph span so the clickable area isn't 1.1em tall. */
-	font-size: 1em; /* make the definition of the arrow's em the same as its parent's so it's easier to position using em units... */
-	line-height: 3em;
-	height: 3em; /* line-height and height equal to the parent's height (3em) plus vertical-align:text-bottom in wikiglyphs.css vertically centers the icons */
-	-ms-transform: translateY(-3%); /* we don't want the arrows to have translateY (which is applied to .wikiglyph elements). Instead we change the transform-origin (see below) */
-	transform: translateY(-3%);
-}
-
 .fadable {
 	-ms-transition: opacity 0.2s ease;
 	transition: opacity 0.2s ease;
@@ -64,31 +51,6 @@
 	visibility: hidden;
 }
 
-.header-button .wikiglyph:before {
-	font-size: 2.5em; /* ...however, the actual glyph has a more appropriate font size of 2.5em (so the glyph itself is larger while it can be positioned with the smaller em units without a problem) */
-}
-
-#header-wrapper .wikiglyph-caret-down {
-	font-size: 1em; /* make the definition of the arrow's em the same as its parent's so it's easier to position using em units... */
-}
-
-#header-wrapper .wikiglyph-caret-down:before {
-	font-size: 1.25em; /* ...however, the actual glyph has a more appropriate font size of 1.25em (so the glyph itself is larger while it can be positioned with the smaller em units without a problem) */
-}
-
-#user-info .wikiglyph { /* arrow and user icons */
-	margin-right: -.25em;
-	margin-left: -.25em;
-}
-
-.header-button .arrow {
-	-ms-transform: translateY(0); /* we don't want the arrows to have translateY (which is applied to .wikiglyph elements). Instead we change the transform-origin (see below) */
-	transform: translateY(0);
-	-ms-transform-origin: 50% 52%; /* the icon itself (i.e. the arrow inside the SVG) is subtly off vertical center, making it look slightly off when animated; this line counterbalances that for the animation */
-	transform-origin: 50% 52%;
-}
-
-/********** (End fonts) **********/
 body {
 	font-family: "Lato", sans-serif;
 	margin: 0;
@@ -124,20 +86,38 @@ body {
 	-webkit-font-smoothing: antialiased;
 	width: 100%;
 	height: 3em;
+	line-height: 3em;
 	z-index: 10000; /* very high value to guarantee no elements on wikis will appear above it */
 	position: fixed;
+	background-color: #103ca2;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Gradient(GradientType=1,StartColorStr=#040f28,EndColorStr=#103ca2)"; /* IE9+ */
+	background-image: linear-gradient(to left, #040f28 0, #103ca2 50%, #040f28 100%);
+}
+
+#header-wrapper img {
+	margin-bottom: 0.3em; /* images aren't perfectly vertically centered, this corrects it. Better fix in future? */
 }
 
 .header-button { /* defined at top so individual elements can override these properties */
 	cursor: pointer;
-	width: 3em;
 	font-family: "Lato Body", sans-serif;
 	color: #fff;
 	display: inline-block;
+	text-align: center;
 }
 
 a.header-button { /* double selectors to override default a element text-decoration without use of !important */
 	text-decoration: none;
+}
+
+.header-button .arrow {
+	display: inline-block;
+	-ms-transition: transform 0.5s;
+	transition: transform 0.5s;
+}
+
+.arrow.rotate {
+	transform: rotate(-180deg);
 }
 
 .header-dropdown-item:not(#pt-notifications) a {
@@ -148,41 +128,184 @@ a.header-button { /* double selectors to override default a element text-decorat
 	color: #fdad9d;
 }
 
-#header-wrapper {
-	background-color: #103ca2;
-	-ms-filter: "progid:DXImageTransform.Microsoft.Gradient(GradientType=1,StartColorStr=#040f28,EndColorStr=#103ca2)"; /* IE9+ */
-	background-image: linear-gradient(to left, #040f28 0, #103ca2 50%, #040f28 100%);
+.header-button:hover,
+.header-button-active,
+.header-dropdown-item:hover { /* defined at bottom so this overrides individual elements' background-color properties */
+	background-color: midnightblue;
+}
+
+#user-info {
+	float: right;
+	position: relative; /* the dropdown is position: absolute; and should be right: 0; relative to its parent, so the parent needs position: relative; */
+}
+
+.avatar {
+	width: 30px;
+	padding-left: 0.25em;
+	padding-right: 0.25em;
+}
+
+.avatar-no-socialprofile.wikiglyph-user-sleep,
+.avatar-no-socialprofile.wikiglyph-user-smile,
+.wikiglyph-magnifying-glass {
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 2em;
+	line-height: 1em; /* That is, the line-height is the font size. The line-height and the vertical-align together vertically center the icon. c*/
+}
+
+.no-show {
+	display: none;
+}
+
+.header-menu {
+	padding: 0 0.2em 0.2em 0.2em;
+	margin: 0;
+	z-index: 4;
+	list-style: none;
+	background-color: #000;
+	background-color: rgba(0, 0, 0, 0.8);
+	position: absolute;
+	line-height: 1em;
+}
+
+.header-menu a {
+	font-size: 1.125em;
+	text-decoration: none;
+	display: block;
+	padding: 0.2em 0.4em 0.2em 0.4em;
+}
+
+#user-info .header-menu {
+	right: 0;
+	width: 11em;
+}
+
+#user-info .header-menu a {
+	padding-right: 0.7em;
+	text-align: right;
+}
+
+.sidebar-shower {
+	position: absolute;
+	top: 0;
+	right: -3em;
+	background-color: #194a8d;
+	background-image: url(images/icon-rightbar.png);
+	background-size: 3em;
+	display: none;
+	-ms-transition: right 0.2s ease 0s;
+	transition: right 0.2s ease 0s;
+}
+
+#site-info {
+	float: left;
+}
+
+#site-info .header-menu {
+	width: 11.6em;
+}
+
+#site-info-main {
+	float: left;
+	width: 12em;
+}
+
+#site-info-main.multiple-wikis .main {
+	width: 10em;
+	float: left; /* prevent arrow from being bumped down */
+}
+
+#site-info-main a.main {
+	width: 12em;
+	color: #fff;
+	font-weight: bold;
+}
+
+.site-info-arrow {
+	width: 2em;
+}
+
+#site-info-mobile {
+	display: none;
+	height: 2.75em;
+	width: 2.75em;
+	margin-left: 3em; /* 2.75em for sidebar opener, 0.25em of padding */
+	padding: 0 0.25em;
+}
+
+#site-info-mobile .header-button {
+	display: block;
+}
+
+.search-shower {
+	position: relative;
+	float: right;
+	text-align: center;
+	display: none;
+}
+
+#header-wrapper .search {
+	width: 11em;
+	height: 2em;
+	display: inline-block;
+	float: right;
+	padding-right: 1em;
+	padding-left: 0.5em;
+}
+
+#header-wrapper .search-form {
+	height: 100%;
+}
+
+.search-closer {
+	position: absolute;
+	top: 0;
+	right: 0;
+	display: none;
+	z-index: 1;
+}
+
+#searchInput {
+	border: none;
+	font-size: 1em;
+	padding: 0.25em;
+	font-family: "Lato", sans-serif;
+	box-sizing: border-box;
+	-webkit-appearance: none; /* prevent Safari from styling input box */
+	border-radius: 0; /* prevent iOS from adding rounded corners to input box */
+	width: 11em;
+	height: 100%;
+}
+
+#searchInput::-webkit-input-placeholder {
+	color: #808080;
+    	font-weight: 700;
+}
+
+#searchInput::-moz-placeholder {
+    	color: #808080;
+    	font-weight: 700;
+}
+
+#searchInput::-ms-input-placeholder {
+    	color: #808080;
+    	font-weight: 700;
 }
 
 #header-categories {
-	list-style: none;
-	height: 3em;
-	margin: 0;
+	height: 100%;
 	overflow: hidden; /* hide categories that get cut off when the window is too small */
-	line-height: 1em; /* overriding default style of line-height: 1.5em */
 }
 
 .page-item {
-	width: auto;
-	height: auto;
-	min-width: 8em;
 	display: inline-block;
-	text-decoration: none;
 }
 
-#header-categories .header-button {
+#header-categories .header-button,
+#user-info .header-button {
 	padding-left: 0.5em;
 	padding-right: 0.5em;
-	width: auto;
-}
-
-.header-category-name {
-	display: inline-block;
-	height: 3em;
-	padding-right: 0.5em;
-	line-height: 3em;
-	white-space: nowrap;
-	vertical-align: text-bottom;
 }
 
 #header-categories a:hover,
@@ -194,33 +317,13 @@ a.header-button { /* double selectors to override default a element text-decorat
 	margin: 0.5em 3px 4px;
 }
 
-#header-categories .header-category-menu {
-	background: #000;
-	background: rgba(0,0,0,0.8);
-	margin: 0;
-}
-
-.header-category-menu {
-	position: absolute;
+#header-categories .header-menu {
 	width: 10em;
-	height: auto;
-	padding: 0 0.2em 0.2em 0.2em;
-}
-
-.header-category-menu .header-dropdown-item {
-	display: inline-block;
-	padding-top: 0.2em;
-	padding-bottom: 0.2em;
-	width: 100%;
-}
-
-.header-category-menu .header-dropdown-item a {
-	margin-left: 0.4em; /* matching .headermenu a */
 }
 
 #content-heading {
 	padding: 0 0.9em; /* 1em (#bodyContent padding-left) * 0.9em (#bodyContent font-size) */
-	padding-bottom: 2.5em; /* .25em (padding on top of .standard-toolbox) + 1.5em (height of .standard-toolbox) + .75em (padding on bottom of .standard-toolbox) */
+	padding-bottom: 2.5em; /* 0.25em (padding on top of .standard-toolbox) + 1.5em (height of .standard-toolbox) + 0.75em (padding on bottom of .standard-toolbox) */
 	position: relative;
 }
 
@@ -248,9 +351,9 @@ a.header-button { /* double selectors to override default a element text-decorat
 
 .standard-toolbox {
 	font-family: "Lato", sans-serif; /* assigning here so em values match em values of the links inside */
-	height: 1.5em; /* 1em for the text, .25em for text padding-top, .25em for text padding-bottom; meanwhile the links take up 1.75em when you include their .25em border-bottom */
+	height: 1.5em; /* 1em for the text, 0.25em for text padding-top, 0.25em for text padding-bottom; meanwhile the links take up 1.75em when you include their 0.25em border-bottom */
 	position: absolute;
-	bottom: .75em;
+	bottom: 0.75em;
 }
 
 .toolbox-link {
@@ -487,221 +590,7 @@ a.header-button { /* double selectors to override default a element text-decorat
 	position: relative;
 }
 
-#user-info {
-	position: relative;
-	float: right;
-	margin-right: 0.5em;
-}
-
-#user-info .header-button {
-	display: block;
-	width: auto;
-	max-width: 320px;
-	padding-left: 0.5em;
-	padding-right: 0.5em;
-}
-
-.username {
-	display: inline-block;
-	/* font-size: 1.25em; /* same as 15pt it seems */
-	line-height: 3em;
-	vertical-align: text-bottom; /* line-height equal to the parent's height (3em) plus vertical-align:text-bottom vertically centers the text */
-}
-
-.username-avatar-none {
-	margin-left: 1.75em;
-}
-
-#languages-link .arrow {
-	vertical-align: 2px;
-}
-
-.arrow {
-	-ms-transition: transform 0.5s;
-	transition: transform 0.5s;
-}
-
-.arrow.rotate {
-	transform: rotate(-180deg);
-}
-
-.avatar {
-	width: 30px;
-	margin-bottom: 9px; /* height of #header is 48px, height of avatar is 30px; to vertically center, have margin-bottom of (48px - 30px) / 2 or 9px */
-	vertical-align: text-bottom;
-	padding-right: 0.25em; /* space it out from the username a bit more */
-	padding-left: 0.25em; /* space it out from the dropdown arrow */
-}
-
-.no-show {
-	display: none;
-}
-
-.header-menu {
-	padding: 0 0.2em 0.2em 0.2em;
-	margin: 0;
-	z-index: 4;
-	list-style: none;
-	background-color: #000;
-	background-color: rgba(0, 0, 0, 0.8);
-}
-
-.header-menu a {
-	font-size: 1.125em;
-	text-decoration: none;
-	display: block;
-	padding: 0.2em 0.4em 0.2em 0.4em;
-}
-
-#user-info .header-menu {
-	right: 0;
-	width: 11em;
-	position: absolute;
-}
-
-#user-info .header-menu a {
-	padding-right: 0.7em;
-	text-align: right;
-}
-
-.sidebar-shower {
-	position: absolute;
-	top: 0;
-	right: -3em;
-	background-color: #194a8d;
-	background-image: url(images/icon-rightbar.png);
-	background-size: 3em;
-	display: none;
-	-ms-transition: right 0.2s ease 0s;
-	transition: right 0.2s ease 0s;
-}
-
-#site-info .header-menu {
-	width: 11.6em;
-	position: absolute;
-	top: 3em;
-	left: 0;
-}
-
-#site-info-main {
-	float: left;
-	width: 12em;
-	height: 3em;
-}
-
-#site-info-main.multiple-wikis .main {
-	width: 10em;
-	overflow: hidden;
-	height: 2em;
-	padding: 0.5em 0;
-	vertical-align: text-bottom;
-}
-
-#site-info-main a:hover,
-.site-dropdown-highlighted {
-	background-color: midnightblue;
-}
-
-#site-info-main a.main {
-	padding: 0.5em 0;
-	display: inline-block;
-	width: 12em;
-	color: #fff;
-	font-weight: bold;
-}
-
-#site-info-main .header-button {
-	width: 2em;
-}
-
-#site-info a {
-	text-align: center;
-}
-
-#site-info-mobile {
-	display: none;
-	height: 2.75em;
-	width: 2.75em;
-	margin-left: 3em; /* 2.75em for sidebar opener, 0.25em of padding */
-	padding: 0 0.25em;
-}
-
-#site-info-mobile .header-button {
-	display: block;
-}
-
-.search-shower {
-	position: relative;
-	float: right;
-	text-align: center;
-	display: none;
-}
-
-#header-wrapper .search {
-	width: 11em;
-	height: 2em;
-	position: static;
-	float: right;
-	margin-right: 0.5em; /* 0.5em right + 0.5em padding = 1em */
-	top: 0;
-	padding: 0.5em;
-}
-
-#header-wrapper .search-form {
-	height: 100%;
-}
-
-.search-closer {
-	position: absolute;
-	top: 0;
-	right: 0;
-	display: none;
-	z-index: 1;
-}
-
-#searchInput { /* header search box */
-	border: none;
-	font-size: 1em;
-	padding: 0.25em;
-	font-family: "Lato", sans-serif;
-	box-sizing: border-box;
-	-webkit-appearance: none; /* prevent Safari from styling input box */
-	border-radius: 0; /* prevent iOS from adding rounded corners to input box */
-	width: 11em;
-	height: 100%;
-	vertical-align: text-bottom;
-}
-
-#searchInput::-webkit-input-placeholder {
-	color: #808080;
-    	font-weight: 700;
-}
-
-#searchInput::-moz-placeholder {
-    	color: #808080;
-    	font-weight: 700;
-}
-
-#searchInput::-ms-input-placeholder {
-    	color: #808080;
-    	font-weight: 700;
-}
-
-#refreshed-toc #toc-box:last-child {
-	display: none;
-}
-
-#preftoc li {
-	display: inline;
-}
-
-#preftoc li:before {
-	content: " - ";
-}
-
-#preftoc li:first-child:before {
-	content: none;
-}
+/********** Footer **********/
 
 #footer {
 	position: relative;
@@ -737,12 +626,6 @@ a.header-button { /* double selectors to override default a element text-decorat
 .footer-row-item {
 	margin: 0 0.5em;
 	display: inline;
-}
-
-.header-button:hover,
-.header-button-active,
-.header-dropdown-item:hover { /* defined at bottom so this overrides individual elements' background-color properties */
-	background-color: midnightblue;
 }
 
 /******************************** CONTENT/OTHER THINGS BEYOND CONTROL ******************************/
@@ -866,7 +749,7 @@ div.noarticletext {
 
 #echo li {
 	display: inline;
-	margin-left: .5em;
+	margin-left: 0.5em;
 }
 
 #pt-mytalk a.mw-echo-alert { /* "you have new messages" alert in the personal tools dropdown */

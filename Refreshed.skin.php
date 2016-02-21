@@ -214,7 +214,7 @@ class RefreshedTemplate extends BaseTemplate {
 								<span class="header-category-name"><?php echo htmlspecialchars( $main ) ?></span>
 								<span class="arrow wikiglyph wikiglyph-caret-down"></span>
 							</a>
-							<ul class="header-category-menu fadable faded">
+							<ul class="header-menu fadable faded">
 								<?php
 									foreach ( $sub as $key => $item ) {
 										$item['class'] = 'header-dropdown-item';
