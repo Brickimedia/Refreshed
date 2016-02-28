@@ -132,11 +132,11 @@ $( document ).ready( function() {
 
 	// working code for dropdowns. Note: simple code like this is much better than complicated like below :)
 	$( 'a.header-button.fade-trigger' ).click( function( e ) {
-		Refreshed.toggleFade( $( e.target ).parent() );
+		Refreshed.toggleFade( this );
 	} );
 
 	$( 'a.toolbox-link.fade-trigger' ).click( function( e ) {
-		Refreshed.toggleFade( $( e.target ) );
+		Refreshed.toggleFade( this );
 	} );
 
 	$( document ).click( function( e ) {

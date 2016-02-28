@@ -361,36 +361,106 @@ a.header-button { /* double selectors to override default a element text-decorat
 }
 
 .standard-toolbox a {
-	margin-left: 0.5em;
-	padding-top: 0.25em;
-	padding-bottom: 0.25em;
 	text-transform: lowercase;
 	font-weight: normal;
 	text-decoration: none;
+}
+
+.standard-toolbox > a,
+.standard-toolbox .toolbox-link {
+	 /* page action links outside of the dropdown and the "more..."/"tools" button */
+	margin-left: 0.5em;
+	padding-top: 0.25em;
+	padding-bottom: 0.25em;
 }
 
 .standard-toolbox > a:first-of-type {
 	margin-left: 0;
 }
 
-.standard-toolbox a:hover {
-	border-bottom: 0.25em solid #0645ad;
+.standard-toolbox > a:hover,
+.standard-toolbox > a.selected,
+.standard-toolbox .toolbox-link:hover {
+	border-bottom: 0.25em solid;
 }
 
-.standard-toolbox a:visited:hover,
-.standard-toolbox a.selected,
-.standard-toolbox a.selected:visited {
-	border-bottom: 0.25em solid #0b0080;
+.standard-toolbox > a:before,
+.standard-toolbox-dropdown a:before {
+	font-family: 'WikiFont-Glyphs';
+	font-size: 1.25em;
+	vertical-align: sub;
 }
 
-.standard-toolbox a.new:hover {
-	border-bottom: 0.25em solid #ba0000;
+.standard-toolbox [id^='ca-nstab-']:before {
+	content: '\e100'; /* article */
 }
 
-.standard-toolbox a.new:visited:hover,
-.standard-toolbox a.new.selected,
-.standard-toolbox a.new.selected:visited {
-	border-bottom: 0.25em solid #a55858;
+.standard-toolbox #ca-talk:before {
+	content: '\e227'; /* speech-bubbles */
+}
+
+.standard-toolbox #ca-edit:before {
+	content: '\e220'; /* edit */
+}
+
+.standard-toolbox #ca-viewsource:before {
+	content: '\e007'; /* eye */
+}
+
+.standard-toolbox #ca-history:before {
+	content: '\e011'; /* clock */
+}
+
+.standard-toolbox #ca-delete:before {
+	content: '\e130'; /* trash */
+}
+
+.standard-toolbox #ca-move:before {
+	content: '\e013'; /* move */
+}
+
+.standard-toolbox #ca-protect:before {
+	content: '\e019'; /* unlock */
+}
+
+.standard-toolbox #ca-unprotect:before {
+	content: '\e018'; /* lock */
+}
+
+.standard-toolbox #ca-watch:before {
+	content: '\e002'; /* star */
+}
+
+.standard-toolbox #ca-unwatch:before {
+	content: '\e003'; /* unstar */
+}
+
+.standard-toolbox #ca-wikilove:before {
+	content: '\e001'; /* heart */
+}
+
+.standard-toolbox #t-contributions:before {
+	content: '\e243'; /* signature */
+}
+
+.standard-toolbox #t-blockip:before {
+	content: '\e132'; /* block */
+}
+
+.standard-toolbox #t-emailuser:before {
+	content: '\e016'; /* message */
+}
+
+.standard-toolbox #t-upload:before {
+	content: '\e028'; /* upload */
+}
+
+.standard-toolbox #t-print:before {
+	content: '\e009'; /* printer */
+}
+
+.standard-toolbox #t-permalink:before {
+	content: '\e242'; /* link */
 }
 
 .standard-toolbox-dropdown {
@@ -408,6 +478,7 @@ a.header-button { /* double selectors to override default a element text-decorat
 	list-style-type: none;
 	margin-left: 0;
 	margin-top: 0.25em;
+	margin-bottom: 0.25em;
 }
 
 .dropdown-triangle {
@@ -425,20 +496,26 @@ a.header-button { /* double selectors to override default a element text-decorat
 	width: 100%;
 	height: 100%;
 	display: inline-block;
-	padding-top: 0;
-	padding-bottom: 0;
+	padding-left: 0.25em;
+	padding-top: 0.1em;
+	padding-bottom: 0.1em;
+	box-sizing: border-box; /* padding/border should be included within the 100% width */
 }
 
 .standard-toolbox-dropdown a:hover {
-	border: 0;
+	padding-left: 0;
+	border-left: 0.25em solid;
+	background-color: #eee;
 }
 
-.standard-toolbox-dropdown a:hover span {
-	border-bottom: 0.25em solid #0645ad;
+.standard-toolbox-dropdown .toolbox-item-text {
+	display: inline-block;
+	margin-left: 2.5em;
+	text-indent: -1em; /* pulls first line of text 1em to the left, so if you add 1em of padding to the right subsequent lines will look indented */
 }
 
-.standard-toolbox-dropdown a:visited:hover span {
-	border-bottom: 0.25em solid #0b0080;
+.standard-toolbox-dropdown a:before {
+	position: absolute;
 }
 
 .fixed-toolbox {

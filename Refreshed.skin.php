@@ -333,7 +333,11 @@ class RefreshedTemplate extends BaseTemplate {
 							if ( sizeof( $this->data['content_actions'] ) > 1 ) {
 								foreach ( $this->data['content_actions'] as $key => $action ) {
 									if ( !$lastLinkOutsideOfStandardToolboxDropdownHasBeenGenerated ) { // this runs until all the actions outside the dropdown have been generated (generates actions outside dropdown)
-										echo $this->makeLink( $key, $action );
+										echo $this->makeLink( $key, $action, array(
+											'text-wrapper' => array(
+												'tag' => 'span'
+											)
+										) );
 										$amountOfToolsGenerated++;
 										if (
 											sizeof( $this->data['content_actions'] ) == $amountOfToolsGenerated ||
@@ -354,11 +358,35 @@ class RefreshedTemplate extends BaseTemplate {
 										<?php
 										}
 									} else { // generates actions inside dropdown
-										echo $this->makeListItem( $key, $action, array( 'text-wrapper' => array( 'tag' => 'span' ) ) );
+										?>
+										<li class="toolbox-dropdown-item">
+											<?php echo $this->makeLink( $key, $action, array(
+												'text-wrapper' => array(
+													'tag' => 'span',
+													'attributes' => array(
+														'class' => 'toolbox-item-text'
+													)
+												)
+											) );
+											?>
+										</li>
+										<?php
 									}
 								}
 								foreach ( $toolbox as $tool => $toolData ) { // generates toolbox tools inside dropdown (e.g. "upload file")
-									echo $this->makeListItem( $tool, $toolData, array( 'text-wrapper' => array( 'tag' => 'span' ) ) );
+									?>
+									<li class="toolbox-dropdown-item">
+										<?php echo $this->makeLink( $tool, $toolData, array(
+											'text-wrapper' => array(
+												'tag' => 'span',
+												'attributes' => array(
+													'class' => 'toolbox-item-text'
+												)
+											)
+										) );
+										?>
+									</li>
+									<?php
 								}
 							} else { // if there aren't actions like edit, etc. (so a "tools" link is needed instead of a "more..." link)
 								foreach ( $this->data['content_actions'] as $key => $action ) { // generates first link (i.e. "page" button on the mainspace, "special page" on Special namespace, etc.); the foreach loop should once run once since there should only be one link
@@ -372,7 +400,9 @@ class RefreshedTemplate extends BaseTemplate {
 										<ul>
 											<?php
 											foreach ( $toolbox as $tool => $toolData ) { // generates toolbox tools inside dropdown (e.g. "upload file")
-												echo $this->makeListItem( $tool, $toolData, array( 'text-wrapper' => array( 'tag' => 'span' ) ) );
+												?>
+												<li><?php echo $this->makeLink( $tool, $toolData, array( 'text-wrapper' => array( 'tag' => 'span' ) ) ); ?></li>
+												<?php
 											}
 							}
 							Hooks::run( 'SkinTemplateToolboxEnd', array( &$this, true ) );
