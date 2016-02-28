@@ -359,7 +359,7 @@ class RefreshedTemplate extends BaseTemplate {
 										}
 									} else { // generates actions inside dropdown
 										?>
-										<li class="toolbox-dropdown-item">
+										<li class="toolbox-dropdown-item toolbox-dropdown-page-action">
 											<?php echo $this->makeLink( $key, $action, array(
 												'text-wrapper' => array(
 													'tag' => 'span',
@@ -375,7 +375,7 @@ class RefreshedTemplate extends BaseTemplate {
 								}
 								foreach ( $toolbox as $tool => $toolData ) { // generates toolbox tools inside dropdown (e.g. "upload file")
 									?>
-									<li class="toolbox-dropdown-item">
+									<li class="toolbox-dropdown-item toolbox-dropdown-tool">
 										<?php echo $this->makeLink( $tool, $toolData, array(
 											'text-wrapper' => array(
 												'tag' => 'span',
@@ -401,7 +401,17 @@ class RefreshedTemplate extends BaseTemplate {
 											<?php
 											foreach ( $toolbox as $tool => $toolData ) { // generates toolbox tools inside dropdown (e.g. "upload file")
 												?>
-												<li><?php echo $this->makeLink( $tool, $toolData, array( 'text-wrapper' => array( 'tag' => 'span' ) ) ); ?></li>
+												<li class="toolbox-dropdown-item tool-dropdown-item toolbox-dropdown-tool">
+													<?php echo $this->makeLink( $tool, $toolData, array(
+														'text-wrapper' => array(
+															'tag' => 'span',
+															'attributes' => array(
+																'class' => 'toolbox-item-text'
+															)
+														)
+													) );
+													?>
+											</li>
 												<?php
 											}
 							}
