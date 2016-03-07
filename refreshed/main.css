@@ -226,6 +226,10 @@ a.header-button { /* double selectors to override default a element text-decorat
 	width: 2em;
 }
 
+#site-info-main.multiple-wikis .header-menu {
+	text-align: center;
+}
+
 #site-info-mobile {
 	display: none;
 	height: 2.75em;
