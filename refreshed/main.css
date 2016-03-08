@@ -833,11 +833,13 @@ div.noarticletext {
 #echo {
 	float: right; /* so Echo doesn't push menu items out of the header when the mobile logo is enabled */
 	padding-top: 1em;
+	line-height: 0;
 }
 
 #echo li {
 	display: inline;
 	margin-left: 0.5em;
+	line-height: 1;
 }
 
 #pt-mytalk a.mw-echo-alert { /* "you have new messages" alert in the personal tools dropdown */
