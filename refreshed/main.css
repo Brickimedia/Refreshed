@@ -52,7 +52,7 @@
 }
 
 body {
-	font-family: "Lato", sans-serif;
+	font-family: "Lato Body", sans-serif;
 	margin: 0;
 	background-color: #194a8d;
 	-webkit-tap-highlight-color: transparent; /* preventing gray overlay when pressed on mobile webkit browsers (e.g. mobile Safari) */
@@ -719,7 +719,7 @@ a.header-button { /* double selectors to override default a element text-decorat
 /******************************** CONTENT/OTHER THINGS BEYOND CONTROL ******************************/
 
 h1, h2, h3, h4, h5, h6 {
-	font-family: "Lato", "Helvetica", "Arial", sans-serif;
+	font-family: "Lato Body", "Helvetica", "Arial", sans-serif;
 	line-height: 1.3;
 	border-color: #ddd;
 }
@@ -741,7 +741,7 @@ h6 {
 }
 
 #localNotice {
-	margin-bottom: 0em !important;
+	margin-bottom: 0 !important;
 }
 
 .printfooter {
@@ -785,7 +785,7 @@ h6 {
 	margin: 0 0.9em -.5em 0.9em;
 	padding: 0;
 	border: 0;
-	font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+	font-family: "Lato Body", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
 
 .catlinks li {
@@ -794,7 +794,7 @@ h6 {
 
 /* refresh-ify postedit, reset all the shadows and stuff */
 .postedit {
-	font-family: "Lato", sans-serif !important;
+	font-family: "Lato Body", sans-serif !important;
 	font-size: 1.1em !important;
 	line-height: 1em !important;
 	top: 3px !important;
