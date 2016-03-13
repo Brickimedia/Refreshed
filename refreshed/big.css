@@ -8,6 +8,11 @@
 	display: block !important;
 }
 
+#header-wrapper .search-form.faded { /* show the header search, even if it has the "faded" class (the search should only be fadable on small/medium) */
+	visibility: visible;
+	opacity: 1;
+}
+
 #content-wrapper,
 #footer {
 	margin: 0 1em 0 12em;
@@ -20,9 +25,4 @@
 #searchText,
 #powerSearchText { /* reset width of search/powersearch bars in Special:Search when window is large */
 	width: auto !important;
-}
-
-#header-wrapper .search-form.faded { /* show the header search, even if it has the "faded" class (the search should only be fadable on small/medium) */
-	visibility: visible;
-	opacity: 1;
 }
