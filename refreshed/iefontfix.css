@@ -13,18 +13,6 @@
 @font-face {
 	font-family: 'Lato';
 	font-style: normal;
-	font-weight: 400;
-	src: url(//fonts.gstatic.com/s/lato/v11/nQhiC-wSiJx0pvEuJl8d8A.eot);
-	src: local('Lato Regular'),
-		local('Lato-Regular'),
-		url(//fonts.gstatic.com/s/lato/v11/qIIYRU-oROkIk8vfvxw6QvesZW2xOQ-xsNqO47m55DA.woff) format('woff'),
-		url(//fonts.gstatic.com/s/lato/v11/v0SdcGFAl2aezM9Vq_aFTQ.ttf) format('truetype'),
-		url(//fonts.gstatic.com/l/font?kit=H4oiIt_Ug9TU5ast0nUT-w#Lato) format('svg');
-}
-
-@font-face {
-	font-family: 'Lato';
-	font-style: normal;
 	font-weight: 700;
 	src: url(//fonts.gstatic.com/s/lato/v11/sBtfDPlEIwvKKU53nAG7AQ.eot);
 	src: local('Lato Bold'),
@@ -32,6 +20,18 @@
 		url(//fonts.gstatic.com/s/lato/v11/qdgUG4U09HnJwhYI-uK18wLUuEpTyoUstqEm5AMlJo4.woff) format('woff'),
 		url(//fonts.gstatic.com/s/lato/v11/DvlFBScY1r-FMtZSYIYoYw.ttf) format('truetype'),
 		url(//fonts.gstatic.com/l/font?kit=hLECvlEj3pKlnS4NFs8NQw#Lato) format('svg');
+}
+
+@font-face {
+	font-family: 'Lato body';
+	font-style: normal;
+	font-weight: 400;
+	src: url(//fonts.gstatic.com/s/lato/v11/nQhiC-wSiJx0pvEuJl8d8A.eot);
+	src: local('Lato Regular'),
+		local('Lato-Regular'),
+		url(//fonts.gstatic.com/s/lato/v11/qIIYRU-oROkIk8vfvxw6QvesZW2xOQ-xsNqO47m55DA.woff) format('woff'),
+		url(//fonts.gstatic.com/s/lato/v11/v0SdcGFAl2aezM9Vq_aFTQ.ttf) format('truetype'),
+		url(//fonts.gstatic.com/l/font?kit=H4oiIt_Ug9TU5ast0nUT-w#Lato) format('svg');
 }
 
 @font-face {
