@@ -594,13 +594,19 @@ a.header-button { /* double selectors to override default a element text-decorat
 }
 
 #bodyContent {
-	padding: 0 1em;
-	line-height: 1.5em;
-	font-size: 0.875em;
-	word-wrap: break-word;
-	font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 	color: #252525;
+	font-family: "Lato", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+	font-size: 0.875em;
+	font-weight: 400;
+	line-height: 1.5em;
+	padding: 0 1em;
+	word-wrap: break-word;
 	overflow: auto;
+}
+
+#bodyContent th, #bodyContent b, #bodyContent strong {
+	font-family: "Lato", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+	font-weight: 700;
 }
 
 #sidebar-wrapper {
