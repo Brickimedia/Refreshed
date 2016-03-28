@@ -75,5 +75,10 @@
 			"position": "bottom"
 		}
 	},
+	"ResourceModuleSkinStyles": {
+		"refreshed": {
+			"+mediawiki.special.preferences": "refreshed/preferences.css"
+		}
+	},
 	"manifest_version": 1
 }
