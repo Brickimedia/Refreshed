@@ -86,7 +86,7 @@ class RefreshedTemplate extends BaseTemplate {
 		// Output the <html> tag and whatnot
 		$this->html( 'headelement' );
 		?>
-		<a id="fade-overlay"></a>
+		<a id="fade-overlay" role="prsentation"></a>
 		<header id="header-wrapper">
 			<section id="site-info">
 				<?php
@@ -140,7 +140,7 @@ class RefreshedTemplate extends BaseTemplate {
 			// test if Echo is installed
 			if ( class_exists( 'EchoHooks' ) ) {
 				?>
-				<div id="echo"></div>
+				<div id="echo" role="log"></div>
 				<?php
 			}
 			?>
@@ -292,7 +292,7 @@ class RefreshedTemplate extends BaseTemplate {
 			<?php
 			if ( $this->data['sitenotice'] ) {
 				?>
-				<div id="site-notice">
+				<div id="site-notice" role="banner">
 					<?php $this->html( 'sitenotice' ) ?>
 				</div>
 			<?php
@@ -320,7 +320,7 @@ class RefreshedTemplate extends BaseTemplate {
 							echo $this->getIndicators();
 						}
 						?>
-						<div class="standard-toolbox static-toolbox">
+						<div class="standard-toolbox static-toolbox" role="menubar">
 							<?php
 							$lastLinkOutsideOfStandardToolboxDropdownHasBeenGenerated = false;
 							$amountOfToolsGenerated = 0;
@@ -491,7 +491,7 @@ class RefreshedTemplate extends BaseTemplate {
 						<?php
 					}
 					?>
-					<div id="bodyContent">
+					<div id="bodyContent" role="article">
 						<?php $this->html( 'bodytext' ) ?>
 					</div>
 					</article>
