@@ -86,7 +86,7 @@ class RefreshedTemplate extends BaseTemplate {
 		// Output the <html> tag and whatnot
 		$this->html( 'headelement' );
 		?>
-		<a id="fade-overlay" role="prsentation"></a>
+		<a id="fade-overlay" role="presentation"></a>
 		<header id="header-wrapper">
 			<section id="site-info">
 				<?php
